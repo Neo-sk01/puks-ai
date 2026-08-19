@@ -1,0 +1,171 @@
+[META]
+chunk_type: text
+source_file: SPEED_WMS_Clarins_Mission_Line_Validation_Internal_Support_Procedure.pdf
+category: Speed Support Document
+total_pages: 6
+[/META]
+
+[PAGE 1]
+Clarins Mission Line Validation – Internal Support Procedure
+Sensitivity: Internal
+Audience: Support / Technical Team
+System: Speed WMS
+Purpose
+This procedure is used to correct and validate mission lines for Clarins orders when:
+• Orders are not validating correctly
+• Mission lines are stuck below validation status
+• Mission lines are not linked to valid stock locations
+Validation must be performed only using active picking locations and open-box
+stock, not reserve or full-carton stock.
+Key Parameters
+Before running the script, define the following:
+DECLARE @ArtCode varchar(50) = '80110136'; -- SKU / Article Code
+DECLARE @Stk_Keyu int = 218923; -- Selected Stock Key
+Step 1: Identify Orders and Mission Lines Not Yet Validated
+This step identifies:
+• Orders with mission lines already in status 040
+• Orders whose overall status is below 040
+• Mission lines below validation status for the specified SKU
+WITH ope_mil_040 AS (
+SELECT
+OPE_KEYU,
+ACT_CODE,
+OPE_NOOE,
+OPE_STAT,
+Sensitivity: Internal
+
+[PAGE 2]
+OPE_DAT.OPE_NoVA,
+(
+SELECT COUNT(MIL_KEYU)
+FROM MIL_DAT
+WHERE MIL_DAT.OPE_NoOE = OPE_DAT.OPE_NoOE
+AND MIL_DAT.ACT_CODE = OPE_DAT.ACT_CODE
+AND MIL_STAT = '040'
+) AS MIL_040,
+(
+SELECT COUNT(MIL_KEYU)
+FROM MIL_DAT
+WHERE MIL_DAT.OPE_NoOE = OPE_DAT.OPE_NoOE
+AND MIL_DAT.ACT_CODE = OPE_DAT.ACT_CODE
+) AS Nb_MIL
+FROM OPE_DAT
+WHERE ACT_CODE = 'RSAJHBCLA'
+)
+SELECT
+O.OPE_KEYU,
+O.ACT_CODE,
+O.OPE_NoOE,
+O.OPE_STAT,
+MIL_040,
+Nb_MIL,
+M.MIL_KEYU,
+M.MIL_STAT,
+M.ACT_CODE,
+Sensitivity: Internal
+
+[PAGE 3]
+M.ART_CODE,
+M.MIL_QTTA,
+M.MIL_EMP,
+M.MIL_NoSU,
+M.MIL_SUPP,
+M.MIL_LOT1P,
+M.MIL_DLUOP
+FROM ope_mil_040 O
+JOIN MIL_DAT M
+ON O.ACT_CODE = M.ACT_CODE
+AND O.OPE_NoOE = M.OPE_NoOE
+WHERE MIL_040 > 0
+AND O.OPE_STAT < '040'
+AND M.MIL_STAT < '040'
+AND M.ART_CODE = @ArtCode
+ORDER BY M.MIL_STAT, Nb_MIL;
+Step 2: Identify Valid Stock for Validation
+This step finds active stock locations for the SKU that:
+• Are in Inspection (INS) status
+• Are located in picking zones
+• Are actively being consumed (open boxes)
+SELECT
+STK_KEYU,
+STK_LIEU,
+ART_CODE,
+STK_QTE,
+QUA_CODE,
+Sensitivity: Internal
+
+[PAGE 4]
+STK_NoSU,
+STK_LOT1,
+STK_DLUO,
+(
+SELECT SUM(MIL_QTTP)
+FROM MIL_DAT
+WHERE MIL_DAT.ACT_CODE = STK_DAT.ACT_CODE
+AND MIL_DAT.QUA_CODE = 'INS'
+AND MIL_DAT.ART_CODE = STK_DAT.ART_CODE
+AND MIL_DAT.MIL_EMP = STK_DAT.STK_LIEU
+AND MIL_STAT < '040'
+) AS MIL_QTTP
+FROM STK_DAT
+WHERE ACT_CODE = 'RSAJHBCLA'
+AND QUA_CODE = 'INS'
+AND ART_CODE = @ArtCode
+AND STK_LIEU IN (
+SELECT EMP_LIEU
+FROM EMZ_BAS
+WHERE ZEM_CODE = 'CLA_PIC'
+)
+ORDER BY ART_CODE, STK_LIEU, STK_NoSU;
+Step 3: Reassign Mission Lines to Valid Stock Location
+This step updates mission lines that:
+• Are in status 020
+• Are not currently linked to valid stock
+• Match the specified SKU
+Sensitivity: Internal
+
+[PAGE 5]
+Only up to 150 mission lines are updated at a time.
+BEGIN TRAN
+UPDATE MIL_DAT
+SET MIL_EMP = s.STK_LIEU
+FROM (
+SELECT STK_LIEU, STK_NoSU, STK_LOT1, STK_DLUO
+FROM STK_DAT
+WHERE STK_KEYU = @Stk_Keyu
+AND ART_CODE = @ArtCode
+) s
+WHERE MIL_STAT < '040'
+AND MIL_KEYU IN (
+SELECT TOP 150 M.MIL_KEYU
+FROM MIL_DAT M
+LEFT JOIN STK_DAT S
+ON M.ACT_CODE = S.ACT_CODE
+AND M.ART_CODE = S.ART_CODE
+AND M.MIL_EMP = S.STK_LIEU
+AND M.MIL_NoSU = S.STK_NoSU
+WHERE M.ACT_CODE = 'RSAJHBCLA'
+AND M.MIL_STAT = '020'
+AND S.STK_KEYU IS NULL
+AND M.ART_CODE = @ArtCode
+)
+COMMIT TRAN
+Sensitivity: Internal
+
+[PAGE 6]
+Critical Business Rules (Must Be Followed)
+Stock Selection Rules
+• Only Active Picking Locations
+• Do NOT use Reserve Locations
+• Do NOT use Full Cartons
+• Only Open-Box Stock
+How to Identify Open-Box Stock
+• If multiple LPNs for the same SKU have identical quantities, these represent full
+cartons → Do not use
+• If an LPN shows quantity being reduced, it represents an open box → Valid for
+validation
+Important Notes
+• Validation from reserve stock must be handled via the replenishment process
+• This script is intended for Support use only
+• Always verify stock behavior before assigning STK_KEYU
+Sensitivity: Internal

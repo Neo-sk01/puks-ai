@@ -1,0 +1,9 @@
+Thirds tab
+Tab used to link the item sheet to other Third Parties than the one that has been defined
+as the main supplier.
+The main supplier of the reference will be present by default in the list.
+The options available on the contextual menu will allow, among other things, to add an
+assignment to another third party for which it will be possible, for example, to define the
+code, the label and the identifier under which this article is referenced for this third
+party.
+Sensitivity: Internal

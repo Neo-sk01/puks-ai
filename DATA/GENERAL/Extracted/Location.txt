@@ -1,0 +1,23 @@
+Location
+Functionality accessible from the menu Settings / Locations
+It enables the display of all the locations saved in the environment. It is thus possible
+to :
+.Create new locations
+.Modify the properties of one or more existing locations
+.Delete (not without certain constraints) one or more existing locations
+The location display is triggered by the following button , and itis subject to the
+several filters that might have been saved for the available criteria:
+A location can be defined by several levels of characteristics :
+.The warehouse
+.the aisle
+.The column
+.The level
+.The slot
+Each location has a unique location name. This name is repeated in the screens of
+SpeedWMS, and in the editions. The location is free: which means that it is not
+necessarily created by concatenation of all the characteristics of the location.
+Sensitivity: InternalA location can also be assigned to a site.
+Note: The locations are multi-activity, which means that a slot created in the
+environment will be available regardless of the activity to which the user is connect in
+SpeedWMS.
+Sensitivity: Internal

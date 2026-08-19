@@ -1,0 +1,55 @@
+[META]
+chunk_type: text
+source_file: Transfer to advanced preparation area.pdf
+category: ORDER PREPARATION
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Transfer to advanced preparation area
+Function in particular called "management of dynamic pickings" or management of
+transfers to an advanced preparation area.
+Allows to organize transfers of goods from a reserve area to a preparation area
+according to order needs.
+It is possible to configure each preparation channel and save the configuration.
+Accessible via the menu System / Global / Preparation Module / Advanced Preparation
+tab
+.Preparation channel: calculation of the need only takes into account orders with a
+standard preparation line (STD).
+.Origin stock area: Current stock location.
+.Destination area: area to which the stock will be moved.
+.Search rule: allows you to select the search rule from those defined upstream in the
+activity (see section dedicated to creating a location search rule).
+.Item family: possibility of taking into account only a selected item family.
+Sensitivity: Internal
+
+[PAGE 2]
+.Horizon (Nb days): number of days of taking into account on the portfolio of the orders
+in entry.
+.Depth / Coverage (Nb days): average quantity per day of all items in the order portfolio
+multiplied by the number of days of coverage.
+.Maximum SU to take into account: when calculating the quantity to generate, allows
+you to define the maximum NAV among those recorded in the article master record.
+There is no consistency check at the search rule level on the fields defined between the
+advanced preparation parameters. The system will first determine the moveable stock
+in the origin area, and then apply the search rule to move it to the destination area. If the
+search rule is incorrectly defined, no movement will be generated.
+Accessible via the Preparation / ZPA Transfer:
+Sensitivity: Internal
+
+[PAGE 3]
+The selection of the preparation sector enables to recall all the criteria recorded during
+configuration.
+It will simply be a question of validating.
+This validation will have the following consequences at the stock level:
+.Modification of the search rule then launch of the search to supply the intended
+location.
+.Search date and time feed.
+.Changed support status to 03.
+No support burst. The displacement of complete supports is foreseen.
+At the end of the transfer generation (stock with support status in 03), the system
+automatically schedules the generated transfers. This scheduling must be done only in
+the case of a management on the horizon, that is to say on the portfolio of orders in
+entry.
+The RF OPERATOR transaction is then used to carry out the transfers.
+Sensitivity: Internal

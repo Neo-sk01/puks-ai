@@ -1,0 +1,284 @@
+
+{
+  "table_name": "ART_PAR",
+  "description": "Article master table",
+  "columns": [
+
+    { "name": "ACT_CODE", "description": "Activity code", "sqlserver_type": "VARCHAR(10)", "oracle_type": "NVARCHAR2(10)" },
+    { "name": "ART_ALPHA1", "description": "Additional info A01", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA2", "description": "Additional info A02", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA3", "description": "Additional info A03", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA4", "description": "Additional info A04", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA5", "description": "Additional info A05", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA6", "description": "Additional info A06", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA7", "description": "Additional info A07", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA8", "description": "Additional info A08", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA9", "description": "Additional info A09", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_ALPHA10", "description": "Additional info A10", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_CCLI", "description": "Customer account", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+    { "name": "ART_CLAS", "description": "Class code", "sqlserver_type": "VARCHAR(1)", "oracle_type": "NVARCHAR2(1)" },
+    { "name": "ART_CNDC", "description": "Packaging case", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+    { "name": "ART_CNDO", "description": "Packaging layer", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+    { "name": "ART_CNDP", "description": "Packaging pallet", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+    { "name": "ART_CNDS", "description": "Packaging SPCB", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+    { "name": "ART_CNDU", "description": "Packaging unit", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+    { "name": "ART_CODC", "description": "Customer article code", "sqlserver_type": "VARCHAR(35)", "oracle_type": "NVARCHAR2(35)" },
+    { "name": "ART_CODE", "description": "Article code", "sqlserver_type": "VARCHAR(35)", "oracle_type": "NVARCHAR2(35)" },
+
+    { "name": "ART_COLI", "description": "Case managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_COMB", "description": "Delivery note comment", "sqlserver_type": "TEXT", "oracle_type": "CLOB" },
+    { "name": "ART_COMP", "description": "Picking comment", "sqlserver_type": "TEXT", "oracle_type": "CLOB" },
+    { "name": "ART_COMR", "description": "Receiving comment", "sqlserver_type": "TEXT", "oracle_type": "CLOB" },
+
+    { "name": "ART_CRDA", "description": "Creation date", "sqlserver_type": "DATETIME", "oracle_type": "NCHAR(8)" },
+    { "name": "ART_CRHE", "description": "Creation time", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_CRQI", "description": "Created by", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+
+    { "name": "ART_CSJO", "description": "Daily consumption", "sqlserver_type": "DECIMAL(25,10)", "oracle_type": "NUMBER(25,10)" },
+
+    { "name": "ART_DATE1", "description": "Additional date D01", "sqlserver_type": "DATETIME", "oracle_type": "NCHAR(8)" },
+    { "name": "ART_DATE2", "description": "Additional date D02", "sqlserver_type": "DATETIME", "oracle_type": "NCHAR(8)" },
+    { "name": "ART_DATE3", "description": "Additional date D03", "sqlserver_type": "DATETIME", "oracle_type": "NCHAR(8)" },
+    { "name": "ART_DATE4", "description": "Additional date D04", "sqlserver_type": "DATETIME", "oracle_type": "NCHAR(8)" },
+    { "name": "ART_DATE5", "description": "Additional date D05", "sqlserver_type": "DATETIME", "oracle_type": "NCHAR(8)" },
+
+    { "name": "ART_DDLC", "description": "Expiry date managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_DECI", "description": "Decimal precision managed", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_DESC", "description": "Short description", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+    { "name": "ART_DESL", "description": "Long description", "sqlserver_type": "VARCHAR(128)", "oracle_type": "NVARCHAR2(128)" },
+
+    { "name": "ART_DFAB", "description": "Manufacturing date managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_DINV", "description": "Last inventory date", "sqlserver_type": "DATETIME", "oracle_type": "NCHAR(8)" },
+
+    { "name": "ART_DLUO", "description": "Best-before managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_DLV", "description": "Sell-by managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_DSTK", "description": "Default destocking location", "sqlserver_type": "VARCHAR(25)", "oracle_type": "NVARCHAR2(25)" },
+
+    { "name": "ART_EANC", "description": "Case identifier code", "sqlserver_type": "VARCHAR(30)", "oracle_type": "NVARCHAR2(30)" },
+    { "name": "ART_EANO", "description": "Layer identifier code", "sqlserver_type": "VARCHAR(30)", "oracle_type": "NVARCHAR2(30)" },
+    { "name": "ART_EANP", "description": "Pallet identifier code", "sqlserver_type": "VARCHAR(30)", "oracle_type": "NVARCHAR2(30)" },
+    { "name": "ART_EANS", "description": "SPCB identifier code", "sqlserver_type": "VARCHAR(30)", "oracle_type": "NVARCHAR2(30)" },
+    { "name": "ART_EANU", "description": "Unit identifier code", "sqlserver_type": "VARCHAR(30)", "oracle_type": "NVARCHAR2(30)" },
+        { "name": "ART_EQIQ", "description": "Equivalence quantity", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_EQIU", "description": "Equivalent unit", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+    { "name": "ART_EQIV", "description": "Equivalent number", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_HAUC", "description": "Case height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUO", "description": "Layer height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUP", "description": "Pallet height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUS", "description": "SPCB height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUU", "description": "Unit height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_HEURE1", "description": "Additional time H01", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE2", "description": "Additional time H02", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE3", "description": "Additional time H03", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE4", "description": "Additional time H04", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE5", "description": "Additional time H05", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+
+    { "name": "ART_IMAG", "description": "Article image (binary)", "sqlserver_type": "IMAGE", "oracle_type": "RAW(8)" },
+    { "name": "ART_IMG", "description": "Article photo path", "sqlserver_type": "VARCHAR(300)", "oracle_type": "NVARCHAR2(300)" },
+
+    { "name": "ART_INFC", "description": "Additional information", "sqlserver_type": "TEXT", "oracle_type": "CLOB" },
+
+    { "name": "ART_JDLC", "description": "DLC delay limit (days)", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_JDLUO", "description": "DLUO delay limit (days)", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_JDLV", "description": "DLV delay limit (days)", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+
+    { "name": "ART_KEYN", "description": "Customs tariff key", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_KEYU", "description": "Unique article key", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+
+    { "name": "ART_LARC", "description": "Case width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARO", "description": "Layer width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARP", "description": "Pallet width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARS", "description": "SPCB width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARU", "description": "Unit width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_LIUS", "description": "Secondary unit label", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+
+    { "name": "ART_LONC", "description": "Case length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONO", "description": "Layer length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONP", "description": "Pallet length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONS", "description": "SPCB length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONU", "description": "Unit length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_LOT1", "description": "Lot 1 managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_LOT2", "description": "Lot 2 managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_LOT3", "description": "Lot 3 managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_MESU", "description": "Weight/volume unit of measure", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+
+    { "name": "ART_NSE", "description": "Serial number managed on inbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSEF", "description": "Serial number managed on manufacturing inbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSF", "description": "Serial number managed on manufacturing outbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSO", "description": "Cancellation flag", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_NSPE", "description": "Serial number range managed inbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSPS", "description": "Serial number range managed outbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSS", "description": "Serial number managed outbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_NUM1", "description": "Additional numeric N01", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM2", "description": "Additional numeric N02", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM3", "description": "Additional numeric N03", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM4", "description": "Additional numeric N04", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM5", "description": "Additional numeric N05", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NVAL", "description": "Alert level", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+        { "name": "ART_EQIQ", "description": "Equivalence quantity", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_EQIU", "description": "Equivalent unit", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+    { "name": "ART_EQIV", "description": "Equivalent number", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_HAUC", "description": "Case height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUO", "description": "Layer height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUP", "description": "Pallet height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUS", "description": "SPCB height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_HAUU", "description": "Unit height", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_HEURE1", "description": "Additional time H01", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE2", "description": "Additional time H02", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE3", "description": "Additional time H03", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE4", "description": "Additional time H04", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+    { "name": "ART_HEURE5", "description": "Additional time H05", "sqlserver_type": "VARCHAR(6)", "oracle_type": "NVARCHAR2(6)" },
+
+    { "name": "ART_IMAG", "description": "Article image (binary)", "sqlserver_type": "IMAGE", "oracle_type": "RAW(8)" },
+    { "name": "ART_IMG", "description": "Article photo path", "sqlserver_type": "VARCHAR(300)", "oracle_type": "NVARCHAR2(300)" },
+
+    { "name": "ART_INFC", "description": "Additional information", "sqlserver_type": "TEXT", "oracle_type": "CLOB" },
+
+    { "name": "ART_JDLC", "description": "DLC delay limit (days)", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_JDLUO", "description": "DLUO delay limit (days)", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_JDLV", "description": "DLV delay limit (days)", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+
+    { "name": "ART_KEYN", "description": "Customs tariff key", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_KEYU", "description": "Unique article key", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+
+    { "name": "ART_LARC", "description": "Case width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARO", "description": "Layer width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARP", "description": "Pallet width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARS", "description": "SPCB width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LARU", "description": "Unit width", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_LIUS", "description": "Secondary unit label", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+
+    { "name": "ART_LONC", "description": "Case length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONO", "description": "Layer length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONP", "description": "Pallet length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONS", "description": "SPCB length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_LONU", "description": "Unit length", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_LOT1", "description": "Lot 1 managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_LOT2", "description": "Lot 2 managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_LOT3", "description": "Lot 3 managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_MESU", "description": "Weight/volume unit of measure", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+
+    { "name": "ART_NSE", "description": "Serial number managed on inbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSEF", "description": "Serial number managed on manufacturing inbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSF", "description": "Serial number managed on manufacturing outbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSO", "description": "Cancellation flag", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+    { "name": "ART_NSPE", "description": "Serial number range managed inbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSPS", "description": "Serial number range managed outbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_NSS", "description": "Serial number managed outbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_NUM1", "description": "Additional numeric N01", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM2", "description": "Additional numeric N02", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM3", "description": "Additional numeric N03", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM4", "description": "Additional numeric N04", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_NUM5", "description": "Additional numeric N05", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_NVAL", "description": "Alert level", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+        { "name": "ART_OUCH", "description": "Layer managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_PAL", "description": "Pallet managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_PICK", "description": "Main picking location", "sqlserver_type": "VARCHAR(25)", "oracle_type": "NVARCHAR2(25)" },
+
+    { "name": "ART_POIC", "description": "Case weight (g)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_POIO", "description": "Layer weight (g)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_POIP", "description": "Pallet weight (g)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_POIS", "description": "SPCB weight (g)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_POIU", "description": "Unit weight (g)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "ART_PREP1", "description": "Preparation management order 1", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_PREP2", "description": "Preparation management order 2", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_PREP3", "description": "Preparation management order 3", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_PREP4", "description": "Preparation management order 4", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_PREP5", "description": "Preparation management order 5", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_PREP6", "description": "Preparation management order 6", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_PREP7", "description": "Preparation management order 7", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+    { "name": "ART_PREP8", "description": "Preparation management order 8", "sqlserver_type": "VARCHAR(50)", "oracle_type": "NVARCHAR2(50)" },
+
+    { "name": "ART_PRIX", "description": "Price", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_PROP", "description": "Default owner on receipt", "sqlserver_type": "VARCHAR(35)", "oracle_type": "NVARCHAR2(35)" },
+    { "name": "ART_PROR", "description": "Default owner on return", "sqlserver_type": "VARCHAR(35)", "oracle_type": "NVARCHAR2(35)" },
+    { "name": "ART_PRQT", "description": "Quantity for price", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+
+    { "name": "ART_QPRE", "description": "Default quality on picking", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+    { "name": "ART_QREC", "description": "Default quality on receipt", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+    { "name": "ART_QRET", "description": "Default quality on return", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+
+    { "name": "ART_QTEC", "description": "Quantity per case", "sqlserver_type": "BIGINT", "oracle_type": "INTEGER" },
+    { "name": "ART_QTEO", "description": "Quantity per layer", "sqlserver_type": "BIGINT", "oracle_type": "INTEGER" },
+    { "name": "ART_QTEP", "description": "Quantity per pallet", "sqlserver_type": "BIGINT", "oracle_type": "INTEGER" },
+    { "name": "ART_QTES", "description": "Quantity per SPCB", "sqlserver_type": "BIGINT", "oracle_type": "INTEGER" },
+    { "name": "ART_QTSE", "description": "Permanent inventory threshold quantity", "sqlserver_type": "BIGINT", "oracle_type": "INTEGER" },
+
+    { "name": "ART_RAPC", "description": "Case ratio", "sqlserver_type": "VARCHAR(2)", "oracle_type": "NVARCHAR2(2)" },
+    { "name": "ART_RAPO", "description": "Layer ratio", "sqlserver_type": "VARCHAR(2)", "oracle_type": "NVARCHAR2(2)" },
+    { "name": "ART_RAPP", "description": "Pallet ratio", "sqlserver_type": "VARCHAR(2)", "oracle_type": "NVARCHAR2(2)" },
+    { "name": "ART_RAPS", "description": "SPCB ratio", "sqlserver_type": "VARCHAR(2)", "oracle_type": "NVARCHAR2(2)" },
+
+    { "name": "ART_RSTK", "description": "Storage rule number", "sqlserver_type": "VARCHAR(5)", "oracle_type": "NVARCHAR2(5)" },
+
+    { "name": "ART_SPCB", "description": "SPCB managed flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_TACO", "description": "Alcohol component flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TALC", "description": "Alcohol management flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TCKT", "description": "Kit component flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TDLC", "description": "Non-return DLC flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TDLO", "description": "Non-return DLUO flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TDLV", "description": "Non-return DLV flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TFAB", "description": "Manufacturable product flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TINV", "description": "Permanent inventory flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TMD", "description": "Dangerous goods management flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TNRC", "description": "Blocking non-return DLC flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TNRO", "description": "Blocking non-return DLUO flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TNRV", "description": "Blocking non-return DLV flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_TOPBC", "description": "Fixed gross weight case flag (Y/N)", "sqlserver_type": "VARCHAR(1)", "oracle_type": "NVARCHAR2(1)" },
+    { "name": "ART_TOPBO", "description": "Fixed gross weight layer flag (Y/N)", "sqlserver_type": "VARCHAR(1)", "oracle_type": "NVARCHAR2(1)" },
+    { "name": "ART_TOPBP", "description": "Fixed gross weight pallet flag (Y/N)", "sqlserver_type": "VARCHAR(1)", "oracle_type": "NVARCHAR2(1)" },
+    { "name": "ART_TOPBS", "description": "Fixed gross weight SPCB flag (Y/N)", "sqlserver_type": "VARCHAR(1)", "oracle_type": "NVARCHAR2(1)" },
+    { "name": "ART_TOPBU", "description": "Fixed gross weight unit flag (Y/N)", "sqlserver_type": "VARCHAR(1)", "oracle_type": "NVARCHAR2(1)" },
+
+    { "name": "ART_TPVE", "description": "Variable weight managed inbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TPVS", "description": "Variable weight managed outbound", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+    { "name": "ART_TSUU", "description": "Support equals unit flag", "sqlserver_type": "TINYINT", "oracle_type": "SMALLINT" },
+
+    { "name": "ART_VLRR", "description": "Radio receiving value", "sqlserver_type": "VARCHAR(10)", "oracle_type": "NVARCHAR2(10)" },
+    { "name": "ART_VLRS", "description": "Support break radio value", "sqlserver_type": "VARCHAR(3)", "oracle_type": "NVARCHAR2(3)" },
+
+    { "name": "ART_VOLC", "description": "Case volume (cm3)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_VOLO", "description": "Layer volume (cm3)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_VOLP", "description": "Pallet volume (cm3)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_VOLS", "description": "SPCB volume (cm3)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+    { "name": "ART_VOLU", "description": "Unit volume (cm3)", "sqlserver_type": "REAL", "oracle_type": "FLOAT" },
+
+    { "name": "FAR_CODE", "description": "Article family code", "sqlserver_type": "VARCHAR(180)", "oracle_type": "NVARCHAR2(180)" },
+    { "name": "GAB_CODE", "description": "Template code", "sqlserver_type": "VARCHAR(10)", "oracle_type": "NVARCHAR2(10)" },
+    { "name": "GAB_COLI", "description": "Case template", "sqlserver_type": "VARCHAR(10)", "oracle_type": "NVARCHAR2(10)" },
+
+    { "name": "MGE_CODE", "description": "Model code", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+    { "name": "MGE_KEYU", "description": "Model key", "sqlserver_type": "INT", "oracle_type": "INTEGER" },
+
+    { "name": "OFE_REFM", "description": "Model manufacturing order reference", "sqlserver_type": "VARCHAR(20)", "oracle_type": "NVARCHAR2(20)" },
+
+    { "name": "TEM_CODE", "description": "Packaging code", "sqlserver_type": "VARCHAR(15)", "oracle_type": "NVARCHAR2(15)" },
+
+    { "name": "TIE_CODE", "description": "Main supplier third-party code", "sqlserver_type": "VARCHAR(35)", "oracle_type": "NVARCHAR2(35)" }
+
+
+
+
+  ]
+}
+

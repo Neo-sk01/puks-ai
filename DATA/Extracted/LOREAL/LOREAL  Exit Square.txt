@@ -1,0 +1,135 @@
+[META]
+chunk_type: text
+source_file: LOREAL  Exit Square.pdf
+category: LOREAL
+total_pages: 5
+[/META]
+
+[PAGE 1]
+Project: Exit Square
+Feature: Standardized Multi-Count Inventory
+Version: 1.1
+Initial Date: 11/02/2025
+Last Update: 12/03/2025
+Authors: ECO
+METADATA
+{
+"document_type": "Technical & Functional Specification",
+"project": "Exit Square",
+"system": "Speed WMS",
+"version_speed": "A.8.6.F",
+"dev_env": "Windev 28",
+"feature": "Standardized Inventory with Multi-Count & Traceability",
+"languages_supported": ["French", "English"],
+"status_management": ["Validated", "Partial", "Discrepancy"],
+"entry_points": ["PE171", "PE261", "PE915"],
+"version": "1.1"
+}
+SECTION 1 — Context & Environment
+1.1 Context
+• Standardized AGL inventory to be deployed across all sites
+• Based on KBL inventory principles with multiple counts
+• Counting rules:
+o Blind counting
+o Radio traceability display
+Sensitivity: Internal
+
+[PAGE 2]
+o New inventory proposed if discrepancies
+o Inventories linked via automated index system
+1.2 Environment
+• Developed for Speed A.8.6.F
+• Coded in Windev 28
+• 80% client environments in English → translation mandatory
+• Core libraries: WDLSpeedCMAdmin.wdl, WDLSpeedCMRadio.wdl
+SECTION 2 — Inventory Creation & Index Management
+2.1 Standard Inventory Creation
+• Type: Inventaire général
+• Inventory code: max 11 characters
+• Automatic counter for indices (last 4 chars, separated by _)
+• Index displayed in a dedicated IHM field
+Example:
+Displayed code: 20250211
+IVE_DAT.IVE_CODE: 20250211_001
+IVE_ALPHA1: 20250211
+2.2 Business Rules
+RG Code Description
+Inventory code ≤ 11 chars; special chars allowed except _; code
+SPD023_CDI_RG_001
+= input + _ + index
+Index init = 001 in new mode; decode code if existing; display in
+SPD023_CDI_RG_002
+dedicated field
+SPD023_CDI_RG_003 IVE_CODE = input + _ + index; IVE_ALPHA1 = input
+SECTION 3 — Counting & Radio Traceability
+Sensitivity: Internal
+
+[PAGE 3]
+3.1 Radio Counting
+• Standard flow: Inventory selection → F5 → flash location → flash support → flash
+article → traceability screen
+• Traceability Fields:
+STK_LOT1, STK_LOT2, STK_LOT3, STK_DLUO, STK_DFAB, STK_DLC, STK_DLV,
+STK_POIV, STK_CFIS
+• IHM Presentation:
+o Table format, highlight current element
+o Navigate via arrows
+o Flash advances automatically to next element
+SECTION 4 — Discrepancy Management
+4.1 Standard Cases
+• Case 1: No discrepancies → inventory validated & closed
+• Case 2: Discrepancies but no new count → validate or delete discrepancies →
+close inventory
+4.2 Specific Case
+• Case 3: Discrepancies require new count
+• New partial inventory created, linked via automated index
+• Inventory lines without discrepancy automatically validated
+• Full location recomputation (not only items with discrepancy)
+• Repeatable up to 999 recounts
+Example:
+General inventory: 20250211_001
+Partial inventory: 20250211_002
+IVE_ALPHA1 = 20250211
+SECTION 5 — PE171: Generate Discrepancies
+• PE171 used for discrepancy processing
+Sensitivity: Internal
+
+[PAGE 4]
+• Wrapped in F_Transaction for DB atomicity
+• Business Rules:
+o SPD023_GLE_RG_001 → check lines with discrepancies
+o SPD023_GLE_RG_002 → close current index, update stock, free locations,
+set IVE_STAT = '050'
+o SPD023_GLE_RG_003 → create new index, duplicate lines in discrepancy,
+reset quantities
+• Controls & Actions:
+o SPD023_GLE_CTRL_001 → lines with discrepancies exist?
+o SPD023_GLE_CTRL_003 → inventory header exists?
+o SPD023_GLE_CTRL_004 → inventory status correct?
+o SPD023_GLE_ACT_001 → confirmation dialog for new count or close
+SECTION 6 — PE261: Traceability Windows
+• Fen_IV01200_SPE → duplicate standard Fen_IV01200 for multiple-count
+traceability
+• Fen_IV01300_SPE → duplicate Fen_IV01300
+• Table display of traceability with flash control
+• Highlight active row, display type & date format (MM/DD/YYYY or DD/MM/YYYY)
+• SPD023_TRA_RG_001 → load traceability table
+• SPD023_TRA_ACT_001 → flash updates table, move to next element
+SECTION 7 — PE915: Intrus Management
+• Remove unconfirmed inventory lines from recounts (indices > 1, zero stock)
+• Business Rules:
+o SPD023_915_RG_001 → duplicate standard code
+o SPD023_915_RG_002 → decode index, delete intrus lines with
+IVL_TCPT=1, IVL_QUGC=0, STK_QTE=0, IVL_TOIN=null
+• Controls:
+Sensitivity: Internal
+
+[PAGE 5]
+o SPD023_915_CTRL_001 → positive InventorieAZéro
+o SPD023_915_CTRL_002 → index decoding successful
+SECTION 8 — Validation
+• AGL acknowledges receipt & validates all elements
+• BK Systèmes provides solution per specification
+• Additional requests may require a new quote
+• Non-explicit provisions are at discretion of parties
+Sensitivity: Internal

@@ -1,0 +1,50 @@
+[META]
+chunk_type: text
+source_file: Receipt generation from an exp.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Receipt Generation from Expected Items
+Purpose:
+This operation allows the user to associate expected items with a receipt and
+generate the corresponding receipt lines directly.
+1. Scope of Operation
+• Receipts are generated purchase order by purchase order.
+• Even if multiple expected lines are selected, the entire purchase order is
+returned to the processing screen.
+• Processing multiple purchase orders at once is not supported; the operation
+must be repeated for each purchase order.
+• Accessible via the context menu on the expected items screen.
+2. Receipt Line Population
+• All lines from the purchase order are displayed on the screen.
+• Editable fields are highlighted in yellow.
+3. Managing Expected Quantities
+• For each expected line:
+1. Check the quantity to be returned to stock.
+2. Modify quantity if required.
+3. Tick the TG (“To Generate”) box to mark the line for processing in the
+receipt.
+• Lines already received are automatically ticked as G (“Generated”) and
+cannot be modified.
+• Variable weight items: specify the total weight of the expected quantity.
+• Partial receipt: If a quantity lower than expected is received, the line will be
+split, keeping a remainder for future processing.
+4. Receipt Validation
+Sensitivity: Internal
+
+[PAGE 2]
+• Click the Validation button once all lines are reviewed and adjusted.
+• The system will present different validation options based on the
+configuration.
+5. Inheritance of Additional Information
+• If additional information was saved on the expected items:
+o And inheritance or inheritance mapping is activated,
+o These details will appear automatically in the generated receipt.
+6. Notes
+• After receipt generation, proceed to stock generation and further processing
+as per the standard reception workflow.
+• Refer to the Stock Generation SOP for handling stock movements and
+updates.
+Sensitivity: Internal

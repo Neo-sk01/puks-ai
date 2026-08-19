@@ -1,0 +1,400 @@
+{
+  "document_name": "Speed WMS Base Data Tables — Warehouse Mapping & Master Data",
+  "version": "1.0",
+  "authoritative": true,
+  "source": "BK_Systèmes_MDD.pdf",
+  "core_tables": {
+    "EMP_BAS": "Warehouse locations (Emplacements)",
+    "GAB_PAR": "Location templates/gabaris",
+    "ZEM_BAS": "Warehouse zones",
+    "EMZ_DAT": "Location-to-zone assignments",
+    "TIE_PAR": "Third parties — suppliers, carriers, recipients, contacts",
+    "ART_PAR": "Articles/products master",
+    "IDE_DAT": "Article identifiers (barcodes, EAN, etc.)",
+    "AMT_DAT": "Article supplier relationships",
+    "DIM_DAT": "Article dimensions",
+    "PIK_BAS": "Article picking location assignments",
+    "ALC_ART": "Alcohol data for articles",
+    "MVT_DAT": "Stock movements",
+    "STK_DAT": "Stock"
+  },
+  "table_definitions": {
+    "EMP_BAS": {
+      "description": "Warehouse locations — physical storage positions",
+      "primary_key": "EMP_LIEU",
+      "access_key": "EMP_LIEU",
+      "columns": [
+        {
+          "name": "EMP_LIEU",
+          "description": "Location code — unique identifier for each physical storage position",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "GAB_CODE",
+          "description": "Template/gabari code — defines the physical size and type of the location",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "GAB_PAR",
+          "references_column": "GAB_CODE"
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "ACT_PAR",
+          "references_column": "ACT_CODE"
+        }
+      ]
+    },
+    "GAB_PAR": {
+      "description": "Location templates defining physical characteristics",
+      "primary_key": "GAB_CODE",
+      "access_key": "GAB_CODE",
+      "columns": [
+        {
+          "name": "GAB_CODE",
+          "description": "Template/gabari unique code",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    "ZEM_BAS": {
+      "description": "Warehouse zones — logical groupings of locations",
+      "primary_key": "ZEM_CODE",
+      "access_key": "ZEM_CODE",
+      "columns": [
+        {
+          "name": "ZEM_CODE",
+          "description": "Zone unique code",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    "EMZ_DAT": {
+      "description": "Assignment table linking locations to zones",
+      "primary_key": "ZEM_CODE + EMP_LIEU",
+      "access_key": "ZEM_CODE + EMP_LIEU",
+      "columns": [
+        {
+          "name": "ZEM_CODE",
+          "description": "Zone code",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "references_table": "ZEM_BAS",
+          "references_column": "ZEM_CODE"
+        },
+        {
+          "name": "EMP_LIEU",
+          "description": "Location code",
+          "is_primary_key": true,
+          "is_foreign_key": true,
+          "references_table": "EMP_BAS",
+          "references_column": "EMP_LIEU"
+        }
+      ]
+    },
+    "TIE_PAR": {
+      "description": "Third parties master — suppliers, carriers, recipients, contacts",
+      "primary_key": "TIE_KEYU",
+      "access_key": "ACT_CODE + TIE_CODE",
+      "columns": [
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "TIE_CODE",
+          "description": "Third party unique code",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "TTI_CODE",
+          "description": "Third party type code — see reference_codes for values",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "TIE_KEYU",
+          "description": "Surrogate unique key",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    "ART_PAR": {
+      "description": "Article/product master data",
+      "primary_key": "ART_KEYU",
+      "access_key": "ACT_CODE + ART_CODE",
+      "columns": [
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "ART_CODE",
+          "description": "Article/product unique code",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ART_DESL",
+          "description": "Article description/label",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ART_KEYU",
+          "description": "Surrogate unique key",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    "STK_DAT": {
+      "description": "Current stock — one record per stock unit",
+      "primary_key": "STK_KEYU",
+      "access_key": "ACT_CODE + STK_NOSU",
+      "columns": [
+        {
+          "name": "STK_KEYU",
+          "description": "Surrogate unique key for stock record",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "ART_CODE",
+          "description": "Article code",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "ART_PAR",
+          "references_column": "ART_CODE"
+        },
+        {
+          "name": "EMP_LIEU",
+          "description": "Current storage location",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "EMP_BAS",
+          "references_column": "EMP_LIEU"
+        },
+        {
+          "name": "STK_NOSU",
+          "description": "Support/pallet number",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "STK_NORE",
+          "description": "Reception number reference",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "STK_NOREL",
+          "description": "Reception line reference",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    "MVT_DAT": {
+      "description": "All stock movements — inbound, outbound, transfers",
+      "primary_key": "MVT_KEYU",
+      "access_key": "ACT_CODE + MVT_KEYU",
+      "columns": [
+        {
+          "name": "MVT_KEYU",
+          "description": "Surrogate unique key for movement",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "STK_KEYU",
+          "description": "Link to stock record",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "STK_DAT",
+          "references_column": "STK_KEYU"
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "ART_CODE",
+          "description": "Article code",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "TMV_CODE",
+          "description": "Movement type code — see reference_codes for values",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "MVT_NOSU",
+          "description": "Support/pallet number",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    }
+  },
+  "join_logic": {
+    "locations_to_zones": {
+      "tables": [
+        "EMP_BAS",
+        "EMZ_DAT",
+        "ZEM_BAS"
+      ],
+      "description": "Get all locations with their zone assignments",
+      "join_conditions": [
+        "EMZ_DAT.EMP_LIEU = EMP_BAS.EMP_LIEU",
+        "EMZ_DAT.ZEM_CODE = ZEM_BAS.ZEM_CODE"
+      ],
+      "example_sql": "SELECT emp.EMP_LIEU, zem.ZEM_CODE FROM EMP_BAS emp INNER JOIN EMZ_DAT emz ON emz.EMP_LIEU = emp.EMP_LIEU INNER JOIN ZEM_BAS zem ON zem.ZEM_CODE = emz.ZEM_CODE WHERE emp.ACT_CODE = :ACT_CODE"
+    },
+    "article_to_dimensions": {
+      "tables": [
+        "ART_PAR",
+        "DIM_DAT"
+      ],
+      "description": "Get article with its physical dimensions",
+      "join_conditions": [
+        "ART.ACT_CODE = DIM.ACT_CODE",
+        "ART.ART_CODE = DIM.ART_CODE"
+      ],
+      "example_sql": "SELECT art.ART_CODE, art.ART_DESL, dim.DIM_TYPE, dim.DIM_VL FROM ART_PAR art INNER JOIN DIM_DAT dim ON art.ACT_CODE = dim.ACT_CODE AND art.ART_CODE = dim.ART_CODE WHERE art.ACT_CODE = :ACT_CODE"
+    },
+    "article_to_identifiers": {
+      "tables": [
+        "ART_PAR",
+        "IDE_DAT"
+      ],
+      "description": "Get article with all its identifiers/barcodes",
+      "join_conditions": [
+        "ART.ACT_CODE = IDE.ACT_CODE",
+        "ART.ART_CODE = IDE.ART_CODE"
+      ],
+      "example_sql": "SELECT art.ART_CODE, art.ART_DESL, ide.IDE_IDENT FROM ART_PAR art INNER JOIN IDE_DAT ide ON art.ACT_CODE = ide.ACT_CODE AND art.ART_CODE = ide.ART_CODE WHERE art.ACT_CODE = :ACT_CODE"
+    },
+    "article_to_suppliers": {
+      "tables": [
+        "ART_PAR",
+        "AMT_DAT",
+        "TIE_PAR"
+      ],
+      "description": "Get article with its supplier relationships",
+      "join_conditions": [
+        "ART.ACT_CODE = AMT.ACT_CODE",
+        "ART.ART_CODE = AMT.ART_CODE",
+        "AMT.TIE_CODE = TIE.TIE_CODE",
+        "AMT.ACT_CODE = TIE.ACT_CODE"
+      ],
+      "example_sql": "SELECT art.ART_CODE, art.ART_DESL, tie.TIE_CODE FROM ART_PAR art INNER JOIN AMT_DAT amt ON art.ACT_CODE = amt.ACT_CODE AND art.ART_CODE = amt.ART_CODE INNER JOIN TIE_PAR tie ON amt.ACT_CODE = tie.ACT_CODE AND amt.TIE_CODE = tie.TIE_CODE WHERE art.ACT_CODE = :ACT_CODE"
+    },
+    "article_to_picking_locations": {
+      "tables": [
+        "ART_PAR",
+        "PIK_BAS",
+        "EMP_BAS"
+      ],
+      "description": "Get article picking location assignments",
+      "join_conditions": [
+        "ART.ACT_CODE = PIK.ACT_CODE",
+        "ART.ART_CODE = PIK.ART_CODE",
+        "PIK.EMP_LIEU = EMP.EMP_LIEU"
+      ],
+      "example_sql": "SELECT art.ART_CODE, pik.EMP_LIEU, pik.ZEM_CODE FROM ART_PAR art INNER JOIN PIK_BAS pik ON art.ACT_CODE = pik.ACT_CODE AND art.ART_CODE = pik.ART_CODE WHERE art.ACT_CODE = :ACT_CODE AND art.ART_CODE = :ART_CODE"
+    },
+    "article_to_alcohol_data": {
+      "tables": [
+        "ART_PAR",
+        "ALC_ART"
+      ],
+      "description": "Get alcohol-specific data for articles",
+      "join_conditions": [
+        "ART.ACT_CODE = ALC.ACT_CODE",
+        "ART.ART_CODE = ALC.ART_CODE"
+      ],
+      "example_sql": "SELECT art.ART_CODE, art.ART_DESL, alc.ALC_FIS FROM ART_PAR art INNER JOIN ALC_ART alc ON art.ACT_CODE = alc.ACT_CODE AND art.ART_CODE = alc.ART_CODE WHERE art.ACT_CODE = :ACT_CODE"
+    },
+    "stock_with_article_and_location": {
+      "tables": [
+        "STK_DAT",
+        "ART_PAR",
+        "EMP_BAS"
+      ],
+      "description": "Get current stock with article details and location",
+      "join_conditions": [
+        "STK.ACT_CODE = ART.ACT_CODE",
+        "STK.ART_CODE = ART.ART_CODE",
+        "STK.EMP_LIEU = EMP.EMP_LIEU"
+      ],
+      "example_sql": "SELECT stk.STK_KEYU, art.ART_CODE, art.ART_DESL, stk.EMP_LIEU FROM STK_DAT stk INNER JOIN ART_PAR art ON stk.ACT_CODE = art.ACT_CODE AND stk.ART_CODE = art.ART_CODE INNER JOIN EMP_BAS emp ON stk.EMP_LIEU = emp.EMP_LIEU WHERE stk.ACT_CODE = :ACT_CODE"
+    }
+  },
+  "reference_codes": {
+    "TTI_CODE": {
+      "description": "Third party type in TIE_PAR",
+      "values": {
+        "001": "Fournisseurs (Suppliers)",
+        "002": "Transporteurs (Carriers/Transporters)",
+        "003": "Destinataires (Recipients/Consignees)",
+        "004": "Contacts"
+      }
+    },
+    "TMV_CODE_inbound": {
+      "description": "Movement type codes for inbound stock creation",
+      "values": {
+        "10010": "Stock entry creation from reception"
+      }
+    },
+    "TMV_CODE_outbound": {
+      "description": "Movement type codes for outbound stock exit",
+      "values": {
+        "40010": "Definitive stock exit",
+        "40110": "Definitive stock exit (prepared stock)",
+        "30110": "Prepared stock exists",
+        "20110": "Prepared stock exists (alternate)"
+      }
+    }
+  },
+  "safety_rules": [
+    "Always filter by ACT_CODE on every table access",
+    "EMP_BAS primary access key is EMP_LIEU — not a composite key",
+    "GAB_PAR primary access key is GAB_CODE",
+    "ZEM_BAS primary access key is ZEM_CODE",
+    "TIE_PAR access requires ACT_CODE + TIE_CODE pair",
+    "ART_PAR access requires ACT_CODE + ART_CODE pair"
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "02_base_data.json",
+    "category": "Speed Support Document"
+  }
+}

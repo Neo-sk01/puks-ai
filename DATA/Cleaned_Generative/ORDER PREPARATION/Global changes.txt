@@ -1,0 +1,33 @@
+[META]
+chunk_type: text
+source_file: Global changes.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Global Changes – Overview
+The Global Changes function allows you to modify certain characteristics of
+multiple orders at once rather than individually.
+Access
+• Where: Contextual menu in the orders portfolio.
+• When: After selecting one or more orders in entry (In seizure).
+Modifiable Fields Globally
+You can change the following attributes for all selected orders:
+Field Description
+Assign or modify the code used for grouping orders in missions
+Grouping code
+or waves.
+Preparation
+Change the preparation channel used for the order lines.
+channel
+Update the date when the preparation of the order should
+Preparation date
+start.
+Carrier code Assign or change the default carrier for the order.
+Purpose
+• Streamlines order management.
+• Saves time by avoiding repetitive modifications on multiple orders.
+• Ensures consistency in preparation and shipping parameters across
+selected orders.
+Sensitivity: Internal

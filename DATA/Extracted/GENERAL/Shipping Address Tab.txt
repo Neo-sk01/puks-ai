@@ -1,0 +1,27 @@
+[META]
+chunk_type: text
+source_file: Shipping Address Tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Shipping Address Tab – RAG-Friendly Version
+Purpose:
+The Shipping Address Tab stores contact and address information for a third party.
+It enables the management of multiple addresses beyond the primary one, such as
+additional delivery addresses or billing addresses.
+1. Key Capabilities
+• Maintain multiple addresses for a single third party.
+• Use addresses for:
+o Document generation (delivery notes, invoices, etc.)
+o Order preparation and logistics operations
+• Quick access to the address portfolio via the envelope icon in SpeedWMS.
+2. Usage Notes
+• Each address entry can include standard contact details (street, city, postal
+code, etc.) and can be designated for specific functions (delivery, billing,
+etc.).
+• Ensures accurate routing of shipments and correspondence.
+• Integrates with other SpeedWMS modules, supporting automation in order
+handling and reporting.
+Sensitivity: Internal

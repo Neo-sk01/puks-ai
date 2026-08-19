@@ -1,0 +1,24 @@
+[META]
+chunk_type: text
+source_file: Loads management.pdf
+category: LOADING
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Loads management
+Functionality accessible from the Shipping / Loading menu.
+This feature allows to view all managed uploads.
+The visualization of loads is divided into two configurable parts :
+1.The upper part of the window displays the loading headers with their different
+statuses (Created, In progress, Loaded, Shipped)
+2.The lower part of the window allows you to view their content:
+1.Affected orders/supports
+2.Associated supports
+By default the loadings are multi-activity. However, it is possible to deactivate the option
+in the global settings of the Shipping in order to see only the loadings of the current
+activity:
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

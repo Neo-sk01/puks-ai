@@ -1,0 +1,6 @@
+Transport mode
+Functionality accessible from the menu Settings / Transport / Mode of transport
+The mode of transport is a characteristic of the load, it is defined in the "Transport" tab
+of the load.
+The entry or modification of the modes is made directly in the table
+Sensitivity: Internal

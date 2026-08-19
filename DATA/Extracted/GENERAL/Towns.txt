@@ -1,0 +1,40 @@
+[META]
+chunk_type: text
+source_file: Towns.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+owns – RAG-Friendly Version
+Purpose:
+Manage the list of cities in SpeedWMS to ensure accurate order processing and
+transport planning.
+1. Overview
+• Towns provide standardized location information used for orders and
+transport planning.
+• Each town entry ensures consistency in logistics operations, especially for
+deliveries and e-commerce fulfillment.
+2. Access
+• Navigate via: Settings → Third Parties → Towns.
+• Towns can be imported from a file or managed directly in the system.
+3. Data Fields
+Each town entry contains the following information:
+• Country Code – ISO code of the country
+• Town Name – Name of the city
+• Postcode – Postal code for the city
+• INSEE Code – National statistics code (for France; optional in other regions)
+4. Usage
+• Town data is validated during order entry to prevent incorrect delivery
+locations.
+• Towns are also used in the transport planning module to optimize routes and
+assignments.
+5. Summary
+Sensitivity: Internal
+
+[PAGE 2]
+• Maintaining an accurate list of towns improves order accuracy, delivery
+efficiency, and transport planning reliability.
+• Regular updates and imports ensure the system reflects current
+geographical data.
+Sensitivity: Internal

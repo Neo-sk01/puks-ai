@@ -1,0 +1,37 @@
+[META]
+chunk_type: text
+source_file: Receipt closure.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Receipt Closure
+Purpose:
+The receipt closure step finalizes a SpeedWMS receipt, freezing its information and
+ensuring no further modifications can be made to the receipt lines or media.
+1. Scope of Operation
+• Closure is the final step in the receipt lifecycle.
+• Once closed:
+o No new media can be added.
+o Existing lines cannot be modified or deleted.
+o Receipt information remains accessible in a read-only (advisory)
+mode.
+o Attached documents can still be viewed and edited.
+2. System Integration
+• If the system requires feedback to the n+1 system, it typically occurs after
+receipt closure.
+3. How to Close a Receipt
+1. Access the Receipt Management screen.
+2. Use either:
+o The contextual menu option “Close Receipt”, or
+o The Close Receipt button in the SpeedWMS command bar.
+3. Confirm the closure action.
+4. Notes
+• Closure ensures data integrity by preventing accidental modifications to
+processed receipts.
+• Closed receipts remain available for reporting and audit purposes.
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

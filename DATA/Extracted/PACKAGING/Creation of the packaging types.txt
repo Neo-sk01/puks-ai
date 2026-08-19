@@ -1,0 +1,38 @@
+[META]
+chunk_type: text
+source_file: Creation of the packaging types.pdf
+category: PACKAGING
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Creation of the packaging types
+To be able to manage the devices in the application, devices and device accounts must
+first exist in the environment and be configured.
+Access: Packagings tab / Packaging types :
+The list of existing packagings in the environment appears, specifying the following
+information:
+•The code of the type of apparatus
+•Its designation
+•Its price (in currency according to settings)
+•Any comments
+•An image (if existing)
+This information is part of that requested during the creation of a type of apparatus.
+Access: Click on the add button :
+Sensitivity: Internal
+
+[PAGE 2]
+In the creation form of an apparatus type, the Additional info tab allows you to add
+additional information.
+The validation of the information entry allows to create the type of apparatus and to add
+it to the already existing list.
+The context menu also allows to:
+Export the list of apparatus types to Excel.
+•Modify a type of apparatus
+•Delete an apparatus type, provided that it does not exist in the apparatus/equipment
+account relationships, nor in the apparatus movements.
+•View additional information for a type of apparatus.
+Sensitivity: Internal
+
+[PAGE 3]
+Sensitivity: Internal

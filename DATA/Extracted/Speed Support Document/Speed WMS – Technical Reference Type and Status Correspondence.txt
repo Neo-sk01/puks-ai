@@ -1,0 +1,355 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Technical Reference Type and Status Correspondence.pdf
+category: Speed Support Document
+total_pages: 7
+[/META]
+
+[PAGE 1]
+[TABLE]
+Code | Meaning
+01 | In Place
+02 | Location to Assign
+03 | Movement to Perform
+04 | Replenishment Transfer
+05 | Order Line Transfer
+[/TABLE]
+
+[TABLE]
+Code | Meaning
+11 | None
+12 | Layer / Pallet
+13 | Package / Pallet
+14 | SPCB / Pallet
+[/TABLE]
+
+Title:
+Speed WMS – Technical Reference: Type and Status Correspondence
+Internal Guide for Warehouse Operations and Support
+BK Systèmes SAS – Technical Information
+Company: BK Systèmes SAS, Capital €80,000 – RC Bourgoin Jallieu 420 802 027
+Address: Impasse des Granges, 38290 La Verpillière, France
+Phone: +33 4 74 95 75 00 | Fax: +33 4 74 95 75 01
+Document: TEK 001 – Correspondence of Types and Statuses in Speed WMS
+Author: Amel Kdider
+Created on: 14/11/2016 16:17
+Version: 1
+Original Template: MOD010 Information Technique.dot
+1. Description
+1.1. Types
+1.1.1. Support Type [TYPE_SUP]
+Code Meaning
+01 In Place
+02 Location to Assign
+03 Movement to Perform
+04 Replenishment Transfer
+05 Order Line Transfer
+1.1.2. Report Type [ART_RAPPORT]
+Code Meaning
+11 None
+12 Layer / Pallet
+13 Package / Pallet
+14 SPCB / Pallet
+Sensitivity: Internal
+
+[PAGE 2]
+[TABLE]
+15 | Units / Pallet
+23 | Package / Layer
+24 | SPCB / Layer
+25 | Units / Layer
+34 | SPCB / Package
+35 | Units / Package
+45 | Units / SPCB
+[/TABLE]
+
+[TABLE]
+Code | Meaning
+100 | Pallet
+200 | Layer
+300 | Package
+400 | SPCB
+500 | Unit
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+100 | Dock | Yes
+200 | Floor | No
+300 | Structure | No
+400 | Relay | No
+[/TABLE]
+
+15 Units / Pallet
+23 Package / Layer
+24 SPCB / Layer
+25 Units / Layer
+34 SPCB / Package
+35 Units / Package
+45 Units / SPCB
+1.1.3. Packaging Type [ART_CONDITIONNEMENT]
+Code Meaning
+100 Pallet
+200 Layer
+300 Package
+400 SPCB
+500 Unit
+1.1.4. Location Type [TYPE_EMP]
+Code Meaning Default
+100 Dock Yes
+200 Floor No
+300 Structure No
+400 Relay No
+1.1.5. Movement Type [TYPE_MVT]
+• 10010 : Receipt Entry
+• 10020 : Miscellaneous Entry
+• 10030 : Return Entry
+• 10040 : Initial Inventory Entry
+• 10050 : Production Entry
+• 10060 : Inventory Adjustment Entry / Distribution Entry
+Sensitivity: Internal
+
+[PAGE 3]
+[TABLE]
+Code | Meaning | Default
+01 | Preparation | Yes
+02 | Replenishment | 
+03 | Countermark | 
+04 | Export |
+[/TABLE]
+
+• 20010 : Goods Movement Entry
+• 20020 : Quality Change Entry
+• 20030 : Price Change Entry
+• 20040 : Article / VL Change Entry
+• 20050 : Batch / DLV / DLUO Change Entry
+• … (continues with inbound/outbound, picking, replenishment, corrections,
+shipping, etc.)
+• Total movement codes defined: 72
+1.1.6. Reception Type [TYPE_REE]
+Code Meaning Default
+001 Reception Yes
+100 Return No
+1.1.7. Third-Party Type [TYPE_TIE]
+Code Meaning
+001 Suppliers
+002 Carriers
+003 Recipients
+004 Contacts
+006 Bank
+007 Insurance
+1.1.8. ODP Type [TYPE_ODP]
+Code Meaning Default
+01 Preparation Yes
+02 Replenishment
+03 Countermark
+04 Export
+Sensitivity: Internal
+
+[PAGE 4]
+[TABLE]
+05 | Delivery Date / Place | 
+06 | Transfer |
+[/TABLE]
+
+[TABLE]
+Code | Meaning
+001 | STK – Storage Zone
+002 | PRS – Picking from Stock
+003 | PRP – Picking Zone
+004 | RPR – Preparation Grouping
+005 | PID – Dynamic Picking
+006 | PIA – Advanced Picking
+007 | INV – Inventory Zone
+008 | CAR – Forklift Zone
+009 | CPS – Compensation Zone
+010 | ATL – Workshop Zone
+011 | ACT – Activity Zone
+012 | P2L – Pick to Light Zone
+013 | CHE – Path / Route Zone
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+001 | PST – Picking from Stock | Yes
+002 | PPI – Picking Zone | 
+003 | MQT – Missing Picking | 
+004 | MAN – Manual Addition | 
+005 | REA – Replenishment | 
+006 | Full Pallet |
+[/TABLE]
+
+05 Delivery Date / Place
+06 Transfer
+1.1.9. Zone Types [TYPE_TZO]
+Code Meaning
+001 STK – Storage Zone
+002 PRS – Picking from Stock
+003 PRP – Picking Zone
+004 RPR – Preparation Grouping
+005 PID – Dynamic Picking
+006 PIA – Advanced Picking
+007 INV – Inventory Zone
+008 CAR – Forklift Zone
+009 CPS – Compensation Zone
+010 ATL – Workshop Zone
+011 ACT – Activity Zone
+012 P2L – Pick to Light Zone
+013 CHE – Path / Route Zone
+1.1.10. Picking Type [TYPE_PREL]
+Code Meaning Default
+001 PST – Picking from Stock Yes
+002 PPI – Picking Zone
+003 MQT – Missing Picking
+004 MAN – Manual Addition
+005 REA – Replenishment
+006 Full Pallet
+1.2. Status
+Sensitivity: Internal
+
+[PAGE 5]
+[TABLE]
+Code | Meaning | Default
+1 | New | 
+2 | Active | Yes
+3 | Disabled | 
+4 | End of Life |
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+001 | Awaiting Interception | 
+010 | In Entry | Yes
+020 | In Wave | 
+030 | In Preparation | 
+040 | Validated | 
+050 | Settled | 
+060 | Ready for Shipment | 
+070 | Shipped |
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+010 | To Prepare | Yes
+020 | In Progress | 
+040 | Validated | 
+050 | Settled | 
+060 | Ready for Shipment |
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+010 | To Prepare | Yes
+020 | In Progress |
+[/TABLE]
+
+1.2.1. Item Status [STATUT_ART]
+Code Meaning Default
+1 New
+2 Active Yes
+3 Disabled
+4 End of Life
+1.2.2. Preparation Status [STATUT_ODP]
+Code Meaning Default
+001 Awaiting Interception
+010 In Entry Yes
+020 In Wave
+030 In Preparation
+040 Validated
+050 Settled
+060 Ready for Shipment
+070 Shipped
+1.2.3. Mission Status [STATUT_MIE]
+Code Meaning Default
+010 To Prepare Yes
+020 In Progress
+040 Validated
+050 Settled
+060 Ready for Shipment
+1.2.4. Mission Line Status [STATUT_MIL]
+Code Meaning Default
+010 To Prepare Yes
+020 In Progress
+Sensitivity: Internal
+
+[PAGE 6]
+[TABLE]
+040 | Validated | 
+050 | Settled | 
+060 | Ready for Shipment | 
+070 | Shipped |
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+010 | To Launch | Yes
+015 | In Progress | 
+030 | Launched | 
+040 | Validated | 
+050 | Closed |
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+001 | In Progress | Yes
+100 | Shelved | 
+200 | Closed |
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+001 | In Progress | Yes
+100 | Shelved | 
+200 | Closed |
+[/TABLE]
+
+[TABLE]
+Code | Meaning | Default
+010 | Initial | Yes
+020 | Colisée | 
+030 | Checked | 
+040 | Validated |
+[/TABLE]
+
+040 Validated
+050 Settled
+060 Ready for Shipment
+070 Shipped
+1.2.5. Wave Status [STATUT_VAG]
+Code Meaning Default
+010 To Launch Yes
+015 In Progress
+030 Launched
+040 Validated
+050 Closed
+1.2.6. Reception Status [ETAT_REE]
+Code Meaning Default
+001 In Progress Yes
+100 Shelved
+200 Closed
+1.2.7. Expected Reception Status [ETAT_REA]
+Code Meaning Default
+001 In Progress Yes
+100 Shelved
+200 Closed
+1.2.8. Shipping Support Status [STATUT_SEX]
+Code Meaning Default
+010 Initial Yes
+020 Colisée
+030 Checked
+040 Validated
+Sensitivity: Internal
+
+[PAGE 7]
+[TABLE]
+070 | Shipped |
+[/TABLE]
+
+070 Shipped
+Notes for RAG Team:
+• This document serves as a reference table mapping types and statuses in
+Speed WMS.
+• Always use the default values when configuring new operations or
+troubleshooting.
+• Useful for support, operations, and WMS configuration verification.
+Sensitivity: Internal

@@ -1,0 +1,20 @@
+[META]
+chunk_type: text
+source_file: Deadline Reservation.pdf
+category: STOCK MANAGEMENT
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Deadline Reservation
+Access
+• Menu: Stock / Deadline Reservation
+Purpose
+• Analyzes reserved stock to ensure that reservations are up-to-date.
+• Automatically removes reservations for all stock items whose reservation
+date is earlier than the current date.
+Notes
+• Works in conjunction with the reservation setup at the item level (Unit
+modification section of the Item).
+• Helps prevent outdated reservations from blocking stock availability.
+Sensitivity: Internal

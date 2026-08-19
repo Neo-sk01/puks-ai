@@ -1,0 +1,48 @@
+[META]
+chunk_type: text
+source_file: Defining comments.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Comments in SpeedWMS: Overview
+Defining Comments
+Comments can be created and standardized in two ways:
+A. Comments Tab (Third Party / Settings)
+• Purpose: Enter comments related to a third party (supplier, recipient,
+carrier).
+• Use: These comments appear on preparation, delivery, and reception
+documents.
+• Note: To actually print, the chosen report/edition must include a comments
+field.
+B. Comment Codes (Settings / Others / Comment Codes)
+• Purpose: Define reusable standard comments for radio frequency
+operations.
+• Each comment has a unique code that can be scanned.
+• When scanned during preparation or picking, the comment is automatically
+added to the order/shipment document.
+• Example:
+o Code: FRAGILE
+o Result: The shipment label for the order will include “FRAGILE”.
+Applying Comments
+• Comments can be linked to third parties or directly to orders/receipts.
+• Radio frequency users can scan the comment code to quickly add a
+comment.
+• Manual entry is also possible from the Comments tab for a third party.
+Printing Comments
+• For comments to appear on preparation slips, delivery notes, or reception
+documents:
+1. Ensure the report template includes a comments field.
+Sensitivity: Internal
+
+[PAGE 2]
+2. Any linked or scanned comments will then be printed automatically.
+Workflow Example
+1. Define comment code: FRAGILE → “Handle with care”.
+2. Link to third party (optional).
+3. During picking: Scan FRAGILE on RF device.
+4. Comment automatically appears on the shipment label.
+Benefit: Fast, consistent, and error-free communication of special handling
+instructions across the warehouse.
+Sensitivity: Internal

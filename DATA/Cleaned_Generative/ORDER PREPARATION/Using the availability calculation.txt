@@ -1,0 +1,32 @@
+[META]
+chunk_type: text
+source_file: Using the availability calculation.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Availability Calculation
+Purpose
+• Determines the availability rate of an order based on all selected orders in
+the calculation request.
+• Helps to know if items required for the orders are sufficiently in stock to
+fulfill them.
+Access
+• Available via the contextual menu after selecting the orders in Speed Wallet
+Entry.
+Restrictions
+• Calculation can only be performed on orders:
+1. From the same sector
+2. From the same site
+• It is possible to create an “ALL” channel to select orders from different
+channels.
+After Calculation
+• Fields corresponding to the different availability rates are updated on the
+selected orders.
+• These fields can also be added to screen views for easier monitoring.
+In short:
+1. Select orders → Right-click → Availability Calculation
+2. Only same sector/site orders allowed (or use ALL channel)
+3. Fields updated → Can be displayed in custom views
+Sensitivity: Internal

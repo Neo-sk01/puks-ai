@@ -1,0 +1,19 @@
+[META]
+chunk_type: text
+source_file: Customs status.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Customs Status
+• Menu access: Settings / Other / Customs status
+• Purpose: Allows management of bonded goods by defining customs
+statuses in the system.
+• Usage:
+o Each customs status can be added to the environment.
+o During receiving, if goods are bonded, the corresponding customs
+status is applied.
+o Customs status becomes a property of the stock, enabling
+traceability and proper handling.
+Sensitivity: Internal

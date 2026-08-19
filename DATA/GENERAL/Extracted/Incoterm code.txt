@@ -1,0 +1,6 @@
+Incoterm code
+Functionality accessible from the menu Settings / Transport / Incoterm code
+The incoterm code is a characteristic of the load, it is defined in the "Documentation"
+tab of the load.
+Note: The entry or modification of the modes is directly made in the table.
+Sensitivity: Internal

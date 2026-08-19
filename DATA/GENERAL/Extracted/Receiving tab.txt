@@ -1,0 +1,15 @@
+Receiving tab
+The tab is divided in two sub-tabs, allowing to act on the default qualities to affect to the
+item, as well as on the behaviour of the receiving radio module.
+Possibility to assign the default quality of the item for any receipt o return. If no quality is
+provided, the default quality of the activity will be applied.
+It is also possible to specify the default owner of the item for any receipt or return. The
+system lists all the third known as “owner”. If no owner is specified, the default owner of
+the activity will be considered as the owner of the item.
+Allows you to modify the behaviour of the receiving radio module regarding the allowed
+SU being seized by the operators.
+Sensitivity: Internal.The list on the left is used to configure the input fields in which the operators can enter
+a quantity.
+.The list on the right is used to define the field that will be active by default when the
+opening of the quantity entry screen.
+Sensitivity: Internal

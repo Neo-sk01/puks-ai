@@ -1,0 +1,63 @@
+[META]
+chunk_type: text
+source_file: Packaging accounts creation.pdf
+category: PACKAGING
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Packaging Accounts Creation
+Access:
+• Packagings tab → Packaging Account
+Screen Layout:
+• Left panel: List of existing accounts showing:
+o Account type (Internal or External)
+o Account code
+o Account designation
+• Right panel (tabs vary by account type):
+o External accounts:
+▪ Packaging Types: Lists packaging types linked to the account,
+their prices, and comments
+▪ Third Parties: Lists third parties associated with the account
+o Internal accounts:
+▪ Activity: Shows activities linked to the account
+Available Actions (Contextual Menu / Tabs)
+For Accounts:
+• Export to Excel
+• Create new account
+• Modify account
+• Delete account
+• View additional information
+For Tabs (Packaging Types / Third Parties / Activity):
+• Associate new item (Packaging Type, Third Party, or Activity)
+• Edit
+• Delete
+• Print
+Sensitivity: Internal
+
+[PAGE 2]
+• Export to Excel
+Creating an Account
+1. Internal Account
+• Click Add or New in the contextual menu
+• Enter:
+o Code
+o Type: Internal
+o Designation
+o Contact details (optional)
+o Comments (optional)
+• Define activities:
+o Go to Activity tab → New
+o Select relevant activities from the list and validate
+2. External Account
+• Creation is similar to internal, but associations differ:
+o Instead of activities, link:
+▪ Types of Equipment (Packaging Types tab → New)
+▪ Third Parties (Third Parties tab → New)
+• Tick relevant items and validate
+Important Notes
+• Packaging management in SpeedWMS can only be fully executed after
+configuring both packaging types and packaging accounts.
+• Associations define how packaging is used in internal processes or linked to
+external third parties.
+Sensitivity: Internal

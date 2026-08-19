@@ -1,0 +1,47 @@
+[META]
+chunk_type: text
+source_file: Put in wave (1).pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Put in Wave (Order Wave Management)
+Purpose
+• Allows grouping of multiple orders for simultaneous processing during
+preparation.
+• Ensures efficient generation of sampling missions for orders in the same
+wave.
+• Manual wave management is rarely needed; SpeedWMS automatically
+handles waves in most cases.
+Process
+1. Automatic wave assignment:
+o When launching orders for preparation, SpeedWMS automatically
+assigns them to a wave.
+o All selected orders in the batch are grouped in the same preparation
+wave.
+2. Manual wave creation:
+o Can be done for specific processes if needed.
+o Orders can be assigned to a new wave manually via the interface.
+3. Wave status:
+o Orders in a wave move from the input tab to the wave tab in the order
+portfolio.
+o This allows tracking of all orders associated with waves.
+4. Repositioning orders:
+o A wave order can be moved back to seizure/input status through the
+context menu.
+o This removes the order from the wave and allows it to be reassigned.
+5. Wave overview:
+o Clicking the Waves tab in the preparation window provides a global
+view of all waves in progress:
+▪ Status of each wave
+Sensitivity: Internal
+
+[PAGE 2]
+▪ Orders associated with each wave
+Tips:
+• Rely on automatic wave assignment for efficiency; manual intervention is
+only for exceptions.
+• Always check the Waves tab to ensure orders are properly grouped before
+generating missions.
+Sensitivity: Internal

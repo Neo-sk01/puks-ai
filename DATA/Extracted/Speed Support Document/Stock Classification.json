@@ -1,0 +1,26 @@
+{
+  "document_name": "Stock Classification",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "classes": [
+    {
+      "class": "A",
+      "description": "Active locations – Fast-moving products (Bulk Storage / Pick & Pack)"
+    },
+    {
+      "class": "B",
+      "description": "Racking – Seasonal-moving products"
+    },
+    {
+      "class": "C",
+      "description": "Slow-moving products"
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "Stock Classification.json",
+    "category": "Speed Support Document"
+  }
+}

@@ -1,0 +1,28 @@
+[META]
+chunk_type: text
+source_file: Delivery settings tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Delivery Settings Tab
+Purpose:
+• Specifies delivery-related characteristics for each third party.
+• Helps automate and optimize order creation, preparation, and processing.
+Key Fields:
+1. Day / Delivery Time
+o Defines possible delivery days for the third party.
+o Specifies usual delivery times.
+o Used during order creation to suggest a default delivery date.
+2. Grouping Code
+o Assigns a default grouping code for all orders to this third party.
+o Useful for sorting and processing orders together, e.g., launching all
+orders with the same grouping code simultaneously during
+preparation.
+3. Delivery Department / Carrier Code
+o Assigns a default carrier or delivery department for all orders to this
+third party.
+o Helps organize and process orders according to the carrier for
+simultaneous preparation.
+Sensitivity: Internal

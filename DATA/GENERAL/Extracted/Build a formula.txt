@@ -1,0 +1,15 @@
+Build a formula
+The function build a formula:
+This function allows you to create your own queries by building a formula:
+.Click on fx
+.Use the desired fields to create a query
+Ex .: creation of a stock valuation formula:
+.Name th formula (at the top of the window)
+.Open a parenthesis
+.Select Quantity in stock and send it to the formula construction window (using the
+arrow)
+.Click on the 'multiplication' sign
+.Select Unit price and send it to the formula building window
+.Close parenthesis
+.Validate the formula
+Sensitivity: InternalSensitivity: Internal

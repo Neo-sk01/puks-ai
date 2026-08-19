@@ -1,0 +1,26 @@
+{
+  "document_name": "Inbound Status",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "statuses": [
+    {
+      "code": "001",
+      "description": "In Place"
+    },
+    {
+      "code": "100",
+      "description": "To Store"
+    },
+    {
+      "code": "200",
+      "description": "Closed"
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "Inbound Status.json",
+    "category": "Speed Support Document"
+  }
+}

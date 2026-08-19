@@ -1,0 +1,8 @@
+Shipping Address Tab
+Tab grouping the contact details of the third.
+SpeedWMS enables to save additional addresses (additional delivery address, billing
+address, etc.) in addition to the main address for each third.
+The envelope icon gives access to the address portfolio of the third:
+Each address can be filled in and used for editing different documents, or during the
+orders preparation process :
+Sensitivity: InternalSensitivity: Internal

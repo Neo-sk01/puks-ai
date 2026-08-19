@@ -1,0 +1,112 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Loading Management Support Ticket Resolution Guide.pdf
+category: Speed Support Document
+total_pages: 4
+[/META]
+
+[PAGE 1]
+Handling Loaded Support Tickets (Loading Management)
+Sensitivity: Internal
+System: Speed WMS
+Module: Loading Management
+Audience: Support / Technical Team
+Purpose
+This procedure is used when a support ticket indicates that containers are already
+loaded, but the Loading Management Line table (CHL_DAT) is not correctly updated.
+Important:
+These steps should be executed only if the system does not update automatically.
+Step 1: Create Temporary Order Table (#order_table)
+This step creates a temporary table to capture order numbers linked to loaded
+containers for further processing.
+SELECT DISTINCT
+chg.chg_lib,
+chl.ope_nooe,
+chg.act_code
+INTO #order_table
+FROM chg_dat chg
+JOIN chl_dat chl
+ON chg.chg_code = chl.chg_code
+AND chg.chg_date = chl.chg_date
+WHERE chg.act_code = 'ZAR';
+Outcome:
+• Temporary table #order_table is created
+• Contains order numbers associated with loading records
+Step 2: Identify Containers Missing in CHL_DAT
+Sensitivity: Internal
+
+[PAGE 2]
+This step checks for containers that exist in CHG_DAT but are missing from the
+Loading Management Line table (CHL_DAT).
+SELECT
+'ZAR' AS act_code,
+ord.ope_nooe AS ope_nooe,
+chg.chg_date,
+chg.chg_code,
+'100' AS chl_pour,
+'SUPPORT' AS chl_crqi,
+GETDATE() AS current_time
+FROM chg_dat chg
+JOIN #order_table ord
+ON chg.act_code = ord.act_code
+AND chg.chg_lib = ord.CHG_LIB
+LEFT JOIN chl_dat chl
+ON chg.chg_code = chl.chg_code
+AND chg.chg_date = chl.chg_date
+AND chg.act_code = 'ZAR'
+WHERE chl.chg_code IS NULL
+AND chg.chg_stat BETWEEN '030' AND '040';
+Interpretation
+• No results: No issue, data already aligned
+• Results returned: Containers exist but are not recorded in CHL_DAT
+Step 3: Insert Missing Records into CHL_DAT
+If Step 2 returns results, insert the missing container records into the Loading
+Management Line table.
+INSERT INTO chl_dat
+Sensitivity: Internal
+
+[PAGE 3]
+(act_code, ope_nooe, chg_date, chg_code, chl_pour, chl_crqi, chl_crda)
+SELECT
+'ZAR',
+ord.ope_nooe,
+chg.chg_date,
+chg.chg_code,
+'100',
+'SUPPORT',
+GETDATE()
+FROM chg_dat chg
+JOIN #order_table ord
+ON chg.act_code = ord.act_code
+AND chg.chg_lib = ord.CHG_LIB
+LEFT JOIN chl_dat chl
+ON chg.chg_code = chl.chg_code
+AND chg.chg_date = chl.chg_date
+AND chg.act_code = 'ZAR'
+WHERE chl.chg_code IS NULL
+AND chg.chg_stat BETWEEN '030' AND '040';
+Outcome:
+• Missing loading records are inserted
+• Containers now appear correctly in Loading Management
+Step 4: Clean Up Temporary Table
+After completing the update, remove the temporary table.
+DROP TABLE #order_table;
+Important Notes
+Sensitivity: Internal
+
+[PAGE 4]
+1. Automated Updates (Preferred)
+• This logic is already integrated with:
+o Container Release Note
+o GDN ETAT
+• When Operations preview any container in the Loading Management module,
+the system should update automatically
+2. Manual Intervention (Support Only)
+• Use this procedure only when automatic updates fail
+• Intended for troubleshooting and correction
+• Requires database access
+Expected Outcome
+• All loaded containers are correctly reflected in CHL_DAT
+• Loading Management data is consistent
+• Support ticket can be resolved without impacting operations
+Sensitivity: Internal

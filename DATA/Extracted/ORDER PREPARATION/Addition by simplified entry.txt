@@ -1,0 +1,27 @@
+[META]
+chunk_type: text
+source_file: Addition by simplified entry.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Addition by Simplified Entry
+Purpose:
+• Quickly add an order line using the first, directly accessible line on the Lines
+tab of an order.
+Steps:
+1. Access Simplified Entry
+o Locate the first line on the Lines tab; this is the simplified entry line.
+2. Enter Item Code
+o Type the item code manually or search the full item repository via
+right-click on the item field.
+3. Specify Details
+o Quantity: Enter the number of units to add.
+o Quality: Automatically initialized from the item sheet’s preparation
+quality or the activity’s default if not defined.
+4. Validate Entry
+o Click the validation button to confirm the addition.
+o The order line is now added to the order with the specified item,
+quantity, and quality.
+Sensitivity: Internal

@@ -1,0 +1,75 @@
+{
+  "document_name": "Speed WMS Data Model — General Rules",
+  "version": "1.0",
+  "authoritative": true,
+  "source": "BK_Systèmes_MDD.pdf",
+  "naming_convention": {
+    "pattern": "XXX_YYY",
+    "XXX": "Table name prefix",
+    "YYY": "Extension suffix",
+    "extensions": {
+      "_SYS": "System info — internal to Speed WMS",
+      "_PAR": "Parameters — e.g. Activities, Articles",
+      "_DAT": "Transactional data — e.g. Receptions, Preparations",
+      "_BAS": "Base/reference data — e.g. Locations"
+    }
+  },
+  "rules": {
+    "primary_key": "Every table always has a XXX_KEYU unique key",
+    "access_pattern": "All DB access uses the pair: ACT_CODE (Activity) + the entity code (e.g. ART_CODE, OPE_NOOE)",
+    "field_names": "Fields always have the same name regardless of the table",
+    "exceptions": [
+      "SEX_DAT uses SEX_ACT instead of ACT_CODE",
+      "OPL_DAT and OPE_DAT share OPE_KEYU as alternate join key",
+      "MIL_DAT and MIE_DAT share MIE_KEYU as alternate join key",
+      "Loadings join conditions depend on client configuration",
+      "Packaging join conditions depend on client configuration"
+    ]
+  },
+  "configurable_fields": {
+    "description": "Present in all tables. Labels configured per activity.",
+    "complementary": {
+      "XXX_ALPHA1_to_10": "VARCHAR(50) — up to 10 additional text fields per table",
+      "XXX_NUM1_to_5": "Float/Real — up to 5 numeric fields per table",
+      "XXX_TOP1_to_5": "Boolean — up to 5 boolean flags per table",
+      "XXX_DATE1_to_5": "Date — up to 5 date fields per table",
+      "XXX_HEURE1_to_5": "Time HHMMSS — up to 5 time fields per table"
+    },
+    "supplementary": {
+      "description": "Environment-specific fields. May have validation rules applied.",
+      "XXX_ALPHA11_plus": "VARCHAR(x) — extended text fields, environment-specific",
+      "XXX_NUM11_plus": "Float/Real — extended numeric fields",
+      "XXX_TOP11_plus": "Boolean — extended boolean flags",
+      "XXX_DATE11_plus": "Date — extended date fields",
+      "XXX_HEURE11_plus": "Time HHMMSS — extended time fields"
+    }
+  },
+  "table_suffix_reference": {
+    "_SYS": {
+      "meaning": "System information",
+      "examples": ["RHI_SYS", "GRP_SYS"],
+      "notes": "Managed internally by Speed WMS — do not modify directly"
+    },
+    "_PAR": {
+      "meaning": "Parameter/master data",
+      "examples": ["ART_PAR", "TIE_PAR", "GAB_PAR", "ACT_PAR"],
+      "notes": "Configuration and reference data, typically static"
+    },
+    "_DAT": {
+      "meaning": "Transactional data",
+      "examples": ["REE_DAT", "OPE_DAT", "MIE_DAT", "STK_DAT", "MVT_DAT"],
+      "notes": "Live operational data — most frequently queried"
+    },
+    "_BAS": {
+      "meaning": "Base/foundational data",
+      "examples": ["EMP_BAS", "ZEM_BAS", "PIK_BAS"],
+      "notes": "Warehouse infrastructure and mapping data"
+    }
+  },
+  "safety_rules": [
+    "Always include ACT_CODE in every query — it partitions all data by activity/warehouse",
+    "Never query _SYS tables directly in production SQL without Speed WMS approval",
+    "Every table has a XXX_KEYU surrogate key — prefer joining on business keys (ACT_CODE + entity code) not KEYU for cross-table joins",
+    "SEX_DAT is the only table that breaks the ACT_CODE convention — it uses SEX_ACT instead"
+  ]
+}

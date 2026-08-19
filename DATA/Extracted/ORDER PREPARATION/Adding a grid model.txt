@@ -1,0 +1,29 @@
+[META]
+chunk_type: text
+source_file: Adding a grid model.pdf
+category: ORDER PREPARATION
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Adding a grid model
+In this case, we use the input line, directly accessible on the tabLine. This is the very
+first accessible line.
+The click on the option Enter a grid pattern provides access to the list of item patterns
+saved in the environment
+The validation of the model selection allows you to reach the window for entering the
+quantities of the references from the model:
+Sensitivity: Internal
+
+[PAGE 2]
+It is then possible to enter the item quantities for each reference:
+.the quantity can be entered in the All column: this allows you to add an order line for
+each of the references having the main characteristic in common, and this, with an
+identical quantity
+.the quantity can be entered individually for each reference
+Once the quantity has been validated, the order lines are saved and displayed in the
+tabLinefrom the command creation window:
+Sensitivity: Internal
+
+[PAGE 3]
+Sensitivity: Internal

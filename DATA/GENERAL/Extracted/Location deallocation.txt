@@ -1,0 +1,7 @@
+Location deallocation
+It will be possible to act at any time on the locations assigned to a zone.
+To unassign a location or a list of locations from a zone, you must first select the
+different locations concerned on the zone, then right-click, and finally select the option
+Deallocate location from the contextual menu:
+The locations will thus be deleted from the area in question.
+Sensitivity: Internal

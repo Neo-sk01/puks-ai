@@ -1,0 +1,45 @@
+[META]
+chunk_type: text
+source_file: Sequence.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Sequence Creation – RAG-Friendly Version
+Purpose:
+The Sequence Creation function in SpeedWMS allows users to quickly generate
+multiple warehouse locations in bulk, including all relevant characteristics. This
+streamlines large-scale location creation compared to unitary/manual entry.
+1. Key Capabilities
+• Create sequences of locations with multiple characteristics simultaneously.
+• Supports copy-paste from Excel for bulk data entry.
+• Ensures unique location names, preventing duplicates during creation.
+2. Required Fields
+• Warehouse: alphanumeric, max 6 characters (mandatory)
+• Aisle/Driveway: alphanumeric, max 3 characters (mandatory)
+• Column: alphanumeric, max 3 characters
+• Level: alphanumeric, max 3 characters
+• Slot/Box: alphanumeric, max 3 characters
+3. Location Name Construction
+• Specify start position and length of each element to include in the location
+name:
+o Example: 1.6 → start at character 1, length 6
+o Example: 0.0 → element excluded from location name
+• Define a separator between elements if required.
+• A preview of generated names is displayed before final validation.
+4. Process Steps
+1. Enter lists of values for each characteristic (direct entry or Excel copy).
+2. Configure the location name construction parameters.
+Sensitivity: Internal
+
+[PAGE 2]
+3. Click Generate to preview the sequence of locations.
+4. Review the preview table to ensure accuracy.
+5. Click Validate to create the locations in the system.
+5. Notes
+• SpeedWMS validates uniqueness of each location name before creation.
+• Duplicate entries in the preview will not be created or added to the system.
+• Only the warehouse and aisle fields are mandatory; all other characteristics
+are optional but recommended for clarity and organization.
+Sensitivity: Internal

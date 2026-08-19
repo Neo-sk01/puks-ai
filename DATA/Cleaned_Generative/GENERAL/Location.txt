@@ -1,0 +1,38 @@
+[META]
+chunk_type: text
+source_file: Location.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Location Management
+Access:
+• Menu: Settings → Locations
+Purpose:
+• Displays all locations saved in the environment.
+• Enables management of locations for warehouse operations.
+Actions Available:
+• Create new locations.
+• Modify properties of one or more existing locations.
+• Delete locations (with constraints).
+The location display can be filtered using saved criteria for easier access.
+Location Structure:
+A location is defined by multiple characteristics:
+1. Warehouse
+2. Aisle
+3. Column
+4. Level
+5. Slot
+• Each location has a unique location name, which appears in all screens and
+reports.
+• The location name is flexible and does not need to be a strict concatenation
+of the characteristics.
+• Locations can also be assigned to a site.
+Additional Notes:
+Sensitivity: Internal
+
+[PAGE 2]
+• Locations are multi-activity, meaning a single slot is available across all
+activities the user is connected to in SpeedWMS.
+Sensitivity: Internal

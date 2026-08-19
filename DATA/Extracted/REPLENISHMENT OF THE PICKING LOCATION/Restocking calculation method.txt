@@ -1,0 +1,54 @@
+[META]
+chunk_type: text
+source_file: Restocking calculation method.pdf
+category: REPLENISHMENT OF THE PICKING LOCATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Restocking Calculation Method
+Purpose:
+• To determine the quantity of items to be replenished at a picking location,
+taking into account current stock, orders in preparation, and thresholds.
+Factors Considered:
+1. Replenishment Unit: The unit used for replenishment (e.g., pallet, box).
+2. Max Quantity at Picking: Maximum quantity that can be held at the picking
+location.
+3. Replenishment Threshold: Minimum quantity that triggers a replenishment if
+stock falls below it.
+4. Quantity in Orders in Preparation: Items already allocated to orders
+currently in preparation.
+Restocking Logic:
+1. Check Orders in Preparation:
+o If the item exists in orders in preparation and the current picking
+quantity is less than the maximum at picking, a replenishment is
+generated.
+o Quantity to replenish = Max at picking – Quantity currently at picking
+2. Check Replenishment Threshold:
+o If the item is not in orders in preparation:
+▪ If the current picking quantity < threshold, generate a
+replenishment.
+▪ If current picking quantity ≥ threshold, no replenishment is
+generated.
+Calculation Formula:
+Need = AvailableQtyPicking – sum(PickingSamplingsNotValidated)
++ sum(REA_NotValidated) – ReplenishmentThreshold
+Quantity to Replenish:
+Sensitivity: Internal
+
+[PAGE 2]
+QtyToReplenish = PicSamplQty + MaxPickingQty – PicAvailableQty
+– ReplQty – QtyTransfToPick – QtyTransfFromPick
+• Adjustments can be made depending on saturation, adding threshold
+quantity or max picking quantity.
+Example:
+• Picking Unit: Pallet (1 pallet = 15 parcels)
+• Picking Capacity: 2 pallets
+• Threshold: 10% (3 parcels)
+• Orders Launched: 45 parcels
+• Current Quantity at Picking: 5 parcels
+Calculation:
+Quantity to Replenish = 45 + 30 – 5 = 70 parcels
+• Optimal quantity to replenish: 70 parcels
+• Minimum quantity needed to serve orders: 43 parcels
+Sensitivity: Internal

@@ -1,0 +1,21 @@
+[META]
+chunk_type: text
+source_file: Organization of the collects.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Organization of the Collects
+Purpose
+• To manage and prioritize the sequence in which pick-ups (collect missions)
+are prepared.
+Access
+• Through the context menu in the Collects window → select Order Collects.
+Functionality
+• Select a pick-up mission line.
+• Use the up/down arrows to move the line in the list.
+• This changes the priority of the pick-ups.
+• The order number of the collect mission updates automatically to reflect the
+new sequence.
+Sensitivity: Internal

@@ -1,0 +1,61 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Serial Number Issue Resolution Procedure.pdf
+category: Speed Support Document
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Procedure: Resolving Serial Number Issues in Speed (e.g., INC0379425)
+1. Objective
+To resolve incidents where serial numbers are not associating correctly in Speed,
+even though they appear in reports (e.g., SSRS), using database verification and
+updates.
+2. Example Incident
+Incident: INC0379425 – Skyworth Durban
+Issue:
+• 100 serial numbers for 2 pallets (PSD000977 and PSD000984) were not
+associating in Speed.
+• Serial numbers appeared correctly in the SSRS serial number report, but not in
+Speed.
+Root Cause:
+• Spaces or special characters (e.g., line breaks) were present in the serial number
+table (NSE_DAT).
+• Speed does not accept special characters in serial number fields.
+3. Steps to Resolve
+Step 1 – Verify Data in Database
+Check serial number records in the production Speed database:
+SELECT NSE_SSCCC, *
+FROM nse_dat
+WHERE NSE_SSCCC LIKE '%PSD000984%';
+• nse_dat: Serial number table
+• NSE_SSCCC: Field representing pallet number
+Step 2 – Identify the Issue
+Sensitivity: Internal
+
+[PAGE 2]
+• Look for spaces, line breaks, or special characters in the NSE_SSCCC field.
+• Confirm the affected records correspond to the incident pallets.
+Step 3 – Fix the Issue
+Remove unwanted characters using the REPLACE function:
+UPDATE nse_dat
+SET NSE_SSCCC = REPLACE(NSE_SSCCC, CHAR(10), '')
+WHERE act_code = 'RSADBNWH'
+AND art_code IN ('SKY-HS6409', 'SKY-R012000030', 'SKY-R012000029');
+• CHAR(10) represents a line break or special character
+• Filter by ACT_CODE and ART_CODE to update only relevant records
+Step 4 – Validate the Fix
+1. Re-run the SELECT query from Step 1 to confirm that special characters are
+removed.
+2. Check with operations that the serial numbers now associate correctly in
+Speed.
+4. Notes
+• Always verify the data before applying updates to avoid impacting unrelated
+records.
+• Maintain an audit log of:
+o Pallet/serial numbers updated
+o Database changes made
+o Date/time and operator
+• This procedure can be reused for any serial number issue caused by unwanted
+characters.
+Sensitivity: Internal

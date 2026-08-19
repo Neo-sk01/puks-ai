@@ -1,0 +1,39 @@
+{
+  "document_name": "Customer & Third-Party Management",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "adding_customer": {
+    "mandatory_information": [
+      "Address",
+      "Prefix"
+    ]
+  },
+  "third_party_types": [
+    {
+      "type": "Supplier",
+      "code": "001"
+    },
+    {
+      "type": "Carrier / Transporter",
+      "code": "002"
+    },
+    {
+      "type": "Recipient",
+      "code": "003"
+    }
+  ],
+  "mandatory_fields": [
+    "Customer Account",
+    "Third Party Code",
+    "Third Party Name",
+    "Third Party Type",
+    "Address"
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "customer_thirdparty.json",
+    "category": "Speed Support Document"
+  }
+}

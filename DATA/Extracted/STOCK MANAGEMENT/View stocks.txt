@@ -1,0 +1,43 @@
+[META]
+chunk_type: text
+source_file: View stocks.pdf
+category: STOCK MANAGEMENT
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – View Stocks
+Access
+• Menu: Stock / Stock
+Purpose
+• Provides a comprehensive overview of stock declared in the SpeedWMS
+environment.
+• Enables monitoring, analysis, and certain operations depending on the tab.
+Tabs & Functionality
+Tab Purpose / Notes
+Total stocks by reference and by quality. No operations can be
+Stock
+performed here.
+Batch Total stocks by reference and by batch. No operations possible.
+Detailed view by medium, location, etc. All stock operations are
+Details
+performed from this tab.
+Movements History of all stock movements recorded in SpeedWMS.
+Expected Displays the list of registered expected items.
+Manufacturing In progress.
+In seizure In progress.
+To be
+Planned stocks assigned to orders launched in preparation.
+prepared
+Taken Stocks whose mission lines have been picked.
+Prepared Stocks whose mission lines have been validated.
+In expedition Stocks linked to an order awaiting shipment.
+Shipped Stocks linked to an order that has already been shipped.
+Filters
+Sensitivity: Internal
+
+[PAGE 2]
+• Direct filters at the top: article, supplier, or product family (classification).
+• Advanced filter function allows searching by additional criteria beyond
+default filters.
+Sensitivity: Internal

@@ -1,0 +1,46 @@
+Items
+Functionality accessible from the menu Settings / Items
+Access to the functionality allows you to display the list of the various article references
+that have been declared on the Speed environment. It is then possible to:
+.Create new items
+.Modify the properties of one or more existing item
+.Delete (not without certain constraints) one or more existing item
+.Import items
+The display of the items is triggered by the button Refresh and is subjected to the
+various filters possibly positioned on the available criteria.
+Double clicking on a reference displays the detail of the item file. This is made up of
+different tabs which will be detailed later:
+Sensitivity: InternalThe tabs which modules are subject to license are also available are grayed in the
+picture. But when the corresponding settings are activated, these tabs are available
+in order to allow the management of specific items .
+For example, here, when the alcohol management is activated for the item, the Alcohol
+tab becomes accessible :
+Sensitivity: InternalIn the view of the list of items, a click on the button New allows the creation of a new
+item: a window presenting this same item file that must be filled in will be opened.
+It is also possible to import Items from an .XLS, .XLSX or .CSV file.
+The General information give the details of the information related to the item. This
+informative header of the item file remains visible regardless of the tab selected:
+.Activity:non-modifiable element corresponding to the Speed activity for which the
+item was created and will be managed.
+.Customer account: an item can be linked to a customer account.
+.Customer item code: possibility of recording the reference to which the item
+corresponds to the customer.
+.Internal Code: unique identifier of the item Can be alphanumeric (35 characters
+maximum). Cannot be modified after creation of the item master record.
+.Long designation: long description of the product which will be used by default in the
+various standard editions of SPEEDwms. Can be alphanumeric (128 characters
+maximum).
+.Short designation: short description of the product which will be used mainly on the
+various radio screens. Can be alphanumeric (15 characters maximum).
+.Status: current status to be chosen from a list (Active by default / Deactivated / End of
+life / New). An item in the Disabled status cannot, for example, be received or integrated
+into an order to be prepared.
+Sensitivity: Internal.Last inventory date: automatic update during an inventory carried out on the
+reference.
+.Main supplier: possibility of associating a third party of the Supplier type. The choice
+will be made from the list of third parties who have been declared for the activity.
+Selecting an item line from the list of items displayed also allows you to access all 4
+functionalities, additional informations, Diverse operations, Documents, Events.
+It allows you to schedule specific billable tasks for an item. For more information,
+please see the section dedicated to this feature: Diverse operations.
+Sensitivity: Internal

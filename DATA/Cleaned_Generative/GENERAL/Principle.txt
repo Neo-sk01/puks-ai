@@ -1,0 +1,35 @@
+[META]
+chunk_type: text
+source_file: Principle.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Reception Principle
+Purpose:
+Define the two methods of handling incoming goods (receptions) in SpeedWMS,
+and explain how expected quantities are tracked and received.
+1. Reception Methods
+A. Portfolio of Expected Items
+• Expected items correspond to arrival announcements or supplier purchase
+orders.
+• These can be entered:
+o Manually by the user, or
+o Automatically via an interface from an external system (e.g., N+1
+sales management system).
+• At the end of the reception process, SpeedWMS allows the generation of a
+comparative report between:
+o Quantities expected and
+o Quantities actually received.
+B. Reception Module
+• Receptions are carried out declaratively, based on the items physically
+received.
+• Receptions can be fed by an interface or processed via:
+o Radio Frequency (RF) module, or
+o Manual entry.
+2. Key Notes
+• The choice of method depends on the business process and whether prenotification of arrivals is available.
+• Comparative reporting in expected items ensures accurate tracking and
+stock reconciliation.
+Sensitivity: Internal

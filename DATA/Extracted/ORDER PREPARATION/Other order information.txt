@@ -1,0 +1,43 @@
+[META]
+chunk_type: text
+source_file: Other order information.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Other Order Information (Appendix Tabs)
+Beyond the header and line details, SpeedWMS allows you to manage additional
+information for each order using appendix tabs.
+Comments Tab
+• Purpose: Record comments related to the order.
+• Output: Comments will appear on:
+o Preparation slips
+o Delivery slips
+Wave Tab
+• Purpose: View the preparation wave the order belongs to.
+• Notes:
+o Orders in the entry/input stage are not yet attached to any wave.
+o Once in a wave, the tab shows wave details for tracking.
+Footer Tab
+• Purpose: Displays quantitative information of the order, including:
+o Quantities ordered
+o Weights
+o Volumes
+• Dynamic update: These fields update automatically as the preparation and
+shipping processes are executed.
+Info Tab
+• Purpose: Provides load-related information for the order.
+• Details:
+o Load(s) the order may be attached to
+Sensitivity: Internal
+
+[PAGE 2]
+o List of media prepared for the order and expected on the load
+Additional Info Tab
+• Purpose: Hold extra information about the selected order line.
+• Flexibility: Can be used for special notes or internal references not covered
+in other tabs.
+Tip: These tabs allow you to centralize all relevant order details, making
+tracking, reporting, and wave management easier.
+Sensitivity: Internal

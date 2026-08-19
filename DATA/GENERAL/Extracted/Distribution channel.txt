@@ -1,0 +1,6 @@
+Distribution channel
+Accessed via the menu Settings / Other / Distribution channels
+Enables to distribute the goods in multiple orders, that will also be distributed through
+distribution channels (More information in the section dedicated to the Distribution
+management)
+Sensitivity: Internal

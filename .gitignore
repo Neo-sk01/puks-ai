@@ -1,0 +1,49 @@
+# ===========================================
+# Secrets — never commit these
+# ===========================================
+*secrets.toml
+.streamlit/secrets.toml
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ===========================================
+# Python
+# ===========================================
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# ===========================================
+# Node / Next.js  (for the rebuild)
+# ===========================================
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+
+# ===========================================
+# Generated retrieval artefacts
+# Rebuild these from SCRIPTS/ rather than committing them.
+# ===========================================
+indexes/
+build/
+*.npy
+*.f32
+
+# ===========================================
+# OS / editor
+# ===========================================
+.DS_Store
+desktop.ini
+Thumbs.db
+.vscode/
+.idea/

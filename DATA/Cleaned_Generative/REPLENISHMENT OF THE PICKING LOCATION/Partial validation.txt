@@ -1,0 +1,28 @@
+[META]
+chunk_type: text
+source_file: Partial validation.pdf
+category: REPLENISHMENT OF THE PICKING LOCATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Topic: Partial Validation of a Replenishment
+Access Path: Within the Replenishment Window, right-click on a
+mission/replenishment line and select the context menu option: "Partially validate
+the mission".
+Purpose: To confirm the completion of only a portion of the total quantity requested
+in a replenishment task.
+Process Steps:
+1. Enter Completed Quantity: In the validation window, manually enter the
+quantity that has actually been replenished and moved to the target picking
+location.
+2. Manage Remaining Quantity:
+o The system will automatically calculate the remaining quantity
+(original requested quantity minus the validated quantity).
+o Optional Modification: You can manually override this automatic
+calculation. Click the edit icon (pen) next to the "Remaining qty" field
+to directly enter or adjust the remaining balance.
+Result: The replenishment task is updated. The validated quantity is closed, and a
+new replenishment line is typically created for the remaining quantity to be
+completed later.
+Sensitivity: Internal

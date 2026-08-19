@@ -1,0 +1,777 @@
+{
+  "table_name": "MIE_DAT",
+  "description": "MISSION HEADER TABLE",
+  "primary_key": "MIE_KEYU",
+  "columns": [
+    {
+      "name": "ACT_CODE",
+      "description": "Activity code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ACT_PAR",
+      "references_column": "ACT_CODE"
+    },
+    {
+      "name": "CPR_CODE",
+      "description": "Preparation line code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA1",
+      "description": "Additional info A1",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA2",
+      "description": "Additional info A2",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA3",
+      "description": "Additional info A3",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA4",
+      "description": "Additional info A4",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA5",
+      "description": "Additional info A5",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA6",
+      "description": "Additional info A6",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA7",
+      "description": "Additional info A7",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA8",
+      "description": "Additional info A8",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA9",
+      "description": "Additional info A9",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ALPHA10",
+      "description": "Additional info A10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_COEM",
+      "description": "Default packaging code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_CRDA",
+      "description": "Creation date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_CRHE",
+      "description": "Creation time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_CRQI",
+      "description": "Created by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "USW_DAT",
+      "references_column": "USW_LOGN"
+    },
+    {
+      "name": "MIE_DABP",
+      "description": "BP edition date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DATE1",
+      "description": "Additional date D01",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DATE2",
+      "description": "Additional date D02",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DATE3",
+      "description": "Additional date D03",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DATE4",
+      "description": "Additional date D04",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DATE5",
+      "description": "Additional date D05",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DAVA",
+      "description": "Wave date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DAVL",
+      "description": "Validation date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DHMIS",
+      "description": "Mission start time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DTMIS",
+      "description": "Mission start date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_DUTH",
+      "description": "Theoretical mission",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_EMPD",
+      "description": "Drop-off location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_FHMIS",
+      "description": "Mission end time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_FTMIS",
+      "description": "Mission end date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_HEBP",
+      "description": "BP edition time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_HEURE1",
+      "description": "Additional info H01",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_HEURE2",
+      "description": "Additional info H02",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_HEURE3",
+      "description": "Additional info H03",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_HEURE4",
+      "description": "Additional info H04",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_HEURE5",
+      "description": "Additional info H05",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_HEVL",
+      "description": "Validation time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_KEYU",
+      "description": "Mission header ID INT",
+      "type_sql_server": "INTEGER",
+      "type_oracle": "NOT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_LIB",
+      "description": "Mission label",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_MODA",
+      "description": "Modification date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_MOHE",
+      "description": "Modification time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_MOQI",
+      "description": "Modified by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_NUM1",
+      "description": "Additional number N01",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_NUM2",
+      "description": "Additional number N02",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_NUM3",
+      "description": "Additional number N03",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_NUM4",
+      "description": "Additional number N04",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_NUM5",
+      "description": "Additional number N05",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_POIP",
+      "description": "Picked weight (gr)",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_POIT",
+      "description": "Total weight to prepare",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QIAF",
+      "description": "Assigned to mission",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QIBP",
+      "description": "BP edited by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "USW_DAT",
+      "references_column": "USW_LOGN"
+    },
+    {
+      "name": "MIE_QICO",
+      "description": "Collised by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "USW_DAT",
+      "references_column": "USW_LOGN"
+    },
+    {
+      "name": "MIE_QIRE",
+      "description": "Realized by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "USW_DAT",
+      "references_column": "USW_LOGN"
+    },
+    {
+      "name": "MIE_QTMA",
+      "description": "Total missing units",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QTOA",
+      "description": "Number of layers to",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QTOP",
+      "description": "Number of layers picked",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QTSA",
+      "description": "Number of SPCB to",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QTSP",
+      "description": "Number of SPCB picked",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QTTA",
+      "description": "Total units to prepare",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QTTP",
+      "description": "Total units picked",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_QTTUS",
+      "description": "Total units closed",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_RCHE",
+      "description": "Path rank",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_STAT",
+      "description": "Mission status",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TBLE",
+      "description": "Top BL edited",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TBPE",
+      "description": "Top BP edited",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TEMPS",
+      "description": "Mission duration",
+      "type_sql_server": "VARCHAR(8)",
+      "type_oracle": "NVARCHAR2(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TOP1",
+      "description": "Additional info T01",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TOP2",
+      "description": "Additional info T02",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TOP3",
+      "description": "Additional info T03",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TOP4",
+      "description": "Additional info T04",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TOP5",
+      "description": "Additional info T05",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TSOLD",
+      "description": "Top mission closed",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_TYPE",
+      "description": "Mission type",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_VOLP",
+      "description": "Picked volume (cm\u00b3)",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_VOLT",
+      "description": "Total volume to prepare",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIE_ZCHE",
+      "description": "Path zone",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "VAG_HEVA",
+      "description": "Wave time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    }
+  ]
+}

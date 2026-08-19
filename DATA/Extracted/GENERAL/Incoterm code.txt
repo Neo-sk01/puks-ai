@@ -1,0 +1,23 @@
+[META]
+chunk_type: text
+source_file: Incoterm code.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Incoterm Code
+Purpose:
+• Defines the Incoterm for a load.
+• Used to indicate delivery terms and responsibilities between buyer and
+supplier.
+Access:
+• Menu: Settings → Transport → Incoterm Code
+Usage:
+• The Incoterm code is a characteristic of the load.
+• It is defined in the “Documentation” tab of the load.
+• Entry or modification of codes is done directly in the table.
+Notes:
+• Ensures clarity on shipping responsibilities and reduces errors in transport
+management.
+Sensitivity: Internal

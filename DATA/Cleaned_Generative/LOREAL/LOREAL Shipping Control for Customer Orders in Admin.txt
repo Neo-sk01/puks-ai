@@ -1,0 +1,134 @@
+[META]
+chunk_type: text
+source_file: LOREAL Shipping Control for Customer Orders in Admin.pdf
+category: LOREAL
+total_pages: 5
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Shipping Control for Customer Orders in Admin
+Version: 1.0
+Date: 22/05/2025
+Author: ZBA
+DOCUMENT METADATA (for Vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"module": "Order Administration",
+"feature": "Shipping Control",
+"order_type_field": "OPE_ALPHA11",
+"invoice_field": "OPE_ALPHA07",
+"status_trigger": "060",
+"version": "1.0"
+}
+SECTION 1 — Business Context / Functional Need
+1.1 Current Situation
+Within the L’Oréal project, the client wants to control the “Ship” function from the
+Admin Order screen.
+In the current process:
+• When an order reaches status 060,
+• A ship confirmation message is sent to the final customer,
+• Billing information is transmitted.
+Sensitivity: Internal
+
+[PAGE 2]
+If shipping is triggered by mistake before receiving billing information, the physical
+shipment cannot be performed correctly.
+1.2 Identified Risk
+If the “Ship” action is executed without invoice data:
+• Customer receives billing confirmation
+• Physical shipment may not be possible
+• Process inconsistency occurs
+1.3 Requested Evolution
+All orders of type:
+customer_order
+Defined in field:
+OPE_ALPHA11
+Must follow a specific shipping control logic in Admin.
+SECTION 2 — Prerequisites / Configuration
+The following IC parameters must be configured:
+Functional Field Technical Field
+Invoice Number OPE_ALPHA07
+Order Type OPE_ALPHA11
+SECTION 3 — Functional Behavior
+The control applies when clicking “Ship” from:
+• Validated orders
+• Packed orders
+• Loading screen
+Sensitivity: Internal
+
+[PAGE 3]
+3.1 Scope Condition
+The rule applies only if:
+OPE_ALPHA11 = "customer_order"
+3.2 Decision Logic
+Case 1 — Invoice Number Missing
+Condition:
+IF OPE_ALPHA07 IS EMPTY
+System behavior:
+• Display blocking error message:
+Impossible to ship: Billing information has not been received.
+• Shipping action is prevented.
+Case 2 — Invoice Number Present
+Condition:
+IF OPE_ALPHA07 IS NOT EMPTY
+System behavior:
+• Display non-blocking warning message:
+Warning: No modification will be possible after shipment. Do you confirm? Yes / No
+• If user confirms → Shipment proceeds.
+• If user cancels → Shipment is aborted.
+SECTION 4 — Technical Logic
+IF order.OPE_ALPHA11 = "customer_order" THEN
+IF order.OPE_ALPHA07 IS NULL OR EMPTY THEN
+DISPLAY BLOCKING ERROR
+STOP SHIPMENT
+Sensitivity: Internal
+
+[PAGE 4]
+ELSE
+DISPLAY CONFIRMATION WARNING
+IF USER_CONFIRMS THEN
+PROCESS SHIPMENT
+ELSE
+CANCEL ACTION
+ENDIF
+ENDIF
+ELSE
+STANDARD SHIPPING PROCESS
+ENDIF
+SECTION 5 — Functional Summary (RAG-Optimized)
+What is controlled?
+The “Ship” function in Admin.
+Which orders are impacted?
+Orders where OPE_ALPHA11 = "customer_order".
+What field is checked?
+OPE_ALPHA07 (Invoice Number).
+What happens if invoice number is missing?
+Blocking error. Shipment is not allowed.
+What happens if invoice number exists?
+Warning message. User must confirm.
+Why is this needed?
+To prevent ship confirmation (status 060) before billing data is received.
+SECTION 6 — Impacted Process
+Sensitivity: Internal
+
+[PAGE 5]
+1. User clicks “Ship”.
+2. System checks order type.
+3. If customer_order:
+o Verify invoice number.
+4. Apply blocking or confirmation logic.
+5. Proceed or stop shipment.
+SECTION 7 — Client Validation
+AGL acknowledges receipt and validates all elements included in this document.
+BK Systèmes commits to delivering the solution that meets the validated
+requirements within the scope of the approved quotation.
+Any additional request or evolution beyond this document may require a
+supplementary quotation.
+Any provision not explicitly stated in this document is not covered and remains at
+the discretion of the concerned parties.
+Signed at Vaulx-Milieu, on 25/03/2025.
+Company stamp and signature:
+Sensitivity: Internal

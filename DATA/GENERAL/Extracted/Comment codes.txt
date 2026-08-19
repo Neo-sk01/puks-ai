@@ -1,0 +1,9 @@
+Comment codes
+Functionality accessible from the menu Settings / Others /Comment codes
+This function will be used to define standard comments, which will be used during
+Radio frequency preparations:
+Each comment is associated to a code, which can be scanned during the radio
+transactions and will thus allow to recover its description.
+Sensitivity: InternalThus, the scan of “FRAGILE” will create a comment in the shipment label for the current
+order.
+Sensitivity: Internal

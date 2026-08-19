@@ -1,0 +1,19 @@
+Quality
+Functionality accessible from the menu Setting / Items / Quality
+The quality enables to define the different supports being in stock , in order to manage
+the nature of the goods (e.g.: standard, non-compliant, Anomaly, Litigation, etc.). Each
+stock line will have a quality assigned (STD by default) when the input process starts
+(receiving).
+The quality widow displays the list of the quality codes saved in SpeedWMS:
+It is possible to :
+.Create new quality codes
+.Modify the properties of the existing quality (only the description can be modified with
+this option)
+.Delete (not without certain constraints) an existing quality
+The quality sheet opens as soon as a creation or modification action is initiated:
+Sensitivity: Internal.Activity: non editable element that corresponds to the activity for which the quality
+was created and managed.
+.Quality code: unique identifier of the quality. Maybe an alphanumeric (5 characters
+maximum).
+.Description : quality description (50 characters maximum)
+Sensitivity: Internal

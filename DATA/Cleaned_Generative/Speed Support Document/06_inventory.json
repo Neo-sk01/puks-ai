@@ -1,0 +1,183 @@
+{
+  "document_name": "Speed WMS Inventory Data Model — Inventaires",
+  "version": "1.0",
+  "authoritative": true,
+  "source": "BK_Systèmes_MDD.pdf",
+  "core_tables": {
+    "IVE_DAT": "Inventory headers (Entête d'inventaire)",
+    "IVL_DAT": "Inventory lines (Lignes d'inventaire)",
+    "STK_DAT": "Stock — compared against during inventory",
+    "EMP_BAS": "Warehouse locations — counted during inventory",
+    "ART_PAR": "Article master — article details for inventory lines"
+  },
+  "table_definitions": {
+    "IVE_DAT": {
+      "description": "Inventory header — one record per inventory session",
+      "primary_key": "IVE_KEYU",
+      "access_key": "IVE_CODE + IVE_DATE",
+      "note": "Inventory does NOT use ACT_CODE as primary access key — uses IVE_CODE + IVE_DATE instead",
+      "columns": [
+        {
+          "name": "IVE_KEYU",
+          "description": "Surrogate unique key",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "IVE_CODE",
+          "description": "Inventory session code — part of composite business key",
+          "type_sql_server": "VARCHAR(25)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "IVE_DATE",
+          "description": "Inventory date — part of composite business key",
+          "type_sql_server": "DATETIME",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code — present but NOT the primary access key for inventory",
+          "type_sql_server": "VARCHAR(10)",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        }
+      ]
+    },
+    "IVL_DAT": {
+      "description": "Inventory lines — one record per location or article counted",
+      "primary_key": "IVL_KEYU",
+      "access_key": "IVE_CODE + IVE_DATE + IVL_NOOL",
+      "columns": [
+        {
+          "name": "IVL_KEYU",
+          "description": "Surrogate unique key",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "IVE_CODE",
+          "description": "Inventory session code — links to IVE_DAT",
+          "type_sql_server": "VARCHAR(25)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "IVE_DAT",
+          "references_column": "IVE_CODE"
+        },
+        {
+          "name": "IVE_DATE",
+          "description": "Inventory date — links to IVE_DAT",
+          "type_sql_server": "DATETIME",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "IVE_DAT",
+          "references_column": "IVE_DATE"
+        },
+        {
+          "name": "IVL_NOOL",
+          "description": "Line number within the inventory session",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ART_CODE",
+          "description": "Article/product counted",
+          "type_sql_server": "VARCHAR(35)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "ART_PAR",
+          "references_column": "ART_CODE"
+        },
+        {
+          "name": "EMP_LIEU",
+          "description": "Location where article was counted",
+          "type_sql_server": "VARCHAR(25)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "EMP_BAS",
+          "references_column": "EMP_LIEU"
+        }
+      ]
+    }
+  },
+  "join_logic": {
+    "inventory_header_to_lines": {
+      "tables": [
+        "IVE_DAT",
+        "IVL_DAT"
+      ],
+      "description": "Get inventory session with all its counted lines",
+      "join_conditions": [
+        "IVE.IVE_CODE = IVL.IVE_CODE",
+        "IVE.IVE_DATE = IVL.IVE_DATE"
+      ],
+      "example_sql": "SELECT ive.IVE_CODE, ive.IVE_DATE, ivl.IVL_NOOL, ivl.ART_CODE, ivl.EMP_LIEU FROM IVE_DAT ive INNER JOIN IVL_DAT ivl ON ive.IVE_CODE = ivl.IVE_CODE AND ive.IVE_DATE = ivl.IVE_DATE WHERE ive.IVE_CODE = :IVE_CODE"
+    },
+    "inventory_lines_with_article_details": {
+      "tables": [
+        "IVE_DAT",
+        "IVL_DAT",
+        "ART_PAR"
+      ],
+      "description": "Get inventory lines with full article information",
+      "join_conditions": [
+        "IVE.IVE_CODE = IVL.IVE_CODE",
+        "IVE.IVE_DATE = IVL.IVE_DATE",
+        "IVL.ART_CODE = ART.ART_CODE",
+        "IVL.ACT_CODE = ART.ACT_CODE"
+      ],
+      "example_sql": "SELECT ive.IVE_CODE, ive.IVE_DATE, ivl.EMP_LIEU, ivl.ART_CODE, art.ART_DESL FROM IVE_DAT ive INNER JOIN IVL_DAT ivl ON ive.IVE_CODE = ivl.IVE_CODE AND ive.IVE_DATE = ivl.IVE_DATE INNER JOIN ART_PAR art ON ivl.ACT_CODE = art.ACT_CODE AND ivl.ART_CODE = art.ART_CODE WHERE ive.IVE_CODE = :IVE_CODE ORDER BY ivl.EMP_LIEU, ivl.ART_CODE"
+    },
+    "inventory_lines_with_location": {
+      "tables": [
+        "IVE_DAT",
+        "IVL_DAT",
+        "EMP_BAS"
+      ],
+      "description": "Get inventory lines with location details",
+      "join_conditions": [
+        "IVE.IVE_CODE = IVL.IVE_CODE",
+        "IVE.IVE_DATE = IVL.IVE_DATE",
+        "IVL.EMP_LIEU = EMP.EMP_LIEU"
+      ],
+      "example_sql": "SELECT ive.IVE_CODE, ivl.EMP_LIEU, ivl.ART_CODE FROM IVE_DAT ive INNER JOIN IVL_DAT ivl ON ive.IVE_CODE = ivl.IVE_CODE AND ive.IVE_DATE = ivl.IVE_DATE INNER JOIN EMP_BAS emp ON ivl.EMP_LIEU = emp.EMP_LIEU WHERE ive.IVE_CODE = :IVE_CODE"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Get Inventory Lines for Session",
+      "category": "Inventory",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT ive.IVE_CODE, ive.IVE_DATE, ivl.IVL_NOOL, ivl.ART_CODE, ivl.EMP_LIEU FROM IVE_DAT ive INNER JOIN IVL_DAT ivl ON ive.IVE_CODE = ivl.IVE_CODE AND ive.IVE_DATE = ivl.IVE_DATE WHERE ive.IVE_CODE = :IVE_CODE ORDER BY ivl.IVL_NOOL;"
+      },
+      "business_logic": "Get all counted lines for a given inventory session."
+    },
+    {
+      "procedure_name": "Get Inventories by Date Range",
+      "category": "Inventory",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT ive.IVE_CODE, ive.IVE_DATE, COUNT(ivl.IVL_NOOL) AS line_count FROM IVE_DAT ive LEFT JOIN IVL_DAT ivl ON ive.IVE_CODE = ivl.IVE_CODE AND ive.IVE_DATE = ivl.IVE_DATE WHERE ive.ACT_CODE = :ACT_CODE AND ive.IVE_DATE BETWEEN :DATE_FROM AND :DATE_TO GROUP BY ive.IVE_CODE, ive.IVE_DATE ORDER BY ive.IVE_DATE DESC;"
+      },
+      "business_logic": "Get all inventory sessions within a date range with their line counts."
+    }
+  ],
+  "safety_rules": [
+    "Inventory primary access key is IVE_CODE + IVE_DATE — NOT ACT_CODE alone",
+    "ACT_CODE is still present on inventory tables but is NOT the primary filter — always use IVE_CODE",
+    "IVL_DAT line key is IVE_CODE + IVE_DATE + IVL_NOOL",
+    "Always execute SELECT before UPDATE operations",
+    "Do not execute UPDATE or DELETE on inventory tables in production without approval"
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "06_inventory.json",
+    "category": "Speed Support Document"
+  }
+}

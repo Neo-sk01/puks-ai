@@ -1,0 +1,39 @@
+[META]
+chunk_type: text
+source_file: Quality.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Quality Management
+Purpose:
+The Quality functionality allows users to define and manage the nature of goods in
+stock, ensuring that each stock line is assigned an appropriate quality status (e.g.,
+Standard, Non-compliant, Anomaly, Litigation, etc.).
+By default, the quality assigned during the receiving process is STD (Standard)
+unless otherwise specified.
+1. Accessing Quality Management
+• Navigate to: Settings → Items → Quality
+• The system displays the list of existing quality codes saved in SpeedWMS.
+2. Operations
+1. Create a new quality code
+o Opens the quality form to define a new code.
+o Required fields:
+▪ Activity: Non-editable; identifies the activity the quality applies
+to.
+▪ Quality code: Unique identifier (alphanumeric, max 5
+characters).
+▪ Description: Quality description (max 50 characters).
+2. Modify an existing quality
+o Only the description of a quality code can be updated.
+3. Delete a quality code
+o Can be performed with constraints, depending on system rules.
+3. Notes
+• Each stock line is automatically assigned a quality when received.
+• Proper quality assignment ensures accurate stock tracking, reporting, and
+compliance management.
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

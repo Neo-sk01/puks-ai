@@ -1,0 +1,33 @@
+[META]
+chunk_type: text
+source_file: Assignment to a loading.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Assignment to a Loading
+Purpose:
+• Associate selected orders with a SpeedWMS loading for shipment or
+dispatch.
+Access:
+• Contextual menu after selecting one or more orders in seizure status.
+Process Steps
+1. Select Orders
+o Choose one or more orders from the order portfolio in status In
+seizure.
+2. Assign to Loading
+o The system displays a list of loadings in progress.
+o Select the desired loading code to attach the orders.
+3. Create New Loading (Optional)
+o If needed, a new loading can be created directly from this screen
+using the New button.
+4. Unassign Orders (Optional)
+o Orders can also be removed from a loading if necessary, using the
+same contextual menu.
+Key Notes
+• Ensures that orders are linked to a physical shipment or load, allowing
+tracking and proper dispatch.
+• Supports dynamic management: assigning, creating, or unassigning
+loadings as needed.
+Sensitivity: Internal

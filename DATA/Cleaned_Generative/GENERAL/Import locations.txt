@@ -1,0 +1,33 @@
+[META]
+chunk_type: text
+source_file: Import locations.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Import of Locations
+Purpose:
+• Enables bulk import of warehouse locations into the system using an Excel
+file.
+• Facilitates faster setup of locations and ensures consistency across the
+environment.
+Access:
+• Menu: Settings → Locations → Import
+Process:
+1. Click the Import button to start the process.
+2. Select an Excel file containing the locations to import.
+Example: Excel file should follow the expected column structure for SpeedWMS
+locations.
+3. Imported data appears in the Data tab for review.
+4. If required, select the separator in the upper-right corner of the Data tab.
+5. Switch to the Settings tab to map Excel columns to SpeedWMS fields.
+6. Use the Preview tab to confirm all locations before importing.
+o Any row with the DNI box checked will not be imported.
+7. Click Import (lower-right corner) to finalize the import.
+8. The Cancel button can be used to stop the process at any time.
+Post-Import:
+• Imported locations appear at the end of the locations list in the SpeedWMS
+environment.
+• Templates can be saved for future imports to simplify repeated tasks.
+Sensitivity: Internal

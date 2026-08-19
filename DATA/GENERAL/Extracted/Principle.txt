@@ -1,0 +1,12 @@
+Principle
+Receptions can be handled in two different ways under Speed:
+-from a portfolio of expected items : the expected correspond to arrival
+announcements, or to supplier purchase orders which are, in this case, entered
+manually or directly interfaced, possibly from the n + 1 sales management system. It is
+then possible, at the end of reception, to obtain a comparative report between the
+quantities which were expected and those which have actually been received.
+-from the reception module : the reception is carried out in a declarative manner, on
+the basis of what will actually be.
+In this case, an interface can feed the reception; the reception itself can then be done
+using a radio frequency module (See RF doc) or by manual entry.
+Sensitivity: Internal

@@ -1,0 +1,159 @@
+[META]
+chunk_type: text
+source_file: LOREAL Inheritance of Additional Information from AEN Header to REE Header.pdf
+category: LOREAL
+total_pages: 6
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Inheritance of Additional Information from AEN Header to REE Header
+Environment: PR1_MAR_CoMa_Speed
+Version: 1.0
+Date: 05/06/2025
+Author: IRO
+DOCUMENT METADATA (for Vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"environment": "PR1_MAR_CoMa_Speed",
+"system": "Speed WMS",
+"module": "Reception - Admin",
+"feature": "Header Information Inheritance",
+"source_object": "AEN (Expected Receipt Header)",
+"target_object": "REE (Receipt Header)",
+"activation_flag": "ACT_TOP26",
+"config_file": "Activite.ini",
+"config_section": "HERITAGE_AEN",
+"version": "1.0"
+}
+SECTION 1 — Business Context
+Within the L’Oréal activity (environment: PR1_MAR_CoMa_Speed),
+AGL processes expected returns in Admin mode.
+The client uses additional information fields (IC/IV) on expected receipts (AEN) and
+wants these values to be:
+Sensitivity: Internal
+
+[PAGE 2]
+→ Inherited into the receipt header (REE) when the receipt is created.
+1.1 Current Limitation
+Standard Speed behavior:
+• Inheritance works only:
+o From expected lines → receipt lines
+• Only when generating the receipt from the expected document in Admin
+It does NOT allow:
+Header AEN → Header REE inheritance
+Flexible inheritance via configuration for AEN
+Additionally:
+• The standard inheritance window must NOT be used.
+• The existing standard inheritance only works for REA (not AEN).
+SECTION 2 — Objective
+Develop a custom entry point that allows:
+AEN Header → REE Header inheritance
+Based on configuration in:
+Activite.ini
+Without using the standard Speed inheritance window.
+SECTION 3 — Configuration Requirements
+3.1 Activite.ini Configuration
+The following section must be configured:
+[HERITAGE_AEN]
+REE_ALPHA5=AEN_ALPHA5
+REE_ALPHA6=AEN_ALPHA6
+REE_ALPHA7=AEN_ALPHA7
+Sensitivity: Internal
+
+[PAGE 3]
+REE_ALPHA10=AEN_ALPHA10
+REE_ALPHA11=AEN_ALPHA11
+Meaning:
+Source (AEN) Target (REE)
+AEN_ALPHA5 REE_ALPHA5
+AEN_ALPHA6 REE_ALPHA6
+AEN_ALPHA7 REE_ALPHA7
+AEN_ALPHA10 REE_ALPHA10
+AEN_ALPHA11 REE_ALPHA11
+⚠ Important Constraint
+This inheritance:
+• Must NOT be configured in the standard Speed inheritance window.
+• Must only rely on the [HERITAGE_AEN] section.
+• The standard inheritance mechanism only works for REA, not AEN.
+SECTION 4 — Activation Logic
+Inheritance is controlled per activity using:
+ACT_TOP26
+4.1 Activation Rule
+IF ACT_TOP26 = 1 THEN
+Execute custom inheritance logic
+ELSE
+No inheritance
+ENDIF
+Meaning:
+Sensitivity: Internal
+
+[PAGE 4]
+• If ACT_TOP26 is enabled → AEN header fields are copied to REE header.
+• If ACT_TOP26 is not enabled → no inheritance occurs.
+This allows activation per client activity.
+SECTION 5 — Functional Process Flow
+Step 1 — From Expected Lines (AEN)
+Operator selects menu:
+Print Delivery Note (Imprimer BR)
+Step 2 — User Input
+Operator fills:
+• BL (Delivery Note Number)
+• Dock (Quai)
+Step 3 — Receipt Header Creation
+Upon validation:
+• Receipt header (REE) is created.
+• System checks ACT_TOP26.
+• If activated:
+o System reads [HERITAGE_AEN] configuration.
+o Copies defined AEN header fields into REE header fields.
+SECTION 6 — Technical Logic
+ON Receipt_Header_Creation:
+IF ACT_TOP26 = 1 THEN
+Sensitivity: Internal
+
+[PAGE 5]
+FOR EACH mapping IN Activite.ini [HERITAGE_AEN]
+REE.field = AEN.field
+ENDFOR
+ENDIF
+SECTION 7 — Functional Summary (RAG-Optimized)
+What is inherited?
+Additional information fields (IC/IV).
+From where?
+AEN Header (Expected Receipt Header).
+To where?
+REE Header (Receipt Header).
+Where is mapping configured?
+Activite.ini → [HERITAGE_AEN].
+What activates the inheritance?
+ACT_TOP26.
+When does it occur?
+When receipt header is created via “Print BR” from expected lines.
+Does it use standard Speed inheritance window?
+No.
+Does standard inheritance work for AEN?
+No — only for REA.
+SECTION 8 — Key Distinctions (Important for RAG)
+Feature Standard Speed This Custom Logic
+Line → Line inheritance ✔ Not modified
+Sensitivity: Internal
+
+[PAGE 6]
+Feature Standard Speed This Custom Logic
+Header → Header inheritance ✔ (AEN → REE)
+Configurable via window ✔
+Configurable via Activite.ini ✔
+Controlled by ACT_TOP26 ✔
+SECTION 9 — Client Validation
+AGL acknowledges receipt and validates all elements included in this document.
+BK Systèmes commits to delivering the solution that meets the validated
+requirements within the scope of the approved quotation.
+Any additional request or evolution beyond this document may require a
+supplementary quotation.
+Any provision not explicitly stated in this document is not covered and remains at
+the discretion of the concerned parties.
+Signed at Tourcoing, on 05/06/2025.
+Company stamp and signature:
+Sensitivity: Internal

@@ -1,0 +1,40 @@
+[META]
+chunk_type: text
+source_file: Order distribution.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Order Distribution
+This function automatically distributes received goods to different customers
+according to predefined models and can transform received products into
+prepared products immediately.
+Steps in the Distribution Process
+Step 1: Creation of Models
+• Define recipient codes (customers).
+• Specify distribution percentages for each recipient.
+• If percentages aren’t fixed, the model can be created with 0%, and
+percentages can be entered later after importing data.
+Step 2: Creation of the Distribution Header
+• Import the distribution model.
+• Enter the supplier code for the received goods.
+Step 3: Entry of Lines to be Received
+• Input the items and quantities to be received, as usual in receipt entry.
+Step 4: Generation of the Distribution
+• Validation triggers the automatic actions:
+1. Stock creation – the received goods are added to stock.
+2. Creation of different orders – based on the distribution model.
+3. Validation of the different orders – automatically confirms them.
+4. Edition of validation notes – prepares documents for reference.
+Note: You can configure the system to not automatically validate orders, if needed.
+Key Points:
+• Distribution can be automatic and immediate, turning receipts into prepared
+products.
+• Percentages can be preset or updated post-import.
+Sensitivity: Internal
+
+[PAGE 2]
+• Validation of orders can be automatic or manual, depending on
+configuration.
+Sensitivity: Internal

@@ -1,0 +1,19 @@
+[META]
+chunk_type: text
+source_file: Comments third tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Comments Tab (Third Party)
+Purpose
+• Enables entering comments related to a third party (supplier, carrier,
+recipient)
+• These comments can then appear on preparation or delivery documents
+Notes
+• To have comments printed on documents, the printing status/template must
+include a comments field
+Essentially, this tab is used for document-level notes or instructions tied to a third
+party, which can help during preparation or delivery processes.
+Sensitivity: Internal

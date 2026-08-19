@@ -1,0 +1,24 @@
+Support break management
+The support break is a parameter specific to each item form, used when constructing
+receipt lines. Depending on the configuration of the item sheet, it will for example be
+possible to create 5 different storage media in a single administrative entry.
+This parameter is positioned in each item sheet, in the Storage tab :
+The stock units (SU) that can be activated as a support break criterion will directly
+depend on the SU activated on the item sheet in question under the features:
+Now let’s take the example of our item sheet. A complete pallet is therefore here made
+up of 750 units, the support break not being activated (None option).Let’s consider that
+we had to return to stock 4 complete pallets, that is the equivalent of 3000 units.
+Sensitivity: InternalAn entry like this :
+will to generate only one support containing 10000 units of item G50OXF250, given the
+current setting of the item, (no break managed) :
+It would therefore be necessary to make 4 separate entries of the same item to obtain
+the expected result: one receipt line per pallet.
+Let’s now change the settings of the item, by activating the support break on the Pallet
+stock unit :
+Sensitivity: InternalThe same entry of 10000 units will automatically generate 2 storage supports of
+4500 units each, and a fourth on for the remaining units, in accordance with the
+packaging plan defined at item level :
+Thus making it possible to optimize the administrative entry of incoming receipts,
+provided that the pallets received comply with the packaging plan defined on the Speed
+item sheet.
+Sensitivity: Internal

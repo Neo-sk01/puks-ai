@@ -1,0 +1,168 @@
+{
+  "document_name": "Speed WMS Loading Data Model — Chargements",
+  "version": "1.0",
+  "authoritative": true,
+  "source": "BK_Systèmes_MDD.pdf",
+  "core_tables": {
+    "CHG_DAT": "Loading headers (Entête de chargement)",
+    "CHL_DAT": "Loading lines (Lignes de chargement)",
+    "OPE_DAT": "Order headers",
+    "OPL_DAT": "Order lines",
+    "MIE_DAT": "Mission headers",
+    "MIL_DAT": "Mission lines",
+    "SEX_DAT": "Expedition supports",
+    "BLI_DAT": "Delivery notes (Bons de livraison)",
+    "EXP_DAT": "Shipments (Expéditions)",
+    "MVT_DAT": "Stock movements",
+    "STK_DAT": "Stock"
+  },
+  "table_definitions": {
+    "CHG_DAT": {
+      "description": "Loading header — groups orders for physical loading onto a vehicle/carrier",
+      "primary_key": "CHG_KEYU",
+      "access_key": "ACT_CODE + CHG_CODE + CHG_DATE",
+      "columns": [
+        { "name": "CHG_KEYU", "description": "Surrogate unique key", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "ACT_CODE", "description": "Activity code", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": true },
+        { "name": "CHG_CODE", "description": "Loading code — part of composite business key", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "CHG_DATE", "description": "Loading date — part of composite business key", "type_sql_server": "DATETIME", "is_primary_key": false, "is_foreign_key": false }
+      ]
+    },
+    "CHL_DAT": {
+      "description": "Loading lines — individual orders included in a loading",
+      "primary_key": "CHL_KEYU",
+      "access_key": "ACT_CODE + CHG_CODE + CHG_DATE + OPE_NOOE",
+      "columns": [
+        { "name": "CHL_KEYU", "description": "Surrogate unique key", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "ACT_CODE", "description": "Activity code", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": true },
+        { "name": "CHG_CODE", "description": "Loading code — links to CHG_DAT", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "CHG_DAT", "references_column": "CHG_CODE" },
+        { "name": "CHG_DATE", "description": "Loading date — links to CHG_DAT", "type_sql_server": "DATETIME", "is_primary_key": false, "is_foreign_key": true, "references_table": "CHG_DAT", "references_column": "CHG_DATE" },
+        { "name": "OPE_NOOE", "description": "Order number — links to OPE_DAT", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "OPE_DAT", "references_column": "OPE_NOOE" }
+      ]
+    }
+  },
+  "join_logic": {
+    "loading_header_to_lines": {
+      "tables": ["CHG_DAT", "CHL_DAT"],
+      "description": "Get loading with all its order lines",
+      "join_conditions": [
+        "CHG.CHG_CODE = CHL.CHG_CODE",
+        "CHG.CHG_DATE = CHL.CHG_DATE"
+      ],
+      "example_sql": "SELECT chg.CHG_CODE, chg.CHG_DATE, chl.OPE_NOOE FROM CHG_DAT chg INNER JOIN CHL_DAT chl ON chg.CHG_CODE = chl.CHG_CODE AND chg.CHG_DATE = chl.CHG_DATE WHERE chg.ACT_CODE = :ACT_CODE AND chg.CHG_CODE = :CHG_CODE"
+    },
+    "loading_lines_to_orders": {
+      "tables": ["CHL_DAT", "OPE_DAT"],
+      "description": "Get the orders included in a loading",
+      "join_conditions": [
+        "CHL.ACT_CODE = OPE.ACT_CODE",
+        "CHL.OPE_NOOE = OPE.OPE_NOOE"
+      ],
+      "example_sql": "SELECT chl.CHG_CODE, chl.CHG_DATE, ope.OPE_NOOE, ope.OPE_STAT, ope.TIE_CODE FROM CHL_DAT chl INNER JOIN OPE_DAT ope ON chl.ACT_CODE = ope.ACT_CODE AND chl.OPE_NOOE = ope.OPE_NOOE WHERE chl.ACT_CODE = :ACT_CODE AND chl.CHG_CODE = :CHG_CODE"
+    },
+    "loading_lines_to_mission_lines": {
+      "tables": ["CHL_DAT", "MIL_DAT"],
+      "description": "Link loading lines to mission pick lines",
+      "join_conditions": [
+        "MIL.ACT_CODE = CHL.ACT_CODE",
+        "MIL.OPE_NOOE = CHL.OPE_NOOE"
+      ],
+      "example_sql": "SELECT chl.CHG_CODE, mil.MIE_NOMI, mil.OPE_NOOE, mil.MIL_STAT FROM CHL_DAT chl INNER JOIN MIL_DAT mil ON chl.ACT_CODE = mil.ACT_CODE AND chl.OPE_NOOE = mil.OPE_NOOE WHERE chl.ACT_CODE = :ACT_CODE AND chl.CHG_CODE = :CHG_CODE"
+    },
+    "loading_lines_to_expedition_support": {
+      "tables": ["CHL_DAT", "SEX_DAT"],
+      "description": "Link loading lines to expedition support units",
+      "join_conditions": [
+        "CHL.ACT_CODE = SEX.SEX_ACT",
+        "CHL.CHG_CODE = SEX.CHG_CODE",
+        "CHL.CHG_DATE = SEX.CHG_DATE"
+      ],
+      "note": "SEX_DAT uses SEX_ACT instead of ACT_CODE — critical exception"
+    },
+    "order_lines_to_mission_lines": {
+      "tables": ["OPL_DAT", "MIL_DAT"],
+      "description": "Link order lines to mission pick lines in loading context",
+      "join_conditions": [
+        "OPL.ACT_CODE = MIL.ACT_CODE",
+        "OPL.OPE_NOOE = MIL.OPE_NOOE",
+        "OPL.OPL_NOOL = MIL.OPL_NOOL"
+      ]
+    },
+    "mission_lines_to_expedition_support": {
+      "tables": ["MIL_DAT", "SEX_DAT"],
+      "description": "Link mission lines to expedition supports in loading context",
+      "join_conditions": [
+        "MIL.ACT_CODE = SEX.SEX_ACT",
+        "MIL.MIL_SUPP = SEX.SEX_SUPE"
+      ],
+      "note": "SEX_DAT uses SEX_ACT not ACT_CODE"
+    },
+    "expedition_support_to_movement": {
+      "tables": ["SEX_DAT", "MVT_DAT"],
+      "description": "Get stock exit movements for expedition supports",
+      "join_conditions": [
+        "SEX.SEX_ACT = MVT.ACT_CODE",
+        "SEX.SEX_SUPE = MVT.MVT_NOSU"
+      ],
+      "note": "TMV_CODE = 40010 or 40110 for definitive stock exit"
+    },
+    "movement_to_stock": {
+      "tables": ["MVT_DAT", "STK_DAT"],
+      "description": "Link movement to its stock record",
+      "join_conditions": [
+        "MVT.STK_KEYU = STK.STK_KEYU"
+      ],
+      "example_sql": "SELECT sex.SEX_SUPE, mvt.TMV_CODE, stk.ART_CODE, stk.EMP_LIEU FROM SEX_DAT sex INNER JOIN MVT_DAT mvt ON sex.SEX_ACT = mvt.ACT_CODE AND sex.SEX_SUPE = mvt.MVT_NOSU INNER JOIN STK_DAT stk ON mvt.STK_KEYU = stk.STK_KEYU WHERE sex.SEX_ACT = :ACT_CODE AND mvt.TMV_CODE IN ('40010','40110')"
+    },
+    "check_loading_details": {
+      "tables": ["CHG_DAT", "CHL_DAT"],
+      "description": "Check full loading details for a specific order",
+      "join_conditions": [
+        "chg.CHG_KEYU = chl.CHG_KEYU"
+      ],
+      "example_sql": "SELECT * FROM CHG_DAT chg INNER JOIN CHL_DAT chl ON chg.CHG_KEYU = chl.CHG_KEYU WHERE chg.ACT_CODE = :ACT_CODE AND chg.OPE_NOOE = :OPE_NOOE;"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Check Loading Details",
+      "category": "Outbound",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT * FROM CHG_DAT chg INNER JOIN CHL_DAT chl ON chg.CHG_KEYU = chl.CHG_KEYU WHERE chg.ACT_CODE = :ACT_CODE AND chg.OPE_NOOE = :OPE_NOOE;"
+      },
+      "business_logic": "Retrieves shipment loading details for a specific order."
+    },
+    {
+      "procedure_name": "Get All Orders in a Loading",
+      "category": "Outbound",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT chg.CHG_CODE, chg.CHG_DATE, chl.OPE_NOOE, ope.OPE_STAT FROM CHG_DAT chg INNER JOIN CHL_DAT chl ON chg.CHG_CODE = chl.CHG_CODE AND chg.CHG_DATE = chl.CHG_DATE INNER JOIN OPE_DAT ope ON chl.ACT_CODE = ope.ACT_CODE AND chl.OPE_NOOE = ope.OPE_NOOE WHERE chg.ACT_CODE = :ACT_CODE AND chg.CHG_CODE = :CHG_CODE ORDER BY chl.OPE_NOOE;"
+      },
+      "business_logic": "Get all orders included in a loading with their current status."
+    }
+  ],
+  "reference_codes": {
+    "TMV_CODE_loading": {
+      "description": "Movement type codes relevant to loading on MVT_DAT",
+      "values": {
+        "40010": "Definitive stock exit",
+        "40110": "Definitive stock exit from prepared stock",
+        "30110": "Stock prepared/reserved (not yet definitively exited)",
+        "20110": "Stock prepared alternate"
+      }
+    }
+  },
+  "safety_rules": [
+    "NEVER join MIE_DAT and SEX_DAT directly using OPE_NOOE — MIE_NOOE must NOT be used for this join",
+    "NEVER join MIE_DAT with OPE_DAT or CHL_DAT using order number directly — route through MIL_DAT instead",
+    "Loading header composite key: ACT_CODE + CHG_CODE + CHG_DATE",
+    "Loading line composite key: ACT_CODE + CHG_CODE + CHG_DATE + OPE_NOOE",
+    "Stock definitive exit: TMV_CODE = 40010 or 40110",
+    "SEX_DAT uses SEX_ACT not ACT_CODE — always check this when joining to SEX_DAT",
+    "Always execute SELECT before UPDATE operations",
+    "Do not execute UPDATE in production without approval",
+    "Support-level SQL only"
+  ]
+}

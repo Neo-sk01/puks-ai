@@ -1,0 +1,53 @@
+[META]
+chunk_type: text
+source_file: Location search.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Location Search
+Access:
+• Menu: Settings → Locations → Location Search
+Purpose:
+• Suggests the optimal destination location for each stock medium.
+• Uses predefined rules and criteria to guide operators to the correct storage
+slot.
+Available Actions:
+• Create new location search rules.
+• Modify existing rules.
+• Delete rules (with constraints).
+Multiple location search rules can exist for the same activity.
+Rule Structure:
+• Each location search rule is made of sequences.
+• Each sequence has a method:
+1. Search location in structure
+o Finds the first empty slot in a storage area.
+2. Search as close as possible to picking
+o Finds the first empty slot near the picking location of the item.
+3. Search by complement
+o Finds a location already occupied by the same item reference.
+4. Fixed search
+o Returns a predetermined fixed location.
+5. Free search
+o Custom method for specific needs; configurable only by BK Systems
+teams.
+Sensitivity: Internal
+
+[PAGE 2]
+Each method can be refined with criteria such as classification, size, quality, or
+weight. Multiple methods can be combined within a single rule, and multiple
+sequences of the same method can exist within a rule.
+Sequence Execution Logic:
+• Sequences are executed in the order defined within the rule.
+• Possible outcomes for each sequence:
+1. No location found → Move to next sequence (or end search if none
+remain).
+2. Location found → Proposed to the operator; end of search.
+Best practice: Configure sequences to perform the most precise searches first,
+with broader searches in later sequences.
+Usage:
+• Location search rules can be linked to Speed item sheets, ensuring the
+system proposes the best location based on the item characteristics and
+warehouse rules.
+Sensitivity: Internal

@@ -1,0 +1,30 @@
+[META]
+chunk_type: text
+source_file: Introduction.pdf
+category: SAMPLING
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Topic: Introduction to Sampling in Quality Control
+Purpose: Sampling is a traceability feature designed to manage and document
+quality controls for received goods.
+Objective: To systematically extract a sample from incoming shipments. This
+sample is used to perform various quality inspections, which determine whether
+the received items are approved for use in order picking and fulfillment.
+Core Process Principle
+1. Trigger: The process is initiated automatically after stock generation during
+the receiving process.
+2. Rule Application: The system evaluates and applies the pre-configured
+sampling rules stored in the global system configuration.
+3. Rule Outcome: These rules define three key elements for the sample:
+o The quantity to be taken.
+o The quality status to assign.
+o The destination location for the sample (if specified).
+4. Physical Execution: The original received handling unit (e.g., pallet, carton) is
+split or "burst." The defined sample quantity is separated and set aside.
+5. Quality Gate: The segregated sample then undergoes quality control. The
+result of this inspection dictates the fate of the entire received batch:
+o If compliant, the batch proceeds to active stock.
+o If non-compliant, the batch is quarantined or rejected.
+Sensitivity: Internal

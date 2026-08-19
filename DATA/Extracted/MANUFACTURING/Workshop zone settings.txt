@@ -1,0 +1,60 @@
+[META]
+chunk_type: text
+source_file: Workshop zone settings.pdf
+category: MANUFACTURING
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Workshop Zone Settings
+Access
+• Menu: Settings → Locations → Areas
+• Used to define workshop zones and assign them to production locations for
+manufacturing.
+Workshop Zone Definition
+• A workshop zone is a defined area where manufacturing activities occur.
+• Once created, locations must be assigned to this zone (via Zone
+Management).
+• These assigned locations appear in the right side of the screen for reference.
+Approach Settings
+These parameters determine how components are approached (moved) to the
+workshop before manufacturing begins.
+Key Configuration Options
+1. Manufacturing Location
+o The location where production is physically carried out.
+o Only one location per workshop area can be defined as the
+manufacturing location.
+2. Replenishment Methods
+o Transfer by Support
+▪ Moves a complete support (full pallet) for production.
+▪ Configuration options:
+▪ Origin stock area: area where components are picked
+from.
+▪ Search rule: defines where components are moved
+within the workshop.
+▪ Selected item family: specifies which items are
+affected.
+Sensitivity: Internal
+
+[PAGE 2]
+▪ Horizon (Nb days): number of days in the MO portfolio
+considered for quantity calculation.
+o Pick-List
+▪ Generates a transfer order for components matching the MO
+requirements (rounded to the configured Stock Unit).
+▪ Configuration options:
+▪ Recipient: internal order destination (the workshop
+location).
+▪ Preparation channel: defines the channel used for the
+generated order.
+▪ Preparation type: must be Replenishment.
+▪ Approach time (Nb days): initializes the preparation and
+delivery dates for the order.
+Purpose
+• Ensures that all required components are available in the workshop before
+production starts.
+• Configures whether full pallets or quantities per pick-list are used for
+replenishment.
+• Integrates with MO portfolio horizon to calculate the required quantities in
+advance.
+Sensitivity: Internal

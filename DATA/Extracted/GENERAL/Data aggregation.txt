@@ -1,0 +1,21 @@
+[META]
+chunk_type: text
+source_file: Data aggregation.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Data Aggregation
+Grouping Function
+• Purpose: Allows grouping of table data according to selected criteria.
+• Limitation: Can only group numeric fields.
+• How to use:
+1. Select the field(s) you want to group by.
+2. Click on the Sum (fx) button to aggregate the data.
+Detail Function
+• Purpose: Returns the table to its original, ungrouped state.
+• How to use:
+1. Select the grouped line you want to expand.
+2. Click on the Detail (fx) button to restore the detailed view.
+Sensitivity: Internal

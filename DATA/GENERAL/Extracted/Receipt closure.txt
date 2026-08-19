@@ -1,0 +1,13 @@
+Receipt closure
+Last step associated with the management of a SpeedWMS receipt, the closing is the
+operation which allows to freeze the information of the receipt.
+After closure, a SpeedWMS receipt can no longer be modified. It will no longer be
+possible to add new media or modify/delete lines that have already been recorded. This
+reception will nevertheless remain accessible on an advisory basis and it will always be
+possible to edit the various attached documents.
+In general, if information feedback to the n+1 system there must be, it is after closure of
+a receipt.
+Closing a receipt is done from the receipt management screen, using the corresponding
+option of the contextual menu or the button with the same name in the
+SpeedWMS command bar.
+Sensitivity: InternalSensitivity: Internal

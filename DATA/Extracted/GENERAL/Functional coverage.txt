@@ -1,0 +1,76 @@
+[META]
+chunk_type: text
+source_file: Functional coverage.pdf
+category: GENERAL
+total_pages: 3
+[/META]
+
+[PAGE 1]
+SpeedWMS Functional Coverage
+SpeedWMS manages warehouse operations at the location level, supporting both
+simple and complex processes, including multi-activity management, burst
+preparation, and radio frequency setup.
+1. Warehouse Topography
+• Management by Location: All types of locations, different area types (dock,
+reception, preparation, inventory, etc.).
+• Stock Visualization: Classic display of stock levels.
+• Automatic Location Search: Module to suggest optimal locations for stock.
+2. Settings
+• Multi-client & Multi-language support
+• Up to 5 packaging levels per item
+• Traceability configuration: Batch, FIFO, etc.
+• Third-party configuration: Main supplier concept
+• Delivery settings: Days, routes, prioritization of articles and third parties
+• Preparation modes configuration: Preparation circuits impacting mission
+generation, document creation, and validations
+• User & Rights settings
+• Printer configuration: Print edits and orientations
+3. Receiving
+• Simple receipt process
+• Reception expectations management
+• Quantitative & qualitative control
+• Identification & labeling
+• Paper or radio frequency-based receipt
+• Automatic addressing
+Sensitivity: Internal
+
+[PAGE 2]
+• Run-of-the-river or cadenced reception
+• Receipt generation via interface
+• Information exchange: Fax, EDI, email
+4. Inventory Management
+• Global stock overview: By supplier, quality, condition, etc.
+• Stock view by item & by location with filters
+• Stock details & movements
+• Unit or bulk modification of stock selections
+• Movement management: In stock, blocked, expected, in receipt, on order, in
+preparation, available
+5. Order Preparations
+• Order interface management
+• Preparation by unit or wave (grouped by recipient, customer, distribution
+point, etc.)
+• Preparation list generation (mock-up)
+• Flow optimization by type
+• Order visualization with filters (dates, customers, carriers)
+• Replenishment of picking locations
+6. Shipment Management
+• Document management: Paper or electronic transport documents and
+delivery notes (EDI, email)
+• Tracking preparation progress: By grouping, tour, or pallet
+• Route visualization: Geographical map with deadlines
+7. Inventory
+• Inventory creation: Choose zones, locations, items
+Sensitivity: Internal
+
+[PAGE 3]
+• Inventory statements generation
+• Seizure: Administrative or radio frequency
+• Deviation generation
+• Stock validation & updating
+8. Complementary Functions
+• Radio Module: Supports reception, storage, preparation, replenishment,
+picking, inventory, packing, goods call, production & consumption
+declaration
+• Interfaces Module
+• Automatic Location Search Module
+Sensitivity: Internal

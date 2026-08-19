@@ -1,0 +1,26 @@
+Favourites, Shortcuts & Dynamic menu
+Bookmarks can be set up in SpeedWMS in order to organize the main actions and
+functions used by the user. The objective is to allow him to work more efficiently with
+direct access to these screens.
+To understand how Favourites and the dynamic menu work, it is necessary to
+understand the following concepts:
+.Favourite: corresponds to the recording of a view and its active filters by the user. This
+recording is then available via the Favourites button in the shortcuts ribbon.
+.Widgets: corresponds to all the elements that can be inserted in the dynamic menu. It
+is necessarily associated with a favourite.
+.Bench : it is a type of widget that corresponds to a favourite available in the dynamic
+menu: it displays either the cumulation of the view corresponding to the favourite in
+question. Bans are clickable and provide access directly to the corresponding screens.
+.Dynamic menu : corresponds to the screen containing the different bins. Once
+configured for the user, the dynamic menu is defined as the SpeedWMS welcome
+screen, and will therefore be automatically displayed when the application is opened.
+.Shortcut : possibility to access an operational function of SpeedWMS directly from the
+shortcuts ribbon, depending on the current view.
+Section Myshortcuts of the ribbon has three menus allowing you to understand all the
+notions listed in this way:
+.Widget menu
+.Personal menu
+Sensitivity: Internal.Add a shortcut
+These elements will be detailed in the dedicated sections.
+All these settings are specific to the user.
+Sensitivity: Internal

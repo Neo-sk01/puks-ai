@@ -1,0 +1,172 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Remote Desktop SOP.pdf
+category: Speed Support Document
+total_pages: 5
+[/META]
+
+[PAGE 1]
+[TABLE]
+00 |  | 07/05/2025 |  | First issue |  | Alpha Gueye |  |  | Lebohang Ndlovu |  |  | Micah Samuel |
+[/TABLE]
+
+SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+Login Procedure
+SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+00 07/05/2025 First issue Alpha Gueye Lebohang Ndlovu Micah Samuel
+Document N°: AGL-ZAF- ZA012-WMS_JACC Rev 01
+Page 1 of 5
+This Document is uncontrolled when printed
+Sensitivity: Internal
+
+[PAGE 2]
+[TABLE]
+| SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+[/TABLE]
+
+SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+TABLE OF CONTENT
+1. SCOPE ............................................................................................................................................. 3
+2. PURPOSE ........................................................................................................................................ 3
+3. RESPONSIBILITIES ........................................................................................................................... 3
+4. PROCESS ......................................................................................................................................... 3
+5. GENERATING PASSWORD ON RED ACCOUNT .................................................................................. 3
+6. LOGGING INTO REMOTE DESKTOP MANAGER ................................................................................. 3
+8. SELECTING A SERVER....................................................................................................................... 5
+9. SIGNING OUT OF THE SERVER ......................................................................................................... 5
+Document N°: AGL-ZAF- ZA012-WMS_JACC Rev 01
+Page 2 of 5
+This Document is uncontrolled when printed
+Sensit ivity: Internal
+
+[PAGE 3]
+[TABLE]
+| SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+[/TABLE]
+
+[TABLE]
+Role | Name & Surname | Email Address | Contact Number
+WMS Manager | Alpha Gueye | alpha.gueye@aglgroup.com | +(27) 71 474 9656
+[/TABLE]
+
+SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+1. SCOPE
+This procedure is applicable to the WMS department, situated at 20 Maple Street Pomona Kempton Park,
+which is managed and operated by Africa Global Logistics in South Africa.
+2. PURPOSE
+The purpose of this standard operating procedure (SOP) is to provide a step-by-step instruction of logging
+on in the Remote Desktop Manager. The goal is to provide a high level of service and quality to achieve
+efficiency and uniformity in all operational activities. This is to ensure that relevant staff personnel know
+and understand what is required.
+3. RESPONSIBILITIES
+Role Name & Surname Email Address Contact Number
+WMS Manager Alpha Gueye alpha.gueye@aglgroup.com +(27) 71 474 9656
+4. PROCESS
+The remote desktop includes various activities that determine the way goods/system/Interfaces are
+processed/managed/resolved in the warehouse management systems department.
+The Remote Desktop flow comprises of the following default processes:
+• Logging onto MSC Red account
+• Checking Out
+• Generating a Password and length of Session
+• Logging into Servers
+5. GENERATING PASSWORD ON RED ACCOUNT
+1. Select the drop-down menu on the search bar ‘Search within’.
+2. Select the ‘My Tiered Red Accounts’ option.
+3. Click the Search icon to refresh the page.
+4. Once refreshed, click onto the account name displayed under ‘Display Name’ e.g. “Name Surname (RED
+Account) (Tier- 1 Account)”
+5. Click on the ‘Check-out’ tab.
+6. Tick the box for ‘Check-out my password’.
+7. Select the drop down for ‘Session valid for’ and select the desired timeline. E.g. “9 hours from now”
+8. Click ‘OK’ on the bottom left of the window.
+9. Then click ‘Submit’ again to confirm your request. The page will automatically refresh upon
+confirmation when you click ‘Submit’.
+10. Repeat Steps 4 & 5 again.
+11. Copy the password from ‘Current Password’
+6. LOGGING INTO REMOTE DESKTOP MANAGER
+1. Once on the Remote Desktop. Open ‘Remote Desktop Manager’.
+2. Under the ‘Navigation’ Tab, right-click on the rdm folder. (Figure 1)
+3. Select Properties on the Pop-up. (Figure 2)
+Document N°: AGL-ZAF- ZA012-WMS_JACC Rev 01
+Page 3 of 5
+This Document is uncontrolled when printed
+Sensitivity: Internal
+
+[PAGE 4]
+[TABLE]
+| SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+[/TABLE]
+
+SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+4. Upon selection of ‘Properties’, you will be prompted with a Window called ‘Vault Settings’
+5. In the ‘Common’ folder under ‘General’ you will see ‘Credentials’.
+6. Paste the password that you got from RED Account into the text box.
+7. Click the ‘Update’ button on the lower right corner to save your password.
+Below are figures of the process:
+Figure 1
+Figure 1
+Figure 2
+Document N°: AGL-ZAF- ZA012-WMS_JACC Rev 01
+Page 4 of 5
+This Document is uncontrolled when printed
+Sensitivity: Internal
+
+[PAGE 5]
+[TABLE]
+| SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+[/TABLE]
+
+SOUTH AFRICA INFORMATION SYSTEMS DEPARTMENT
+REMOTE DESKTOP SOP
+Document N°:
+AGL-ZAF- ZA012-WMS_JACC
+8. SELECTING A SERVER
+Double Click on the desired server.
+9. SIGNING OUT OF THE SERVER
+1. Click the ‘Windows’ Button or select ‘Windows’ on the left corner of the Taskbar.
+2. Click on your Profile.
+3. Click ‘Sign out’
+10. ADDITIONAL INFORMATION (E.G. LOCKED ACCOUNT)
+In an instance where you get an error message that says “account locked because there were too many
+incorrect logons”
+You can follow the necessary steps to Unlock your account.
+1. Select the ‘My Tiered Red Accounts’ option.
+2. Click the Search icon to refresh the page.
+3. Once refreshed, click onto the account name displayed under ‘Display Name’ e.g. “Name Surname (RED
+Account) (Tier- 1 Account)”
+4. Click on the ‘Reset Password/Unlock Account’ tab.
+5. Tick the box for ‘Unlock this Account in AD?’
+6. Click ‘OK’ on the bottom left of the window.
+7. Then click ‘Submit’ again to confirm your request. The page will automatically refresh upon
+confirmation when you click ‘Submit’.
+If the issue persists, get into contact with ext.julien.grappin@aglgroup.com, m.fall@aglgroup.com, or E-
+frederic.leurs@aglgroup.com
+Document N°: AGL-ZAF- ZA012-WMS_JACC Rev 01
+Page 5 of 5
+This Document is uncontrolled when printed
+Sensitivity: Internal

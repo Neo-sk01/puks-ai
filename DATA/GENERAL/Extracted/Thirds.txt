@@ -1,0 +1,45 @@
+Thirds
+Functionality accessible from the Settings / Thirds.
+In SpeedWMS, the term “Third”(for third party), includes the notions of Supplier, Carrier,
+Recipient, Contact, and Site.
+The three main tiers are used during the various processes that it will be possible to
+implement under Speed:
+.Suppliers: receiving process, return, property management, supplier purchase orders
+(expectations of receipt), etc.
+.Carriers: shipping management process, transport plan, edition of transport labels,
+etc.
+.Recipients : order preparation process, reservation management, etc.
+The Contact is not used in the logistics process, but simply allows a contact to be
+associated with a case in case management.
+The Site is a concept that exists at the loading level, to define the starting and ending
+points of carrier rounds.
+Access to the feature allows you to display the list of the different thirds declared on the
+Speed environment:
+Sensitivity: InternalThese thirds are organized as of tabs :one for each type of main third and a common tab
+grouping all the thirds. The navigation opens by default on the tab All.
+It is then possible to:
+.Create new thirds
+.Modify the properties of an existing third
+.Delete (not without certain constraints) an existing third
+.Import thirds
+The Third form mask remains the same regardless of the type of third.
+When creating a new tier, Speed infers the tier type based on the tab the operator is on.
+If the operator views the tab All, an additional window appears to select the type of third
+to create :
+Description of the third sheet :
+Sensitivity: InternalActivity :non-modifiable element, corresponds to the Speed activity for which the third
+was created and will be managed.
+Coded :unique identifier of the third. Can be alphanumeric (15 characters maximum).
+Name :designation of the third (50 characters maximum.
+Only the Code and the Name are mandatory in the creation of a third form.
+Each third file is organized in the form of tabs:
+.Delivery address
+.Delivery settings
+.Classification
+.Remarks
+.Additional information
+.Miscellaneous
+. Transfer (only available in the tab dedicated to the Recipients)
+Sensitivity: InternalTo these basic tabs, some new tabs related to SpeedWMS modules subject to licensing
+can be added; such as the management of alcohol or hazardous materials, for example:
+Sensitivity: Internal

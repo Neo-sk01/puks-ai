@@ -1,0 +1,73 @@
+[META]
+chunk_type: text
+source_file: Items.pdf
+category: GENERAL
+total_pages: 3
+[/META]
+
+[PAGE 1]
+SpeedWMS – Items Management
+Purpose:
+• Allows management of all item references declared in the Speed
+environment.
+• Supports creation, modification, deletion, and import of item records.
+Access:
+• Menu: Settings → Items
+Available Actions:
+1. Display items
+o Click Refresh to view the list of items.
+o Filters can be applied based on available criteria.
+2. Create new item
+o Click New to open the item creation window.
+o Fill in the item file fields (see General Information below).
+o Optionally, import items from .XLS, .XLSX, or .CSV files.
+3. Modify existing item
+o Double-click an item to view and edit its details.
+4. Delete item
+o Only possible under certain constraints to avoid data loss.
+Item File – General Information:
+The header remains visible regardless of the tab selected.
+Field Description
+Non-modifiable; corresponds to the Speed activity for which the
+Activity
+item was created.
+Sensitivity: Internal
+
+[PAGE 2]
+Field Description
+Customer
+Optional; link item to a customer account.
+Account
+Customer Item
+Optional; record the customer reference for the item.
+Code
+Unique identifier (alphanumeric, max 35 characters). Cannot be
+Internal Code
+modified after creation.
+Long Default long description (alphanumeric, max 128 characters)
+Designation used in standard editions.
+Short Short description (alphanumeric, max 15 characters) mainly used
+Designation on radio screens.
+Current status: Active (default), Deactivated, End of Life, or New.
+Status
+Disabled items cannot be received or added to orders.
+Last Inventory
+Automatically updated during inventory.
+Date
+Main Supplier Optional; associate a third-party supplier for the item.
+Additional Functionalities:
+Selecting an item also provides access to:
+• Additional Information – extra details about the item.
+• Diverse Operations – schedule billable tasks or other item-specific
+activities.
+• Documents – manage documents associated with the item.
+• Events – view item-related history and logs.
+Licensing-Dependent Tabs:
+• Certain modules (e.g., Alcohol Management) may unlock additional tabs
+when enabled.
+• Example: When alcohol management is active, the Alcohol tab appears for
+the item.
+Sensitivity: Internal
+
+[PAGE 3]
+Sensitivity: Internal

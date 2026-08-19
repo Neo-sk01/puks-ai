@@ -1,0 +1,28 @@
+[META]
+chunk_type: text
+source_file: Thirds tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Thirds Tab – RAG-Friendly Version
+Purpose:
+The Thirds Tab allows linking an item (article) to additional third parties beyond the
+main supplier defined on the item sheet. This ensures that items can be tracked
+and referenced correctly for multiple suppliers or partners.
+1. Default Behavior
+• The main supplier of the item is automatically listed by default.
+2. Contextual Menu Options
+The contextual menu allows the user to:
+• Add an assignment to another third party
+• Define the following for the new third-party link:
+o Code – Unique identifier of the third party
+o Label – Reference name of the item for this third party
+o Identifier – Specific reference under which this item is known to the
+third party
+3. Usage
+• Useful when a single item is supplied or referenced by multiple third parties.
+• Ensures accurate tracking of items per supplier and avoids errors in
+procurement, stock management, or reporting.
+Sensitivity: Internal

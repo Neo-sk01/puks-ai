@@ -1,0 +1,23 @@
+[META]
+chunk_type: text
+source_file: Manufacturing.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Manufacturing Configuration
+Access:
+• Menu: Settings → Manufacturing
+Purpose:
+• This section provides configuration options directly linked to the
+Manufacturing module in SpeedWMS.
+• All available options are presented in the Manufacturing section of the
+online help.
+Key Points:
+• Configuration settings here affect how the Manufacturing module operates.
+• Only users with access to the Manufacturing module can modify these
+settings.
+• Settings may include workflows, production rules, and operational
+parameters specific to manufacturing processes.
+Sensitivity: Internal

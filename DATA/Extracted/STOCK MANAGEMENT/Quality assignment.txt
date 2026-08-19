@@ -1,0 +1,21 @@
+[META]
+chunk_type: text
+source_file: Quality assignment.pdf
+category: STOCK MANAGEMENT
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Quality Assignment
+Access
+• Menu: Stock / Quality allocation
+Purpose
+• Applies quality rules to stock items according to the configurations defined
+in the environment.
+• Ensures that stock in the warehouse is assigned the correct quality status
+based on pre-configured rules.
+Notes
+• The quality rules are defined at the item level in the settings.
+• This process helps maintain consistency in stock quality and prevents
+misallocation during picking or replenishment.
+Sensitivity: Internal

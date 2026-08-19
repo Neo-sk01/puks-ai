@@ -1,0 +1,11 @@
+[META]
+chunk_type: text
+source_file: Terminated.pdf
+category: LOADING
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Terminated
+This tab is used to display all terminated (balanced) samplings (status 050).
+Sensitivity: Internal

@@ -1,0 +1,67 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – GDN Picklist Weight Resolution (Durban Commodities).pdf
+category: Speed Support Document
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Resolving Missing Weights on GDNs / Picklists (Commodities – Durban)
+1. Background
+Missing weights typically occur when:
+1. An order is validated and then brought back to Seizure status:
+o Weights are initially stored in REL_DAT and inherited by STK_DAT.
+o When stock leaves the system, this information is cleared from
+STK_DAT.
+o Returning stock does not automatically repopulate STK_DAT.
+2. During reception, weight information may not have been correctly inherited
+into STK_DAT.
+2. Step-by-Step Resolution
+Step 1 – Check the Order Status
+Ensure the order is editable (not validated):
+SELECT *
+FROM ope_dat
+WHERE ope_nooe = 'order_number'
+AND act_code = 'zar';
+Step 2 – Check Missions Linked to the Order
+Review all missions associated with the order:
+SELECT *
+FROM mil_dat
+WHERE ope_nooe = 'order_number'
+AND act_code = 'zar';
+Note: Some supports may already be validated (picked); only unvalidated supports
+can be updated.
+Sensitivity: Internal
+
+[PAGE 2]
+Step 3 – Update Valid Supports
+Copy the weight data from REL_DAT to STK_DAT. Replace 'support_number_1',
+'support_number_2', ... with the actual support numbers from MIL_DAT:
+UPDATE s
+SET
+s.stk_num13 = r.rel_num13,
+s.stk_num15 = r.rel_num14,
+s.stk_num16 = r.rel_num15,
+s.stk_num17 = r.rel_num15
+FROM stk_dat s
+JOIN rel_dat r
+ON s.stk_nosu = r.rel_nosu
+AND s.act_code = r.act_code
+WHERE s.stk_nosu IN ('support_number_1', 'support_number_2', ...)
+AND s.act_code = 'zar';
+Step 4 – Verify the Fix
+• Print the GDN / Picklist.
+• If weights now appear correctly, no further action is needed.
+Step 5 – If Weights Still Don’t Show
+1. Go back to MIL_DAT.
+2. Unvalidate all lines that were already picked.
+3. Rerun the update query from Step 3.
+4. Print the GDN / Picklist again to confirm weights are correctly displayed.
+Notes
+• Only update unvalidated supports to avoid inconsistencies.
+Sensitivity: Internal
+
+[PAGE 3]
+• Always verify after each update by printing the report.
+• Keep a record of affected support numbers for audit purposes.
+Sensitivity: Internal

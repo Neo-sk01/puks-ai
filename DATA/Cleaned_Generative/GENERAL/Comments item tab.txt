@@ -1,0 +1,21 @@
+[META]
+chunk_type: text
+source_file: Comments item tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Comments Tab (Third Party / Reception)
+Purpose
+• Enter comments related to a third party.
+• These comments can appear on:
+o Preparation slips
+o Delivery slips
+o Reception documents
+Important Note
+• To have comments printed, the corresponding report or document template
+must include a comments field.
+Essentially, this tab ensures custom notes for third-party operations are captured
+and optionally printed on all relevant documents.
+Sensitivity: Internal

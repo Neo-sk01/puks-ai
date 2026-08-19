@@ -1,0 +1,79 @@
+[META]
+chunk_type: text
+source_file: SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.pdf
+category: Speed Support Document
+total_pages: 4
+[/META]
+
+[PAGE 1]
+Sensitivity: Internal
+Speed WMS – Standardized SQL Scripts Reference
+Scope: JetPark, Durban Northbound, and other contract warehouses
+Tables Used:
+Table Name Description
+REE_DAT Receipt Header
+REL_DAT Receipt Lines
+STK_DAT Stock
+MVT_DAT Movements
+OPE_DAT Order Header
+OPL_DAT Order Lines
+MIE_DAT Mission Header
+MIL_DAT Mission Lines
+CHG_DAT Loading Header
+CHL_DAT Loading Lines
+1. Reversal of a Closed GRN
+this step can only bae done by the support teams as they have access to the
+database.
+Check the GRN status:
+SELECT REE_ETRE, REE_KEYU, REE_CCLI, *
+FROM REE_DAT
+WHERE ACT_CODE = ' Activity Code’
+AND REE_NORE = ‘Receipt Number ‘;
+Sensitivity: Internal
+
+[PAGE 2]
+Notes:
+• ACT_CODE = Activity Code
+• REE_NORE = Receipt Number
+• REE_ETRE = GRN Status
+• REE_KEYU = Receipt ID
+Sensitivity: Internal
+• REE_CCLI = Customer Account Code
+• REE_TOP1 = Status for Pegasus: 1 = sent, 0 = not sent
+Optional update to reverse a closed GRN:
+UPDATE REE_DAT
+SET REE_ETRE = '100',
+REE_TOP1 = 0
+WHERE ACT_CODE = ' Activity Code’
+AND REE_NORE = ‘Receipt Number ‘;
+AND REE_KEYU = ' Receipt ID '
+AND REE_CCLI = ' Customer Account Code ';
+2. Checking Receipt Lines
+Query all lines for a given receipt:
+SELECT REE_KEYU, REL_KEYU, REL_NoSU, *
+FROM REL_DAT
+Sensitivity: Internal
+
+[PAGE 3]
+WHERE ACT_CODE = 'Activity Code'
+AND REE_NoRE = ' Receipt Number';
+Explanation:
+This shows all individual lines under a specific GRN, with their unique identifiers.
+3. Resending Files to Pegasus
+Reset the REE_TOP1 flag for resending:
+UPDATE REE_DAT
+SET REE_TOP1 = 0
+WHERE ACT_CODE = ‘Activity Code'
+AND REE_NORE = ' Receipt Number'
+AND REE_KEYU = ' Receipt ID'
+AND REE_CCLI = ‘Customer Account Code’;
+Sensitivity: Internal
+Tips for Safe Execution:
+1. Always run SELECT first to check records before running UPDATE.
+2. Keep a backup or snapshot of relevant tables if updating production data.
+3. Use these scripts only if automated processes fail, to avoid breaking
+Sensitivity: Internal
+
+[PAGE 4]
+dependencies.
+Sensitivity: Internal

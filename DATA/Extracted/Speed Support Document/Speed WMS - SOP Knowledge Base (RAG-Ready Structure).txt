@@ -1,0 +1,378 @@
+[META]
+chunk_type: text
+source_file: Speed WMS - SOP Knowledge Base (RAG-Ready Structure).pdf
+category: Speed Support Document
+total_pages: 14
+[/META]
+
+[PAGE 1]
+Speed WMS SOP Knowledge Base (RAG-Ready Structure)
+Document Metadata
+System: Speed WMS V8
+Purpose: Warehouse operations and replenishment management
+Modules Covered:
+1. System Login & Navigation
+2. Filters and View Customization
+3. User Rights & Access Management
+4. Basic Data Configuration
+5. Warehouse Locations & Areas
+6. Receiving Goods (Receipts)
+7. Storage Operations
+8. Stock and Movement Tracking
+9. Order Preparation
+10. Shipments and Loading
+11. Inventory Management
+1. System Login and Navigation
+Purpose
+Authenticate users and track warehouse transactions performed in Speed WMS.
+Procedure: Login to Speed WMS
+1. Open the Speed WMS application.
+2. Enter the following credentials:
+o User password
+o Access code
+3. Select the activity (warehouse/customer environment).
+4. Click Login.
+System Behavior
+Authentication enables:
+Sensitivity: Internal
+
+[PAGE 2]
+• Tracking user actions and stock movements.
+• Restricting system access based on user permissions.
+• Applying user-specific system configurations.
+• Access to the customer portal and system updates.
+2. System Interface and Navigation
+Main Interface Components
+The main interface contains:
+• Main Menu Bar
+o Structured according to the warehouse logistics flow.
+• Fast Action Icons
+o Quick access to commonly used operations.
+• Operational Views
+o Display operational data such as receipts, stocks, orders, and shipments.
+3. Filters and Data Views
+Purpose
+Filters allow users to quickly retrieve relevant operational data.
+Procedure: Apply a Filter
+1. Open the relevant operational view.
+2. Click Filter Selection.
+3. Choose the filter to apply.
+4. Click Show Results.
+Procedure: Create a Custom Filter
+1. Click Create Filter.
+2. Enter a filter name.
+3. Add filter conditions such as:
+Sensitivity: Internal
+
+[PAGE 3]
+o Item
+o Date
+o Status
+o Location
+4. Save the filter.
+Procedure: Customize Display Columns
+1. Click Customize View.
+2. Select fields from Available Fields.
+3. Drag and drop columns to change the display order.
+4. Adjust:
+o Column width
+o Column titles
+o Sorting order
+Export Data to Excel
+1. Apply a filter to retrieve data.
+2. Click the Excel Export button.
+3. The system generates an Excel file in the Speed Excel directory.
+Import Data
+Supported formats:
+• XLS
+• CSV
+Procedure:
+1. Click Import Data.
+2. Select the file path.
+3. Configure field mapping.
+Sensitivity: Internal
+
+[PAGE 4]
+4. Preview the import.
+5. Click Import.
+4. User Rights and Access Management
+Purpose
+Restrict system functionality based on user roles.
+Core Concepts
+Users belong to Groups which define their permissions.
+Example:
+User Group
+Dupont Administrator
+Durant Reception
+Martin Stock Management
+Procedure: Create a User Group
+1. Navigate to Group Management.
+2. Create a new group.
+3. Assign rights such as:
+• Receipts
+• Stock management
+• Order management
+• Settings modification
+Procedure: Create a User
+1. Navigate to User Management.
+2. Create a user profile.
+3. Assign the user to a group.
+Sensitivity: Internal
+
+[PAGE 5]
+4. Assign activities and system modules.
+5. Basic Data Configuration
+Concept: Activity
+An Activity separates operational environments.
+Examples:
+Business Type Activity Example
+Manufacturer Raw Materials / Finished Goods
+Retail Clothing / Frozen Goods / Grocery
+Logistics Provider One activity per customer
+Activity Settings
+Activity configuration may include:
+• Default storage location
+• Default dock location
+• Support status during receiving
+• Operational rules
+Customer Accounts
+Customer accounts separate clients operating under the same process.
+Example:
+Customer A
+Customer B
+Data such as items or suppliers can be shared using prefix identifiers.
+6. Item Management
+Procedure: View Item Details
+1. Open Items Menu.
+Sensitivity: Internal
+
+[PAGE 6]
+2. Double-click an item.
+3. The item configuration screen opens.
+Item Configuration Options
+Classification
+Items can be assigned to a family used for:
+• Storage location rules
+• Order processing rules
+Storage Configuration
+Define default storage rules for:
+• Storage unit (SU)
+• Default storage locations
+• Support breaking (splitting quantities across pallets)
+Order Preparation Rules
+Define:
+• Picking locations
+• Replenishment rules
+• Substitution rules if stock is unavailable
+• Multiple picking locations
+Barcode Management
+Assign barcode identifiers per storage unit level.
+This allows RF scanners to identify items via barcode instead of item reference.
+7. Third-Party Management
+Third parties include:
+Sensitivity: Internal
+
+[PAGE 7]
+• Suppliers
+• Consignees
+• Carriers
+Information captured:
+• Address
+• Opening days
+• Delivery times
+• Business classification
+8. Warehouse Locations and Areas
+Location Creation
+Locations can be created:
+• Individually
+• In sequence
+• Via data import
+Location Code Structure
+Example rule:
+1-02-03-04
+Structure may represent:
+Warehouse – Aisle – Column – Level
+Area Types
+Locations are grouped into Areas.
+Examples:
+• Storage areas
+• Picking areas
+• Preparation areas
+Sensitivity: Internal
+
+[PAGE 8]
+• Inventory zones
+• Forklift movement zones
+9. Receiving Goods (Receipt Process)
+Two receiving methods exist.
+Method 1: Receipt Portfolio
+Receipts are created based on:
+• Supplier purchase orders
+• Delivery announcements
+Method 2: Direct RF Receiving
+Items are scanned in real time during receiving.
+Procedure: Create Expected Receipt
+1. Navigate to Receipts Module.
+2. Create a new receipt.
+3. Enter:
+o Item barcode
+o Quantity
+o Quality information
+o Traceability data
+Procedure: Process Receipt
+1. Print Receipt Bill.
+2. Perform receiving using RF scanner.
+3. Scan:
+o Item barcode
+o Storage unit
+Sensitivity: Internal
+
+[PAGE 9]
+o Quantity
+4. Repeat until all items are received.
+10. Storage Operations
+Storage Methods
+Storage may be performed:
+• Direct storage
+• Storage via picking area
+• Automatic location search
+RF Storage Procedure
+1. Scan Support (pallet or container).
+2. Scan Storage location.
+3. Confirm storage.
+If automatic location search is enabled:
+• The system suggests a location.
+• Operator can override or re-search.
+11. Stock and Movement Tracking
+Stock Overview
+Stock information includes:
+• Item
+• Location
+• Quantity
+• Status
+Movement Tracking
+Each stock movement records:
+Sensitivity: Internal
+
+[PAGE 10]
+• Movement type
+• User performing the movement
+• Date/time
+• Location changes
+12. Order Preparation
+Procedure: Create an Order
+1. Open Order Management.
+2. Click New Order.
+3. Enter customer and order details.
+Add Items to Order
+1. Select item.
+2. Enter quantity.
+Launch Order
+Launching an order will:
+• Change status to Launched
+• Generate picking missions
+RF Order Preparation
+1. Open RF Preparation Mode.
+2. Enter mission number.
+3. Scan items and locations.
+4. Confirm picks.
+Result:
+• Mission validated
+• Order status updated to Valid
+Sensitivity: Internal
+
+[PAGE 11]
+13. Shipment and Load Management
+Load Creation
+1. Open Load Management.
+2. Create a new load.
+3. Enter:
+o Shipment date
+o Carrier
+Assign Orders to Load
+1. Select Unassigned Orders.
+2. Add orders to load.
+Loading via RF
+1. Open RF Loading Mode.
+2. Scan expected supports.
+3. Confirm loading.
+If a support is not expected, it cannot be loaded.
+Shipping
+Final step:
+Click Ship.
+Effects:
+• Orders shipped
+• Load finalized
+• No reversal allowed
+14. Inventory Management
+Sensitivity: Internal
+
+[PAGE 12]
+Procedure: Create Inventory
+1. Open Inventory Module.
+2. Create new inventory record.
+3. Enter:
+o Inventory name
+o Type
+o Date
+Configure Inventory
+Select:
+• Areas
+• Locations
+• Items
+Generate Counting Lines
+Click Generate Inventory.
+This creates counting tasks.
+Freeze Inventory
+Freezing prevents:
+• Location changes
+• Stock modifications
+Inventory Counting
+Counting can be performed:
+• Manually
+• Using RF scanner
+Procedure:
+Sensitivity: Internal
+
+[PAGE 13]
+1. Scan location.
+2. Scan supports.
+3. Enter counted quantities.
+Resolve Inventory Discrepancies
+System compares:
+Recorded stock
+vs
+Counted stock
+Discrepancies generate adjustment movements.
+Validate Inventory
+Validation:
+• Unlocks locations
+• Creates stock adjustment movements
+• Changes inventory status to Validated
+Recommended RAG Chunking Strategy
+To improve retrieval accuracy in your WMS RAG system, store knowledge in chunks
+like:
+Topic: Receipt Process
+Question: How do I receive stock in Speed WMS?
+Answer: Step-by-step receipt procedure
+Keywords: receipt, receiving, RF, delivery announcement
+Example chunk:
+Title: Receiving Goods Using RF Mode
+Keywords: receipt, RF receiving, scanning items
+Steps:
+1. Open RF receiving module
+2. Scan receipt number
+3. Scan item barcode
+Sensitivity: Internal
+
+[PAGE 14]
+4. Enter quantity
+5. Confirm receipt
+Recommended RAG Metadata Fields
+For best results in your SOP RAG application:
+module: receipts
+process: receiving goods
+system: Speed WMS
+operation_type: warehouse operation
+keywords: receiving, receipt, RF scan, delivery
+Sensitivity: Internal

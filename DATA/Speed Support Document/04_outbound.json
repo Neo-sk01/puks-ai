@@ -1,0 +1,260 @@
+{
+  "document_name": "Speed WMS Outbound Data Model — Préparations & Missions",
+  "version": "1.0",
+  "authoritative": true,
+  "source": "BK_Systèmes_MDD.pdf",
+  "core_tables": {
+    "OPE_DAT": "Order/preparation headers (Entête de préparation)",
+    "OPL_DAT": "Order/preparation lines (Lignes de préparation)",
+    "VAG_DAT": "Wave headers (Entête de vague)",
+    "MIE_DAT": "Mission headers (Entête de mission)",
+    "MIL_DAT": "Mission lines (Lignes de mission)",
+    "SEX_DAT": "Prepared expedition supports (Supports d'expéditions)",
+    "RAM_DAT": "Racking/address assignments",
+    "STK_DAT": "Stock",
+    "MVT_DAT": "Stock movements"
+  },
+  "table_definitions": {
+    "OPE_DAT": {
+      "description": "Order/preparation header — one record per outbound order",
+      "primary_key": "OPE_KEYU",
+      "access_key": "ACT_CODE + OPE_NOOE",
+      "columns": [
+        { "name": "OPE_KEYU", "description": "Surrogate unique key — can be used as alternate join key to OPL_DAT", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "ACT_CODE", "description": "Activity code", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": true },
+        { "name": "OPE_NOOE", "description": "Order number — primary business key", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "OPE_STAT", "description": "Order status — see reference_codes.OPE_STAT", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "VAG_NOVA", "description": "Wave number — populated when order is in a wave", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "VAG_DAT", "references_column": "VAG_NOVA" },
+        { "name": "TIE_CODE", "description": "Recipient/customer third party code", "type_sql_server": "VARCHAR(35)", "is_primary_key": false, "is_foreign_key": true, "references_table": "TIE_PAR", "references_column": "TIE_CODE" }
+      ]
+    },
+    "OPL_DAT": {
+      "description": "Order/preparation lines — one record per article to be picked",
+      "primary_key": "OPL_KEYU",
+      "access_key": "ACT_CODE + OPE_NOOE + OPL_NOOL",
+      "columns": [
+        { "name": "OPL_KEYU", "description": "Surrogate unique key", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "ACT_CODE", "description": "Activity code", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": true },
+        { "name": "OPE_NOOE", "description": "Order number — links to OPE_DAT", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "OPE_DAT", "references_column": "OPE_NOOE" },
+        { "name": "OPE_KEYU", "description": "Alternate FK to order header — can be used instead of OPE_NOOE", "type_sql_server": "INTEGER", "is_primary_key": false, "is_foreign_key": true, "references_table": "OPE_DAT", "references_column": "OPE_KEYU" },
+        { "name": "OPL_NOOL", "description": "Line number within the order", "type_sql_server": "INTEGER", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "ART_CODE", "description": "Article to be picked", "type_sql_server": "VARCHAR(35)", "is_primary_key": false, "is_foreign_key": true, "references_table": "ART_PAR", "references_column": "ART_CODE" },
+        { "name": "OPL_NOSU", "description": "Support/pallet number — used for outbound joins", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": false }
+      ]
+    },
+    "VAG_DAT": {
+      "description": "Wave headers — grouping of multiple orders for picking",
+      "primary_key": "VAG_KEYU",
+      "access_key": "VAG_NOVA",
+      "columns": [
+        { "name": "VAG_KEYU", "description": "Surrogate unique key", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "VAG_NOVA", "description": "Wave number — business key", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": false }
+      ]
+    },
+    "MIE_DAT": {
+      "description": "Mission headers — picking tasks assigned to operators",
+      "primary_key": "MIE_KEYU",
+      "access_key": "ACT_CODE + MIE_NOMI",
+      "columns": [
+        { "name": "MIE_KEYU", "description": "Surrogate unique key — alternate join key to MIL_DAT", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "ACT_CODE", "description": "Activity code", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": true },
+        { "name": "MIE_NOMI", "description": "Mission number — primary business key", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "MIE_STAT", "description": "Mission status — see reference_codes.MIE_STAT", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "VAG_NOVA", "description": "Wave number this mission belongs to", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "VAG_DAT", "references_column": "VAG_NOVA" }
+      ]
+    },
+    "MIL_DAT": {
+      "description": "Mission lines — individual pick tasks within a mission",
+      "primary_key": "MIL_KEYU",
+      "access_key": "ACT_CODE + MIE_NOMI + MIL_NOOL",
+      "columns": [
+        { "name": "MIL_KEYU", "description": "Surrogate unique key", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "ACT_CODE", "description": "Activity code", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": true },
+        { "name": "MIE_NOMI", "description": "Mission number — links to MIE_DAT", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "MIE_DAT", "references_column": "MIE_NOMI" },
+        { "name": "MIL_NOOL", "description": "Line number within the mission", "type_sql_server": "INTEGER", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "MIL_STAT", "description": "Mission line status — see reference_codes.MIL_STAT", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "OPE_NOOE", "description": "Order number — links back to OPE_DAT", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "OPE_DAT", "references_column": "OPE_NOOE" },
+        { "name": "OPL_NOOL", "description": "Order line number — links back to OPL_DAT", "type_sql_server": "INTEGER", "is_primary_key": false, "is_foreign_key": true, "references_table": "OPL_DAT", "references_column": "OPL_NOOL" },
+        { "name": "MIL_SUPP", "description": "Expedition support number — links to SEX_DAT.SEX_SUPE", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "SEX_DAT", "references_column": "SEX_SUPE" },
+        { "name": "MIL_NORA", "description": "Racking address — links to RAM_DAT", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "RAM_DAT", "references_column": "RAM_NORA" }
+      ]
+    },
+    "SEX_DAT": {
+      "description": "Prepared expedition supports — physical shipping units (pallets, boxes)",
+      "primary_key": "SEX_KEYU",
+      "access_key": "SEX_ACT + SEX_SUPE",
+      "note": "EXCEPTION: SEX_DAT uses SEX_ACT instead of ACT_CODE — this is the only table with this exception",
+      "columns": [
+        { "name": "SEX_KEYU", "description": "Surrogate unique key", "type_sql_server": "INTEGER", "is_primary_key": true, "is_foreign_key": false },
+        { "name": "SEX_ACT",  "description": "Activity code — NOTE: named SEX_ACT not ACT_CODE (exception to standard naming)", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": true },
+        { "name": "SEX_NOMI", "description": "Mission number", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": true, "references_table": "MIE_DAT", "references_column": "MIE_NOMI" },
+        { "name": "SEX_SUPE", "description": "Expedition support number — business key", "type_sql_server": "VARCHAR(25)", "is_primary_key": false, "is_foreign_key": false },
+        { "name": "SEX_STAT", "description": "Expedition support status — see reference_codes.SEX_STAT", "type_sql_server": "VARCHAR(10)", "is_primary_key": false, "is_foreign_key": false }
+      ]
+    }
+  },
+  "join_logic": {
+    "order_header_to_lines": {
+      "tables": ["OPE_DAT", "OPL_DAT"],
+      "description": "Get order with all its lines to pick",
+      "join_conditions": [
+        "OPE.ACT_CODE = OPL.ACT_CODE",
+        "OPE.OPE_NOOE = OPL.OPE_NOOE"
+      ],
+      "alternate_join": "OPE.OPE_KEYU = OPL.OPE_KEYU can also be used",
+      "example_sql": "SELECT ope.OPE_NOOE, ope.OPE_STAT, opl.ART_CODE, opl.OPL_NOOL FROM OPE_DAT ope INNER JOIN OPL_DAT opl ON ope.ACT_CODE = opl.ACT_CODE AND ope.OPE_NOOE = opl.OPE_NOOE WHERE ope.ACT_CODE = :ACT_CODE AND ope.OPE_NOOE = :OPE_NOOE"
+    },
+    "order_to_wave": {
+      "tables": ["OPE_DAT", "VAG_DAT"],
+      "description": "Link order to its wave when order is grouped",
+      "join_conditions": [
+        "OPE.OPE_NOVA = VAG.VAG_NOVA"
+      ],
+      "note": "OPE_STAT = 020 when order is in a wave; OPE_STAT = 030 when in a mission without wave"
+    },
+    "wave_to_missions": {
+      "tables": ["VAG_DAT", "MIE_DAT"],
+      "description": "Get all missions for a wave",
+      "join_conditions": [
+        "VAG.VAG_NOVA = MIE.VAG_NOVA"
+      ],
+      "example_sql": "SELECT vag.VAG_NOVA, mie.MIE_NOMI, mie.MIE_STAT FROM VAG_DAT vag INNER JOIN MIE_DAT mie ON vag.VAG_NOVA = mie.VAG_NOVA WHERE vag.VAG_NOVA = :VAG_NOVA"
+    },
+    "mission_header_to_lines": {
+      "tables": ["MIE_DAT", "MIL_DAT"],
+      "description": "Get mission with all its pick lines",
+      "join_conditions": [
+        "MIE.ACT_CODE = MIL.ACT_CODE",
+        "MIE.MIE_NOMI = MIL.MIE_NOMI"
+      ],
+      "alternate_join": "MIE.MIE_KEYU = MIL.MIE_KEYU can also be used",
+      "example_sql": "SELECT mie.MIE_NOMI, mie.MIE_STAT, mil.OPE_NOOE, mil.MIL_STAT FROM MIE_DAT mie INNER JOIN MIL_DAT mil ON mie.ACT_CODE = mil.ACT_CODE AND mie.MIE_NOMI = mil.MIE_NOMI WHERE mie.ACT_CODE = :ACT_CODE AND mie.MIE_NOMI = :MIE_NOMI"
+    },
+    "order_lines_to_mission_lines": {
+      "tables": ["OPL_DAT", "MIL_DAT"],
+      "description": "Link order lines to their corresponding mission pick lines",
+      "join_conditions": [
+        "OPL.ACT_CODE = MIL.ACT_CODE",
+        "OPL.OPE_NOOE = MIL.OPE_NOOE",
+        "OPL.OPL_NOOL = MIL.OPL_NOOL"
+      ],
+      "example_sql": "SELECT opl.OPE_NOOE, opl.ART_CODE, mil.MIE_NOMI, mil.MIL_STAT FROM OPL_DAT opl INNER JOIN MIL_DAT mil ON opl.ACT_CODE = mil.ACT_CODE AND opl.OPE_NOOE = mil.OPE_NOOE AND opl.OPL_NOOL = mil.OPL_NOOL WHERE opl.ACT_CODE = :ACT_CODE"
+    },
+    "mission_lines_to_expedition_support": {
+      "tables": ["MIL_DAT", "SEX_DAT"],
+      "description": "Link mission lines to their expedition support (pallet/box)",
+      "join_conditions": [
+        "MIL.ACT_CODE = SEX.SEX_ACT",
+        "MIL.MIL_SUPP = SEX.SEX_SUPE"
+      ],
+      "note": "SEX_DAT uses SEX_ACT instead of ACT_CODE — critical exception to remember",
+      "example_sql": "SELECT mil.MIE_NOMI, mil.OPE_NOOE, sex.SEX_SUPE, sex.SEX_STAT FROM MIL_DAT mil INNER JOIN SEX_DAT sex ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIL_SUPP = sex.SEX_SUPE WHERE mil.ACT_CODE = :ACT_CODE"
+    },
+    "mission_lines_to_racking": {
+      "tables": ["MIL_DAT", "RAM_DAT"],
+      "description": "Get picking address/racking information for mission lines",
+      "join_conditions": [
+        "MIL.ACT_CODE = RAM.ACT_CODE",
+        "MIL.MIL_NORA = RAM.RAM_NORA"
+      ]
+    },
+    "full_outbound_trace": {
+      "tables": ["OPE_DAT", "OPL_DAT", "MIL_DAT", "MIE_DAT"],
+      "description": "Full outbound trace from order to mission lines",
+      "join_conditions": [
+        "OPL.ACT_CODE = OPE.ACT_CODE",
+        "OPL.OPE_NOOE = OPE.OPE_NOOE",
+        "MIL.ACT_CODE = OPL.ACT_CODE",
+        "MIL.OPE_NOOE = OPL.OPE_NOOE",
+        "MIL.OPL_NOOL = OPL.OPL_NOOL",
+        "MIE.ACT_CODE = MIL.ACT_CODE",
+        "MIE.MIE_NOMI = MIL.MIE_NOMI"
+      ],
+      "example_sql": "SELECT ope.OPE_NOOE, ope.OPE_STAT, opl.ART_CODE, mie.MIE_NOMI, mie.MIE_STAT, mil.MIL_STAT FROM OPE_DAT ope INNER JOIN OPL_DAT opl ON ope.ACT_CODE = opl.ACT_CODE AND ope.OPE_NOOE = opl.OPE_NOOE INNER JOIN MIL_DAT mil ON opl.ACT_CODE = mil.ACT_CODE AND opl.OPE_NOOE = mil.OPE_NOOE AND opl.OPL_NOOL = mil.OPL_NOOL INNER JOIN MIE_DAT mie ON mie.ACT_CODE = mil.ACT_CODE AND mie.MIE_NOMI = mil.MIE_NOMI WHERE ope.ACT_CODE = :ACT_CODE AND ope.OPE_NOOE = :OPE_NOOE"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Get Orders by Status",
+      "category": "Outbound",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT ope.OPE_NOOE, ope.OPE_STAT, ope.TIE_CODE FROM OPE_DAT ope WHERE ope.ACT_CODE = :ACT_CODE AND ope.OPE_STAT = :OPE_STAT ORDER BY ope.OPE_NOOE;"
+      },
+      "business_logic": "Get all orders filtered by status. Use reference_codes.OPE_STAT for valid values."
+    },
+    {
+      "procedure_name": "Get Active Missions",
+      "category": "Outbound",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT mie.MIE_NOMI, mie.MIE_STAT, mie.VAG_NOVA FROM MIE_DAT mie WHERE mie.ACT_CODE = :ACT_CODE AND mie.MIE_STAT IN ('010','020') ORDER BY mie.MIE_NOMI;"
+      },
+      "business_logic": "Get all missions that are active (to prepare or in preparation)."
+    }
+  ],
+  "reference_codes": {
+    "OPE_STAT": {
+      "description": "Order/preparation status field on OPE_DAT",
+      "values": {
+        "010": "En saisie — being entered/created",
+        "020": "En Vague — assigned to a picking wave",
+        "030": "Lancée — launched as a mission (without wave)",
+        "040": "Validée — picking validated",
+        "050": "Annulée — order cancelled",
+        "060": "Constitution de Chargement — being loaded",
+        "070": "Expédiée — shipped",
+        "080": "Livrée — delivered"
+      }
+    },
+    "MIE_STAT": {
+      "description": "Mission header status field on MIE_DAT",
+      "values": {
+        "010": "A préparer — to be prepared",
+        "020": "En cours de préparation — picking in progress",
+        "040": "Validée — mission validated",
+        "050": "Soldée — mission closed/settled",
+        "060": "Mise en expédition — sent to shipping"
+      }
+    },
+    "MIL_STAT": {
+      "description": "Mission line status field on MIL_DAT",
+      "values": {
+        "010": "A préparer — to be prepared",
+        "040": "Validée — line validated",
+        "050": "Soldée — line closed/settled",
+        "060": "Mise en expédition — sent to shipping",
+        "070": "Expédiée — shipped"
+      }
+    },
+    "SEX_STAT": {
+      "description": "Expedition support status field on SEX_DAT",
+      "values": {
+        "010": "Initial — support created",
+        "020": "Colisé — items packed",
+        "030": "Contrôlé — support checked/verified",
+        "040": "Validé — support validated",
+        "070": "Expédié — support shipped"
+      }
+    },
+    "TMC_CODE_outbound": {
+      "description": "Movement type codes for outbound stock on MVT_DAT",
+      "values": {
+        "40110": "Definitive stock exit — picking confirmed",
+        "40010": "Definitive stock exit — alternate code",
+        "30110": "Prepared stock exists",
+        "20110": "Prepared stock exists — alternate"
+      }
+    }
+  },
+  "safety_rules": [
+    "Always filter by ACT_CODE on every table — critical exception: SEX_DAT uses SEX_ACT not ACT_CODE",
+    "OPE_KEYU and MIE_KEYU are valid alternate join keys for their header-line pairs",
+    "OPE_STAT becomes 020 when order enters a wave; 030 when mission is created directly without wave",
+    "Stock definitive exit: TMV_CODE = 40010 or 40110 depending on whether prepared stock existed",
+    "MVT.STK_KEYU = STK.STK_KEYU is the standard movement-to-stock join",
+    "Always execute SELECT before UPDATE operations",
+    "Do not execute UPDATE in production without approval",
+    "Support-level SQL only"
+  ]
+}

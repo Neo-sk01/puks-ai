@@ -1,0 +1,39 @@
+[META]
+chunk_type: text
+source_file: Availability calculation.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Availability Calculation Overview
+Purpose:
+• Optional step before launching orders in preparation.
+• Determines whether selected orders can be fully served based on current
+stock availability.
+• Helps identify if restocking a preparation area is necessary before picking.
+Access:
+• Configured in SpeedWMS for selected orders prior to launch.
+Types of Availability Rates
+1. Absolute Rate
+o Calculated for the entire warehouse.
+o Provides an overall availability of items.
+o Considers the total need of the orders.
+2. Proximity Rate
+o Calculated for an advanced preparation zone.
+o Determines if goods transfers to this zone are required.
+o Total need is taken into account.
+3. Retail Rate
+o Calculated for areas where retail withdrawals occur.
+o Only considers the requirement outside full pallets.
+o Useful for small-quantity or picking operations.
+Key Notes
+• Not all three rates need to be configured; only the required rate can be set.
+• Provides a pre-launch check to optimize stock allocation and reduce
+preparation delays.
+• The calculated rates can influence launch decisions, especially if stock is
+insufficient.
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

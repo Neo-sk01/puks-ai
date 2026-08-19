@@ -1,0 +1,6 @@
+Classification tab
+Tab used to view and/or modify the classification of the third.
+(Refer to the chapter dealing with classification for more details on this subject.)
+The options available via the contextual menu-up allow to add or remove an assignment
+to the third party.
+Sensitivity: Internal

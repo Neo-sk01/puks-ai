@@ -1,0 +1,18 @@
+Carrier allocation
+Functionality available from the menu Settings / Transport / Carrier Allocation
+The default screen (Sequences tab) of this feature enables to set the sequences for the
+assignment of the orders with the right carrier code.
+The setting of the sequences can be based on all the headings of the tables linked to the
+existing orders in SpeedWMS.
+It is necessary to activate a heading in the Columns tab before being able to position a
+condition. The user just need to check any line necessary for the construction of the
+different sequences :
+Once the headings selected, it will be possible to create news sequences by the using
+the addition button or through the contextual menu :
+Sensitivity: InternalThe sequence will enable the allocation of a specified carrier any time the conditions
+are fulfilled. Depending on the need, it is not necessary to fill in all the conditions :
+The sequences can all be modified or reordered tanks to the arrows on the upper right
+corner of the window
+The carrier assignment also be realized directly from the orders window (see
+corresponding paragraph).
+Sensitivity: Internal

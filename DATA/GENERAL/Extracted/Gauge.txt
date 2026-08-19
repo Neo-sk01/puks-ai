@@ -1,0 +1,23 @@
+Gauge
+Functionality accessible from the menu Settings / Items / Gauges from SpeedWMS.
+The concept of gauge makes it possible to qualify the dimensions of the locations as
+well as the dimensions of the objects to be returned to stock. Access to the feature
+allows you to display the list of the different gauge codes that have been declared on
+the Speed environment.
+It will then be possible to:
+.Generate new gauge codes
+.Modify the properties of an existing gauge
+.Delete (not without certain constraints) an existing gauge
+Description of the sheet of a gauge:
+Sensitivity: Internal.Gauge code : unique identifier of the gauge. Can be alphanumeric (10 characters
+maximum)
+.Gauge designation : label of the gauge
+.Pallet equivalent : numeric value used to calculate the occupancy rate of a space
+A gauge code can only apply to the supports in stock, only to the slots or indifferently
+for the two notions. This will be determined by the choice made on the
+options opposite.
+If it is a gauge applied to the supports to be stored, it will be possible to specify the
+occupation dimensions. These dimensions could for example be used on location
+Sensitivity: Internalsearch procedures if in parallel the width of the rail is managed to determine whether or
+not it is possible to store a support.
+Sensitivity: Internal

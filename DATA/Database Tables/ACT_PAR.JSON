@@ -1,0 +1,18 @@
+{
+  "table_name": "ACT_PAR",
+  "description": "ACTIVITY PARAMETERS",
+  "primary_key": ["ACT_KEYU"],
+  "columns": [
+    {"name":"ACT_CODE", "description": "Activity code", "type_sql_server": "VARCHAR(10)", "type_oracle": "NVARCHAR2(10)", "is_primary_key": false, "is_foreign_key": false, "references_table": null, "references_column": null },
+    {"name":"ACT_KEYU", "description": "Activity parameter key unique", "type_sql_server": "INT", "type_oracle": "INTEGER", "is_primary_key": true, "is_foreign_key": false, "references_table": null, "references_column": null },
+    {"name":"ACT_DESI", "description": "Activity description", "type_sql_server": "VARCHAR(100)", "type_oracle": "NVARCHAR2(100)", "is_primary_key": false, "is_foreign_key": false, "references_table": null, "references_column": null },
+    {"name":"ACT_CRDA", "description": "Activity created date", "type_sql_server": "DATE", "type_oracle": "DATE", "is_primary_key": false, "is_foreign_key": false, "references_table": null, "references_column": null },
+    {"name":"ACT_CRHE", "description": "Activity created time", "type_sql_server": "VARCHAR(10)", "type_oracle": "NVARCHAR2(10)", "is_primary_key": false, "is_foreign_key": false, "references_table": null, "references_column": null },
+    {"name":"ACT_CRQI","description":"Activity created by","type_sql_server":"VARCHAR(50)","type_oracle":"NVARCHAR2(50)","is_primary_key":"false","is_foreign_key":"false","references_table":"null","references_column":"null"},
+    {"name":"ACT_MODA","description":"Activity last modified date","type_sql_server":"DATE","type_oracle":"DATE","is_primary_key":"false","is_foreign_key":"false","references_table":"null","references_column":"null"},
+    {"name":"ACT_MODHE","description":"Activity last modified time ","type_sql_server":"VARCHAR(10)","type_oracle":"NVARCHAR2(10)","is_primary_key":"false","is_foreign_key":"false","references_table":"null","references_column":"null"},
+    {"name":"ACT_LIB","description":"ACTIVITY NAME","type_sql_server":"VARCHAR(200)","type_oracle":"NVARCHAR2(200)","is_primary_key":"false","is_foreign_key":"false","references_table":"null","references_column":"null"},
+    {"name":"QUA_CODE","description":"Quality code","type_sql_server":"VARCHAR(10)","type_oracle":"NVARCHAR2(10)","is_primary_key":"false","is_foreign_key":"true","references_table":"QUA_PAR","references_column":"QUA_CODE"},
+    {"name":"EMP_CODE","description":"lOCATION CODE ","type_sql_server":"VARCHAR(50)","type_oracle":"NVARCHAR2(50)","is_primary_key":"false","is_foreign_key":"true","references_table":"EMP_PAR","references_column":"EMP_CODE"}
+  ]
+}

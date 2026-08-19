@@ -1,0 +1,557 @@
+{
+  "table_name": "REE_DAT",
+  "description": "RECEPTION HEADER TABLE",
+  "primary_key": "REE_KEYU",
+  "columns": [
+    {
+      "name": "ACT_CODE",
+      "description": "Activity Code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ACT_PAR",
+      "references_column": "ACT_CODE"
+    },
+    {
+      "name": "DOS_CODE",
+      "description": "Folder Code",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "DOS_DAT",
+      "references_column": "DOS_CODE"
+    },
+    {
+      "name": "REE_ALPHA1",
+      "description": "Additional Info A01",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA2",
+      "description": "Additional Info A02",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA3",
+      "description": "Additional Info A03",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA4",
+      "description": "Additional Info A04",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA5",
+      "description": "Additional Info A05",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA6",
+      "description": "Additional Info A06",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA7",
+      "description": "Additional Info A07",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA8",
+      "description": "Additional Info A08",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA9",
+      "description": "Additional Info A09",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ALPHA10",
+      "description": "Additional Info A10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_CCLI",
+      "description": "Client Account",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CCL_DAT",
+      "references_column": "CCL_CCLI"
+    },
+    {
+      "name": "REE_CFIS",
+      "description": "Tax Type Code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_CORC",
+      "description": "Reception Comments",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_CRDA",
+      "description": "Creation Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_CRHE",
+      "description": "Creation Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_CRQI",
+      "description": "Created By",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_DARE",
+      "description": "Reception Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_DATE1",
+      "description": "Additional Info D01",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_DATE2",
+      "description": "Additional Info D02",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_DATE3",
+      "description": "Additional Info D03",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_DATE4",
+      "description": "Additional Info D04",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_DATE5",
+      "description": "Additional Info D05",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_ETRE",
+      "description": "Reception Status",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_HERE",
+      "description": "Reception Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_HEURE1",
+      "description": "Additional Info H01",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_HEURE2",
+      "description": "Additional Info H02",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_HEURE3",
+      "description": "Additional Info H03",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_HEURE4",
+      "description": "Additional Info H04",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_HEURE5",
+      "description": "Additional Info H05",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_INFC",
+      "description": "Additional Info",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_KEYU",
+      "description": "Reception Header Unique INT",
+      "type_sql_server": "INTEGER",
+      "type_oracle": "NOT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_LIFO",
+      "description": "Tier Label",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_MODA",
+      "description": "Modification Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_MOHE",
+      "description": "Modification Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_MOQI",
+      "description": "Modified By",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_NOFO",
+      "description": "Third-Party BL Reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_NTI",
+      "description": "Stamp Number (Alcohol)",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_NUM1",
+      "description": "Additional Info N01",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_NUM2",
+      "description": "Additional Info N02",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_NUM3",
+      "description": "Additional Info N03",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_NUM4",
+      "description": "Additional Info N04",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_NUM5",
+      "description": "Additional Info N05",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_QUAI",
+      "description": "Reception Dock",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "EMP_BAS",
+      "references_column": "EMP_LIEU"
+    },
+    {
+      "name": "REE_RDDA",
+      "description": "Customs Document Type",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_RSRV",
+      "description": "Reserve Status",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_TOP1",
+      "description": "Additional Info T01",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_TOP2",
+      "description": "Additional Info T02",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_TOP3",
+      "description": "Additional Info T03",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_TOP4",
+      "description": "Additional Info T04",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REE_TOP5",
+      "description": "Additional Info T05",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "SDO_CODE",
+      "description": "Customs Status Code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "TIE_CODE",
+      "description": "Tier Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_CODE"
+    },
+    {
+      "name": "TRC_CODE",
+      "description": "Reception Type Code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    }
+  ]
+}

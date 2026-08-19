@@ -1,0 +1,16 @@
+{
+  "document_name": "Order Preparation",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "order_statuses": [
+    {"code": "010", "description": "In Seizure"},
+    {"code": "020", "description": "In Wave"},
+    {"code": "030", "description": "Preparing"},
+    {"code": "050", "description": "Validated"},
+    {"code": "060", "description": "Packed"},
+    {"code": "070", "description": "Shipped"}
+  ],
+  "order_types": ["Preparation", "Replenishment", "Countermark", "Cross-stock"]
+}

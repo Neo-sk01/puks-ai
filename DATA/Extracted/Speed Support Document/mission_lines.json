@@ -1,0 +1,30 @@
+{
+  "document_name": "Mission Lines",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "statuses": [
+    {
+      "code": "010",
+      "description": "To Prepare"
+    },
+    {
+      "code": "030",
+      "description": "In Progress"
+    },
+    {
+      "code": "040",
+      "description": "Validated"
+    },
+    {
+      "code": "050",
+      "description": "Terminated"
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "mission_lines.json",
+    "category": "Speed Support Document"
+  }
+}

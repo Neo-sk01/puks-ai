@@ -1,0 +1,6 @@
+Language Code
+Accessible via the menu Settings / Transport / Language code:
+Allows to define language codes at the loading level by coding them:
+.Code: a double-click in this box allows you to enter a code.
+.Description: used to identify the language assigned to the code created.
+Sensitivity: Internal

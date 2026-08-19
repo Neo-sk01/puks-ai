@@ -1,0 +1,7 @@
+Photo tab
+This tab enables the addition of a picture in the item sheet.
+The user just needs to add the path to the picture to be associated with the item by
+clicking on the Select an image button. All types of image files are supported by
+SpeedWMS.
+These images may, for example, appear on the stock display screen for each reference :
+Sensitivity: InternalSensitivity: Internal

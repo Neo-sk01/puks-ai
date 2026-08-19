@@ -1,0 +1,32 @@
+[META]
+chunk_type: text
+source_file: Country.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Country Management
+Access
+• Menu: Settings → Third p. → Country
+Purpose
+• Mainly used for transport management
+• Allows configuring and declaring a list of countries in SpeedWMS
+Available Actions
+1. Create new country codes
+2. Modify existing country properties
+3. Delete existing country codes (subject to constraints)
+Country Form Fields
+Field Description
+Country code Unique identifier for the country, alphanumeric, max 6 characters
+Country name Full name of the country, max 50 characters
+Language Country language code, max 5 characters
+Belongs to EU Checkbox to indicate if the country is part of the European Union
+• Notes:
+o The Language and EU membership fields can influence:
+▪ Automatic document printing language
+▪ Type of document to print based on whether the country
+belongs to the EU or not
+This is a simple but essential configuration for transport and document automation
+in SpeedWMS.
+Sensitivity: Internal

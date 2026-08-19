@@ -1,0 +1,50 @@
+[META]
+chunk_type: text
+source_file: Troubleshooting and Configuring Printer Options 1.pdf
+category: Speed Support Document
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Troubleshooting and Configuring Printer Options
+Author: Micah Samuel
+Introduction
+This guide provides step-by-step instructions for uninstalling, importing, and
+configuring a printer using Printix and Windows settings.
+Steps
+1. Uninstall the Printer
+• Ensure the printer is removed if it is already installed.
+• Go to Windows Settings → Printers & Scanners.
+• Select the printer to uninstall.
+• Click Remove device.
+2. Import the Printer from Printix
+• Open the Tungsten Printix Client.
+• Search for the printer (e.g., ovl).
+• Select the desired printer (e.g., OVL ZA012-OVL-MSCBL-00-BW).
+• Click Add to import the printer.
+3. Access Printer Settings
+• Open Windows Settings.
+• Search for Printers & Scanners.
+• Select Printers & scanners from the search results.
+4. Select and Configure the Printer
+• From the list of printers, select the printer you want to configure (e.g., ZA012OVL-MSCBL-00-BW).
+• Click Printing preferences.
+Sensitivity: Internal
+
+[PAGE 2]
+5. Configure Print Options
+• In the pop-up window, select Print Options.
+• From the Printing Mode dropdown menu, select Direct Thermal.
+• Click Apply.
+• Click OK to save changes.
+Figures
+• Figure 1: Printer selection in Windows Settings
+• Figure 2: Printers & Scanners search
+• Figure 3: Select printer from list
+• Figure 4: Printing preferences window
+• Figure 5: Print Options configuration
+Tips:
+• Always remove old printer instances before importing a new one.
+• Confirm the Printing Mode matches the printer type (e.g., thermal vs. inkjet).
+• Apply and test print to ensure correct configuration.
+Sensitivity: Internal

@@ -1,0 +1,792 @@
+{
+  "table_name": "REA_DAT",
+  "description": "EXPECTED RECEPTION TABLE",
+  "primary_key": "REA_KEYU",
+  "columns": [
+    {
+      "name": "ACT_CODE",
+      "description": "Activity Code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ACT_PAR",
+      "references_column": "ACT_CODE"
+    },
+    {
+      "name": "ART_CODE",
+      "description": "Article Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CODE"
+    },
+    {
+      "name": "ART_QTEC",
+      "description": "Quantity per Parcel",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEC"
+    },
+    {
+      "name": "ART_QTEO",
+      "description": "Quantity per Layer",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEO"
+    },
+    {
+      "name": "ART_QTEP",
+      "description": "Quantity per Pallet",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEP"
+    },
+    {
+      "name": "ART_QTES",
+      "description": "Quantity per SPCB",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTES"
+    },
+    {
+      "name": "DOS_CODE",
+      "description": "Folder Code",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "DOS_CODE"
+    },
+    {
+      "name": "QUA_CODE",
+      "description": "Quality Code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "DOS_DAT",
+      "references_column": "QUA_CODE"
+    },
+    {
+      "name": "REA_ALPHA1",
+      "description": "Additional Info ALPHA1",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA2",
+      "description": "Additional Info ALPHA2",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA3",
+      "description": "Additional Info ALPHA3",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA4",
+      "description": "Additional Info ALPHA4",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA5",
+      "description": "Additional Info ALPHA5",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA6",
+      "description": "Additional Info ALPHA6",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA7",
+      "description": "Additional Info ALPHA7",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA8",
+      "description": "Additional Info ALPHA8",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA9",
+      "description": "Additional Info ALPHA9",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_ALPHA10",
+      "description": "Additional Info ALPHA10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_BL",
+      "description": "Delivery Note Reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_CCLI",
+      "description": "Client Account",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CCL_DAT",
+      "references_column": "CCL_CCLI"
+    },
+    {
+      "name": "REA_CFIS",
+      "description": "Tax Code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_COM",
+      "description": "Comments",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_CRDA",
+      "description": "Creation Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_CRHE",
+      "description": "Creation Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_CRQI",
+      "description": "Created By",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "USW_DAT",
+      "references_column": "USW_LOGN"
+    },
+    {
+      "name": "REA_CTAD",
+      "description": "Recipient Tier Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_CTAF",
+      "description": "Expected Supplier Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DALP",
+      "description": "Expected Delivery Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DATE1",
+      "description": "Additional Info D1",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DATE2",
+      "description": "Additional Info D2",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DATE3",
+      "description": "Additional Info D3",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DATE4",
+      "description": "Additional Info D4",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DATE5",
+      "description": "Additional Info D5",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DFAB",
+      "description": "Expected Manufacturing",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DLC",
+      "description": "Expected DLC",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DLUO",
+      "description": "Expected DLUO",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DLV",
+      "description": "Expected DLV",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_DRDV",
+      "description": "First Appointment Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_HEURE1",
+      "description": "Additional Info H1",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_HEURE2",
+      "description": "Additional Info H2",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_HEURE3",
+      "description": "Additional Info H3",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_HEURE4",
+      "description": "Additional Info H4",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_HEURE5",
+      "description": "Additional Info H5",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_HRDV",
+      "description": "First Appointment Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_KEYU",
+      "description": "REA_DAT Identifier INT",
+      "type_sql_server": "INTEGER",
+      "type_oracle": "NOT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_LISUP",
+      "description": "List of Preparation Supports",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_LOT1",
+      "description": "Expected Lot 1",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_LOT2",
+      "description": "Expected Lot 2",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_LOT3",
+      "description": "Expected Lot 3",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_MODA",
+      "description": "Modification Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_MOHE",
+      "description": "Modification Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_MOQI",
+      "description": "Modified By",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_NUM1",
+      "description": "Additional Info N1",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_NUM2",
+      "description": "Additional Info N2",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_NUM3",
+      "description": "Additional Info N3",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_NUM4",
+      "description": "Additional Info N4",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_NUM5",
+      "description": "Additional Info N5",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_POIBC",
+      "description": "Parcel Weight (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_POIV",
+      "description": "Variable Weight (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_PRIX",
+      "description": "Price per Unit",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_PRQT",
+      "description": "Priced Quantity",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_QTC",
+      "description": "Consumed Quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_QTRC",
+      "description": "Quantity Remaining to",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_QTRE",
+      "description": "Expected Quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_RFAF",
+      "description": "Assignment Reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_RFCE",
+      "description": "DO Header Reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_RFCL",
+      "description": "DO Line Reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_RFTI",
+      "description": "Tier Reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_SSUP",
+      "description": "Status",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TOP1",
+      "description": "Additional Info T1",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TOP2",
+      "description": "Additional Info T2",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TOP3",
+      "description": "Additional Info T3",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TOP4",
+      "description": "Additional Info T4",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TOP5",
+      "description": "Additional Info T5",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TOPS",
+      "description": "Line Balance Flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TRDV",
+      "description": "Appointment Flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_TYAT",
+      "description": "Expected Type",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "REA_VOLC",
+      "description": "Parcel Volume",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "REA_DAT.json",
+    "category": "Database Tables"
+  }
+}

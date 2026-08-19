@@ -1,0 +1,8 @@
+User profiles and rights management
+Each user must have a profile in order to access SpeedWMS and its various modules.
+A user must be attached to a group in which the various access rights are configured.
+The user therefore inherits the rights of the group. Depending on the rights desired, it
+may therefore be necessary to create new groups, to configure the associated rights
+before being able to associate the various user accounts with them.
+The management of rights and profiles is available via the menu System / Rights :
+Sensitivity: Internal

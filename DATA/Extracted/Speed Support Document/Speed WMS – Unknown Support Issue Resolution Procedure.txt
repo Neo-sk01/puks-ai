@@ -1,0 +1,58 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Unknown Support Issue Resolution Procedure.pdf
+category: Speed Support Document
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Handling Issues with Unknown Supports
+Sensitivity: Internal
+System: Speed WMS
+Audience: Support / Technical Team
+Purpose
+This procedure is used when an order encounters unknown support issues,
+typically caused by support numbers not being correctly validated or loaded.
+Step 1: Check Mission Details in Speed
+1. Navigate to Preparation Module → Manage Missions.
+2. Open the Validated tab.
+3. Filter the list to locate the affected mission.
+4. Double-click the mission to open the mission details.
+Step 2: Verify Support Numbers
+• Confirm that both support numbers are visible:
+o iLPN
+o 0LPN
+• If both supports are present, proceed to database verification.
+Step 3: Check Support Status in the Database
+Use the following query to identify supports that are still in status 020:
+SELECT *
+FROM SEX_DAT
+WHERE SEX_STSUP = '020'
+AND SEX_NOOE = 'order number'
+AND SEX_ACT = 'ZAR';
+Sensitivity: Internal
+
+[PAGE 2]
+Step 4: Identify the Issue
+• Supports with status 020 indicate that they are not yet validated
+• These supports must be updated before containers can be loaded
+Step 5: Update Support Status to Validated
+If support numbers are found with status 020, update them to 040:
+UPDATE SEX_DAT
+SET SEX_STSUP = '040'
+WHERE SEX_STSUP = '020'
+AND SEX_NOOE = 'order number'
+AND SEX_ACT = 'ZAR';
+Step 6: Request Container Loading
+• Once the update is complete, notify the Operations team
+• Operations can now load the containers successfully
+Expected Outcome
+• Support numbers are validated (040)
+• Unknown support issue is resolved
+• Containers can be loaded without errors
+Important Notes
+• This procedure requires database access and must be executed by Support
+• Always verify support visibility in iLPN and 0LPN before updating the
+database
+• Ensure the correct order number and activity code are used
+Sensitivity: Internal

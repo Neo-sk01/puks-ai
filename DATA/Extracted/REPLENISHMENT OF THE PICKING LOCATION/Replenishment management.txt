@@ -1,0 +1,32 @@
+[META]
+chunk_type: text
+source_file: Replenishment management.pdf
+category: REPLENISHMENT OF THE PICKING LOCATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Topic: Replenishment Management
+Access Path: Preparation / Replenishment
+Primary Function: To select and validate the movement of stock to picking
+locations.
+1. Replenishment Selection
+You can initiate a replenishment task using several selection methods:
+• Replenishment Window: The primary interface for selection.
+• Picking Location: Select directly from a specific picking location that needs
+stock.
+• Specific Item: Select based on a particular item that requires
+replenishment.
+Filtering: After selecting a general Site, you can apply additional filters to narrow
+the selection further based on:
+• The collection site (where stock is taken from).
+• The restocking drop-off site (where stock is delivered to).
+2. Replenishment Validation
+Replenishment tasks can be validated in two ways:
+• Partial Validation: Confirm the completion of only a portion of the requested
+replenishment quantity.
+• Total Validation: Confirm the completion of the entire requested
+replenishment quantity.
+Note: For detailed procedures and rules governing validation, please refer to the
+dedicated system documentation sections for validation.
+Sensitivity: Internal

@@ -1,0 +1,599 @@
+{
+  "document_name": "Speed WMS Inbound Data Model — Attendus & Réceptions",
+  "version": "1.0",
+  "authoritative": true,
+  "source": "BK_Systèmes_MDD.pdf",
+  "core_tables": {
+    "AEN_DAT": "Expected receipt headers (Entêtes d'attendus)",
+    "REA_DAT": "Expected receipt lines (Lignes d'attendus)",
+    "REE_DAT": "Reception headers (Entête de réception)",
+    "REL_DAT": "Reception lines (Lignes de réception)",
+    "MVT_DAT": "Stock movements",
+    "STK_DAT": "Stock"
+  },
+  "table_definitions": {
+    "AEN_DAT": {
+      "description": "Expected receipt headers — advance shipping notices",
+      "primary_key": "AEN_KEYU",
+      "access_key": "ACT_CODE + REA_RFCE",
+      "columns": [
+        {
+          "name": "AEN_KEYU",
+          "description": "Surrogate unique key",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "type_sql_server": "VARCHAR(10)",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "REA_CTAF",
+          "description": "Third party/supplier code for this expected receipt",
+          "type_sql_server": "VARCHAR(35)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "TIE_PAR",
+          "references_column": "TIE_CODE"
+        },
+        {
+          "name": "REA_RFCE",
+          "description": "External reference number for the expected receipt",
+          "type_sql_server": "VARCHAR(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    "REA_DAT": {
+      "description": "Expected receipt lines — individual items expected",
+      "primary_key": "REA_KEYU",
+      "access_key": "ACT_CODE + REA_RFCE + REA_NORL",
+      "columns": [
+        {
+          "name": "REA_KEYU",
+          "description": "Surrogate unique key",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "type_sql_server": "VARCHAR(10)",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "ART_CODE",
+          "description": "Article/product code",
+          "type_sql_server": "VARCHAR(35)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "ART_PAR",
+          "references_column": "ART_CODE"
+        },
+        {
+          "name": "REA_BL",
+          "description": "Delivery note / BL number — used to link to reception header REE_NOFO",
+          "type_sql_server": "VARCHAR(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REA_CTAF",
+          "description": "Third party/supplier code — NOTE: this is the TIE_CODE equivalent in REA_DAT",
+          "type_sql_server": "VARCHAR(35)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "TIE_PAR",
+          "references_column": "TIE_CODE"
+        },
+        {
+          "name": "REA_RFCE",
+          "description": "External reference of the expected receipt",
+          "type_sql_server": "VARCHAR(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REA_RFCL",
+          "description": "External reference of the expected receipt line",
+          "type_sql_server": "VARCHAR(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REA_NORL",
+          "description": "Line number within the expected receipt",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REA_TYAT",
+          "description": "Type of expected receipt — see reference_codes",
+          "type_sql_server": "VARCHAR(10)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    "REE_DAT": {
+      "description": "Reception header table — one record per physical reception event",
+      "primary_key": "REE_KEYU",
+      "access_key": "ACT_CODE + REE_NORE",
+      "columns": [
+        {
+          "name": "REE_KEYU",
+          "description": "Reception header unique surrogate key",
+          "type_sql_server": "INTEGER",
+          "type_oracle": "NOT NULL INTEGER",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "type_sql_server": "VARCHAR(10)",
+          "type_oracle": "NVARCHAR2(10)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "ACT_PAR",
+          "references_column": "ACT_CODE"
+        },
+        {
+          "name": "DOS_CODE",
+          "description": "Folder code",
+          "type_sql_server": "VARCHAR(25)",
+          "type_oracle": "NVARCHAR2(25)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "DOS_DAT",
+          "references_column": "DOS_CODE"
+        },
+        {
+          "name": "TIE_CODE",
+          "description": "Third party/supplier code",
+          "type_sql_server": "VARCHAR(35)",
+          "type_oracle": "NVARCHAR2(35)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "TIE_PAR",
+          "references_column": "TIE_CODE"
+        },
+        {
+          "name": "REE_NORE",
+          "description": "Reception number — business key",
+          "type_sql_server": "VARCHAR(25)",
+          "type_oracle": "NVARCHAR2(25)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_NOFO",
+          "description": "Third-party BL/delivery note reference number",
+          "type_sql_server": "VARCHAR(50)",
+          "type_oracle": "NVARCHAR2(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_ETRE",
+          "description": "Reception status — see reference_codes",
+          "type_sql_server": "VARCHAR(10)",
+          "type_oracle": "NVARCHAR2(10)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "TRC_CODE",
+          "description": "Reception type code — see reference_codes",
+          "type_sql_server": "VARCHAR(10)",
+          "type_oracle": "NVARCHAR2(10)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_DARE",
+          "description": "Reception date",
+          "type_sql_server": "DATETIME",
+          "type_oracle": "NCHAR(8)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_HERE",
+          "description": "Reception time",
+          "type_sql_server": "VARCHAR(6)",
+          "type_oracle": "NVARCHAR2(6)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_CRDA",
+          "description": "Creation date",
+          "type_sql_server": "DATETIME",
+          "type_oracle": "NCHAR(8)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_CRHE",
+          "description": "Creation time",
+          "type_sql_server": "VARCHAR(6)",
+          "type_oracle": "NVARCHAR2(6)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_CRQI",
+          "description": "Created by (user)",
+          "type_sql_server": "VARCHAR(15)",
+          "type_oracle": "NVARCHAR2(15)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_MODA",
+          "description": "Last modification date",
+          "type_sql_server": "DATETIME",
+          "type_oracle": "NCHAR(8)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_MOHE",
+          "description": "Last modification time",
+          "type_sql_server": "VARCHAR(6)",
+          "type_oracle": "NVARCHAR2(6)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_MOQI",
+          "description": "Last modified by (user)",
+          "type_sql_server": "VARCHAR(15)",
+          "type_oracle": "NVARCHAR2(15)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_CORC",
+          "description": "Reception comments",
+          "type_sql_server": "TEXT",
+          "type_oracle": "CLOB",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_QUAI",
+          "description": "Reception dock identifier",
+          "type_sql_server": "VARCHAR(25)",
+          "type_oracle": "NVARCHAR2(25)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "EMP_BAS",
+          "references_column": "EMP_LIEU"
+        },
+        {
+          "name": "REE_LIFO",
+          "description": "Tier label",
+          "type_sql_server": "VARCHAR(50)",
+          "type_oracle": "NVARCHAR2(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_RSRV",
+          "description": "Reserve status",
+          "type_sql_server": "VARCHAR(20)",
+          "type_oracle": "NVARCHAR2(20)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_CCLI",
+          "description": "Client account code",
+          "type_sql_server": "VARCHAR(5)",
+          "type_oracle": "NVARCHAR2(5)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "CCL_DAT",
+          "references_column": "CCL_CCLI"
+        },
+        {
+          "name": "REE_CFIS",
+          "description": "Tax type code",
+          "type_sql_server": "VARCHAR(5)",
+          "type_oracle": "NVARCHAR2(5)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_RDDA",
+          "description": "Customs document type",
+          "type_sql_server": "VARCHAR(5)",
+          "type_oracle": "NVARCHAR2(5)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_NTI",
+          "description": "Stamp number for alcohol",
+          "type_sql_server": "VARCHAR(50)",
+          "type_oracle": "NVARCHAR2(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "SDO_CODE",
+          "description": "Customs status code",
+          "type_sql_server": "VARCHAR(5)",
+          "type_oracle": "NVARCHAR2(5)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_ALPHA1",
+          "description": "Additional info A01",
+          "type_sql_server": "VARCHAR(50)",
+          "type_oracle": "NVARCHAR2(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_ALPHA2",
+          "description": "Additional info A02",
+          "type_sql_server": "VARCHAR(50)",
+          "type_oracle": "NVARCHAR2(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_ALPHA3",
+          "description": "Additional info A03",
+          "type_sql_server": "VARCHAR(50)",
+          "type_oracle": "NVARCHAR2(50)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_NUM1",
+          "description": "Additional numeric info N01",
+          "type_sql_server": "FLOAT",
+          "type_oracle": "FLOAT",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_DATE1",
+          "description": "Additional date info D01",
+          "type_sql_server": "DATETIME",
+          "type_oracle": "NCHAR(8)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REE_TOP1",
+          "description": "Additional boolean flag T01",
+          "type_sql_server": "TINYINT",
+          "type_oracle": "SMALLINT",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    },
+    "REL_DAT": {
+      "description": "Reception lines — one record per article/lot received",
+      "primary_key": "REL_KEYU",
+      "access_key": "ACT_CODE + REE_NORE + REL_NORL",
+      "columns": [
+        {
+          "name": "REL_KEYU",
+          "description": "Reception line surrogate unique key",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": true,
+          "is_foreign_key": false
+        },
+        {
+          "name": "ACT_CODE",
+          "description": "Activity code",
+          "type_sql_server": "VARCHAR(10)",
+          "is_primary_key": false,
+          "is_foreign_key": true
+        },
+        {
+          "name": "REE_NORE",
+          "description": "Reception number — links to REE_DAT header",
+          "type_sql_server": "VARCHAR(25)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "REE_DAT",
+          "references_column": "REE_NORE"
+        },
+        {
+          "name": "ART_CODE",
+          "description": "Article/product code received",
+          "type_sql_server": "VARCHAR(35)",
+          "is_primary_key": false,
+          "is_foreign_key": true,
+          "references_table": "ART_PAR",
+          "references_column": "ART_CODE"
+        },
+        {
+          "name": "REL_NORL",
+          "description": "Line number within the reception",
+          "type_sql_server": "INTEGER",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        },
+        {
+          "name": "REL_NOSU",
+          "description": "Support/pallet number — used for inbound joins to STK_DAT",
+          "type_sql_server": "VARCHAR(25)",
+          "is_primary_key": false,
+          "is_foreign_key": false
+        }
+      ]
+    }
+  },
+  "join_logic": {
+    "expected_header_to_lines": {
+      "tables": [
+        "AEN_DAT",
+        "REA_DAT"
+      ],
+      "description": "Get expected receipt with all its expected lines",
+      "join_conditions": [
+        "AEN.ACT_CODE = REA.ACT_CODE",
+        "AEN.REA_CTAF = REA.REA_CTAF",
+        "AEN.REA_RFCE = REA.REA_RFCE"
+      ],
+      "example_sql": "SELECT aen.REA_RFCE, rea.ART_CODE, rea.REA_NORL FROM AEN_DAT aen INNER JOIN REA_DAT rea ON aen.ACT_CODE = rea.ACT_CODE AND aen.REA_CTAF = rea.REA_CTAF AND aen.REA_RFCE = rea.REA_RFCE WHERE aen.ACT_CODE = :ACT_CODE"
+    },
+    "expected_to_reception_header": {
+      "tables": [
+        "REA_DAT",
+        "REE_DAT"
+      ],
+      "description": "Link expected receipt to the actual reception that fulfilled it",
+      "join_conditions": [
+        "REA.ACT_CODE = REE.ACT_CODE",
+        "REA.REA_CTAF = REE.TIE_CODE",
+        "REA.REA_BL = REE.REE_NOFO"
+      ],
+      "note": "TIE_CODE exception: in REA_DAT the supplier code is stored as REA_CTAF — not TIE_CODE"
+    },
+    "reception_header_to_lines": {
+      "tables": [
+        "REE_DAT",
+        "REL_DAT"
+      ],
+      "description": "Get reception header with all its received lines",
+      "join_conditions": [
+        "REL.ACT_CODE = REE.ACT_CODE",
+        "REL.REE_NORE = REE.REE_NORE"
+      ],
+      "example_sql": "SELECT ree.REE_NORE, ree.TIE_CODE, ree.REE_DARE, rel.ART_CODE, rel.REL_NORL FROM REE_DAT ree INNER JOIN REL_DAT rel ON rel.ACT_CODE = ree.ACT_CODE AND rel.REE_NORE = ree.REE_NORE WHERE ree.ACT_CODE = :ACT_CODE AND ree.REE_NORE = :REE_NORE"
+    },
+    "reception_line_to_stock": {
+      "tables": [
+        "REL_DAT",
+        "STK_DAT"
+      ],
+      "description": "Find the stock record created from a reception line",
+      "join_conditions": [
+        "REL.ACT_CODE = STK.ACT_CODE",
+        "REL.REE_NORE = STK.STK_NORE",
+        "REL.REL_NORL = STK.STK_NOREL"
+      ],
+      "example_sql": "SELECT rel.REE_NORE, rel.ART_CODE, stk.STK_KEYU, stk.EMP_LIEU FROM REL_DAT rel INNER JOIN STK_DAT stk ON rel.ACT_CODE = stk.ACT_CODE AND rel.REE_NORE = stk.STK_NORE AND rel.REL_NORL = stk.STK_NOREL WHERE rel.ACT_CODE = :ACT_CODE"
+    },
+    "reception_line_to_movement": {
+      "tables": [
+        "REL_DAT",
+        "MVT_DAT"
+      ],
+      "description": "Find stock entry movements for a reception line",
+      "join_conditions": [
+        "REL.ACT_CODE = MVT.ACT_CODE",
+        "REL.REE_NORE = MVT.STK_NORE",
+        "REL.REL_NORL = MVT.REL_NORE",
+        "REL.ART_CODE = MVT.ART_CODE",
+        "MVT.TMV_CODE = '10010'"
+      ],
+      "note": "TMV_CODE = 10010 filters for stock entry creation movements only"
+    },
+    "movement_to_stock": {
+      "tables": [
+        "MVT_DAT",
+        "STK_DAT"
+      ],
+      "description": "Link any movement back to its stock record",
+      "join_conditions": [
+        "MVT.STK_KEYU = STK.STK_KEYU"
+      ],
+      "example_sql": "SELECT mvt.TMV_CODE, mvt.ACT_CODE, stk.ART_CODE, stk.EMP_LIEU FROM MVT_DAT mvt INNER JOIN STK_DAT stk ON mvt.STK_KEYU = stk.STK_KEYU WHERE mvt.ACT_CODE = :ACT_CODE"
+    },
+    "full_inbound_trace": {
+      "tables": [
+        "REE_DAT",
+        "REL_DAT",
+        "STK_DAT",
+        "ART_PAR"
+      ],
+      "description": "Full inbound trace from reception header to stock with article details",
+      "join_conditions": [
+        "REL.ACT_CODE = REE.ACT_CODE",
+        "REL.REE_NORE = REE.REE_NORE",
+        "REL.ACT_CODE = STK.ACT_CODE",
+        "REL.REE_NORE = STK.STK_NORE",
+        "REL.REL_NORL = STK.STK_NOREL",
+        "ART.ACT_CODE = REL.ACT_CODE",
+        "ART.ART_CODE = REL.ART_CODE"
+      ],
+      "example_sql": "SELECT ree.REE_NORE, ree.REE_DARE, ree.TIE_CODE, rel.ART_CODE, art.ART_DESL, stk.EMP_LIEU, stk.STK_KEYU FROM REE_DAT ree INNER JOIN REL_DAT rel ON rel.ACT_CODE = ree.ACT_CODE AND rel.REE_NORE = ree.REE_NORE INNER JOIN STK_DAT stk ON rel.ACT_CODE = stk.ACT_CODE AND rel.REE_NORE = stk.STK_NORE AND rel.REL_NORL = stk.STK_NOREL INNER JOIN ART_PAR art ON art.ACT_CODE = rel.ACT_CODE AND art.ART_CODE = rel.ART_CODE WHERE ree.ACT_CODE = :ACT_CODE AND ree.REE_NORE = :REE_NORE"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Get Reception with Status Filter",
+      "category": "Inbound",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT ree.REE_NORE, ree.TIE_CODE, ree.REE_DARE, ree.REE_ETRE FROM REE_DAT ree WHERE ree.ACT_CODE = :ACT_CODE AND ree.REE_ETRE = :STATUS_CODE;"
+      },
+      "business_logic": "Retrieve all receptions filtered by status code. Use reference_codes.reception_status for valid values."
+    },
+    {
+      "procedure_name": "Get All Lines for a Reception",
+      "category": "Inbound",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT rel.REE_NORE, rel.REL_NORL, rel.ART_CODE, rel.REL_NOSU FROM REL_DAT rel WHERE rel.ACT_CODE = :ACT_CODE AND rel.REE_NORE = :REE_NORE ORDER BY rel.REL_NORL;"
+      },
+      "business_logic": "Retrieve all reception lines for a given reception number."
+    }
+  ],
+  "reference_codes": {
+    "reception_type": {
+      "field": "REA_TYAT (on REA_DAT) or TRC_CODE (on REE_DAT)",
+      "values": {
+        "001": "Réception — standard inbound receipt",
+        "100": "Retour — customer/internal return"
+      }
+    },
+    "reception_status": {
+      "field": "REE_ETRE on REE_DAT",
+      "values": {
+        "001": "En Cours — reception in progress",
+        "100": "Rangée — goods put away to stock locations",
+        "200": "Clôturée — reception fully closed"
+      }
+    },
+    "movement_type_inbound": {
+      "field": "TMV_CODE on MVT_DAT",
+      "values": {
+        "10010": "Stock entry creation from reception — use this to filter inbound movements"
+      }
+    }
+  },
+  "safety_rules": [
+    "Always filter by ACT_CODE on every table access",
+    "Do NOT join REL_DAT directly to REA_DAT unless the expected receipt has exactly 1 reception line — use MVT_DAT as the bridge instead",
+    "Stock creation movement TMV_CODE = 10010 must be used to correctly identify inbound stock movements",
+    "REA_CTAF in REA_DAT is the equivalent of TIE_CODE — this is a named exception to the standard field naming rule",
+    "Always execute SELECT before any UPDATE or DELETE operations",
+    "Do not execute UPDATE in production without approval"
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "03_inbound.json",
+    "category": "Speed Support Document"
+  }
+}

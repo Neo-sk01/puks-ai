@@ -1,0 +1,1362 @@
+{
+  "table_name": "MVT_DAT",
+  "description": "STOCK MOVEMENT TABLE",
+  "primary_key": "MVT_KEYU",
+  "columns": [
+    {
+      "name": "ACT_CODE",
+      "description": "Activity Code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ACT_PAR",
+      "references_column": "ACT_CODE"
+    },
+    {
+      "name": "ART_CNDC",
+      "description": "Packaging - Box",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDC"
+    },
+    {
+      "name": "ART_CNDO",
+      "description": "Packaging- Layer",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDO"
+    },
+    {
+      "name": "ART_CNDP",
+      "description": "Packaging - Pallet",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDP"
+    },
+    {
+      "name": "ART_CNDS",
+      "description": "Packaging-SPCB",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDS"
+    },
+    {
+      "name": "ART_CNDU",
+      "description": "Packaging - Unit",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDU"
+    },
+    {
+      "name": "ART_CODE",
+      "description": "Article Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CODE"
+    },
+    {
+      "name": "ART_LIB1",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_LIB1"
+    },
+    {
+      "name": "ART_LIB2",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_LIB2"
+    },
+    {
+      "name": "ART_LIB3",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_LIB3"
+    },
+    {
+      "name": "ART_LIB4",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_LIB4"
+    },
+    {
+      "name": "ART_LIB5",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_LIB5"
+    },
+    {
+      "name": "ART_LIB6",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_LIB6"
+    },
+    {
+      "name": "ART_NIV1",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_NIV1"
+    },
+    {
+      "name": "ART_NIV2",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_NIV2"
+    },
+    {
+      "name": "ART_NIV3",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_NIV3"
+    },
+    {
+      "name": "ART_NIV4",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_NIV4"
+    },
+    {
+      "name": "ART_NIV5",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_NIV5"
+    },
+    {
+      "name": "ART_NIV6",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_NIV6"
+    },
+    {
+      "name": "ART_QTEC",
+      "description": "Quantity - Box",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEC"
+    },
+    {
+      "name": "ART_QTEO",
+      "description": "Quantity - Layer",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEO"
+    },
+    {
+      "name": "ART_QTEP",
+      "description": "Quantity - Pallet",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEP"
+    },
+    {
+      "name": "ART_QTES",
+      "description": "Quantity - SPCB",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTES"
+    },
+    {
+      "name": "ART_QTEU",
+      "description": "Quantity - Unit",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEU"
+    },
+    {
+      "name": "DOS_CODE",
+      "description": "Folder Code",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "DOS_CODE"
+    },
+    {
+      "name": "GAB_CODE",
+      "description": "Template Code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "GAB_CODE"
+    },
+    {
+      "name": "IVE_CODE",
+      "description": "Inventory Code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "IVE_DAT",
+      "references_column": "IVE_CODE"
+    },
+    {
+      "name": "IVE_DATE",
+      "description": "Inventory Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "IVE_DAT",
+      "references_column": "IVE_DATE"
+    },
+    {
+      "name": "IVE_MODA",
+      "description": "Inventory Modification Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "IVE_DAT",
+      "references_column": "IVE_MODA"
+    },
+    {
+      "name": "IVE_MOHE",
+      "description": "Inventory Modification Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "IVE_DAT",
+      "references_column": "IVE_MOHE"
+    },
+    {
+      "name": "IVE_MOQI",
+      "description": "Inventory Modified By",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "IVE_DAT",
+      "references_column": "IVE_MOQI"
+    },
+    {
+      "name": "MIE NOMI",
+      "description": "Mission Number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "MIE_DAT",
+      "references_column": "MIE NOMI"
+    },
+    {
+      "name": "MIL_GRPB",
+      "description": "BP Grouping Code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "MIE_DAT",
+      "references_column": "MIL_GRPB"
+    },
+    {
+      "name": "MIL_MOT",
+      "description": "Withdrawal Reason",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "MIE_DAT",
+      "references_column": "MIL_MOT"
+    },
+    {
+      "name": "MIL_NOLM",
+      "description": "Mission Line Number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "MIE_DAT",
+      "references_column": "MIL_NOLM"
+    },
+    {
+      "name": "MOT_CODE",
+      "description": "Reason Code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "MOT_CODE"
+    },
+    {
+      "name": "MOT_LIB",
+      "description": "Reason Label",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "MOT_LIB"
+    },
+    {
+      "name": "MVT_ALPHA1",
+      "description": "Additional Info A01",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ALPHA1"
+    },
+    {
+      "name": "MVT_ALPHA2",
+      "description": "Additional Info A02",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ALPHA2"
+    },
+    {
+      "name": "MVT_ALPHA3",
+      "description": "Additional Info A03",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ALPHA3"
+    },
+    {
+      "name": "MVT ALPHA4",
+      "description": "Additional Info A04",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT ALPHA4"
+    },
+    {
+      "name": "MVT_ALPHA5",
+      "description": "Additional Info A05",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ALPHA5"
+    },
+    {
+      "name": "MVT_ALPHA6",
+      "description": "Additional Info A06",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ALPHA6"
+    },
+    {
+      "name": "MVT ALPHA7",
+      "description": "Additional Info A07",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT ALPHA7"
+    },
+    {
+      "name": "MVT_ALPHA8",
+      "description": "Additional Info A08",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ALPHA8"
+    },
+    {
+      "name": "MVT ALPHA9",
+      "description": "Additional Info A09",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT ALPHA9"
+    },
+    {
+      "name": "MVT_ALPHA10",
+      "description": "Additional Info A10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ALPHA10"
+    },
+    {
+      "name": "MVT_ARTP",
+      "description": "Product Article Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_ARTP"
+    },
+    {
+      "name": "MVT_CFIS",
+      "description": "Taxation Type Code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_CFIS"
+    },
+    {
+      "name": "MVT_CRDA",
+      "description": "Movement Creation Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_CRDA"
+    },
+    {
+      "name": "MVT_CRFE",
+      "description": "Call Window",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_CRFE"
+    },
+    {
+      "name": "MVT_CRHE",
+      "description": "Movement Creation Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_CRHE"
+    },
+    {
+      "name": "MVT_CRQI",
+      "description": "Movement Created By",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_CRQI"
+    },
+    {
+      "name": "MVT_DATE",
+      "description": "Extraction Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_DATE"
+    },
+    {
+      "name": "MVT_DATE1",
+      "description": "Additional Info D01",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_DATE1"
+    },
+    {
+      "name": "MVT_DATE2",
+      "description": "Additional Info D02",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_DATE2"
+    },
+    {
+      "name": "MVT_DATEЗ",
+      "description": "Additional Info D03",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_DATEЗ"
+    },
+    {
+      "name": "MVT_DATE4",
+      "description": "Additional Info D04",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_DATE4"
+    },
+    {
+      "name": "MVT_DATE5",
+      "description": "Additional Info D05",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_DATE5"
+    },
+    {
+      "name": "MVT_DAVA",
+      "description": "Value Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_DAVA"
+    },
+    {
+      "name": "MVT_EANC",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_EANC"
+    },
+    {
+      "name": "MVT EANO",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT EANO"
+    },
+    {
+      "name": "MVT_EANP",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_EANP"
+    },
+    {
+      "name": "MVT_EANS",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_EANS"
+    },
+    {
+      "name": "MVT_EANU",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_EANU"
+    },
+    {
+      "name": "MVT_HEUE",
+      "description": "Extraction Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_HEUE"
+    },
+    {
+      "name": "MVT_HEURE1",
+      "description": "Additional Info H01",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_HEURE1"
+    },
+    {
+      "name": "MVT_HEURE2",
+      "description": "Additional Info H02",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_HEURE2"
+    },
+    {
+      "name": "MVT_HEURE3",
+      "description": "Additional Info H03",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_HEURE3"
+    },
+    {
+      "name": "MVT_HEURE4",
+      "description": "Additional Info H04",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_HEURE4"
+    },
+    {
+      "name": "MVT_HEURE5",
+      "description": "Additional Info H05",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_HEURE5"
+    },
+    {
+      "name": "MVT_KEYU",
+      "description": "Traceability Identifier",
+      "type_sql_server": "INT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_KEYU"
+    },
+    {
+      "name": "MVT_LOTP",
+      "description": "Product Lot",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_LOTP"
+    },
+    {
+      "name": "MVT_MODA",
+      "description": "Movement Modification Date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_MODA"
+    },
+    {
+      "name": "MVT_MOHE",
+      "description": "Movement Modification Time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_MOHE"
+    },
+    {
+      "name": "MVT_MOQI",
+      "description": "Movement Modified By",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_MOQI"
+    },
+    {
+      "name": "MVT_MOT",
+      "description": "Movement Reason",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_MOT"
+    },
+    {
+      "name": "MVT_NoMV",
+      "description": "Movement Number",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NoMV"
+    },
+    {
+      "name": "MVT_NOOP",
+      "description": "Operation Number",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NOOP"
+    },
+    {
+      "name": "MVT_NOTR",
+      "description": "Transaction Number",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NOTR"
+    },
+    {
+      "name": "MVT_NUM1",
+      "description": "Additional Info N01",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NUM1"
+    },
+    {
+      "name": "MVT_NUM2",
+      "description": "Additional Info N02",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NUM2"
+    },
+    {
+      "name": "MVT_NUM3",
+      "description": "Additional Info N03",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NUM3"
+    },
+    {
+      "name": "MVT_NUM4",
+      "description": "Additional Info N04",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NUM4"
+    },
+    {
+      "name": "MVT_NUM5",
+      "description": "Additional Info N05",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_NUM5"
+    },
+    {
+      "name": "MVT_POIV",
+      "description": "Variable Weight",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_POIV"
+    },
+    {
+      "name": "MVT_QINV",
+      "description": "Inventory Quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_QINV"
+    },
+    {
+      "name": "MVT_QTE",
+      "description": "Movement Quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_QTE"
+    },
+    {
+      "name": "MVT REDA",
+      "description": "Date Recorded in Control Book",
+      "type_sql_server": "VARCHAR(8)",
+      "type_oracle": "NVARCHAR2(8)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT REDA"
+    },
+    {
+      "name": "MVT REF",
+      "description": "Movement Reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT REF"
+    },
+    {
+      "name": "MVT_REHE",
+      "description": "Time Recorded in Control Book",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_REHE"
+    },
+    {
+      "name": "MVT_REQI",
+      "description": "Profile Recorded in Control Book",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_REQI"
+    },
+    {
+      "name": "MVT_RETP",
+      "description": "Control Book Flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_RETP"
+    },
+    {
+      "name": "MVT_SENS",
+      "description": "Direction",
+      "type_sql_server": "VARCHAR(1)",
+      "type_oracle": "NVARCHAR2(1)",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_SENS"
+    },
+    {
+      "name": "MVT_TCTR",
+      "description": "Transfer Order Flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_TCTR"
+    },
+    {
+      "name": "MVT_TOP1",
+      "description": "Additional Info T01",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_TOP1"
+    },
+    {
+      "name": "MVT_TOP2",
+      "description": "Additional Info T02",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_TOP2"
+    },
+    {
+      "name": "MVT_TOP3",
+      "description": "Additional Info T03",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_TOP3"
+    },
+    {
+      "name": "MVT_TOP4",
+      "description": "Additional Info T04",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_TOP4"
+    },
+    {
+      "name": "MVT_TOP5",
+      "description": "Additional Info T05",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_TOP5"
+    },
+    {
+      "name": "MVT TOPE",
+      "description": "Extract Flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT TOPE"
+    },
+    {
+      "name": "MVT_TPEC",
+      "description": "Inventory Difference Flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "MVT_DAT",
+      "references_column": "MVT_TPEC"
+    },
+    {
+      "name": "OFE_NOOE",
+      "description": "OF Number",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "OFE_NOOE"
+    },
+    {
+      "name": "OFE_REF",
+      "description": "OF Reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "OFE_REF"
+    },
+    {
+      "name": "OFF_NORL",
+      "description": "Production Line Number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "OFF_NORL"
+    },
+    {
+      "name": "OFL_NOOL",
+      "description": "Line Number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "OFL_NOOL"
+    },
+    {
+      "name": "OPE_NOOE",
+      "description": "Order Number",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OPE_DAT",
+      "references_column": "OPE_NOOE"
+    },
+    {
+      "name": "OPE_REDO",
+      "description": "Order Giver Reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OPE_DAT",
+      "references_column": "OPE_REDO"
+    },
+    {
+      "name": "OPE_RTIE",
+      "description": "Third Party Reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OPE_DAT",
+      "references_column": "OPE_RTIE"
+    },
+    {
+      "name": "OPE_TYCO",
+      "description": "Order Type",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OPE_DAT",
+      "references_column": "OPE_TYCO"
+    },
+    {
+      "name": "OPL NOOL",
+      "description": "Order Line Number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OPL_DAT",
+      "references_column": "OPL NOOL"
+    },
+    {
+      "name": "QUA_CODE",
+      "description": "Quality Code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "QUA_PAR",
+      "references_column": "QUA_CODE"
+    },
+    {
+      "name": "REA_CTAD",
+      "description": "Recipient Third Party Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_CTAD"
+    },
+    {
+      "name": "REA_CTAF",
+      "description": "Supplier Third Party Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_CTAF"
+    },
+    {
+      "name": "REA_NOLR",
+      "description": "Expected Line Number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_NOLR"
+    },
+    {
+      "name": "REA RFAF",
+      "description": "Assignment Reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA RFAF"
+    },
+    {
+      "name": "REA_RFCE",
+      "description": "DO Header Reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_RFCE"
+    },
+    {
+      "name": "REA RFCL",
+      "description": "DO Line Reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA RFCL"
+    },
+    {
+      "name": "REA_RFTI",
+      "description": "Third Party Reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_RFTI"
+    },
+    {
+      "name": "REL_NORL",
+      "description": "Reception Line Number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REL_DAT",
+      "references_column": "REL_NORL"
+    },
+    {
+      "name": "SDO CODE",
+      "description": "Customs status",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": null,
+      "references_column": "SDO CODE"
+    },
+    {
+      "name": "STK SSUP",
+      "description": "Support Status",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK SSUP"
+    },
+    {
+      "name": "STK_SURG",
+      "description": "Grouping Support",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK_SURG"
+    },
+    {
+      "name": "STK TOP1",
+      "description": "Additional Info T01",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK TOP1"
+    },
+    {
+      "name": "STK TOP2",
+      "description": "Additional Info T02",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK TOP2"
+    },
+    {
+      "name": "STK_TOP3",
+      "description": "Additional Info T03",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK_TOP3"
+    },
+    {
+      "name": "STK TOP4",
+      "description": "Additional Info T04",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK TOP4"
+    },
+    {
+      "name": "STK TOP5",
+      "description": "Additional Info T05",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK TOP5"
+    },
+    {
+      "name": "STK ZONE",
+      "description": "Location Zone",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK ZONE"
+    },
+    {
+      "name": "STK ZONP",
+      "description": "Planned Location Zone",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "STK_DAT",
+      "references_column": "STK ZONP"
+    },
+    {
+      "name": "TIE_CODE",
+      "description": "Preparation Third Party Code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_CODE"
+    },
+    {
+      "name": "TIE LIB1",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE LIB1"
+    },
+    {
+      "name": "TIE_LIB2",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB2"
+    },
+    {
+      "name": "TIE_LIB3",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB3"
+    },
+    {
+      "name": "TIE_LIB4",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB4"
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "MVT_DAT.json",
+    "category": "Database Tables"
+  }
+}

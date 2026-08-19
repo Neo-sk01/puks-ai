@@ -1,0 +1,31 @@
+Stock generation
+As mentioned in the previous step, all the receipt lines added will not be available in
+stock until they have been generated.
+The effective generation or not will be recalled by the information Top stock input
+present at the end of each line on the default screen settings.
+This can take 2 values :
+.0: the line is added to the receipt, but is not generated. He there is no movement
+associated with this line, the medium in question cannot be taken into consideration in
+the following logistics flows
+.1: the line is generated in stock. There is therefore an associated entry movement. All
+the exp. Items have been consumed up to the received quantity. The goods now is in
+stock, the storage support can be supported in the following logistics flows:
+In order to be able to generate the stock, it will be necessary to select the lines to be
+processed. A Select All button is available at the bottom of the window to possibly
+simplify the selection.
+Sensitivity: InternalOnce the lines to be processed have been selected, the Generate stock button the
+available at the bottom of the window will allow to create the stock and the input
+movements associated with each line, thus consuming any associated exp. items. At
+the end of the operation, all the selected lines will therefore see their Top stock
+input changed to 1:
+Sensitivity: InternalThe supports will be generated on the receiving dock location selected at header level,
+in a status that will determine whether or not they are in place. This status code will
+depend on the configuration of the activity and can take two different values here :
+.01: support is considered to be in place and is therefore immediately available for order
+picking or sampling.
+.02: the medium is considered to be waiting to be moved to a location. He will not be
+available for release order preparation as long as the storage step has not been
+processed
+The lines thus generated will be available under the Storage tab of the receipt form :
+A receipt line generated in stock can no longer be modified or deleted.
+Sensitivity: Internal

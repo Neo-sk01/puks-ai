@@ -1,0 +1,46 @@
+[META]
+chunk_type: text
+source_file: Carrier allocation.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Carrier Allocation
+Purpose
+• Automatically assign the correct carrier to orders based on predefined rules
+and conditions.
+• Ensures efficient shipping and reduces manual allocation errors.
+Access
+• Menu path: Settings / Transport / Carrier Allocation
+Key Components
+1. Sequences Tab (Default View)
+o Displays the list of sequences for carrier assignment.
+o A sequence is a set of conditions that, when met, automatically
+assigns a specific carrier to an order.
+2. Columns Tab
+o Only headings (fields) that are activated in the Columns tab can be
+used to define conditions.
+o Example fields: customer, order type, delivery location, etc.
+3. Creating Sequences
+o Use the Add button or contextual menu to create a new sequence.
+o Define conditions based on the selected columns.
+o Partial conditions are allowed: not all fields need to be filled.
+4. Modifying & Reordering Sequences
+o Sequences can be edited or reordered using the arrows in the upper-
+right corner.
+o Order matters: sequences are evaluated from top to bottom; the first
+matching sequence assigns the carrier.
+5. Direct Carrier Assignment from Orders
+o Carrier can also be assigned manually directly from the Orders
+window, if needed.
+Sensitivity: Internal
+
+[PAGE 2]
+Usage Notes
+• Always ensure the relevant columns are activated before creating
+sequences.
+• Proper sequence order ensures priority rules are respected.
+• This feature can save time for warehouses handling multiple carriers and
+complex delivery rules.
+Sensitivity: Internal

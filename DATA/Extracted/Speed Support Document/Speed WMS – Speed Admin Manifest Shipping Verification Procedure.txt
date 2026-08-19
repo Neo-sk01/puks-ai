@@ -1,0 +1,46 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Speed Admin Manifest Shipping Verification Procedure.pdf
+category: Speed Support Document
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Procedure: Check if a Manifest Was Shipped (Speed Admin)
+1. Objective
+To verify whether a manifest has been shipped in Speed Admin and, if required,
+manually ship the manifest to ensure all linked orders are correctly updated.
+2. Procedure
+Step 1 – Log in to Speed Admin
+• Access the Speed Admin system using your authorised credentials.
+Step 2 – Navigate to the Shipping Module
+• From the main menu, select Shipping Module.
+Step 3 – Open Loading Management
+• Within the Shipping Module, click on Loading Management.
+Step 4 – Review Status Tabs
+Under Loading Management, the following status tabs are available:
+• Created
+• In Progress
+• Loaded
+• Shipped
+• All
+Step 5 – Check the “Shipped” Tab
+• Search for the manifest in the Shipped tab.
+o If the manifest appears here → The manifest has already been
+shipped.
+o If the manifest does not appear here but is found under “Loaded” →
+The manifest has not yet been shipped.
+Sensitivity: Internal
+
+[PAGE 2]
+Step 6 – Ship the Manifest (If Required)
+If the manifest is still in Loaded status:
+1. Right-click on the manifest entry.
+2. Select Ship.
+3. The manifest and all linked orders will move to Shipped status.
+3. Notes
+• Always confirm the manifest status before performing any action.
+• Shipping the manifest updates all associated orders automatically.
+• Ensure you have the correct authorisation before shipping a manifest.
+• If unsure, verify with the operations or planning team before proceeding.
+Sensitivity: Internal

@@ -1,0 +1,28 @@
+[META]
+chunk_type: text
+source_file: Declarative storage.pdf
+category: STORAGE
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Declarative Storage – Assigning Planned Locations
+Access:
+• Open a Reception form → Use the Assign option from the popup/context
+menu.
+Purpose
+• Assign a destination location for each support manually.
+• Supports can then be prepared for storage movements and later used for
+order picking.
+Steps
+1. Open the reception form.
+2. Select a line (support) → choose Assign from the contextual menu.
+3. Fill in the Planned location field for each support:
+o Enter the location name manually, or
+o Search and select via the Assign the planned location option.
+Outcome
+• As soon as a destination location is assigned, the support’s status changes
+to 03 (“movement to be performed”).
+• This indicates the support has a known planned location and is ready for
+storage processing.
+Sensitivity: Internal

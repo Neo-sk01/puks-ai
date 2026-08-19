@@ -1,0 +1,215 @@
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Areas.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Build a formula.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Carrier allocation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Classification tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Comment codes.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Comments item tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Comments third tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Country.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Creating a receipt header.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Creation of receipt lines.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Customer account management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Customization of the screens.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Customs status.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Data aggregation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Delivery settings tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Distribution channel.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Ergonomics.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Functional coverage.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Gauge.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Glossary.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Import locations.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Import of expected items.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Import thirds.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Incoterm code.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Introductions- Favourites.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Items.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Language Code.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Location deallocation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Location search.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Location.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Management of expected receptions.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Manufacturing.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Multi-view management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Photo tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Place management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Principle.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Quality.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Receipt closure.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Receipt generation from an exp.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Receiving tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Sequence.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Shipping Address Tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Stock generation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Support break management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Thirds Miscellaneous tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Thirds Party Miscellaneous tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Thirds tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Thirds.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Towns.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Transport mode.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Transportation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Unit creation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\User profiles and rights management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Zone scheduling.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Areas.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Build a formula.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Carrier allocation.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Classification tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Comment codes.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Comments item tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Comments third tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Country.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Creating a receipt header.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Creation of receipt lines.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Customer account management.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Customization of the screens.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Customs status.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Data aggregation.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Delivery settings tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Distribution channel.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Ergonomics.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Functional coverage.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Gauge.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Glossary.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Import locations.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Import of expected items.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Import thirds.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Incoterm code.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Introductions- Favourites.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Items.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Language Code.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Location deallocation.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Location search.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Location.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Management of expected receptions.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Manufacturing.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Multi-view management.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Photo tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Place management.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Principle.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Quality.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Receipt closure.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Receipt generation from an exp.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Receiving tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Sequence.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Shipping Address Tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Stock generation.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Support break management.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Thirds Miscellaneous tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Thirds Party Miscellaneous tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Thirds tab.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Thirds.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Towns.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Transport mode.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Transportation.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Unit creation.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\User profiles and rights management.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\GENERAL\Extracted\Zone scheduling.txt
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\MANUFACTURING\Creation of a manufacturing order.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\MANUFACTURING\Workshop approach.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\MANUFACTURING\Workshop zone settings.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Adding a grid model.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Addition by simplified entry.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Assignment of a collect.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Assignment to a loading.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Automatic launch.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Availability calculation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Carrier search and assignment.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Collect management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Creating a distribution.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Creating and modifying an order.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Delivery schedule.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Distribution template.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Edition or Deletion of a distribution.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Global changes.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Launch in preparation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Launch settings.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Launching.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Operations.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Order distribution.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Order lines management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Order splitting.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Order templates.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Orders management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Organization of the collects.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Other order information.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Put in wave.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Transfer to advanced preparation area.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Using order Templates.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\ORDER PREPARATION\Using the availability calculation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\PACKAGING\Creation of the packaging types.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\PACKAGING\Introduction.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\PACKAGING\Packaging accounts creation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Creating a receipt header.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Creation of receipt lines.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Import of expected items.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Management of expected receptions.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Principle.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Receipt closure.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Receipt generation from an exp.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Stock generation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\RECEIVING GOODS\Support break management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\REPLENISHMENT OF THE PICKING LOCATION\Partial validation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\REPLENISHMENT OF THE PICKING LOCATION\Principle of picking replenishment.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\REPLENISHMENT OF THE PICKING LOCATION\Replenishment generation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\REPLENISHMENT OF THE PICKING LOCATION\Replenishment management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\REPLENISHMENT OF THE PICKING LOCATION\Replenishment rules management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\REPLENISHMENT OF THE PICKING LOCATION\Restocking calculation method.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\REPLENISHMENT OF THE PICKING LOCATION\Total validation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SAMPLING\Introduction.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SAMPLING\Sampling in admin.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SAMPLING\Sampling rules.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Areas.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Carrier allocation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Classification tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Comment codes.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Comments item tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Comments third tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Country.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Customer account management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Customs status.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Delivery settings tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Distribution channel.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Gauge.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Import locations.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Import thirds.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Incoterm code.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Items.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Language Code.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Location deallocation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Location search.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Location.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Manufacturing.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Photo tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Place management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Quality.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Receiving tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Sequence.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Shipping Address Tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Thirds Miscellaneous tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Thirds Party Miscellaneous tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Thirds tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Thirds.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Towns.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Transport mode.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Transportation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Unit creation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SETTINGS\Zone scheduling.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\Loading creation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\Loads management.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\Mapping of the deliveries.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\Sampling details.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\Shipment packing.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\Shipped.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\Terminated.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\SHIPPING\To prepare.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STOCK MANAGEMENT\Deadline Reservation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STOCK MANAGEMENT\Quality assignment.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STOCK MANAGEMENT\View stocks.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STORAGE\Automatic search location.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STORAGE\Declarative storage.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STORAGE\Storage tab.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STORAGE\Storage validation.pdf
+C:\Users\kgathola.puka\OneDrive - MSC\Documents\GitHub\RCP(test)\SPEED CHATBOT PROJECT\DATA\STORAGE\The different statuses of a support.pdf

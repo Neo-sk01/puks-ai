@@ -1,0 +1,4 @@
+Transportation
+This functionality enables to define a large part of the elements related to the transport
+of goods in a transversal way.
+Sensitivity: Internal

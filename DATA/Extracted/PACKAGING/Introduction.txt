@@ -1,0 +1,86 @@
+[META]
+chunk_type: text
+source_file: Introduction.pdf
+category: PACKAGING
+total_pages: 4
+[/META]
+
+[PAGE 1]
+Introduction - Packaging
+The Packaging Management module is used to manage exchanges and management of
+packaging stocks(used for transport) between the different partners.
+This is a licensed module.
+The term "Packaging" is used in logistics to designate all the packaging exchanged
+through the flows made between the different partners. The type of packaging (EUR
+CHEP pallets, shelves, bins, etc.) makes it possible to identify the packaging.
+The packaging supporting the goods delivered to a warehouse is placed on
+consignment:
+• At loading : the supplier deposits X number of pieces of equipment with the carrier.
+The carrier is obliged to return all the equipment it has received. This can be done
+immediately upon loading or afterwards. The consignment voucher will then make it
+possible to record the flows of packaging in progress.
+• On delivery: the principle remains the same, the carrier records the number of pieces
+of packaging delivered to the recipient, as well as the number of pieces that the latter
+has returned to him.
+The management of the packaging consists in monitoring the exchanges of packaging
+between the three partners mentioned.
+For this, it is essential to master certain concepts before using the module.
+Packaging accounts
+The packaging accounts represent the different third parties that interact in the logistics
+environment that we manage.
+Two types of packaging accounts exist:
+.External accounts: represent all external third parties with which exchanges take
+place. These will essentially be carriers, suppliers and consignees.
+Sensitivity: Internal
+
+[PAGE 2]
+.Internal accounts: represent the stock of equipment for the logistics sites managed by
+SpeedWMS (or another ERP).
+In general there is one account per site. However, for service providers it is common for
+pallet stocks to be separated by customer; in this case several accounts are created.
+There may also be breakage and loss of equipment. Inventories and adjustment
+operations must therefore be carried out. Packaging purchases can also be made from
+“Packaging Merchants”. These operations will be recorded on a dedicated third-party
+account, of the external type.
+Management of the packaging accounts
+The management of packaging accounts allows each participant to determine at any
+time and for each type of packaging:
+.- The number of packaging that each partner owes him
+.- The number of packaging he owes to each partner
+.- Committed stock of tackle on handling units
+.- The free stock of packaging he has left on site
+.- The valuation of the various stocks of packaging
+Several solutions exist to settle accounts with partners:
+➢Packaging are due to a partner:
+.It is possible to trigger a delivery of packaging, if we have free stock
+.Bills can be received for packagings, if there is no free stock. A market price exists for
+each type of packaging and for each partner.
+➢• A partner owes us equipment:
+.- The partner can have the equipment he needs delivered.
+Sensitivity: Internal
+
+[PAGE 3]
+.- The packaging can be invoiced to the partner. Transfer prices are negotiated between
+the partners for each type of packaging.
+SpeedWMS’ default currency is the Euro, but it can be changed. (Access: System /
+Global settings / Miscellaneous section / Language)
+Packaging movements
+Each of the packaging account management solutions will be subject to an account-to-
+account movement of packaging: an entry on the first account generates an exit on the
+second, and vice versa.
+Specialized third-party accounts generate various movements which therefore do not
+appear in the packaging movements.
+The movement type determines the file from which the movement was generated:
+▪A receiving
+▪Order preparation
+▪An expedition
+For example, an packaging movement resulting from a reception will be identified by the
+reception number.
+The status indicates whether the movement is validated or simply entered (040 or 010).
+Indeed, the input operations will directly initialize the movements. We can make
+mistakes and therefore adjust until validation.
+This allows you to update the packaging counters.
+Sensitivity: Internal
+
+[PAGE 4]
+Sensitivity: Internal

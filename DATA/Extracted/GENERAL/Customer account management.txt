@@ -1,0 +1,53 @@
+[META]
+chunk_type: text
+source_file: Customer account management.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Customer Account Management
+Purpose
+• Allows an activity to be split by customer account, meaning that all receiving
+and preparation operations are assigned to a specific customer account.
+• Ensures that data, items, and operations can be segregated per customer.
+Activation
+• Must be enabled in the activity sheet:
+o Access: System → Activity → Double-click on the activity
+o Option to activate Customer account management.
+Key Features
+1. Common vs. Specific Data
+o Data (items, third parties, etc.) can be set as common for all accounts
+or specific per customer.
+o Specific data will have their item codes prefixed with the relevant
+customer account code.
+2. Creating Customer Accounts
+o Access via: Settings → Third p. → Customer accounts
+o Click Add to open the new customer account form.
+o Fields:
+▪ Activity: auto-filled, showing the activity in which the operator
+is located.
+▪ Code: unique reference for the customer account.
+▪ Designation: customer account name.
+▪ Prefix: alphanumeric (max 5 characters) – used to generate
+item codes specific to this account.
+▪ Logo: optional, assign a logo to the account.
+▪ Coordinates: contact information.
+Sensitivity: Internal
+
+[PAGE 2]
+▪ Comments: additional info for order preparation, delivery
+notes, or billing.
+▪ Additional Information: via dedicated tab for further details.
+3. System Restart
+o After creating or modifying customer accounts, SpeedWMS must be
+restarted for changes to take effect.
+4. Diverse Operations
+o Customer accounts can have specific operations assigned,
+configured in the Diverse Operations section.
+Summary
+• Enables multi-account management within a single activity.
+• Ensures data segregation, code prefixing, and account-specific operations.
+• Provides flexibility for customer-specific branding, notes, and operational
+needs.
+Sensitivity: Internal

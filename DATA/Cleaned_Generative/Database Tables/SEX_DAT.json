@@ -1,0 +1,902 @@
+{
+  "table_name": "SEX_DAT",
+  "description": "SHIPPING SUPPORT TABLE",
+  "primary_key": "SEX_KEYU",
+  "columns": [
+    {
+      "name": "CHG_CODE",
+      "description": "Loading code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CHG_DAT",
+      "references_column": "CHG_CODE"
+    },
+    {
+      "name": "CHG_DATE",
+      "description": "Loading date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CHG_DAT",
+      "references_column": "CHG_DATE"
+    },
+    {
+      "name": "EXP_REF",
+      "description": "Shipping reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "EXP_DAT",
+      "references_column": "EXP_REF"
+    },
+    {
+      "name": "SEX ACT",
+      "description": "Activity code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ACT"
+    },
+    {
+      "name": "SEX_ALPHA1",
+      "description": "Additional info A1",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_ALPHA1"
+    },
+    {
+      "name": "SEX ALPHA2",
+      "description": "Additional info A2",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPHA2"
+    },
+    {
+      "name": "SEX ALPНАЗ",
+      "description": "Additional info A3",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPНАЗ"
+    },
+    {
+      "name": "SEX ALPHA4",
+      "description": "Additional info A4",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPHA4"
+    },
+    {
+      "name": "SEX ALPHA5",
+      "description": "Additional info A5",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPHA5"
+    },
+    {
+      "name": "SEX ALPHA6",
+      "description": "Additional info A6",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPHA6"
+    },
+    {
+      "name": "SEX ALPHA7",
+      "description": "Additional info A7",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPHA7"
+    },
+    {
+      "name": "SEX ALPHA8",
+      "description": "Additional info A8",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPHA8"
+    },
+    {
+      "name": "SEX ALPHA9",
+      "description": "Additional info A9",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ALPHA9"
+    },
+    {
+      "name": "SEX_ALPHA10",
+      "description": "Additional info A10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_ALPHA10"
+    },
+    {
+      "name": "SEX_CAB",
+      "description": "Label barcode",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_CAB"
+    },
+    {
+      "name": "SEX_CRDA",
+      "description": "Creation date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_CRDA"
+    },
+    {
+      "name": "SEX_CRHE",
+      "description": "Creation time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_CRHE"
+    },
+    {
+      "name": "SEX_CRQI",
+      "description": "Created by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_CRQI"
+    },
+    {
+      "name": "SEX_CRTLR",
+      "description": "Controller code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_CRTLR"
+    },
+    {
+      "name": "SEX DATE1",
+      "description": "Additional date D1",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX DATE1"
+    },
+    {
+      "name": "SEX DATE2",
+      "description": "Additional date D2",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX DATE2"
+    },
+    {
+      "name": "SEX_DATEЗ",
+      "description": "Additional date D3",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_DATEЗ"
+    },
+    {
+      "name": "SEX DATE4",
+      "description": "Additional date D4",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX DATE4"
+    },
+    {
+      "name": "SEX DATE5",
+      "description": "Additional date D5",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX DATE5"
+    },
+    {
+      "name": "SEX DETI",
+      "description": "Label retrieval date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX DETI"
+    },
+    {
+      "name": "SEX DTCOL",
+      "description": "Packing date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX DTCOL"
+    },
+    {
+      "name": "SEX_DTCRT",
+      "description": "Control date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_DTCRT"
+    },
+    {
+      "name": "SEX DTEXP",
+      "description": "Shipping date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX DTEXP"
+    },
+    {
+      "name": "SEX EMBL",
+      "description": "Packaging code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX EMBL"
+    },
+    {
+      "name": "SEX EMPD",
+      "description": "Drop location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX EMPD"
+    },
+    {
+      "name": "SEX ETID",
+      "description": "Generated label data",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ETID"
+    },
+    {
+      "name": "SEX ETIF",
+      "description": "Label format",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX ETIF"
+    },
+    {
+      "name": "SEX_ETRI",
+      "description": "Sorter location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_ETRI"
+    },
+    {
+      "name": "SEX EXDA",
+      "description": "EDI feedback date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX EXDA"
+    },
+    {
+      "name": "SEX_EXHE",
+      "description": "EDI feedback time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_EXHE"
+    },
+    {
+      "name": "SEX EXPD",
+      "description": "Shipped by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX EXPD"
+    },
+    {
+      "name": "SEX_EXQI",
+      "description": "EDI profile",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_EXQI"
+    },
+    {
+      "name": "SEX_GNLA",
+      "description": "Generated at launch flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_GNLA"
+    },
+    {
+      "name": "SEX_HAUT",
+      "description": "Package height",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_HAUT"
+    },
+    {
+      "name": "SEX HECOL",
+      "description": "Packing time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX HECOL"
+    },
+    {
+      "name": "SEX_HECTR",
+      "description": "Control time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_HECTR"
+    },
+    {
+      "name": "SEX_HEURE1",
+      "description": "Additional time H1",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_HEURE1"
+    },
+    {
+      "name": "SEX HEURE2",
+      "description": "Additional time H2",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX HEURE2"
+    },
+    {
+      "name": "SEX_HEURE3",
+      "description": "Additional time H3",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_HEURE3"
+    },
+    {
+      "name": "SEX_HEURE4",
+      "description": "Additional time H4",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_HEURE4"
+    },
+    {
+      "name": "SEX HEURE5",
+      "description": "Additional time H5",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX HEURE5"
+    },
+    {
+      "name": "SEX HREXP",
+      "description": "Shipping time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX HREXP"
+    },
+    {
+      "name": "SEX_IDENT",
+      "description": "Support identifier",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_IDENT"
+    },
+    {
+      "name": "SEX_IDEX",
+      "description": "Shipment identifier",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_IDEX"
+    },
+    {
+      "name": "SEX_KEYU",
+      "description": "Unique key SEX_DAT",
+      "type_sql_server": "INT",
+      "type_oracle": "INTEGER NOT IDENTI",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_KEYU"
+    },
+    {
+      "name": "SEX LARG",
+      "description": "Package width",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX LARG"
+    },
+    {
+      "name": "SEX_MODA",
+      "description": "Modification date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_MODA"
+    },
+    {
+      "name": "SEX MOHE",
+      "description": "Modification time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX MOHE"
+    },
+    {
+      "name": "SEX_MOQI",
+      "description": "Modified by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_MOQI"
+    },
+    {
+      "name": "SEX_NBSU",
+      "description": "Number of supports",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_NBSU"
+    },
+    {
+      "name": "SEX NOLM",
+      "description": "Mission line number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX NOLM"
+    },
+    {
+      "name": "SEX_NOMI",
+      "description": "Mission number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_NOMI"
+    },
+    {
+      "name": "SEX NOOЕ",
+      "description": "SPEED order number",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX NOOЕ"
+    },
+    {
+      "name": "SEX NUM1",
+      "description": "Additional numeric N1",
+      "type_sql_server": "FLOAT(15)",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX NUM1"
+    },
+    {
+      "name": "SEX_NUM2",
+      "description": "Additional numeric N2",
+      "type_sql_server": "FLOAT(15)",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_NUM2"
+    },
+    {
+      "name": "SEX_NUM3",
+      "description": "Additional numeric N3",
+      "type_sql_server": "FLOAT(15)",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_NUM3"
+    },
+    {
+      "name": "SEX_NUM4",
+      "description": "Additional numeric N4",
+      "type_sql_server": "FLOAT(15)",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_NUM4"
+    },
+    {
+      "name": "SEX_NUM5",
+      "description": "Additional numeric N5",
+      "type_sql_server": "FLOAT(15)",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_NUM5"
+    },
+    {
+      "name": "SEX PACKR",
+      "description": "Packer code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX PACKR"
+    },
+    {
+      "name": "SEX_PGEN",
+      "description": "Generator program",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_PGEN"
+    },
+    {
+      "name": "SEX POIE",
+      "description": "Packaging weight",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX POIE"
+    },
+    {
+      "name": "SEX_POISR",
+      "description": "Actual total weight (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_POISR"
+    },
+    {
+      "name": "SEX_POITT",
+      "description": "Theoretical total weight (g)",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_POITT"
+    },
+    {
+      "name": "SEX POIV",
+      "description": "Empty packaging weight (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX POIV"
+    },
+    {
+      "name": "SEX_PROF",
+      "description": "Package depth",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_PROF"
+    },
+    {
+      "name": "SEX_RSEX",
+      "description": "Shipping support reference",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_RSEX"
+    },
+    {
+      "name": "SEX_SEQU",
+      "description": "Support sequence number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_SEQU"
+    },
+    {
+      "name": "SEX_STCTR",
+      "description": "Control status",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_STCTR"
+    },
+    {
+      "name": "SEX STLA",
+      "description": "Delivery status",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX STLA"
+    },
+    {
+      "name": "SEX STSUP",
+      "description": "Support status",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX STSUP"
+    },
+    {
+      "name": "SEX_STTR",
+      "description": "Carrier status",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_STTR"
+    },
+    {
+      "name": "SEX_SUPC",
+      "description": "Containing support number",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_SUPC"
+    },
+    {
+      "name": "SEX SUPE",
+      "description": "Shipped support number",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX SUPE"
+    },
+    {
+      "name": "SEX_SUPR",
+      "description": "Grouping support",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_SUPR"
+    },
+    {
+      "name": "SEX_TDOC",
+      "description": "Document present flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_TDOC"
+    },
+    {
+      "name": "SEX_TOP1",
+      "description": "Additional flag T1",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_TOP1"
+    },
+    {
+      "name": "SEX_TOP2",
+      "description": "Additional flag T2",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_TOP2"
+    },
+    {
+      "name": "SEX TOP3",
+      "description": "Additional flag T3",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX TOP3"
+    },
+    {
+      "name": "SEX_TOP4",
+      "description": "Additional flag T4",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_TOP4"
+    },
+    {
+      "name": "SEX_TOP5",
+      "description": "Additional flag T5",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_TOP5"
+    },
+    {
+      "name": "SEX TOPR",
+      "description": "EDI feedback flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX TOPR"
+    },
+    {
+      "name": "SEX_TRAK",
+      "description": "Tracking zone",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_TRAK"
+    },
+    {
+      "name": "SEX_URLT",
+      "description": "Tracking URL",
+      "type_sql_server": "VARCHAR(255)",
+      "type_oracle": "NVARCHAR2(255)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_URLT"
+    },
+    {
+      "name": "SEX_VOLU",
+      "description": "Shipment support volume",
+      "type_sql_server": "FLOAT(15)",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": "SEX_DAT",
+      "references_column": "SEX_VOLU"
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "SEX_DAT.json",
+    "category": "Database Tables"
+  }
+}

@@ -1,0 +1,26 @@
+[META]
+chunk_type: text
+source_file: Storage validation.pdf
+category: STORAGE
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Storage Validation
+Access:
+• Storage tab of the receipt.
+• Select the lines to be stored.
+• Click Validate Storage (button at the bottom or via the contextual menu).
+What Happens During Storage Validation
+1. The system moves the selected media (pallets, bins, etc.) to their planned
+location automatically.
+2. The status of the support is updated to:
+o 01 – Support in place
+o This indicates the media is now stored and available for order
+preparation.
+3. Information for each line is updated in the system after processing.
+Key Points:
+• Storage validation finalizes the placement of media in the warehouse.
+• Only validated media (status 01) can be used for further operations like order
+picking or preparation.
+Sensitivity: Internal

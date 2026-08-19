@@ -1,0 +1,31 @@
+[META]
+chunk_type: text
+source_file: User profiles and rights management.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+User Profiles and Rights Management – RAG-Friendly Version
+Purpose:
+Control access and permissions in SpeedWMS by assigning users to profiles and
+groups. This ensures that each user can only access the modules and functions
+they are authorized to use.
+1. Key Concepts
+• Every user must have a profile to access SpeedWMS.
+• Users are assigned to groups, which define their access rights.
+• Users inherit rights from their group.
+• If specific rights are needed, a new group must be created and configured
+before assigning users.
+2. Accessing User Rights
+• Navigate to: System → Rights
+• From this menu, administrators can:
+o Create or modify groups.
+o Assign or revoke rights to groups.
+o Attach user accounts to the appropriate group.
+3. Notes
+• Proper configuration prevents unauthorized access to sensitive modules.
+• Rights can include access to receipts, stock, orders, missions, zones, and
+reports.
+• Changes to rights take effect immediately for users in the group.
+Sensitivity: Internal

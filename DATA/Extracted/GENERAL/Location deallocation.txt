@@ -1,0 +1,23 @@
+[META]
+chunk_type: text
+source_file: Location deallocation.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Location Deallocation
+Purpose:
+• Allows the removal of locations from a zone at any time.
+• Useful when reorganizing warehouse zones or updating location
+assignments.
+Steps to Deallocate Locations:
+1. Select the location(s) to be removed from the zone.
+2. Right-click on the selection.
+3. Choose “Deallocate location” from the contextual menu.
+The selected locations will be removed from the assigned zone immediately.
+Notes:
+• This operation only affects the zone assignment, not the location itself.
+• Deallocated locations can be reassigned later to the same or a different
+zone if needed.
+Sensitivity: Internal

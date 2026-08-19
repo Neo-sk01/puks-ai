@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Report Knowledge – @{outputs('Header_Data')?['body/agl_reportname']}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .header {
+      background-color: #0f3b46;
+      color: #ffffff;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .container {
+      background-color: #ffffff;
+      margin: 20px;
+      padding: 25px;
+      border-radius: 6px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #0f3b46;
+      padding-bottom: 6px;
+      color: #0f3b46;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #e9eff1;
+      width: 25%;
+      font-weight: bold;
+    }
+
+    .code-box {
+      background-color: #f0f3f5;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  Report Knowledge
+</div>
+
+<div class="container">
+  <div class="section-title">Report Header Information</div>
+  <table>
+    <tr>
+      <th>Report Name</th>
+      <td>@{outputs('Header_Data')?['body/agl_reportname']}</td>
+    </tr>
+    <tr>
+      <th>Report Type</th>
+      <td>@{outputs('Header_Data')?['body/agl_reporttype']}</td>
+    </tr>
+    <tr>
+      <th>Business Area</th>
+      <td>@{outputs('Header_Data')?['body/agl_businessarea']}</td>
+    </tr>
+    <tr>
+      <th>Data Sources</th>
+      <td>@{outputs('Header_Data')?['body/agl_datasources']}</td>
+    </tr>
+    <tr>
+      <th>Refresh Frequency</th>
+      <td>@{outputs('Header_Data')?['body/agl_refreshfrequency']}</td>
+    </tr>
+    <tr>
+      <th>Security Roles</th>
+      <td>@{outputs('Header_Data')?['body/agl_securityroles']}</td>
+    </tr>
+    <tr>
+      <th>Created On</th>
+      <td>@{outputs('Header_Data')?['body/createdon']}</td>
+    </tr>
+    <tr>
+      <th>Created By</th>
+      <td>@{outputs('Header_Data')?['body/createdby']?['DisplayName']}</td>
+    </tr>
+  </table>
+
+  <div class="section-title">Report Purpose</div>
+  <table>
+    <tr>
+      <td>@{outputs('Header_Data')?['body/agl_reportpurpose']}</td>
+    </tr>
+  </table>
+
+  <div class="section-title">Code / Knowledge Details</div>
+  <table>
+    <tr>
+      <th>Report ID</th>
+      <td>@{outputs('Header_Data')?['body/agl_reportid']}</td>
+    </tr>
+    <tr>
+      <th>Code Type</th>
+      <td>@{outputs('Header_Data')?['body/agl_codetype']}</td>
+    </tr>
+    <tr>
+      <th>Code Description</th>
+      <td>@{outputs('Header_Data')?['body/agl_codedescription']}</td>
+    </tr>
+  </table>
+
+  <div class="section-title">Code Block</div>
+  <div class="code-box">
+@{outputs('Header_Data')?['body/agl_codeblock']}
+  </div>
+
+</div>
+
+</body>
+</html>

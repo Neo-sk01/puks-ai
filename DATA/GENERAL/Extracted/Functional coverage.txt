@@ -1,0 +1,69 @@
+Functional coverage
+The warehouse management is realized by location. It allows to carry out the steps of
+goods input, stock keeping (including inventory), preparation and shipping.
+SpeedWMS can be configured to enable the management of both fairly simple and
+more complex processes (multi - activities with different management rules, burst
+preparation, setting up of the radio frequency, etc.).
+➢Warehouse topography
+Management by location
+Management of all types of locations, different types of areas (dock, reception,
+preparation, inventory, etc.)
+Classic stock visualization
+Automatic location search module
+➢Setting
+Multi clients
+Multi languages
+5 packaging levels per item
+Configuration of traceability monitoring modes (batch, FIFO, etc.)
+Configuration of third parties with the notion of main supplier
+Setting the delivery days
+Setting up delivery routes
+Prioritization of articles and third parties
+Configuration of preparation modes (preparation circuit): impact on the generation of
+preparation missions, preparation documents and validation processes
+Sensitivity: InternalUser and rights settings
+Configuration of edits and orientations to printers
+➢Receiving
+Simple receipt process
+Possible management of reception expectations
+Quantitative and qualitative control
+Identification and labeling
+Receipt in paper mode or radio frequency
+Automatic addressing possible
+Run-of-the-river or cadenced reception
+Generating receipts by interface
+Sending or receiving information (fax, EDI, email)
+➢Inventory management
+Global vision of the stock according to various criteria (supplier, quality, condition, etc.)
+View of the stock by item with possible filters
+Stock detail by item and associated movements
+Unit or global modification functions of the selections made
+Management of various movements
+View of the stock by location with possible filters
+Vision of the stock in progress (in stock, blocked, expected, in receipt, on order, in
+preparation, available etc.)
+Sensitivity: Internal➢Order preparations
+Management of order interfaces Organization of preparation by unit or by wave
+according to grouping criteria (recipients, customers, distribution points, etc.)
+Editing of fully mock-up preparation lists
+Optimization of handling by type of flow
+Visualization of orders according to selection criteria (dates, customers, carrier, etc.)
+Replenishment of picking locations
+➢Shipment management
+Fully mockable paper or electronic transport documents and delivery notes (EDI, email)
+Possibility to follow the progress of preparations by grouping, by tour
+Possibility of managing the progress of the preparation by pallet, independently of the
+preparation criterion
+Possibility of viewing delivery routes on a geographical map, with precise deadlines
+➢Inventory
+Creation of inventories (choice of zones, locations, items, etc.)
+Generation of inventory statements
+Administrative or radio frequency seizure
+Generation of deviations
+Validation and updating of stocks
+Sensitivity: Internal➢Complementary functions
+Radio module (reception, storage, preparation, replenishment, picking, inventory,
+packing, goods call, declaration of production and consumption, etc.)
+Interfaces module
+Automatic location search module
+Sensitivity: Internal

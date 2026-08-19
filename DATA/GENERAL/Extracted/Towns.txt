@@ -1,0 +1,10 @@
+Towns
+Possibility to import cities via the menu Settings /Third p. / Towns:
+It provides informationfollowing:
+.Country code
+.Town name
+.Postcode
+.INSEE code
+This information allows a control at the level of the orders (for example in e-commerce),
+but also at the level of the transport plan.
+Sensitivity: Internal

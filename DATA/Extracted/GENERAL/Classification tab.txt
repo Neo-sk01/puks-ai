@@ -1,0 +1,33 @@
+[META]
+chunk_type: text
+source_file: Classification tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Classification Tab (Third Party)
+Purpose
+• Allows the user to view or modify the classification assigned to a third party
+(supplier, carrier, or recipient).
+• Classification helps in organizing third parties for reporting, filtering, or
+applying specific warehouse rules.
+Key Functions
+1. View classification
+o Displays all the families or categories to which the third party
+belongs.
+o Example: Supplier classification → “Preferred”, “Standard”, “New”.
+2. Modify classification
+o Using the contextual menu, you can:
+▪ Add an assignment → Assign the third party to a new
+classification or category.
+▪ Remove an assignment → Unlink the third party from an existing
+classification.
+Usage Notes
+• Classification affects:
+o Filtering and searching third parties in lists.
+o Selection criteria in orders, receipts, and other processes.
+o Reporting and statistics for warehouse management.
+• For detailed structure, refer to the Classification chapter in SpeedWMS
+documentation.
+Sensitivity: Internal

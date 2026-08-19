@@ -1,0 +1,29 @@
+[META]
+chunk_type: text
+source_file: Distribution template.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Distribution Templates
+Access
+• Menu: Preparation / Distribution Templates
+Overview
+• Displays a list of existing templates.
+• Allows you to create, modify, or delete templates.
+Creating a New Template
+1. Click New to open the creation window.
+2. Enter the following details:
+o Template Name: Name for the template.
+o Code: Select the third-party recipients for the order.
+o Percentage: Define the percentage of goods to be distributed to each
+recipient.
+3. Click Validate to finalize the creation.
+Managing Templates
+• Newly created templates are added to the list of existing templates.
+• Templates can be modified or removed using the corresponding buttons.
+Tip: Distribution templates help automate the splitting of goods among
+recipients according to predefined percentages, reducing manual workload during
+order processing.
+Sensitivity: Internal

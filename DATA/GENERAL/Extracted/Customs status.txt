@@ -1,0 +1,7 @@
+Customs status
+Functionality accessible from the menu Settings / Other/ Customs status
+As part of the management of bonded goods, SpeedWMS enable two add many
+customs statuses to the environment:
+They will be used during the receiving if the goods require it.
+It will then be a property of the stock.
+Sensitivity: Internal

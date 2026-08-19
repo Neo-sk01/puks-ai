@@ -1,0 +1,69 @@
+[META]
+chunk_type: text
+source_file: Sampling rules.pdf
+category: SAMPLING
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Topic: Configuration of Sampling Rules
+Access Path: System / Receiving - Sampling
+Purpose: Sampling rules define the logic for selecting items to undergo quality
+control upon receipt. Rules are evaluated in priority order.
+1. Rule Management & Creation
+• Priority: Rules are listed and searched in order of their assigned priority.
+• Creating a Rule: Click the "+" (Add) button to create a new rule.
+• Rule Identification:
+o A unique numeric ID is auto-assigned via incrementation.
+o A default title is also auto-generated but can be modified by the user.
+• Creation Methods: A rule can be configured using one of two methods
+related to the sampling logic:
+o Standard: Uses the predefined sampling parameters and logic built
+into SpeedWMS (default).
+o Free: Allows the user to directly input a custom code/query into a
+dedicated field in the "Samplings Setting" tab, offering greater
+flexibility.
+2. Rule Scope & Filters ("Settings" Tab)
+Rules can be scoped to apply only under specific conditions via filters.
+• General Tab: Apply broad filters using:
+o Item Family
+o Supplier Family
+o The rule will only trigger for items belonging to the selected
+categories.
+• Additional Tab: Apply precise filters based on defined values related to:
+o Stock attributes
+o Order headers and lines
+o Article/item master data
+o Various Third Parties (e.g., specific suppliers, carriers) defined in
+SpeedWMS.
+Sensitivity: Internal
+
+[PAGE 2]
+3. Sampling Logic Configuration ("Sampling Setting" Tab)
+This tab defines when and how sampling occurs.
+• A. Trigger Method: Defines the event that initiates sampling.
+o Free: User enters a custom query.
+o Standard: User selects from system-defined triggers:
+▪ Rupture: Defines a specific moment (e.g., time-based) to start
+sampling.
+▪ New Item: When an item unknown in the system enters stock.
+▪ New Item in Reception: When a new item is received into the
+environment.
+▪ New Traceability Information: When a new traceability element
+(e.g., batch, serial) is detected on an item.
+▪ Full Support: At any change of the handling unit/load carrier
+(e.g., pallet).
+• B. Sampling Parameters: Defines the details of the sample.
+o Quality: The quality status/grade of the sample to be taken for control.
+o Location: The destination location where the sample should be
+deposited for inspection.
+o Quantity: The amount to sample. Two methods exist:
+1. Value: A fixed quantity is defined by the user in a dedicated
+field, based on a selected Stock Unit (SU).
+▪ Important: When using a fixed value, ensure the
+items being sampled actually manage the selected
+Stock Unit in their master data.
+2. Percentage: A user-defined percentage of the total received
+quantity will be sampled. The sampled quantity therefore
+scales with the receipt size.
+Sensitivity: Internal

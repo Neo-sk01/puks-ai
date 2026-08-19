@@ -1,0 +1,36 @@
+[META]
+chunk_type: text
+source_file: Order lines management.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Order Lines Management
+Status Requirement
+• Can only be done when the order is in status: In Seizure (010).
+• Orders in other statuses cannot have lines added, modified, or deleted.
+Adding Order Lines
+• Multiple methods are available (covered in other sections, e.g., direct entry,
+templates, import, etc.).
+• Must be done while the order is in In Seizure.
+Modifying Order Lines
+• Double-click an existing line → opens the line modification screen.
+• You can change:
+o Item reference
+o Quantity
+o Any other editable attributes for that line
+Deleting Order Lines
+• Right-click on the line → select Delete from the contextual menu.
+• Only possible in In Seizure status.
+Reordering Lines
+• Use the up/down arrows on the right side of the window.
+• Allows adjusting the display order of lines in the order.
+Summary:
+• Add / Modify / Delete / Reorder lines → only in In Seizure status.
+Sensitivity: Internal
+
+[PAGE 2]
+• Ensures the order lines are fully prepared before moving to wave or
+preparation stages.
+Sensitivity: Internal

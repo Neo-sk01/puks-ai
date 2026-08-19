@@ -1,0 +1,38 @@
+Unit creation
+It is possible to create new locations in a unitary manner :
+.The warehouse : alphanumeric of 6 characters maximum
+.The aisle: alphanumeric of 3 characters maximum
+.The column: alphanumeric of 3 characters maximum
+.The level: alphanumeric of 3 characters maximum
+.The slot : alphanumeric of 3 characters maximum
+Among these 5 characters only the notions of store and all they are mandatory.
+.The location field is used to define the name of the location to create. This is defined by
+default (concatenation of all the characteristics previously defined) but it is possible to
+modify it as desired. Alphanumeric type data with a maximum of 25 characters.
+.Site: allows you to link the location to the one of the defined sites
+.Template: possibility of specifying the template code to assign to the location
+(selection from the list of template codes defined in the environment). Template
+management is not imperative. Failing this, a Standard template code (STD) will be
+allocated to the different locations. Ability to use this criterion in automatic location
+search rules.
+.Class: possibility to specify the class of the location (A, B or C. B by default). Optional
+concept which can be included in the automatic location search rules.
+Sensitivity: Internal.Type: allows you to define the nature of a location from a predefined list (platform /
+ground / structure / relay).
+.Picking Y/N: defines whether the location is picking type or not.
+.Multi-mode-reference: determines whether the slot can accommodate several media
+with different references (Yes, by default), whether it is forbidden to store several media
+with different references (No),or whether to notify the operator in the event of storage of
+several supports of different references (Warning).
+.Weight management: defines whether or not weight is taken into account in the various
+calculations. If so, the various maximum weights must be entered in kg in the
+corresponding fields. This is used when moving goods and makes it possible to block
+any movement whose weight exceeds the maximum authorized load thanks to a
+warning message.
+.Dimensions of the arm: possibility to specify the different dimensions. These fields can
+be used as criteria in the various location search rules implemented.
+.Consideration of the location in the calculation of the occupancy rate: possibility of
+taking into account or not the location created during calculation of the occupancy rate.
+.Walkable : allows you to define whether the level will have to be confirmed when
+storing on the radio.
+Sensitivity: Internal

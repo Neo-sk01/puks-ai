@@ -1,0 +1,26 @@
+[META]
+chunk_type: text
+source_file: Import of expected items.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Import of Expected Items
+Purpose:
+• Enables bulk import of expected items into the Receiving → Expected
+module.
+• Streamlines the creation of expected lines from an external Excel file.
+Access:
+• Menu: Receiving → Expected → Import
+Process:
+1. Click the Import button to start the process.
+2. Select an existing Excel file containing the expected items.
+3. SpeedWMS will read the file and display the expected items ready for
+import.
+Post-Import:
+• Imported expected items are added to the system and can be modified or
+processed as needed.
+• The import ensures consistency with existing purchase orders or return
+processes.
+Sensitivity: Internal

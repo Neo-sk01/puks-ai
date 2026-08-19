@@ -1,0 +1,1107 @@
+{
+  "table_name": "STK_DAT",
+  "description": "Current Stock Table",
+  "primary_key": "stk_keyu",
+  "columns": [
+    {
+      "name": "ACT_CODE",
+      "description": "Activity code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ACT_PAR",
+      "references_column": "ACT_CODE"
+    },
+    {
+      "name": "ART_CNDC",
+      "description": "Package - Colis",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDC"
+    },
+    {
+      "name": "ART_CNDO",
+      "description": "Package - Layer",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDO"
+    },
+    {
+      "name": "ART_CNDP",
+      "description": "Package - Pallet",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDP"
+    },
+    {
+      "name": "ART_CNDS",
+      "description": "Package - SPCB",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDS"
+    },
+    {
+      "name": "ART_CNDU",
+      "description": "Package - Unit",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CNDU"
+    },
+    {
+      "name": "ART_CODE",
+      "description": "Article code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CODE"
+    },
+    {
+      "name": "ART_EANC",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_EANC"
+    },
+    {
+      "name": "ART_EANO",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_EANO"
+    },
+    {
+      "name": "ART_EANP",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_EANP"
+    },
+    {
+      "name": "ART_EANS",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_EANS"
+    },
+    {
+      "name": "ART_EANU",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_EANU"
+    },
+    {
+      "name": "ART_QTEC",
+      "description": "Qty per Colis",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEC"
+    },
+    {
+      "name": "ART_QTEO",
+      "description": "Qty per Layer",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEO"
+    },
+    {
+      "name": "ART_QTEP",
+      "description": "Qty per Pallet",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEP"
+    },
+    {
+      "name": "ART_QTES",
+      "description": "Qty per SPCB",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTES"
+    },
+    {
+      "name": "ART_QTEU",
+      "description": "Qty per Unit",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_QTEU"
+    },
+    {
+      "name": "DOS_CODE",
+      "description": "Folder code",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "DOS_DAT",
+      "references_column": "DOS_CODE"
+    },
+    {
+      "name": "GAB_CODE",
+      "description": "Template code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "GAB_PAR",
+      "references_column": "GAB_CODE"
+    },
+    {
+      "name": "OFE_NOOE",
+      "description": "Manufacturing order no",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OFE_DAT",
+      "references_column": "OFE_NOOE"
+    },
+    {
+      "name": "OFE_REF",
+      "description": "Manufacturing reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OFE_DAT",
+      "references_column": "OFE_REF"
+    },
+    {
+      "name": "OFF_NORL",
+      "description": "Production line no",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OFF_DAT",
+      "references_column": "OFF_NORL"
+    },
+    {
+      "name": "OFL_NOOL",
+      "description": "Order line no",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OFL_DAT",
+      "references_column": "OFL_NOOL"
+    },
+    {
+      "name": "QUA_CODE",
+      "description": "Quality code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "QUA_PAR",
+      "references_column": "QUA_CODE"
+    },
+    {
+      "name": "REA_BL",
+      "description": "Delivery note ref",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_BL"
+    },
+    {
+      "name": "REA_RFCE",
+      "description": "DO header ref",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_RFCE"
+    },
+    {
+      "name": "REA_RFCL",
+      "description": "DO line ref",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REA_DAT",
+      "references_column": "REA_RFCL"
+    },
+    {
+      "name": "REL_NORL",
+      "description": "Reception line no",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REL_DAT",
+      "references_column": "REL_NORL"
+    },
+    {
+      "name": "RES_COM",
+      "description": "Reservation comment",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "RES_DAT",
+      "references_column": "RES_COM"
+    },
+    {
+      "name": "RES_CRDA",
+      "description": "Reservation creation datetime",
+      "type_sql_server": "VARCHAR(16)",
+      "type_oracle": "NVARCHAR2(16)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "RES_DAT",
+      "references_column": "RES_CRDA"
+    },
+    {
+      "name": "RES_LIDA",
+      "description": "Reservation expiry date",
+      "type_sql_server": "VARCHAR(8)",
+      "type_oracle": "NVARCHAR2(8)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "RES_DAT",
+      "references_column": "RES_LIDA"
+    },
+    {
+      "name": "RES_MOTIF",
+      "description": "Reservation reason",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "RES_DAT",
+      "references_column": "RES_MOTIF"
+    },
+    {
+      "name": "RES_QIRE",
+      "description": "Reserved by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "RES_DAT",
+      "references_column": "RES_QIRE"
+    },
+    {
+      "name": "SDO_CODE",
+      "description": "Customs status",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "SDO_PAR",
+      "references_column": "SDO_CODE"
+    },
+    {
+      "name": "STK_ALLE",
+      "description": "Aisle",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_ALLE"
+    },
+    {
+      "name": "STK_ALLP",
+      "description": "Planned aisle",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_ALLP"
+    },
+    {
+      "name": "STK_ALPHA1-10",
+      "description": "Additional info A01-A10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_ALPHA1-10"
+    },
+    {
+      "name": "STK_CASE",
+      "description": "Location case",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CASE"
+    },
+    {
+      "name": "STK_CASP",
+      "description": "Planned case",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CASP"
+    },
+    {
+      "name": "STK_CFIS",
+      "description": "Fiscality code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CFIS"
+    },
+    {
+      "name": "STK_CLAS",
+      "description": "Class code",
+      "type_sql_server": "VARCHAR(1)",
+      "type_oracle": "NVARCHAR2(1)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CLAS"
+    },
+    {
+      "name": "STK_COL",
+      "description": "Column",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_COL"
+    },
+    {
+      "name": "STK_COLP",
+      "description": "Planned column",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_COLP"
+    },
+    {
+      "name": "STK_COM",
+      "description": "Comments",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_COM"
+    },
+    {
+      "name": "STK_CRDA",
+      "description": "Creation date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CRDA"
+    },
+    {
+      "name": "STK_CRHE",
+      "description": "Creation time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CRHE"
+    },
+    {
+      "name": "STK_CRQI",
+      "description": "Created by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CRQI"
+    },
+    {
+      "name": "STK_CTIE",
+      "description": "Entry third party",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_CTIE"
+    },
+    {
+      "name": "STK_DAEN",
+      "description": "Stock entry date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DAEN"
+    },
+    {
+      "name": "STK_DAEP",
+      "description": "Planned transfer execution date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DAEP"
+    },
+    {
+      "name": "STK_DAIV",
+      "description": "Inventory date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DAIV"
+    },
+    {
+      "name": "STK_DARG",
+      "description": "Putaway date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DARG"
+    },
+    {
+      "name": "STK_DARS",
+      "description": "Location search date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DARS"
+    },
+    {
+      "name": "STK_DASO",
+      "description": "Exit date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DASO"
+    },
+    {
+      "name": "STK_DATE1-5",
+      "description": "Additional dates D01-D05",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DATE1-5"
+    },
+    {
+      "name": "STK_DFAB",
+      "description": "Manufacturing date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DFAB"
+    },
+    {
+      "name": "STK_DLC",
+      "description": "Expiry date (DLC)",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DLC"
+    },
+    {
+      "name": "STK_DLUO",
+      "description": "Best-before date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DLUO"
+    },
+    {
+      "name": "STK_DLV",
+      "description": "Delivery date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_DLV"
+    },
+    {
+      "name": "STK_HEEP",
+      "description": "Planned transfer time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_HEEP"
+    },
+    {
+      "name": "STK_HEIV",
+      "description": "Inventory time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_HEIV"
+    },
+    {
+      "name": "STK_HERG",
+      "description": "Putaway time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_HERG"
+    },
+    {
+      "name": "STK_HERS",
+      "description": "Location search time",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_HERS"
+    },
+    {
+      "name": "STK_HEURE1-5",
+      "description": "Additional times H01-H05",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_HEURE1-5"
+    },
+    {
+      "name": "STK_INPC",
+      "description": "Forklift priority index",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_INPC"
+    },
+    {
+      "name": "STK_KEYU",
+      "description": "Stock unique key",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_KEYU"
+    },
+    {
+      "name": "STK_LIEP",
+      "description": "Planned location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_LIEP"
+    },
+    {
+      "name": "STK_LIEU",
+      "description": "Location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_LIEU"
+    },
+    {
+      "name": "STK_LOT1-3",
+      "description": "Lot numbers",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_LOT1-3"
+    },
+    {
+      "name": "STK_MODA",
+      "description": "Modification date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_MODA"
+    },
+    {
+      "name": "STK_MOHE",
+      "description": "Modification time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_MOHE"
+    },
+    {
+      "name": "STK_MOQI",
+      "description": "Modified by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_MOQI"
+    },
+    {
+      "name": "STK_NIV",
+      "description": "Level",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_NIV"
+    },
+    {
+      "name": "STK_NIVP",
+      "description": "Planned level",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_NIVP"
+    },
+    {
+      "name": "STK_NOER",
+      "description": "Distribution header no",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_NOER"
+    },
+    {
+      "name": "STK_NOLR",
+      "description": "Distribution line no",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_NOLR"
+    },
+    {
+      "name": "STK_NORE",
+      "description": "Reception number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REE_DAT",
+      "references_column": "REE_NORE"
+    },
+    {
+      "name": "STK_NORG",
+      "description": "Grouping order no",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_NORG"
+    },
+    {
+      "name": "STK_NOSU",
+      "description": "Support number",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_NOSU"
+    },
+    {
+      "name": "STK_NUM1-5",
+      "description": "Additional numerics N01-N05",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_NUM1-5"
+    },
+    {
+      "name": "STK_PDSE",
+      "description": "Variable entry weight",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_PDSE"
+    },
+    {
+      "name": "STK_POIBC",
+      "description": "Gross weight colis (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POIBC"
+    },
+    {
+      "name": "STK_POIBO",
+      "description": "Gross weight layer (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POIBO"
+    },
+    {
+      "name": "STK_POIBP",
+      "description": "Gross weight pallet (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POIBP"
+    },
+    {
+      "name": "STK_POIBS",
+      "description": "Gross weight SPCB (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POIBS"
+    },
+    {
+      "name": "STK_POIBU",
+      "description": "Gross weight unit (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POIBU"
+    },
+    {
+      "name": "STK_POISI",
+      "description": "Position",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POISI"
+    },
+    {
+      "name": "STK_POITL",
+      "description": "Total gross weight (g)",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POITL"
+    },
+    {
+      "name": "STK_POITN",
+      "description": "Net total weight",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POITN"
+    },
+    {
+      "name": "STK_POIV",
+      "description": "Variable weight",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POIV"
+    },
+    {
+      "name": "STK_POSP",
+      "description": "Planned position",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_POSP"
+    },
+    {
+      "name": "STK_PRIX",
+      "description": "Unit price",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_PRIX"
+    },
+    {
+      "name": "STK_PROP",
+      "description": "Owner",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_PROP"
+    },
+    {
+      "name": "STK_PRQT",
+      "description": "Price quantity",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_PRQT"
+    },
+    {
+      "name": "STK_QIIV",
+      "description": "Inventory operator",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_QIIV"
+    },
+    {
+      "name": "STK_QIRE",
+      "description": "Transfer operator",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_QIRE"
+    },
+    {
+      "name": "STK_QIRG",
+      "description": "Putaway operator",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_QIRG"
+    },
+    {
+      "name": "STK_QTE",
+      "description": "Stock quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_QTE"
+    },
+    {
+      "name": "STK_QTPE",
+      "description": "Total quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_QTPE"
+    },
+    {
+      "name": "STK_RETI",
+      "description": "Entry third-party ref",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "REE_DAT",
+      "references_column": "REE_NOFO"
+    },
+    {
+      "name": "STK_RFAF",
+      "description": "Allocation reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_RFAF"
+    },
+    {
+      "name": "STK_RSTK",
+      "description": "Storage rule",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_RSTK"
+    },
+    {
+      "name": "STK_RSUC",
+      "description": "Client support reference",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_RSUC"
+    },
+    {
+      "name": "STK_RTRF",
+      "description": "Transfer grouping",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_RTRF"
+    },
+    {
+      "name": "STK_SSUP",
+      "description": "Support status",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_SSUP"
+    },
+    {
+      "name": "STK_SURG",
+      "description": "Grouping support",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_SURG"
+    },
+    {
+      "name": "STK_TOP1-5",
+      "description": "Flags T01-T05",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_TOP1-5"
+    },
+    {
+      "name": "STK_TRCH",
+      "description": "Successful search flag",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_TRCH"
+    },
+    {
+      "name": "STK_ZONE",
+      "description": "Warehouse zone",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_ZONE"
+    },
+    {
+      "name": "STK_ZONP",
+      "description": "Planned warehouse zone",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": "STK_ZONP"
+    }
+  ]
+}

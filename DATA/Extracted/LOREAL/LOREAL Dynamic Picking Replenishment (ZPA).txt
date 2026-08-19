@@ -1,0 +1,140 @@
+[META]
+chunk_type: text
+source_file: LOREAL Dynamic Picking Replenishment (ZPA).pdf
+category: LOREAL
+total_pages: 5
+[/META]
+
+[PAGE 1]
+Project: Dynamic Picking Replenishment (ZPA)
+Creation Date: 25 September 2025
+Author: Rémi BAUSSAND – AGL
+Source: Design Workshop – Saad Belkouch, Ali Mzali, Zineb Baddaz, Rémi Baussand
+System: SPEED WMS
+Metadata
+{
+"document_type": "Functional Specification",
+"project": "Dynamic Picking Replenishment (ZPA)",
+"system": "SPEED WMS",
+"feature": "Automated dynamic picking replenishment",
+"creation_date": "2025-09-25",
+"author": "Rémi BAUSSAND",
+"source": ["Saad Belkouch", "Ali Mzali", "Zineb Baddaz", "Rémi Baussand"]
+}
+I. Summary
+• Goal: Automatically replenish picking locations (ZPA) in multiples of VL cartons, filling to
+the location volume (location volume vs. article volume × quantity).
+• Net requirement calculation: portfolio requirements in units – available ZPA stock – ZPA
+replenishment pending (real quantities).
+• Operator optimization: chain missions from the same origin support via support scan.
+II. Context & Scope
+• Dynamic picking replenishment happens in SPEED via the ZPA transfer.
+• Standard system limitations require multiple RF steps for operational needs. The goal is
+to make dynamic location replenishment more efficient by fully automating the process.
+Sensitivity: Internal
+
+[PAGE 2]
+• This process is distinct from wave launches but is driven by the order portfolio.
+Scope:
+• ZPA dynamic replenishment in multiples of VL cartons from reserve to dynamic picking
+locations.
+• Priority: same article/lot.
+• Execution of replenishment mission.
+Target steps (hypotheses):
+1. ZPA placement rule (find location by volume + deduct quantities from previous steps).
+2. Picking replenishment module – optimize chaining of replenishments from the same
+origin location.
+III. Definitions & Parameters
+Term Description
+VL pallet (PCB palette) Units per full pallet (e.g., 100)
+VL carton (PCB carton) Units per carton (configurable)
+Unit volume (VU) cm³ per unit (configurable per article)
+Location capacity Maximum volume in cm³ (configurable)
+Replenishment rounding rule Minimum = VL carton; always multiples of VL carton
+Mixing lots in dynamic picking Not allowed by default
+Swelling coefficient Allows placement even if within ±X% of location volume
+IV. Current Issue
+• WMS proposes transferring the full original support to the dynamic picking location.
+• If support volume exceeds location capacity → operator manually enters partial quantity
+to complete replenishment, then splits the original support and stores remnants
+manually elsewhere.
+Sensitivity: Internal
+
+[PAGE 3]
+• No multi-location guidance, no consideration of subsequent manual placement
+destinations.
+Consequences:
+• RF overload, error risks, wasted time, stock inconsistencies.
+V. Target Solution
+• Net requirement calculation (per article/lot): Needs – ZPA available – pending ZPA
+replenishment.
+Example:
+Order Cmd1 Cmd2 Cmd3 Total
+Raw need (article A) 10 102 33 145
+Picking units (raw) 10 2 33 45
+ZPA unallocated stock 0 0 0 0
+Pending ZPA replenishment 0 0 0 0
+Net picking need 45
+• Round net need to VL carton: 45 → 50
+• Target search: first fill existing ZPA locations (same article/lot) to volume, in multiples of
+VL carton. If capacity < VL carton → skip and open new locations per placement rules.
+Stepwise example:
+Step Location Available volume Possible cartons Proposed Deposited qty Remaining
+0 — — — — 0 50
+1 E1 96000 2.133 2 20 30
+2 E2 96000 2.133 2 20 10
+3 E3 96000 2.133 2 10 0
+• Mission chaining: create 3 missions linked to same origin support with replenishment
+qty 20/20/5 → target locations E1, E2, E3.
+Sensitivity: Internal
+
+[PAGE 4]
+• Reservations & consistency: consider these missions in next ZPA transfers.
+Second launch example:
+Order Cmd4 Cmd2 Cmd3 Total
+Raw need (article A) 25 102 33 160
+Picking units (raw) 25 2 33 60
+ZPA unallocated stock 30 — — —
+Pending ZPA replenishment 5 — — —
+Net picking need 25
+• Round net need: 25 → 30
+Stepwise example 2:
+Step Location Available volume Possible cartons Proposed Deposited qty Remaining
+0 — — — — 0 30
+1 E3 51000 1.133 1 10 20
+2 E6 96000 2.133 2 20 0
+• Consider pending missions even if not yet executed.
+VI. Business Rules
+• Must be multiples of VL cartons; never single units.
+• Strict capacity respect (volume) including swelling coefficient.
+• Priority: existing picking locations (same article/lot). No lot mixing.
+• Origin support selection: FEFO, DAEN, sufficient quantity.
+• Key parameters: location volume, unit volume, VL carton volume, swelling coefficient.
+VII. RF Ergonomics
+Sensitivity: Internal
+
+[PAGE 5]
+Option 1:
+• Scan origin support → display ZPA route (location 1…X & quantities).
+• Guided to each target → deposit calculated qty → validation.
+• Random adaptation: allow lower quantity.
+• End of route: return to mission list. Remaining qty stays in reserve location.
+Option 2:
+• Scan origin → retrieve mission 1
+• Go to target 1 → deposit qty → validation
+• Automatically continue to mission 2 using same origin location
+• Deposit qty → validation
+• End of route → return to mission list, leftover stays in reserve
+Option 3:
+• Scan origin → retrieve mission 1
+• Go to target 1 → deposit qty → validation
+• Return to mission list
+• Allow scan of support to enter mission instead of location (avoids going back to location)
+• Deposit qty → validation
+• Return to mission list
+VIII. Points of Attention
+• Deduct pending replenishments in real quantities (not origin support capacity).
+• Replenish in multiples of cartons; ZPA transfer already in VL carton multiples → check
+parameterization and impact.
+• Lot mixing not allowed by default.
+Sensitivity: Internal

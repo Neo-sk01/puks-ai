@@ -1,0 +1,42 @@
+[META]
+chunk_type: text
+source_file: Receiving tab.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Receiving Tab SOP
+Purpose:
+The Receiving Tab controls the default item qualities, ownership, and the behavior
+of the receiving radio module during receipt or return of goods.
+1. Tab Structure
+The tab has two sub-tabs:
+1. Default Qualities & Ownership – assign quality and owner for items.
+2. Receiving Radio Module Behavior – configure operator input fields and
+defaults.
+2. Default Qualities & Ownership
+• Default Quality:
+o Assign the quality that will automatically apply to items during receipt
+or return.
+o If no quality is entered, the system applies the activity’s default
+quality.
+• Default Owner:
+o Assign an owner for the item; the system displays all third parties
+flagged as “owner”.
+o If no owner is specified, the activity’s default owner is applied.
+3. Receiving Radio Module Behavior
+• Controls how operators interact with the quantity entry fields on the RF
+module.
+• Left List: select the fields where operators can enter quantities.
+• Right List: define which field is active by default when the quantity entry
+screen opens.
+4. Notes
+Sensitivity: Internal
+
+[PAGE 2]
+• Proper configuration ensures accuracy in quality and ownership assignment.
+• Streamlines the workflow for operators using the receiving radio module.
+• Any defaults set here are inherited automatically if not manually overridden
+during receipt.
+Sensitivity: Internal

@@ -1,0 +1,51 @@
+[META]
+chunk_type: text
+source_file: Zone scheduling.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Zone Scheduling – RAG-Friendly Version
+Purpose:
+Zone scheduling assigns a sequence number to each location within a zone,
+establishing a hierarchy used for preparation slips, storage slips, or inventory lists.
+This allows warehouse operations to follow a defined order of locations.
+1. Key Concept
+• Each location in a zone has a serial number.
+• This sequence reflects the order in which slots were assigned to the zone.
+• Adjustments may be needed when adding new locations or reassigning
+existing ones.
+2. Accessing Zone Scheduling
+• Navigate to the list of locations assigned to a zone.
+• Click the Order button (top-right of the list) to open the scheduling window.
+3. Scheduling Options
+a) Selection by Characteristics
+• Locations can be filtered based on up to 5 characteristics (e.g., type, size,
+activity).
+• Both consecutive and non-consecutive locations can be selected.
+b) Automatic Sorting
+• Define priority order for up to 5 location characteristics.
+• Choose ascending or descending for each characteristic.
+• Use the arrows to:
+o Change priority order.
+o Reverse sort direction of a characteristic.
+• Reverse order button reverses the order of all characteristics.
+• Click Schedule to refresh the zone list with the new sort.
+Sensitivity: Internal
+
+[PAGE 2]
+c) Move or Reposition Slots
+• Selected locations can be moved to a specific position in the list.
+• Allows fine control over physical workflow or pick/put sequences.
+d) Re-numbering Locations
+• Assign a new starting sequence number for the first location.
+• Remaining locations are numbered incrementally.
+• Changes take effect after saving using the button at the bottom-left of the
+window.
+4. Notes
+• Adjustments in sequence numbers impact picking, stock movements, and
+inventory operations.
+• Proper scheduling ensures optimized warehouse flows and minimizes errors
+during order preparation or stock counting.
+Sensitivity: Internal

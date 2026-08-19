@@ -1,0 +1,38 @@
+[META]
+chunk_type: text
+source_file: Order templates.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Order Templates
+Access
+• Menu: Preparation → Orders Templates (in the SpeedWMS ribbon)
+Purpose
+• Simplifies order entry.
+• Supports set concept: ensures items grouped as a set are handled together
+during preparation.
+Template Management
+• Display all configured templates (customer or supplier orders).
+• If no template exists, the system opens the create template screen
+automatically.
+• Options available for each template:
+o Create new template
+o Modify existing template
+o Delete template
+Template Details
+For each template, you define:
+1. Template name / code
+2. Description of the template
+3. List of items included in the template, with the quantity for each item
+Set Concept
+• By enabling the set option, the template is treated as inseparable:
+o During preparation, if any element is in insufficient quantity, the
+system only allows the preparation of complete sets.
+o This ensures all items of a set are included together and prevents
+partial sets from being processed.
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

@@ -1,0 +1,14 @@
+Delivery settings tab
+This tab enables to specify the characteristics specific to each delivery .
+.Day/ delivery time: possibility to specify the possible delivery days as well as the usual
+delivery time for this third. Will be used during order creation to calculate and suggest a
+default delivery date.
+.Grouping code: possibility of associating, for all orders intended for this third party, a
+default grouping code. Maybe utile, for example, to manage and sort the portfolio of
+orders to be processed in order to launch all the orders of the same grouping code
+simultaneously in preparation.
+.Delivery department / Carrier code: possibility of associating, for all the orders to this
+third party, a default carrier code. Can be used for example to manage and sort the
+portfolio of orders to be processed in order to simultaneously launch all the orders for
+the same carrier code in preparation.
+Sensitivity: InternalSensitivity: Internal

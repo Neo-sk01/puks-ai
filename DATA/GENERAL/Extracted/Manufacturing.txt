@@ -1,0 +1,6 @@
+Manufacturing
+Available via Settings / Manufacturing :
+The options present in the Manufacturing configuration are directly linked to the
+Manufacturing module. They are therefore presented in the Manufacturing section in the
+online help.
+Sensitivity: Internal

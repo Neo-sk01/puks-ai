@@ -1,0 +1,167 @@
+[META]
+chunk_type: text
+source_file: LOREAL Free Location Search Rule Based on Article Classification and Dynamic Picking Threshold.pdf
+category: LOREAL
+total_pages: 6
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Free Location Search Rule Based on Article Classification and Dynamic
+Picking Threshold
+Version: 1.1
+Dates: 25/04/2025 – 14/05/2025
+Authors: ZBA / AKD
+DOCUMENT METADATA (for Vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"module": "Location Search",
+"feature": "Free Location Search Rule",
+"search_rule_code": "0003",
+"related_rules": "RG0002 (ZPA search)",
+"activity_parameters": ["ART_ALPHA3", "ART_ALPHA10", "ART_ALPHA11",
+"ART_ALPHA8", "ART_ALPHA9"],
+"version": "1.1"
+}
+SECTION 1 — Business Context
+1.1 Functional Context
+Within the L’Oréal project, several location search rules are defined to meet
+storage constraints.
+These rules are based on article classification criteria.
+The client now wants to configure a Free Location Search rule that:
+• Counts the number of locations containing a specific article within a defined
+zone.
+Sensitivity: Internal
+
+[PAGE 2]
+• Applies decision logic based on:
+o Article Division (ART_ALPHA11 – Level 2 classification)
+o Aerosol level (ART_ALPHA3)
+o Dynamic picking threshold (ART_ALPHA10 – ART_NUM2)
+1.2 Objective of the Rule
+The rule must:
+1. Count the number of locations containing the same article within a given
+zone.
+2. Compare that count to the article’s dynamic picking threshold
+(ART_ALPHA10).
+3. Apply the following logic:
+Case 1 — Location Count < Threshold
+→ Assign a new free location in the defined zone.
+Case 2 — Location Count ≥ Threshold
+→ Do not propose a new location.
+→ Move to the next storage sequence (e.g., reserve storage).
+SECTION 2 — Example Scenarios
+Example 1 — Aerosol Picking Zone
+Conditions:
+• Article classification level 2 (ART_ALPHA11) = 20
+• ART_ALPHA3 (Aerosol Level) IN (1, 2, 3)
+• Support quality code (QUA_CODE) = 'RC01'
+• Number of locations containing the article in zone LO_P_CPD_AER
+< ART_ALPHA10 (article threshold)
+Then:
+Sensitivity: Internal
+
+[PAGE 3]
+→ Application criteria are validated
+→ Assign a new free location in zone LO_P_CPD_AER
+Example 2 — PLV Zone
+Conditions:
+• QUA_CODE IN ('RC01', 'RL01', 'RA01', 'RP01')
+• ART_ALPHA9 IN ('101','102')
+• FAR_CODE IN (20, 30)
+• ART_ALPHA11 IN (20, 30)
+• Number of locations containing the article in zone LO_P_ALL_PLV
+< ART_ALPHA10 (article threshold)
+Then:
+→ Application criteria are validated
+→ Assign a new free location in zone LO_P_ALL_PLV
+SECTION 3 — Article Parameter Configuration
+Before implementing the rule, article IC parameters must be configured:
+Parameter Purpose
+ART_ALPHA3 Aerosol Level
+ART_ALPHA10 (ART_NUM2) Dynamic Picking Threshold
+ART_ALPHA11 Article Family / Division
+These parameters drive the rule logic.
+SECTION 4 — Technical Design
+4.1 Search Rule Creation
+Create a new free search rule:
+Search Rule Code: 0003
+Sensitivity: Internal
+
+[PAGE 4]
+This rule must be based on:
+• The 12 existing rules in RG0002 (ZPA search).
+4.2 Required Parameters in the Free Search Rule
+The rule must support the following filters:
+Quality Code (QUA_CODE)
+• IN list parameter
+• NOT IN list parameter
+ART_ALPHA3 (Aerosol Level)
+• IN list parameter
+• NOT IN list parameter
+Threshold (ART_NUM2 from ART_ALPHA10)
+• Retrieved from article IC
+• Used to compare with number of locations
+Article Family (ART_ALPHA11)
+• IN list parameter
+• NOT IN list parameter
+ART_ALPHA8
+• IN list parameter
+• NOT IN list parameter
+ART_ALPHA9
+Sensitivity: Internal
+
+[PAGE 5]
+• IN list parameter
+• NOT IN list parameter
+Zone Name
+• Hardcoded (one single zone per rule)
+Support Template (Gabarit Support)
+• Hardcoded
+• Based on ZPA search rules logic
+SECTION 5 — Core Logic
+Threshold Control
+location_count = COUNT_LOCATIONS(article, zone)
+threshold = ARTICLE.ART_NUM2
+IF location_count >= threshold THEN
+RETURN NO_LOCATION
+ELSE
+RETURN FREE_LOCATION_IN_ZONE
+ENDIF
+Behavior
+• If threshold reached → do not propose location
+• If threshold not reached → propose free location in defined zone
+SECTION 6 — Functional Summary (RAG-Optimized)
+What is the purpose?
+Sensitivity: Internal
+
+[PAGE 6]
+Limit number of picking locations per article in a zone.
+What controls the maximum number?
+ART_ALPHA10 (ART_NUM2 – Dynamic Picking Threshold)
+What classification fields are used?
+• ART_ALPHA3 (Aerosol Level)
+• ART_ALPHA11 (Division)
+• ART_ALPHA8
+• ART_ALPHA9
+What happens if threshold is reached?
+No new location is proposed.
+What happens if threshold is not reached?
+A free location in the zone is assigned.
+Which rule is created?
+Search Rule 0003
+What existing logic is reused?
+RG0002 (ZPA search)
+SECTION 7 — Client Validation
+AGL acknowledges receipt and validates all elements included in this document.
+BK Systèmes commits to delivering a solution that meets the validated
+requirements within the scope of the approved quotation.
+Any additional request or evolution beyond this document may require additional
+quotation.
+Any provision not explicitly stated in this document is not covered and remains at
+the discretion of the concerned parties.
+Signed at Vaulx-Milieu, on 25/03/2025.
+Company stamp and signature:
+Sensitivity: Internal

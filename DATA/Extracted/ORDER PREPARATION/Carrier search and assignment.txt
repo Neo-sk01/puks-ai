@@ -1,0 +1,29 @@
+[META]
+chunk_type: text
+source_file: Carrier search and assignment.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Carrier Search and Assignment Overview
+Purpose:
+• Automatically assign the correct carrier code to selected orders.
+• Uses predefined sequences configured in the Transport / Carrier Assignment
+module.
+Access:
+• Contextual menu after selecting one or more orders in status “In Seizure” in
+the order portfolio.
+Functionality
+1. SpeedWMS checks the configured carrier assignment sequences.
+2. It evaluates each selected order against the sequence criteria (e.g.,
+recipient, order type, destination).
+3. Once the matching sequence is found, the carrier code is automatically
+updated on the order.
+Key Notes
+• Only affects orders that are in seizure (status 010).
+• The sequences must be properly configured in Settings / Transport / Carrier
+Assignment to ensure correct automatic assignment.
+• Useful to streamline transport planning and reduce manual errors in carrier
+selection.
+Sensitivity: Internal

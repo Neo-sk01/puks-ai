@@ -1,0 +1,80 @@
+[META]
+chunk_type: text
+source_file: Principle.pdf
+category: RECEIVING GOODS
+total_pages: 3
+[/META]
+
+[PAGE 1]
+SOP: Reception Handling Principles in Speed WMS
+Sensitivity: Internal
+1. Purpose
+This SOP explains the two supported methods for handling receptions in Speed WMS,
+including their use cases and operational principles.
+2. Reception Handling Methods Overview
+Receptions in Speed WMS can be managed using one of two methods:
+1. Reception based on Expected Items
+2. Reception based on Declarative Entry
+Each method serves a different operational need and workflow.
+3. Reception Based on Expected Items
+3.1 Description
+This method manages receptions using a portfolio of expected items. Expected items
+represent advance arrival announcements or supplier purchase orders.
+Expected items may be:
+• Entered manually in Speed WMS
+• Imported via an interface
+• Synchronized from an external system (e.g., sales management or ERP system)
+3.2 Operational Principle
+• Each expected item defines:
+o Item reference
+o Expected quantity
+o Order-giver reference
+o Planned reception date
+• During reception, received quantities are matched against expected
+quantities.
+Sensitivity: Internal
+
+[PAGE 2]
+• When stock is received and an inbound stock movement is created, the
+expected quantity is consumed.
+3.3 Output and Controls
+• At the end of the reception process, Speed WMS can generate a comparison
+between expected quantities and received quantities.
+• This method is recommended when:
+o Purchase orders are known in advance
+o Quantity reconciliation is required
+o Supplier performance tracking is needed
+4. Reception Based on Declarative Entry
+4.1 Description
+This method manages receptions without prior expected items. The reception is
+created based on what is physically received at the warehouse.
+4.2 Operational Principle
+• Receptions are declared directly in the Reception module
+• Item quantities are entered manually or via an interface
+• No expected item comparison is required
+4.3 Input Methods
+Receptions can be performed using:
+• Manual data entry
+• Interface-fed data
+• Radio Frequency (RF) module (see RF documentation)
+4.4 Recommended Use Cases
+This method is recommended when:
+• Expected data is unavailable or unreliable
+• Urgent or unplanned deliveries occur
+• Simplified reception is required
+Sensitivity: Internal
+
+[PAGE 3]
+5. Method Selection Guidelines
+Scenario Recommended Method
+Known purchase orders Expected Items
+Quantity reconciliation required Expected Items
+Unplanned delivery Declarative Reception
+RF-based reception Declarative or Expected
+ERP-integrated workflow Expected Items
+6. Related Modules
+• Receiving / Expected
+• Reception Module
+• Stock Movement Module
+• RF Module (refer to RF documentation)
+Sensitivity: Internal

@@ -1,0 +1,33 @@
+[META]
+chunk_type: text
+source_file: Put in wave.pdf
+category: ORDER PREPARATION
+total_pages: 4
+[/META]
+
+[PAGE 1]
+Put in wave
+SpeedWMS automatically put the orders in wave when launching them for preparation.
+All the selected orders are then assigned and grouped in the same preparation wave so
+they can be processed at the same time when generating the sampling missions.
+The manual management of the waves must only be made for specific processes. The
+automatic management made by SpeedWMS works in most of the cases.
+Will then be prefeelseare all the waves in progress on which it will be possible to
+associate the commands,atnote that it will be possible from thisenotchand creer a new
+wave on which orders will be able toevery affectedeare :
+Sensitivity: Internal
+
+[PAGE 2]
+Waved orders do not appearîwill no longer be under the input tab, but under the wave
+tab of the order portfolio :
+Sensitivity: Internal
+
+[PAGE 3]
+A wave order canebe repositionedee in the status in seizure, through the
+intermediaryecontext menu directory. The associationatthe wave is thus suppressedee.
+One click on the tabWavesof the Preparation windowallows to have a global vision on
+the diffevague annuities, their status, the orders associatedeare...
+Sensitivity: Internal
+
+[PAGE 4]
+Sensitivity: Internal

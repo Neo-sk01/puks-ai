@@ -1,0 +1,35 @@
+[META]
+chunk_type: text
+source_file: Assignment of a collect.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Assignment of a Collect
+Purpose:
+• Assign a collect mission to a specific operator for processing in the
+warehouse.
+Access:
+• Contextual menu in the Generated or In progress tabs of the Collect window.
+• Option: Assign to…
+Process Steps
+1. Open Assignment Window
+o Selecting Assign to… opens a window listing all users registered in
+SpeedWMS.
+2. Select Operator
+o Choose the operator who will be responsible for processing the
+collect.
+o Multiple collects can be assigned to the same operator using multiple
+selection.
+3. Confirm Assignment
+o The selected collect(s) are now assigned to the chosen operator.
+4. Unassign if Needed
+o If an error occurs or the operator is unavailable, the collect can be
+unassigned using the Deallocate option in the context menu.
+Key Notes
+• Ensures that warehouse staff have clear responsibilities for pick-up
+missions.
+• Supports multiple assignments and corrections (unassigning) for flexibility
+in operations.
+Sensitivity: Internal

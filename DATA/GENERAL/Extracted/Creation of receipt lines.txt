@@ -1,0 +1,91 @@
+Creation of receipt lines
+Once the header generated, it will be necessary to add the various receipt lines. Each
+receipt line will correspond to a storage medium to be put into stock.
+The entry will be made using the New receipt line field in the centre of the screen:
+Adding a new receipt line will require at least three information:
+.The item code
+.The quantity to be received
+.The quality of the goods to be received
+If the goods to be put into stock do not manage any particular traceability criteria, or do
+not require the entry of other elements, the simplified entry of a new receipt line may be
+used. Failing this, it will be necessary to go through the detailed form for entering a
+receipt line.
+So there are different ways to add receipt lines.
+Regardless of how a line is added :
+.The item code must exist. It will not be possible to receive a product that is not the
+subject of an article sheet under speed.
+.The displayed quantity will always be returned in units per storage medium
+.The default quality on receipt will be that specified on the item sheet or that of the
+default activity
+.Traceability information (lot1, lot2, DLC, DLUO, etc.) will be mandatory for the articles
+managing them. This will depend on the configuration of each item sheet.
+.The owner: by default it is automatically populated when the item or activity has an
+owner defines; the owner from the item sheet takes precedence over that of the activity
+whether it is a receipt or a return of goods. If no owner is defined, the selection of the
+Sensitivity: Internaldefault owner is done via the window for selecting third parties presenting all the third
+parties designated as being able to be owners.
+➢Direct addition
+It is possible to enter the item code directly if it is known in the code field. The quality
+and quantity to add to the receipt will be entered in the same way:
+➢Addition by research of the article code
+It is possible to search for the item code among the repository integrated under the
+activity. Right click in the Code field the input line will allow Search for an article:
+The list of items attached to the supplier of the receipt will then appear. By checking the
+box All Suppliers, it will be possible to display the full list, including the items that are
+not assigned to the supplier of the current receipt:
+Sensitivity: InternalSelecting an item from this list will enable to fill in automatically the code field. All that
+remains is to specify the quality and quantity to add to the line:
+➢By adding a grid pattern
+It is possible to add receipt lines from the item templates registered in the activity. The
+contextual menu in the Code field gives an access to the
+Sensitivity: InternalThis option allows access to the list of item templates existing in the activity:
+Selecting the template will allow access to the window for creating/entering items
+ingate:
+It is then possible to enter the item quantities for each reference:
+.The quantity can be entered in the All column: this allows you to add an order line for
+each of the references having the main characteristic in common, and this, with an
+identical quantity
+.The quantity can be entered individually for each reference
+Sensitivity: InternalOnce the quantity is validated, the receipt lines are saved and displayed in the
+tab Management of the window for creating the receipt :
+All that remains is to generate the stock.
+Sensitivity: Internal➢Addition by the detailed entry form
+Double-click on the field Code will allow access to the detailed form for adding a
+receipt line:
+This detailed entry allows direct access to all the fields that can be filled in for a receipt
+line. Even if the stock unit is always brought back in units, the quantity to be received
+can be entered in the different logistic variants activated on the selected article. The
+fields concerning the traceability information will be accessible in entry if the selected
+article manages them. In this case, they will be mandatory.
+Regardless of the input mode used, validation will create the corresponding line within
+the receipt. At least one line will be added, corresponding to a storage medium to be put
+into storage.
+The management of the support break can also allow a global quantity entry with
+splitting on as many storage media as necessary, see the following paragraph.
+Sensitivity: InternalThe lines thus added will be saved under the reception, but will not be immediately
+available in stock. It will be necessary to proceed beforehand to the Stock generation,
+see corresponding paragraph. This is recalled by the field Tick stock input which will
+always take the value 0 by default.
+For the time being, therefore, there will be no stock entry movement associated with the
+various receipt lines. Whether this reception is associated with a supplier order in the
+list of expected items, these will not yet be considered as consumed, the actual
+consumption taking place when the stock entry movement is recorded.
+Via the contextual menu, these lines can therefore be modified or deleted without any
+impact on the Speed history.
+➢Addition by Import Excel
+From icon Excel import, it is possible to create receipt lines by importing an Excel table.
+The latter must contain only three columns and in the following order: item code,
+quantity, quality code.
+Sensitivity: InternalThe right column Unknown item code displays all the items entered that do not exist in
+Speed.
+the top Import first line specifies whether the first line pasted should be treated and
+embedded as a receive line.
+The Printing button allows you to view the data in the lower part of the screen as it will
+be imported.
+The validation button launches the import of data and creates the associated receipt
+lines.
+It is possible to modify the reception platform on the header of the latter.
+When entering the following lines, a confirmation message appears asking the user if:
+1.Lines already entered remain unchanged
+2.Or if the receiving dock needs to be updated
+Sensitivity: InternalSensitivity: Internal

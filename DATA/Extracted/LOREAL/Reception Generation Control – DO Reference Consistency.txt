@@ -1,0 +1,191 @@
+[META]
+chunk_type: text
+source_file: Reception Generation Control – DO Reference Consistency.pdf
+category: LOREAL
+total_pages: 7
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Reception Generation Control – DO Reference Consistency
+Version: 1.1
+Date: 14/04/2025 – 15/04/2025
+Author: AKD
+DOCUMENT METADATA (for Vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"module": "Expected Portfolio / Reception Generation",
+"process_events": ["PE 165", "PE 822"],
+"activity_parameter": "ACT_TOP20",
+"speed_version": "A.8.6.F => 28.06b1"
+}
+SECTION 1 — Business Context
+1.1 Functional Requirement
+Within the L’ORÉAL activity, the client requires that during reception generation, a
+control must ensure:
+1. All selected expected lines belong to the same DO reference.
+2. No expected line linked to that DO reference remains unselected.
+3. Only one DO reference is present in the reception being generated.
+1.2 Why This Control Is Required
+When a reception is closed:
+• Reception data is transmitted.
+Sensitivity: Internal
+
+[PAGE 2]
+• The DO reference is closed.
+• The same DO reference must not be processed again in another reception.
+If not properly controlled:
+• Reporting inconsistencies may occur.
+• Partial receptions could leave unprocessed expected lines.
+• Multiple DO references could incorrectly be grouped into one reception.
+1.3 Mandatory Reception Generation Method
+Reception must only be generated via:
+Print RN (Print BR)
+Therefore, access to the following options must be blocked:
+From Expected Line Level:
+• Generate BL
+• Generate Reception
+From Expected Header Level:
+• Print BL
+• Generate BL
+• Generate Reception
+These options must be disabled (greyed out or hidden) via user rights configuration.
+1.4 Activation Parameter
+The control must be activated via the activity parameter:
+ACT_TOP20
+If:
+ACT_TOP20 = 1
+→ The blocking logic is active.
+If:
+ACT_TOP20 = 0
+Sensitivity: Internal
+
+[PAGE 3]
+→ Standard behavior applies.
+SECTION 2 — Technical Design
+2.1 Control at “Print RN” (Print BR)
+When the operator selects:
+"Print RN"
+From the Expected Portfolio screen:
+A validation must be performed to verify:
+• No expected line with the same DO reference remains unselected.
+2.2 Blocking Rule
+If there exists at least one expected line:
+• With the same DO reference
+• Not selected in the current reception generation
+Then:
+→ Reception generation must be blocked.
+Error Messages to Display
+English:
+"Please select all the expected items with the same DO reference."
+"Warning, not all of the expected lines in this BL have been selected."
+French:
+« Veuillez sélectionner tous les attendus ayant la même réf DO. »
+« Attention, toutes les lignes attendues dans ce BL n’ont pas été sélectionnées. »
+2.3 Control for Multiple DO References
+Additionally, it must be verified that:
+Sensitivity: Internal
+
+[PAGE 4]
+All selected expected lines belong to one single DO reference.
+It is not allowed to generate one reception containing multiple DO references.
+If the operator selects expected lines from more than one DO reference:
+→ Block the process.
+Error Message
+English:
+"Warning, several expected lines that do not belong to the same reception have
+been selected."
+French:
+« Attention, plusieurs lignes d’attendu n’appartenant pas à la même réception ont
+été sélectionnées. »
+SECTION 3 — Technical Implementation
+3.1 Entry Points Used
+Entry Point Purpose
+PE 165 Reception generation validation
+PE 822 Reception generation validation
+3.2 Core Logic — PE 165 / PE 822
+Activation Condition
+IF ACT_TOP20 = 1
+Step 1 — Validate Single DO Reference
+Check:
+• All selected expected lines must have the same DO reference.
+If more than one DO reference is detected:
+DISPLAY_ERROR("Multiple DO references selected")
+Sensitivity: Internal
+
+[PAGE 5]
+lbContinuerTraitement = FALSE
+EXIT_STANDARD_PROCESS
+Step 2 — Validate Complete Selection
+Check:
+• If any expected line with the same DO reference remains unselected.
+If at least one unselected line exists:
+DISPLAY_ERROR("Not all expected lines with same DO selected")
+lbContinuerTraitement = FALSE
+EXIT_STANDARD_PROCESS
+Step 3 — Continue Processing
+If:
+• Only one DO reference selected
+• All expected lines with that DO are selected
+Then:
+→ Continue standard reception generation process.
+SECTION 4 — Logical Flow (Pseudo-Code)
+IF ACT_TOP20 = 1 THEN
+selected_lines = GET_SELECTED_EXPECTED_LINES()
+unique_do_list = GET_DISTINCT_DO(selected_lines)
+IF COUNT(unique_do_list) > 1 THEN
+DISPLAY_ERROR("Multiple DO references selected")
+lbContinuerTraitement = FALSE
+Sensitivity: Internal
+
+[PAGE 6]
+RETURN
+ENDIF
+current_do = unique_do_list[0]
+remaining_lines = GET_UNSELECTED_LINES_WITH_DO(current_do)
+IF remaining_lines IS NOT EMPTY THEN
+DISPLAY_ERROR("Not all expected lines with same DO selected")
+lbContinuerTraitement = FALSE
+RETURN
+ENDIF
+ENDIF
+CONTINUE_STANDARD_PROCESS
+SECTION 5 — User Rights Configuration
+The following options must be disabled (hidden or greyed):
+From Expected Header:
+• Print BL
+• Generate BL
+• Generate Reception
+From Expected Lines:
+• Generate BL
+• Generate Reception
+Reception generation must only be possible via:
+Print RN
+Sensitivity: Internal
+
+[PAGE 7]
+SECTION 6 — Functional Summary (RAG-Optimized)
+What activates this logic?
+ACT_TOP20
+Which entry points are used?
+PE 165 and PE 822
+When is validation triggered?
+When clicking "Print RN"
+What is validated?
+• Only one DO reference selected
+• All expected lines with that DO are selected
+What happens if validation fails?
+Reception generation is blocked.
+SECTION 7 — Client Validation
+AGL acknowledges receipt and validates all elements described in this document.
+BK Systèmes commits to delivering the solution that meets the validated
+requirements within the scope of the approved quotation.
+Any additional request or evolution beyond this document may be subject to
+additional quotation.
+Any provision not explicitly stated in this document is not covered and remains at
+the discretion of the concerned parties.
+Signed at Vaulx-Milieu, on 14/04/2025.
+Company stamp and signature:
+Sensitivity: Internal

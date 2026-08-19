@@ -1,0 +1,42 @@
+[META]
+chunk_type: text
+source_file: Import thirds.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Import Thirds
+Purpose:
+• Allows importing third-party records into SpeedWMS, including Suppliers,
+Carriers, and Recipients.
+• Streamlines mass creation or update of third-party data.
+Access:
+• Menu: Settings → Thirds → Import
+Process:
+1. Click Import, then Browse to select the file to import.
+2. File format is the same for all third-party types: Suppliers, Carriers, or
+Recipients.
+3. Include a mandatory column “Type of Third” in the import file:
+o 001 → Supplier
+o 002 → Carrier
+o 003 → Recipient
+Multiple types can be imported in the same file.
+Steps in SpeedWMS:
+1. Data Tab: Displays the imported file information.
+2. Settings Tab: Map column headers and define mandatory vs. optional fields.
+3. Insight Tab: Preview how the data will appear in Speed.
+4. Template Management:
+o Save template for reuse.
+o Saving as a model is requested at the end of the import.
+5. Finalize Import:
+o Cancel → abort import
+o Import → complete import
+Sensitivity: Internal
+
+[PAGE 2]
+Post-Import:
+• New thirds are added to the appropriate third-party table.
+• Additional data can be manually completed for each imported third party.
+• The process is identical for Suppliers, Carriers, and Recipients.
+Sensitivity: Internal

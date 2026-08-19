@@ -1,0 +1,86 @@
+Glossary
+Terms Explanations
+Activity This concept makes it possible to separate the management in the same warehouse of several activities, trades or customers. The following elements are
+attached to an activity:
+.the items
+.the thirds
+.receptions
+.the orders
+.the management rules associated with the receiving, storage and preparation processes.
+CAB Bar codes
+Classification For articles and third parties, SpeedWMS can manage up to 999 families, each of which can contain up to 5 tree levels.
+Example of item classification :
+.Level 1: “Family” classification
+oLevel 2: Consumer articles
+▪Level 3: Catalog items
+▪Level 3: Other items
+.Level 2: Professional articles
+▪Level 3: Items type 1
+.Level 4: Items type 1.1
+▪Level 3: Items type 2
+....
+.Level 1: Classification « Dangerous »;
+oLevel 2: Safe
+oLevel 2: Dangerous
+.Level 3: Toxic
+.Level 3: Mortal
+Use of the notion of classification :
+.Statistics
+.Criteria for generating preparation missions
+.Specific programs (edition, etc.)
+Installation A 3 characters code, associated with each location, or a group of locations in the warehouse.
+key
+The installation key is present on the location label. In radiofrequency procedures, the use of the pose key allows the movements to be validated.
+Sensitivity: InternalDFAB Manufacturing date (Manuf. Date)
+DLC Use By Date (UBD)
+DLUO Best Before Date (BBD)
+DLV Sale By Date (SBD)
+Mission Grouping of direct sampling lines.
+In SpeedWMS, there are preparation missions and picking replenishment missions.
+Item SpeedWMS enables to define a management mode for each item, which means that :
+management
+.the traceability elements of related to this article (which must be declared upon receipt)
+mode
+.stock rotation criteria
+Example: Item managed with a UBD, for which the stock rotation will be done as a first criterion on the UBD then as a second criterion on the date of entry into
+stock.
+Stock SpeedWMS keeps track of all changes made to an item in stock (receipt, put away, change in quantity, medium or location, out of stock, etc.)
+movements Each movement is characterized by:
+.a movement number (unique)
+.operation number (several movements can have the same operation number, in the case of a compensation; Example: a quality change results in an output
+movement of one quality and an entry movement on the new quality )
+a transaction number: computer transaction number that generated the movement
+code of the user that generates the modification
+date and time of movement
+movement specific information
+Sampling The act of picking up a given quantity of a given item at a given location.
+In SpeedWMS, a direct sampling corresponds to a mission line.
+Quality Nature of the goods in stock.
+Examples: Standard, Second choice, Derated, Anomaly, etc.
+The different qualities are defined for an activity.
+SPCB Under-By-how much.
+Term used to define a sub-packaging in a package.
+Example: A package containing 2 SPCB of 12 units each.
+Support In SpeedWMS, all goods in stock are on a support, identified by a unique number.
+Third These are the different actors of the warehouse :
+.Providers
+.The recipients
+.Carriers
+.Contacts
+Traceability All information relating to the history of a stock line
+The traceability criteria managed in SpeedWMS are:
+.The date of entry into stock
+.The UBD
+.The SBD
+.The BBD
+.The Manuf. Date
+Sensitivity: Internal.3 batches (Batch1, Batch2 and Batch3)
+Wave Grouping of several sales orders in order to launch them in preparation at the same time.
+Stock Unit The SUs of an item are the different packaging levels in which the item appears in the warehouse: units, packs, parcel, layer, pallet.
+(SU) For each SU, SpeedWMS enables to manage:
+.A packaging code “carton”, “box”, “canister”, etc.
+.A weight
+.A volume
+.One or more identifier(s)
+.The constitution of the SU = quantity of SU of lower level (e.g .: a parcel consists of 48 units)
+Sensitivity: Internal

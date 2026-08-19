@@ -1,0 +1,9 @@
+Data aggregation
+The grouping function:
+This function allows you to group the table according to the desired criteria.
+Be careful, we can only group together on numeric fields:
+Selection of the field(s) to group together, followed by a click on the buttonSum fx
+The detail function:
+This function allows you to return to the initial state. All you have to do is select the line
+to restore and click on the button. Detail fx
+Sensitivity: Internal

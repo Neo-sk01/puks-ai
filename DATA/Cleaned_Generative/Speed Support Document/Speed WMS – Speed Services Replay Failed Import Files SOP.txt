@@ -1,0 +1,60 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Speed Services Replay Failed Import Files SOP.pdf
+category: Speed Support Document
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Standard Operating Procedure (SOP)
+Title: Replaying Failed Import Files to WMS
+Department: WMS JACC
+Effective Date: [Insert Date]
+Prepared By: [Insert Name]
+1. Purpose
+This SOP provides step-by-step instructions to replay import files that failed to
+integrate into WMS via Speed Services.
+2. Procedure
+Step 1 – Connect to the Production Server
+1. Launch your Remote Desktop or server access tool.
+2. Connect to the Production Server: PFS03 GMT +2.
+3. Log in with your authorized credentials (work email and MSC password).
+Step 2 – Access Speed Services Directory
+1. Open File Explorer.
+2. Navigate to:
+F:\Interfaces\P-ZAF-CA-S1\WsSpeed
+3. Locate and double-click the Speed Services application.
+Step 3 – Log into Speed Services
+1. On the authentication prompt, select:
+“Enter my credentials on the authentic Windows sign-in screen” → Click Yes.
+2. Press CTRL + ALT + END.
+3. Select Functions from the menu.
+4. Confirm any confirmation pop-ups by clicking Yes.
+5. The Speed Services homepage will now be displayed.
+Sensitivity: Internal
+
+[PAGE 2]
+Step 4 – Authenticate via API
+1. Navigate to:
+Speed Services → API Calls
+2. Set Action to: Authentication.
+3. Enter Support Credentials (case-sensitive, use CAPS):
+o LOGIN: SUPPORT
+o PASSWORD: CENTRAL
+4. Click the Green Button to generate a token.
+5. Copy and store the token for the next step.
+Step 5 – Replay the Failed File
+1. Change Action to: Linkup : Flux.
+2. Paste the JSON file content into the input field.
+3. Click the Green Button to run the file.
+Step 6 – Monitor File Status
+1. Initially, the system will show Processing.
+2. Wait until the status changes to GO.
+3. When complete, the file status will display Full Integration.
+3. Notes & Best Practices
+• Ensure the JSON format is correct before replaying.
+• If the file fails again, review the callback message for error details.
+• Use Support credentials only for integration tasks.
+• Document any repeated failures and escalate to the relevant technical team
+if unresolved.
+Sensitivity: Internal

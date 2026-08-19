@@ -1,0 +1,148 @@
+[META]
+chunk_type: text
+source_file: LOREAL Dock Guidance During Forklift Put-Away of Prepared Supports.pdf
+category: LOREAL
+total_pages: 6
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Dock Guidance During Forklift Put-Away of Prepared Supports
+Specification: SPD31
+Version: 1.0
+Date: 26/06/2025
+Author: ZBA
+DOCUMENT METADATA (for Vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"module": "Forklift Put-away (Cariste Rangement)",
+"feature": "Dock Display for Prepared Supports",
+"spec_code": "SPD31",
+"object": "Prepared Support",
+"related_object": "Loading Dock",
+"version": "1.0"
+}
+SECTION 1 — Business Context / Functional Need
+1.1 Current Process
+Within the L’Oréal project:
+1. Orders are prepared.
+2. Supports are finalized.
+3. Finalized supports must be placed in a dock area waiting for loading.
+Operators use the module:
+Forklift Put-away (Cariste Rangement)
+Sensitivity: Internal
+
+[PAGE 2]
+to store prepared supports.
+1.2 Current Limitation
+Today, when the operator scans (flashes) a prepared support in the forklift putaway module:
+Speed does NOT guide the operator to the correct loading dock
+No indication is given regarding the dock associated with the order
+As a result:
+• Operators may place supports in incorrect docks
+• Loading preparation becomes less reliable
+1.3 Requested Evolution
+Implement a custom entry point (PE) in the Forklift Put-away module so that:
+When a prepared support is scanned:
+→ Speed displays the loading dock associated with the order linked to that support.
+SECTION 2 — Functional Behavior
+SPECIFIC – SPD31
+Trigger
+When scanning a prepared support in the forklift put-away module.
+Case 1 — Order Associated with a Loading
+If the order linked to the scanned support:
+• Is associated with a loading
+• And that loading has an assigned dock
+System Behavior
+IF support.status = PREPARED
+Sensitivity: Internal
+
+[PAGE 3]
+AND order.loading_dock IS NOT NULL
+THEN
+DISPLAY loading_dock AS suggested put-away location
+ENDIF
+Speed must:
+• Display the loading dock
+• Propose it as the storage location
+• Guide the operator accordingly
+Case 2 — Order NOT Associated with a Loading
+If:
+• The order has no associated loading
+• Or no dock is defined
+System Behavior
+IF order.loading_dock IS NULL
+THEN
+STANDARD SPEED BEHAVIOR
+DISPLAY POPUP: "No dock associated."
+ENDIF
+Meaning:
+• Standard put-away logic applies
+• A pop-up informs the operator:
+No dock associated.
+SECTION 3 — Process Flow
+1. Operator selects forklift put-away module.
+2. Operator scans prepared support.
+3. System retrieves:
+Sensitivity: Internal
+
+[PAGE 4]
+o Linked order
+o Associated loading
+o Assigned dock
+4. If dock exists:
+o Display dock as destination location.
+5. If no dock:
+o Standard logic + pop-up message.
+SECTION 4 — Technical Logic
+ON Support_Scan:
+IF support.status = "PREPARED" THEN
+order = GET_ASSOCIATED_ORDER(support)
+dock = GET_LOADING_DOCK(order)
+IF dock IS NOT NULL THEN
+DISPLAY dock AS PUTAWAY_LOCATION
+ELSE
+DISPLAY "No dock associated"
+EXECUTE STANDARD_PUTAWAY()
+ENDIF
+ELSE
+STANDARD_PUTAWAY()
+ENDIF
+SECTION 5 — Functional Summary (RAG-Optimized)
+Sensitivity: Internal
+
+[PAGE 5]
+What module is impacted?
+Forklift Put-away (Cariste Rangement).
+When does the logic apply?
+When scanning a prepared support.
+What does the system check?
+Whether the order linked to the support has an associated loading dock.
+What happens if a dock exists?
+Dock is displayed and proposed as storage location.
+What happens if no dock exists?
+Standard behavior + pop-up “No dock associated.”
+Why is this needed?
+To guide operators and ensure prepared supports are placed in the correct loading
+dock.
+SECTION 6 — Key Functional Conditions
+Condition System Behavior
+Prepared support + dock exists Display dock as destination
+Prepared support + no dock Standard behavior + pop-up
+Non-prepared support Standard behavior
+SECTION 7 — Client Validation
+AGL acknowledges receipt and validates all elements included in this document.
+BK Systèmes commits to delivering the solution that meets the validated
+requirements within the scope of the approved quotation.
+Any additional request or evolution beyond this document may require a
+supplementary quotation.
+Any provision not explicitly stated in this document is not covered and remains at
+the discretion of the concerned parties.
+Sensitivity: Internal
+
+[PAGE 6]
+Signed at Vaulx-Milieu, on 25/03/2025.
+Company stamp and signature:
+Sensitivity: Internal

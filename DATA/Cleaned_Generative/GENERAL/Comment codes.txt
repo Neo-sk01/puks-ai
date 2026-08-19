@@ -1,0 +1,24 @@
+[META]
+chunk_type: text
+source_file: Comment codes.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Comment Codes
+Purpose
+• Define standard comments to be used during radio frequency operations
+(preparations, picking, etc.).
+• Allow for quick input by scanning a code instead of typing the full comment.
+How It Works
+• Each comment is linked to a unique code.
+• Scanning the code during a radio transaction automatically adds the
+comment description to the document.
+Example
+• Code: FRAGILE
+• Effect: When scanned, adds the comment “FRAGILE” on the shipment label
+for the current order.
+This ensures consistency and speeds up warehouse operations by avoiding manual
+typing of frequently used comments.
+Sensitivity: Internal

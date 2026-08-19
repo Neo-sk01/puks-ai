@@ -1,0 +1,154 @@
+[META]
+chunk_type: text
+source_file: SPD_009 Reception Article Saisie poids_dimensions_DLC_LOT1V2 1.pdf
+category: LOREAL
+total_pages: 5
+[/META]
+
+[PAGE 1]
+• Table of Contents
+1. Table of Contents 2
+2. Revision History 3
+3. Validation History 4
+4. Context 5
+5. Flowcharts 6
+6. Technical Section 11
+6.1 PE602 Validation of Support Merging 11
+7. Client Validation 13
+• 2. Revision History
+Version Description Date Author
+1.0 Initial Version 25/03/2025 AKD
+1.1 Following Remi's email from 28/03 at 10:49 01/04/2025 AKD
+• 3. Validation History
+Version Remarks Date By
+1.0 Initial Version 25/03/2023 AKD
+• 4. Context
+Within the scope of the L'ORÉAL activity, we use the multi-BL reception module for receiving various
+items.
+However, it sometimes happens that certain information, such as dimensions (length, width, height) or
+weight, are not entered in the item master.
+The client wishes that if at least one of the three dimensions is not entered, the operator should be
+required to complete them directly from the multi-BL reception module. The same applies to weight.
+Furthermore, for certain items, during their first reception, we do not know if they are subject to lot 1
+management or expiration date (DLC) management.
+The client also wishes to be able to enter case and pallet handling units. If the value is > 0, then we will
+additionally activate management of this handling unit.
+The client also wishes to implement an option in the multi-BL reception module that will allow, during
+this first reception, to define whether the item is concerned by lot 1 management and/or by DLC.
+
+[PAGE 2]
+Spécifications Détaillées
+Finally, a specific parameter must be activated at the activity level to apply or not these controls. For
+this, we will use ACT_TOP16.
+• 5. Flowcharts
+Action Radio Screen
+1.0 Select: Multi BL Reception [Image: Multi BL Reception
+Press: F5 selection screen]
+2.0 Select/Scan reception or BL reference [Image: Reception/BL
+Press: F5 selection screen]
+3.0 Scan support or F5 to auto-generate a sequential support (depends on
+[Image: Support
+configuration)
+generation screen]
+Press: F5
+[Image: Item code/EAN
+4.0 Scan item code or EAN
+scan screen]
+[Image: Quantity entry
+5.0 Enter received quantities
+screen]
+6.0 At F5: Use PE 602 before stock generation
+→ If ACT_TOP16 activated
+→ If at least one unit dimension not entered, display a specific window
+with dimension entry
+→ If weight not entered, add to the specific window entry of item weight
+per unit
+[Image: Specific data entry
+→ If first reception of item in the activity, add a checkbox for lot1
+window]
+management and a second checkbox for DLC management
+→ Similarly if first reception, add ability to enter quantity per case and
+quantity per pallet or cases per pallet depending on whether case is
+managed or not
+→ At F3 of specific window, return to quantity entry screen without
+generating stock
+7.0 Scan next support [Image: Next support scan]
+• 6. Technical Section
+In PE 602 and PE 794, control that ACT_TOP16=1 before performing processing. No activity-level control
+to perform.
+First, if we are on the first reception of the item, across all receptions in the activity, display the possibility
+to manage or not lot 1 and DLC, and also the possibility to enter quantity per case and per pallet.
+Then we will verify if dimensions are properly entered for the item per unit. We must ensure that
+ART_LONU, ART_LARU, and ART_HAUU are properly entered and greater than 0.
+Sensitivity: In1t0e.0r2n.2a0l2 6 Page n° 2/5
+
+[PAGE 3]
+Spécifications Détaillées
+Finally, we must verify that the item weight per unit is properly entered and greater than 0.
+Speed Version: A.8.6.F ⇒ 28.06b1
+Speed Radio Version: 28.06b
+Module STD 175: 28.06
+• 6.1 PE794
+If first reception of item:
+→ Display possibility to activate item for lot1 and DLC
+→ Entry of quantity per case/pallet:
+• If case quantity > 0, then we consider that we manage cases. The quantity entered will be in
+units per case.
+• If pallet quantity > 0 and case quantity > 0, then quantity entered is in cases per pallet.
+• If pallet quantity > 0 and case = 0, then quantity entered is in units per pallet.
+Remember to update the unit if it's in cases or units as below: from the moment quantity equals 0, we
+will always have unit by default. If VL case > 0, then at pallet level we will have number of cases.
+→ If first-time reception of item, update ART_LOT1 and ART_DLC (if activated, set to 1, otherwise set to
+0)
+Remember to update ART_PREP if ART_LOT1 managed and ART_DLC managed as below:
+→ If ART_LOT1 managed and if ART_DLC managed then: If an item manages lot, we must consider that
+it manages optimal use-by date as well as manufacturing date.
+• ART_PREP1 = STK_DLC & ART_DDLC=1
+• ART_PREP2 = STK_DLUO & ART_DLUO=1
+• ART_PREP3 = STK_DAEN
+• ART_PREP4 = STK_LOT1 & ART_LOT1=1
+• ART_PREP5 = STK_DFAB & ART_DFAB=1
+→ If ART_LOT1 NOT managed and if ART_DLC managed then:
+• ART_PREP1 = STK_DLC & ART_DDLC=1
+• ART_PREP2 = STK_DAEN
+→ If ART_LOT1 managed and if ART_DLC NOT managed then:
+• ART_PREP1 = STK_DLUO & ART_DLUO=1
+• ART_PREP2 = STK_DAEN
+• ART_PREP3 = STK_LOT1 & ART_LOT1=1
+• ART_PREP4 = STK_DFAB & ART_DFAB=1
+In Speed, we cannot manage traceability without it being entered in ART_PREP.
+Remember to update ART_PREP entered with STK_LOT1 and STK_DLC in case of non-management of
+these options.
+Sensitivity: In1t0e.0r2n.2a0l2 6 Page n° 3/5
+
+[PAGE 4]
+Spécifications Détaillées
+If F5, then PE must return true.
+If F3, then PE must return false.
+• 6.2 PE602
+If ACT_TOP16=1:
+Use PE602:
+IF ART_LONU=0 or null OR ART_LARU=0 or null OR ART_HAUU=0 or null:
+→ If at least one of the three values is 0 or null, then display entry of the three dimensions and initialize
+with already entered value if one is available.
+IF ART_POIU=0 or null:
+→ Display weight entry
+At F3, lose entry and return to quantity reception entry screen.
+At F5:
+→ If dimensions displayed, verify that all three entered values are >0
+→ If weight displayed, verify that it is >0
+• 7. Client Validation
+The company AGL acknowledges receipt and validates all elements contained in this document.
+BK Systèmes commits to providing the solution that meets the needs expressed and validated in this
+document within the framework of the proposed quotation.
+The company AGL recognizes that any additional request or any new evolution requested in relation to
+this document may be subject to an additional quotation.
+All provisions not expressly stipulated in this document are not covered and remain at the discretion of
+the concerned parties.
+Done at Vaulx-Milieu, on 25/03/2025.
+Signature and company stamp:
+Sensitivity: In1t0e.0r2n.2a0l2 6 Page n° 4/5
+
+[PAGE 5]
+Spécifications Détaillées
+Sensitivity: In1t0e.0r2n.2a0l2 6 Page n° 5/5

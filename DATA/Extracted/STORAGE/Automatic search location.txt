@@ -1,0 +1,31 @@
+[META]
+chunk_type: text
+source_file: Automatic search location.pdf
+category: STORAGE
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Automatic Search Location – Assigning Planned Locations Automatically
+Purpose:
+• Automatically determine a planned location for each receipt line, instead of
+assigning it manually.
+• Optimizes storage placement based on predefined rules.
+Steps
+1. Select the receipt lines for which you want to perform the automatic search.
+2. Either:
+o Right-click → Launch automatic search, or
+o Click the Location search button at the bottom-right of the window.
+System Behavior
+• SpeedWMS proposes the most optimized storage location for each support
+based on the criteria of the automatic search rule:
+o Zone type
+o Stock constraints
+o Item characteristics
+o Capacity limitations
+• If the system cannot find a suitable location for a line (e.g., storage zone full,
+criteria not met), the “Search completed” box remains unchecked.
+Key Point:
+Automatic search saves time and ensures consistency but may require manual
+intervention for lines where no suitable location is found.
+Sensitivity: Internal

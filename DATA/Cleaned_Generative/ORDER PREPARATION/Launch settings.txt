@@ -1,0 +1,69 @@
+[META]
+chunk_type: text
+source_file: Launch settings.pdf
+category: ORDER PREPARATION
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Launch Settings Overview
+Access:
+System / Launch
+The launch settings in SpeedWMS allow you to configure and control each step of
+the order processing launch, from start to finish.
+Steps of the Launch Process
+Step Code Purpose
+Launch start LAN_STAT_LAN Initializes the launch
+Start of order LAN_START_CDE Prepares each order for processing
+Start line processing LAN_START_LIN Prepares each order line
+Line processing LAN_TRT_LIN Core processing of each line (main focus)
+End of line processing LAN_END_LIN Finalizes processing of the line
+End of order LAN_END_CDE Finalizes the order
+End of launch LAN_END_LAN Wraps up the entire launch
+Typically, the main configurations are needed for line processing and end of
+launch.
+Procedures for Order Line Processing
+When processing each order line (LAN_TRT_LIN), the following procedures can be
+executed sequentially:
+1. Availability check – Checks stock and generates missing/backorder samples
+if stock is insufficient.
+2. Service on stock (pallets) – Proposes complete pallet samples from
+available stock.
+3. Picking service – Offers retail samples in the picking area based on stock
+availability.
+4. Service on stock (details) – Provides smaller quantities or detailed
+withdrawals not handled by the previous step.
+Sensitivity: Internal
+
+[PAGE 2]
+5. Missing service – Any remaining quantities that couldn’t be served are
+marked as missing.
+Procedure Configuration
+Each procedure can be configured along three main axes:
+1. Application Settings Tab – Specifies which order lines the procedure applies
+to.
+2. Search Parameters Tab – Defines the stock constraints or search rules.
+3. Generation Parameters Tab – Determines how the samples (direct debit
+lines) should be generated.
+The generated direct debit lines constitute the preparation mission lines.
+End-of-Launch Processing (GenereMissionLan)
+Once direct debit lines are generated:
+• Lines are grouped into missions based on specified criteria.
+• Configuration focuses on:
+1. Which lines are included in missions (Application Settings).
+2. How lines are grouped (Generation Parameters).
+Example:
+• Standard SpeedWMS setup generates one mission per picking area for an
+activity order.
+• Multiple mission generation procedures can be configured depending on the
+rules.
+Key Notes
+• Launch settings allow complete automation of order line processing.
+• You can define how stock is allocated, how missions are grouped, and how
+missing items are handled.
+• Proper configuration ensures preparation missions are generated efficiently
+and logically.
+Sensitivity: Internal
+
+[PAGE 3]
+Sensitivity: Internal

@@ -1,0 +1,8 @@
+Thirds Miscellaneous tab
+Tab allowing to associate various information according to the third party, such as a
+location of star pose or number star of VAT for example.
+He is star also possible to star finish a third like star an owner start hush up.
+➢Supplier
+➢Recipient
+Sensitivity: Internal➢Carrier (and Site)
+Sensitivity: Internal

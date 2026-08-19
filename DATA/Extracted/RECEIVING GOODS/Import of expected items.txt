@@ -1,0 +1,120 @@
+[META]
+chunk_type: text
+source_file: Import of expected items.pdf
+category: RECEIVING GOODS
+total_pages: 5
+[/META]
+
+[PAGE 1]
+SOP: Import of Expected Items in Speed WMS
+Sensitivity: Internal
+1. Purpose
+This procedure explains how to import a list of expected items into Speed WMS
+using an Excel file.
+Expected items are used to prepare and control incoming receipts before the
+physical goods arrive.
+This process is typically used by Receiving teams to preload receipt expectations.
+2. Functional Scope
+• Module: Receiving / Expected
+• Business Object: Expected Receipt Items
+• Related Tables (Database Reference):
+o Expected Receipt Header: REA_DAT (depending on configuration)
+o Expected Receipt Lines: REL_DAT (used when generating receipts)
+o Receipt Header (after generation): REE_DAT
+3. Preconditions
+Before importing expected items, ensure that:
+• You are logged into the correct activity (ACT_CODE)
+• The supplier and customer account exist in Speed
+• All item codes in the Excel file exist in the article master
+• The Excel file follows the required format
+4. Accessing the Import Function
+1. Navigate to Receiving
+2. Open the Expected menu
+Sensitivity: Internal
+
+[PAGE 2]
+3. Select an existing expected receipt or create a new one
+4. Click the Import button
+This action opens the Expected Items Import screen.
+5. Excel File Requirements
+The import is performed using an existing Excel file.
+5.1 Mandatory Column Structure
+The Excel file must contain the expected items data in a predefined structure (as
+configured in the activity).
+Typically required fields include:
+• Item Code
+• Expected Quantity
+• Quality Code
+• (Optional depending on configuration)
+o Lot
+o DLUO / DLC
+o Owner
+Important
+• Item codes must exist in Speed
+• Traceability fields are mandatory if managed on the item sheet
+• Quantities are interpreted in units per storage medium
+6. Import Process
+1. Click Import
+2. Browse and select the Excel file
+3. Load the file into the import screen
+4. Review the imported data:
+o Valid item codes
+Sensitivity: Internal
+
+[PAGE 3]
+o Quantities
+o Quality codes
+5. Validate the import
+Once validated:
+• Expected item lines are created
+• The expected receipt is updated with imported lines
+7. System Behavior After Import
+After a successful import:
+• Expected items are visible under Receiving → Expected
+• No stock is created at this stage
+• No movement is recorded
+• The data is used later when:
+o Creating a receipt
+o Matching received quantities against expected quantities
+8. Error Handling & Validation
+8.1 Common Import Errors
+Error Cause Resolution
+Item not found Item code does not exist Create item or correct code
+Missing traceability Lot / DLUO required Update Excel file
+Quantity invalid Zero or non-numeric value Correct quantity
+8.2 SQL Validation (Optional – Support Use)
+SELECT *
+FROM REL_DAT
+WHERE ACT_CODE = 'RSAJHBJP'
+Sensitivity: Internal
+
+[PAGE 4]
+AND REE_NORE = 'EXPECTED_NUMBER';
+Use this query to verify that:
+• Expected lines were created
+• Quantities and item codes are correct
+9. Best Practices
+• Always validate Excel data before importing
+• Use expected items to:
+o Reduce receiving errors
+o Speed up receipt creation
+o Improve traceability accuracy
+• Do not import duplicate expected lines for the same receipt
+• Keep the original Excel file for audit and troubleshooting
+10. RAG-Optimized Key Concepts
+Concept Meaning
+Expected Items Planned receipt lines before goods arrival
+Import Excel-based preload of expected data
+No Stock Impact Import does not generate stock
+Traceability Mandatory if configured on item
+Validation Ensures clean receipt creation later
+11. Typical RAG Questions Answered
+• How do I import expected items in Speed WMS?
+• What is the Excel format for expected items?
+• Does importing expected items create stock?
+• Where do imported expected items appear?
+Sensitivity: Internal
+
+[PAGE 5]
+• Why does my expected item import fail?
+Sensitivity: Internal

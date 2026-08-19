@@ -1,0 +1,186 @@
+[META]
+chunk_type: text
+source_file: Receipt Creation, Line Management & SQL Validation in Speed WMS.pdf
+category: RECEIVING GOODS
+total_pages: 7
+[/META]
+
+[PAGE 1]
+SOP: Receipt Creation, Line Management & SQL Validation
+System: Speed WMS
+Sensitivity: Internal
+1. Purpose
+This SOP describes the end-to-end process for creating and validating receipts in
+Speed WMS, including:
+• Receipt header creation
+• Receipt line creation
+• Stock generation behavior
+• SQL validation and troubleshooting
+Applies to:
+JetPark, Durban Northbound, and all Speed WMS warehouses.
+2. Core Database Tables (RAG Anchor)
+Speed WMS receipt processing relies on the following tables:
+• REE_DAT → Receipt Header
+• REL_DAT → Receipt Lines
+• STK_DAT → Stock
+• MVT_DAT → Movements
+These tables are referenced throughout this SOP.
+3. Receipt Header Creation
+3.1 Objective
+The receipt header represents the incoming goods transaction and acts as the
+parent container for receipt lines.
+3.2 Access
+A receipt header can be created using:
+Sensitivity: Internal
+
+[PAGE 2]
+• Add / New Receipt from the contextual menu, or
+• The Add button on the receipt screen
+3.3 Receipt Header Structure
+The receipt screen is divided into two sections:
+• Upper Section → Receipt header information (REE_DAT)
+• Lower Section → Receipt lines (REL_DAT)
+3.4 Automatically Initialized Fields
+The following fields are auto-populated and not editable:
+• Activity Code (ACT_CODE)
+• Speed Receipt Number (REE_NORE)
+• Receipt creation date and time
+• Default reception dock (based on configuration)
+3.5 Mandatory User Inputs
+The user must complete the following fields:
+• Customer Account (REE_CCLI) – if managed by the activity
+• Supplier (Third Party Code)
+• Receipt Reference (optional but recommended for traceability and search)
+3.6 SQL Validation – Receipt Header
+Use this query to validate receipt header creation:
+SELECT
+REE_KEYU,
+REE_NORE,
+REE_ETRE,
+REE_CCLI,
+Sensitivity: Internal
+
+[PAGE 3]
+REE_TOP1
+FROM REE_DAT
+WHERE ACT_CODE = 'Activity Code'
+AND REE_NORE = 'Receipt Number';
+Key fields explained:
+• REE_ETRE → Receipt status
+• REE_KEYU → Internal receipt identifier
+• REE_TOP1 → Pegasus flag (1 = sent, 0 = not sent)
+4. Receipt Line Creation
+4.1 Objective
+Receipt lines represent individual storage media that will later be converted into
+stock.
+4.2 Minimum Required Information
+Each receipt line must contain:
+• Item Code
+• Quantity
+• Quality Code
+4.3 Global Business Rules
+• Item code must exist in the article master
+• Quantity is stored per storage medium
+• Default quality is sourced from:
+o Item sheet, or
+o Activity default
+• Traceability fields (Lot, DLC, DLUO, etc.) are mandatory if configured
+• Owner priority follows this order:
+Sensitivity: Internal
+
+[PAGE 4]
+1. Item owner
+2. Activity owner
+3. Manual owner selection
+4.4 Methods for Adding Receipt Lines
+A. Manual Entry
+• Enter item code, quantity, and quality
+• Validate to create the line
+B. Item Search
+• Right-click → Search for Article
+• Select item from:
+o Supplier list, or
+o All suppliers
+• Enter quantity and quality
+C. Item Templates (Grid Entry)
+• Right-click → Item Templates
+• Select template
+• Enter:
+o Same quantity for all items, or
+o Individual quantities
+• Validate to create multiple lines
+D. Detailed Entry Form
+• Double-click item code field
+• Enter logistic variants and traceability fields
+• Validate to create the line
+E. Excel Import
+Excel file must contain exactly three columns:
+1. Item Code
+Sensitivity: Internal
+
+[PAGE 5]
+2. Quantity
+3. Quality Code
+Steps:
+• Preview the import
+• Validate to create receipt lines
+4.5 Receipt Line Status (Before Stock Generation)
+Before stock generation:
+• Receipt lines exist in REL_DAT
+• No stock exists yet
+• Stock Input flag = 0
+• No movement exists in MVT_DAT
+• Lines can still be modified or deleted safely
+4.6 SQL Validation – Receipt Lines
+SELECT
+REE_KEYU,
+REL_KEYU,
+REL_NOSU
+FROM REL_DAT
+WHERE ACT_CODE = 'Activity Code'
+AND REE_NORE = 'Receipt Number';
+5. Stock Generation Logic
+5.1 What Happens During Stock Generation
+When stock generation is executed:
+• Stock records are created in STK_DAT
+• Receipt movements are recorded in MVT_DAT
+Sensitivity: Internal
+
+[PAGE 6]
+• Expected receipt lines are consumed from REL_DAT
+• Receipt status is updated in REE_DAT
+5.2 SQL Validation – Stock and Movements
+Stock validation:
+SELECT *
+FROM STK_DAT
+WHERE ACT_CODE = 'Activity Code'
+AND STK_NOSU = 'Support Number';
+Movement validation (Receipt Movement):
+SELECT *
+FROM MVT_DAT
+WHERE ACT_CODE = 'Activity Code'
+AND TMV_CODE = '10010';
+6. Reversal and Correction Scenarios
+6.1 Reopening a Closed GRN
+Use this SQL to reopen a closed receipt and reset Pegasus integration:
+UPDATE REE_DAT
+SET REE_ETRE = '100',
+REE_TOP1 = 0
+WHERE ACT_CODE = 'Activity Code'
+AND REE_NORE = 'Receipt Number'
+AND REE_KEYU = 'Receipt ID'
+AND REE_CCLI = 'Customer Account Code';
+7. Troubleshooting Mapping (RAG-Friendly)
+• Receipt exists but no stock
+Sensitivity: Internal
+
+[PAGE 7]
+o Cause: Stock generation not executed
+o Table to check: REL_DAT
+• Stock exists but no weight
+o Cause: Stock attributes not populated
+o Table to check: STK_DAT
+• Receipt not sent to Pegasus
+o Cause: Pegasus flag not reset
+o Field to check: REE_TOP1
+Sensitivity: Internal

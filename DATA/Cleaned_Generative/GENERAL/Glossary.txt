@@ -1,0 +1,90 @@
+[META]
+chunk_type: text
+source_file: Glossary.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS Glossary
+Term Explanation
+Concept to separate management within the same warehouse for
+multiple activities, trades, or customers. Elements linked to an
+Activity
+activity include: items, thirds, receptions, orders, and rules for
+receiving, storage, and preparation processes.
+CAB Bar codes.
+Hierarchical organization of items or third parties, up to 999
+families, with up to 5 tree levels.
+Example – Item classification:
+- Level 1: “Family”
+— Level 2: Consumer articles
+— Level 3: Catalog items / Other items
+— Level 2: Professional articles
+Classification
+— Level 3: Items type 1 → Level 4: Items type 1.1
+— Level 3: Items type 2
+Level 1: Classification “Dangerous”
+— Level 2: Safe / Dangerous
+— Level 3: Toxic / Mortal
+Uses: Statistics, preparation mission criteria, specific programs
+(editions, etc.)
+A 3-character code linked to a location or group of locations.
+Installation Key Present on location labels. Used in radiofrequency procedures to
+validate movements.
+DFAB Manufacturing date (Manuf. Date).
+DLC Use By Date (UBD).
+DLUO Best Before Date (BBD).
+DLV Sale By Date (SBD).
+Grouping of direct sampling lines. Types include preparation
+Mission
+missions and picking replenishment missions.
+Item
+Defines rules for traceability, stock rotation, and handling of each
+Management
+item.
+Mode
+Sensitivity: Internal
+
+[PAGE 2]
+Term Explanation
+Example: Item managed with UBD → stock rotation first by UBD,
+then by date of entry.
+Tracks all changes for an item in stock (receipt, put away,
+quantity/location change, out of stock, etc.). Each movement
+has:
+- Unique movement number
+Stock
+- Operation number
+Movements
+- Transaction number
+- User code
+- Date/time
+- Movement-specific info
+Picking a given quantity of an item from a location. Each direct
+Sampling
+sampling corresponds to a mission line.
+Nature of goods in stock (e.g., Standard, Second choice, Derated,
+Quality
+Anomaly). Defined per activity.
+Sub-packaging indicator in a package. Example: A package
+SPCB
+containing 2 SPCBs of 12 units each.
+All goods in stock are placed on a support, identified by a unique
+Support
+number.
+Actors in the warehouse: Providers, Recipients, Carriers,
+Third
+Contacts.
+Information tracking the history of a stock line. Criteria include:
+Traceability date of entry, UBD, SBD, BBD, Manuf. Date, and up to 3 batches
+(Batch1, Batch2, Batch3).
+Wave Grouping of multiple sales orders for simultaneous preparation.
+Different packaging levels of an item (unit, pack, parcel, layer,
+pallet). Each SU can have:
+- Packaging code (carton, box, canister)
+Stock Unit (SU) - Weight
+- Volume
+- One or more identifiers
+- Constituted from lower-level SUs (e.g., a parcel = 48 units)
+Sensitivity: Internal

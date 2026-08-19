@@ -1,0 +1,76 @@
+[META]
+chunk_type: text
+source_file: Stock generation.pdf
+category: RECEIVING GOODS
+total_pages: 3
+[/META]
+
+[PAGE 1]
+SOP Section: Stock Generation from Receipt Lines
+Sensitivity: Internal
+1. Purpose
+This procedure defines how to generate stock from receipt lines in Speed WMS and
+make the goods officially available in inventory.
+2. Principle
+• Receipt lines are not immediately available in stock after being created.
+• Stock generation is required to:
+o Consume associated expected items
+o Create stock entry movements
+o Make the storage media available in logistics flows (picking,
+sampling, etc.)
+3. Stock Generation Status
+Each receipt line has a Top Stock Input field indicating stock generation status:
+Value Meaning
+Line added to receipt but not generated in stock. No movement is created;
+0
+goods cannot be used in logistics.
+Line generated in stock. Entry movement created; expected items
+1
+consumed; goods available for logistics flows.
+4. Preparing Stock Generation
+1. Open the Receipt Form
+2. Select the lines to be processed
+o Use Select All button for convenience if processing all lines
+3. Confirm the receiving dock location on the receipt header
+Sensitivity: Internal
+
+[PAGE 2]
+5. Executing Stock Generation
+1. Click the Generate Stock button
+2. Speed WMS will:
+o Create stock entry movements for each line
+o Consume associated expected items
+o Update Top Stock Input from 0 → 1 for processed lines
+6. Post-Generation Handling
+6.1 Support Status
+Generated supports are assigned a status code that determines availability:
+Status
+Meaning
+Code
+01 Support in place, immediately available for picking or sampling
+Support awaiting placement, not available for order preparation until
+02
+moved to location
+6.2 Modification Restrictions
+• Once a receipt line is generated in stock:
+o It cannot be modified or deleted
+o It remains visible under the Storage tab of the receipt form
+7. Summary Flow
+Receipt Lines Created (Top Stock Input = 0)
+↓
+Select Lines for Generation
+↓
+Generate Stock Button
+↓
+Entry Movements Created → Expected Items Consumed
+Sensitivity: Internal
+
+[PAGE 3]
+↓
+Top Stock Input = 1 → Supports Available in Stock
+8. Key Controls
+• ✔ Only lines with Top Stock Input = 0 can be generated
+• ✔ Stock generation consumes expected items automatically
+• ✔ Generated lines cannot be deleted or edited
+• ✔ Support status determines whether stock is immediately usable
+Sensitivity: Internal

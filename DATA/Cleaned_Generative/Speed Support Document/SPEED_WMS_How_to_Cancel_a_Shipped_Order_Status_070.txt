@@ -1,0 +1,56 @@
+[META]
+chunk_type: text
+source_file: SPEED_WMS_How_to_Cancel_a_Shipped_Order_Status_070.pdf
+category: Speed Support Document
+total_pages: 2
+[/META]
+
+[PAGE 1]
+How to Cancel an Order That Has Already Been Shipped
+Overview
+Once an order has been shipped, it is assigned status 070.
+Orders in status 070 cannot be cancelled or deleted directly in the Speed system.
+To cancel such an order, it must first be reverted to an earlier status (060).
+This reversal must be performed directly in the database and can only be done by
+the Support team, as they have the required database access.
+Step 1: Verify the Order in the Database
+Confirm the order details and current status before making any changes.
+SELECT OPE_KEYU, OPE_NOOE, *
+FROM OPE_DAT
+WHERE ACT_CODE = 'Activity Account'
+AND OPE_NOOE = [Order Number];
+Step 2: Revert the Order Status from 070 to 060
+Update the order status in the database to allow further processing in Speed.
+UPDATE OPE_DAT
+SET OPE_STAT = '060'
+WHERE ACT_CODE = 'Activity Account'
+AND OPE_NOOE = [Order Number]
+AND OPE_KEYU = [Order Keyu];
+Important:
+This update must be executed by the Support team, as end users do not have database
+access.
+Step 3: Invalidate Mission Lines in Speed
+After the order status has been reverted to 060, continue in the Speed application:
+1. Navigate to the Mission tab.
+Sensitivity: Internal
+
+[PAGE 2]
+2. Select the relevant Mission.
+3. The Mission Header page will open, showing mission metadata.
+4. Double-click the mission header to display the Mission Lines.
+5. Invalidate all mission lines.
+6. If the order has multiple mission headers, repeat this process for each one.
+Step 4: Cancel the Mission
+• Once all mission lines are invalidated, the order will automatically move to
+status 030.
+• From status 030, cancel the mission.
+• After mission cancellation, the order will move to status 010.
+Step 5: Cancel the Order
+• When the order reaches status 010, it can now be fully cancelled in the system.
+Key Notes for RAG Usage
+• Orders in status 070 cannot be cancelled directly
+• Status 070 → 060 requires a database update
+• Only Support can perform database updates
+• All mission lines must be invalidated before mission cancellation
+• Final order cancellation is only possible at status 010
+Sensitivity: Internal

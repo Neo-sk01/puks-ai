@@ -1,0 +1,42 @@
+Location search
+Functionality accessible from the menu Settings/ Locations /Location search
+Speed can suggest the optimal destination location for each stock medium in relation
+to the defined rules and criteria.
+It is under this functionality that the different rules will be set which represent the
+algorithm that Speed will have to follow in order to be able to offer a location to the
+operator.
+Accessing this menu displays the list of different location search rules that have been
+declared on the Speed environment.
+It will then be possible to:
+.Create new search rules.
+.Modify the properties of an existing rule.
+.Delete (not without certain constraints) an existing rule.
+Sensitivity: InternalIt is possible to define several location search rules for the same activity. Each location
+search rule is structured as sequences, and each sequence has a method:
+.Search location in structure: Allows you to search for the first empty slot in a storage
+area.
+.Search as close as possible to picking: allows you to find the first empty location of a
+storage zone closest to the picking location of the reference concerned.
+.Search by complement: allows you to search for a location already occupied by the
+same item reference.
+.Fixed search: returns a fixed location as result.
+.Free search: specific method to meet specific needs that would not be covered by
+conventional sequences. Can only be configured by BK Systems teams.
+These are only the outlines of these methods, each of them being able to be specified
+with a whole series of criteria to limit their field of application (classification, size,
+quality, weight, etc.).
+It is quite possible to mix all the methods within a single search location.
+In the same way, several different sequences, but using the same method, can be
+positioned within the same rule.
+Sensitivity: InternalNote: During the location search, the different sequences are executed in the order in
+which they were defined within the rule. A sequence can only have two possible
+outcomes:
+.No location was found: go to the next sequence if it exists, otherwise end of location
+search.
+.A location has been found: location proposed to the operator and end of location
+search.
+It is therefore necessary to always configure these sequences in such a way as to carry
+out the finest searches in priority in order to possibly expand them during the following
+sequences.
+These different rules are then possibly attached to the Speed item sheets.
+Sensitivity: Internal

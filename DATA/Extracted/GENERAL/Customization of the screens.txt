@@ -1,0 +1,49 @@
+[META]
+chunk_type: text
+source_file: Customization of the screens.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Customization of Screens (Views)
+• Purpose:
+Allows users to configure the layout and data displayed on most SpeedWMS
+screens according to their needs. Each configuration is called a “View”.
+• User-specific:
+o By default, views are specific to each user.
+o This means different employees can have different screen
+configurations for the same functionality.
+Accessing View Configuration
+• Settings button on the screen opens the view customization interface.
+Screen Layout
+The configuration screen is divided into three parts:
+1. Left Panel – Available Tables:
+o Lists all tables with information that can be added to the view.
+o Double-clicking a table expands it to show all elements.
+o Search/filter is available to quickly find elements by keyword.
+2. Right Panel – Current View:
+o Upper part: Shows a preview of the screen with the selected
+elements.
+o Lower part: Provides details about the selected element (black
+background).
+3. Interaction:
+o Add element:
+▪ Select the element and click the add button or double-click the
+element to add it.
+▪ Added to the last position by default.
+o Delete element:
+Sensitivity: Internal
+
+[PAGE 2]
+▪ Select the column in the upper right panel and click the delete
+button.
+Advanced Customization
+• Reorder columns: Drag and drop columns to set the display order.
+• Important note:
+o The first column is usually the unique registration key required for
+system functionality.
+o Cannot be deleted or moved, but it can be hidden if needed.
+This system allows each user to have a personalized, optimized workspace while
+maintaining system integrity.
+Sensitivity: Internal

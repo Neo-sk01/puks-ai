@@ -1,0 +1,62 @@
+[META]
+chunk_type: text
+source_file: Collect management.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Collect Management Overview
+Purpose:
+• Optimize the movements of preparers in the warehouse.
+• Group samples from multiple orders/missions to pick all required quantities
+in one trip per location.
+• Important: The collect process does not validate mission lines. Stock
+decrement happens during distribution or packing.
+Access:
+Preparation / Manage collect mission
+Collect Screen Overview
+• The window displays all collects, divided by status:
+Tab Description
+Generated Collects created but not yet started. Default tab on opening.
+In Progress Collects that are currently being executed.
+Closed Completed collects.
+All Displays all collects regardless of status.
+Contextual Menu Options
+Option Functionality Status Restrictions
+New Create a new collect N/A
+Access collect card for Only for Generated (010)
+Edit
+modifications collects; others view-only
+Only for Generated (010)
+Delete Remove a collect
+collects
+Modify order numbers of
+Organize N/A
+all generated collects
+Assign to Assign a collect to a user N/A
+Sensitivity: Internal
+
+[PAGE 2]
+Option Functionality Status Restrictions
+Remove a user from a
+Deallocate N/A
+collect
+Export to Excel / Configure
+For reporting and display
+Screen / View Additional N/A
+adjustments
+Info
+Collect Notes
+• For each collect, a collect note can be printed via the Print button on the
+order bar.
+• Provides a summary of the items and quantities to be picked for that collect.
+Processing
+• Normally handled via the SpeedRadio module (RF devices).
+• Can also be executed administratively if needed.
+Key Notes
+• Collects group multiple orders/missions but do not finalize stock
+allocations.
+• Only Generated collects (010) can be edited or deleted.
+• Supports user assignment, organization, and reporting.
+Sensitivity: Internal

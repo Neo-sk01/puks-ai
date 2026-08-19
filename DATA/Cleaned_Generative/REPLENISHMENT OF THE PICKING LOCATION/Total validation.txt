@@ -1,0 +1,20 @@
+[META]
+chunk_type: text
+source_file: Total validation.pdf
+category: REPLENISHMENT OF THE PICKING LOCATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Total Validation
+Purpose:
+• To validate a replenishment line and update the system to reflect that the
+goods have been processed and the associated support has been moved.
+Access:
+• Right-click on the Total Validation option after selecting a replenishment line
+in the Replenishment window.
+Effect:
+• The selected replenishment line is validated.
+• The corresponding support (pallet, bin, etc.) is moved in the system,
+reflecting that the replenishment has been completed.
+Sensitivity: Internal

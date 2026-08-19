@@ -1,0 +1,121 @@
+[META]
+chunk_type: text
+source_file: End to End Receipt.pdf
+category: RECEIVING GOODS
+total_pages: 4
+[/META]
+
+[PAGE 1]
+SOP: Receipt Lifecycle & Stock Generation in Speed WMS
+Sensitivity: Internal
+Prepared By: [Your Name]
+Effective Date: [Insert Date]
+1. Purpose
+This SOP defines the full lifecycle of receipts in Speed WMS, from importing
+expected items to closing a receipt after stock generation. It ensures proper
+consumption of expected items, accurate stock movements, and traceability.
+2. Scope
+Applicable to:
+• Warehouses: JetPark, Durban Northbound, and other Speed WMS-managed
+sites
+• Processes: Receiving, receipt creation, stock generation, expected item
+management
+3. Tables & References
+Object Table Key Fields
+Receipt REE_KEYU, REE_NORE, ACT_CODE, REE_TOP1,
+REE_DAT
+Header REE_ETRE
+Receipt Line REL_DAT REL_KEYU, REE_KEYU, REL_NoSU, ACT_CODE
+Stock STK_DAT STK_NOSU, STK_NUM13–17, ACT_CODE
+Movements MVT_DAT MVT_CODE, STK_NOSU, ACT_CODE
+Expected Item EXP_DAT EXP_NO, ITEM_CODE, QTY, STATUS
+OPE_DAT /
+Orders OPE_NOOE, OPL_NOSU, ACT_CODE
+OPL_DAT
+4. Import & Management of Expected Items
+Sensitivity: Internal
+
+[PAGE 2]
+4.1 Importing Expected Items
+1. Navigate to Receiving → Expected
+2. Click Import
+3. Select Excel file with expected items:
+o Columns: Item Code, Quantity, Quality
+4. Validate import
+o Unknown item codes flagged for review
+o Imported lines appear in the Expected Items portfolio
+4.2 Managing Expected Items
+• Display can be header view or portfolio view (System → Global → Module →
+Expected)
+• Actions available:
+o Create/modify/delete expected lines
+o Associate expected lines with a receipt via context menu
+o Adjust quantities or split expected lines if partially received
+5. Creating a Receipt
+5.1 Receipt Header Creation
+1. Open Receipt Module → click New Receipt
+2. Fill required fields:
+o Customer account
+o Supplier code
+o Receipt reference (optional)
+o Receiving dock (default or selected)
+3. Auto-populated fields:
+o Activity code (non-editable)
+o Speed number (REE_KEYU)
+o Date/time of receipt
+Sensitivity: Internal
+
+[PAGE 3]
+5.2 Adding Receipt Lines
+• Each line represents a storage medium
+• Required fields: Item Code, Quantity, Quality
+• Traceability fields (Lot1, Lot2, DLC, DLUO) are mandatory if managed
+• Owner defaults: Item sheet > Activity > Manual selection
+5.3 Modes of Adding Lines
+1. Direct Entry: Enter code, quantity, and quality manually
+2. Search by Item Code: Right-click → Search, select supplier or “All Suppliers”
+3. Grid Pattern: Select item template, fill quantities for multiple references
+4. Detailed Entry Form: Access all fields for traceable items
+5. Excel Import: Import table with columns Item Code, Quantity, Quality
+5.4 Validation
+• Validation saves lines to receipt
+• Top Stock Input = 0 by default (not yet in stock)
+6. Generating Receipt from Expected Items
+1. Select expected lines → Right-click → Generate Receipt
+2. Only one purchase order at a time can be processed
+3. Check and modify:
+o Quantity to generate
+o Tick TG (“To Generate”) for each line
+o Lines already received are ticked G (“Generated”) and cannot be
+modified
+4. Variable weight items: enter total weight for expected quantity
+5. Validate → receipt lines created
+7. Stock Generation
+1. Open Receipt Form → Lines
+2. Select lines for stock generation
+Sensitivity: Internal
+
+[PAGE 4]
+o Use Select All if needed
+3. Confirm receiving dock on header
+4. Click Generate Stock → creates stock movements, consumes expected items
+5. Top Stock Input field updated from 0 → 1
+Support Status Codes:
+Code Meaning
+01 In place → immediately usable for picking or sampling
+02 Awaiting placement → not available until moved to location
+8. Receipt Closure
+1. Open Receipt Management Screen
+2. Select receipt → Close Receipt (button or context menu)
+3. Once closed:
+o Receipt cannot be modified
+o Lines cannot be added, deleted, or edited
+o Advisory and print options remain available
+4. Feedback to upstream systems (e.g., ERP) is generally after closure
+9. Key Controls & Best Practices
+• Only lines with Top Stock Input = 0 can be generated
+• Expected items are consumed during stock generation
+• Generated lines cannot be deleted or edited
+• Validate quantities carefully, especially for variable weight items
+• Process one purchase order at a time when generating from expected items
+Sensitivity: Internal

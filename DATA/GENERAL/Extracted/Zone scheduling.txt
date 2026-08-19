@@ -1,0 +1,37 @@
+Zone scheduling
+All locations assigned to a zone have a serial number within the zone. This sequence
+number makes it possible to establish a hierarchy between the locations of an area, and
+can, for example, be used for sorting preparation slips, storage slips or even inventory
+lists.
+Basically, this sequence number corresponds to the order in which the slots have been
+assigned to the zone. It may therefore be necessary to act on this order number in the
+case of multiple assignments or the addition of locations in the warehouse map.
+SpeedWMS has a location scheduling function in order to simply perform this
+operation, accessible via the Order button in the top right of the list of locations
+assigned to a zone.
+A click on the button give access to the following window:
+Sensitivity: InternalIt is possible to configure any type of scheduling from this window, using the different
+possibilities of SpeedWMS.
+➢Selection of a series of locations in relation to their characteristics
+Sensitivity: InternalBy filling in the different elements, it will be possible to select directly from the list all
+the locations that meet the criteria, whether they are placed consecutively in the list or
+not.
+➢Automatic sorting in ascending / descending order of characteristics
+It is here possible to define the order of priority in which the 5 location characteristics
+must be processed as well as the sorting direction (ascending or descending).
+The arrows on the right side of the table allow you to change the order of priority, and a
+click on an arrow “sense”(In the picture)reverses the sort direction of a characteristic.
+The Reverse order button reverses the order of all the characteristics; the first
+characteristic becoming the last.
+Once the properties have been defined, a click on the Schedule button refreshes the list
+of locations with the defined sort.
+➢Moving a selection of slots to a position / Reversing order on a selection
+Sensitivity: InternalIn a list of selected locations, it is possible to move a location to a defined position
+within this list.
+➢Re-numbering the locations number
+The renumbering makes it possible to renumber all the sequence numbers of the list.
+The first sequence number in the list corresponds to the number entered in the field,
+and the following lines will be numbered incrementally.
+Note: the taking into account of the operated changes is effective only after having
+saved the data (button on the lower left corner of the window).
+Sensitivity: Internal

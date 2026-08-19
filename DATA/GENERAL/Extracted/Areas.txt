@@ -1,0 +1,62 @@
+Areas
+The locations declared in the warehouse mapping must be grouped together in the form
+of zones in order to be able to be used in the various Speed processes, whether it be
+reception / storage, preparation or even inventory. .
+There are several types of zones under Speed, each with a specific use.
+Note: Speed zones are multi-activities in the same way as locations, ie a zone created
+under the environment will be available regardless of the activity to which the operator
+connects.
+Zone type SPEED code Description
+Storage area STK
+Is used for location search.
+This type of zone can integrate any type of location.
+Non-exclusive (the same location can belong to several different storage areas).
+Stock picking area PRS
+Is used for launches in preparation of orders (service on stock / control of the
+available).
+This type of zone can integrate any type of location including picking (for
+availability).
+Non-exclusive (the same location can belong to several different inventory
+picking areas).
+Picking area on PRP
+picking Is used for launches in preparation of orders (picking service).
+This type of zone can only integrate picking type locations.
+The picking will be implemented in this type of area.
+Non-exclusive (the same location can belong to several different picking zones).
+Preparation RPR
+staging area Is used for launches in preparation of orders to allow for mission breaks
+according to the physical characteristics of the warehouse.
+Exclusive (the same location can only belong to a single preparation grouping
+area).
+Sensitivity: InternalDynamic picking PID
+area Will be used to process dynamic picking.
+Exclusive (a single location can only belong to a single dynamic picking area).
+Advanced picking PIA
+area Will be used to treat preparation slabs.
+Inventory area INV
+Is used to make breaks and selections on inventories.
+Exclusive (a single location can only belong to a single inventory area).
+Forklift Operator CAR
+Zone Is used for and by the driver's radio frequency module, in order to offer the
+operator a list of supports to be moved from or to the selected driver zone
+Non-exclusive (the same location can belong to several driver-type zones).
+Compensation CPS
+zone Is used on rotating inventory processes, in order to position any deviations on a
+compensation zone.
+Workshop area ATL
+Is used to define a production area used in the management of production
+orders.
+Exclusive (a single location can only belong to a single workshop area).
+Activity zone ACT
+Is used to restrict the viewing of locations to an activity. This prevents entry of a
+location for an activity other than the current one.
+The name of this zone must be exactly the name of the activity.
+Non-exclusive (the same location can belong to several activities).
+Pick to Light Zone P2L
+Is used in the context of pick to light samples.
+Non-exclusive (the same location can belong to several different pick to light
+zones).
+Staging area CHE
+Is used to define a picking path.
+Non-exclusive (the same location can belong to different traverse zones).
+Sensitivity: InternalSensitivity: Internal

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Support Ticket @{triggerOutputs()?['body/TicketTitle']}</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    h2 { margin-top: 30px; color: #444; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .R { background-color: #ffcccc; } /* Red */
+    .A { background-color: #fff2cc; } /* Amber */
+    .G { background-color: #ccffcc; } /* Green */
+    pre { white-space: pre-wrap; word-wrap: break-word; font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+
+<h1>Support Ticket ID : @{triggerOutputs()?['body/TicketID']}</h1>
+<p><strong>Date Created:</strong> @{triggerOutputs()?['body/CreatedDate']}</p>
+<p><strong>Logged By:</strong> @{triggerOutputs()?['body/LoggedBy']}</p>
+<p><strong>Closed By:</strong> @{triggerOutputs()?['body/Closed By']}</p>
+
+<h2>Ticket Header Information</h2>
+<table>
+  <tr><th>Field</th><th>Value</th></tr>
+  <tr><td>Ticket Title</td><td>@{triggerOutputs()?['body/TicketTitle']}</td></tr>
+  <tr><td>Ticket Category</td><td>@{triggerOutputs()?['body/TicketCategory']}</td></tr>
+  <tr><td>Module Affected</td><td>@{triggerOutputs()?['body/ModuleAffected']}</td></tr>
+  <tr><td>Warehouse</td><td>@{triggerOutputs()?['body/Warehouse']}</td></tr>
+  <tr><td>Priority</td><td>@{triggerOutputs()?['body/Priority']}</td></tr>
+  <tr><td>Root Cause</td><td>@{triggerOutputs()?['body/RootCause']}</td></tr>
+  <tr><td>Issue Description</td><td>@{triggerOutputs()?['body/IssueDescription']}</td></tr>
+  <tr><td>Final Resolution Summary</td><td>@{triggerOutputs()?['body/FinalResolutionSummary']}</td></tr>
+  <tr><td>Closed By</td><td>@{triggerOutputs()?['body/ClosedBy']}</td></tr>
+  <tr><td>Closed Date</td><td>@{triggerOutputs()?['body/ClosedDate']}</td></tr>
+  <tr><td>Keywords / Tags</td><td>@{triggerOutputs()?['body/KeywordsTags']}</td></tr>
+  <tr><td>Support Tickets</td><td>@{triggerOutputs()?['body/SupportTickets']}</td></tr>
+  <tr><td>Ticket Status</td><td>@{triggerOutputs()?['body/Ticket_Status']}</td></tr>
+</table>
+
+<h2>Ticket Steps / Code</h2>
+<table>
+  <tr>
+    <th>Tables Involved</th>
+    <th>Number of Steps</th>
+    <th>Step Description</th>
+    <th>Code</th>
+    <th>RAG</th>
+    <th>Tools Used</th>
+    <th>Validation Steps</th>
+    <th>Prevention Steps</th>
+    <th>Created By</th>
+  </tr>
+  <tr style="background-color:@{if(equals(triggerOutputs()?['body/RAG'],'R'),'#ffcccc', if(equals(triggerOutputs()?['body/RAG'],'A'),'#fff2cc','#ccffcc'))}">
+    <td>@{triggerOutputs()?['body/TablesInvolved']}</td>
+    <td>@{triggerOutputs()?['body/NumberOfSteps']}</td>
+    <td>@{triggerOutputs()?['body/StepDescription']}</td>
+    <td><pre>@{triggerOutputs()?['body/Code']}</pre></td>
+    <td>@{triggerOutputs()?['body/RAG']}</td>
+    <td>@{triggerOutputs()?['body/ToolsUsed']}</td>
+    <td>@{triggerOutputs()?['body/ValidationSteps']}</td>
+    <td>@{triggerOutputs()?['body/PreventionSteps']}</td>
+    <td>@{triggerOutputs()?['body/CreatedBy']}</td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+[META]
+chunk_type: text
+source_file: Automatic launch.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Automatic Launch Overview
+Purpose:
+• Automatically organizes, creates, and completes order launches over a
+period.
+• Designed for high-volume warehouse management.
+• Uses BKSystemes’ GEX execution management tool for scheduling and
+execution.
+Access:
+• System / Sequence in SpeedWMS.
+Process Steps
+1. Definition of Sequences (SpeedWMS)
+o Configure the sequence criteria for automatic launches in
+SpeedWMS.
+2. Scheduling Tasks (SpeedWMS)
+o Schedule tasks for automatic execution according to defined
+sequences.
+3. Execution Manager (GEX)
+o GEX executes the scheduled launches automatically.
+4. Execution Tracking (GEX)
+o Monitor progress, success, or errors of the automated launches via
+GEX.
+Key Notes
+• GEX is a licensed tool required for automatic launch functionality.
+• Steps 3 & 4 (execution and tracking) are handled entirely in GEX; refer to GEX
+documentation.
+• Automatic launch is particularly useful for large-scale operations, reducing
+manual intervention.
+Sensitivity: Internal

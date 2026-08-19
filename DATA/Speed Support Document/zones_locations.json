@@ -1,0 +1,15 @@
+{
+  "document_name": "Zones & Locations",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "zone_types": [
+    {"type": "Picking Area", "purpose": "Replenishment"},
+    {"type": "Replenishment", "purpose": "Restoring stock levels"}
+  ],
+  "location_search_rule": {
+    "rule_name": "RECH_EMP_STRUCTURE",
+    "description": "Search within location structure"
+  }
+}

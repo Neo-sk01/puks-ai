@@ -1,0 +1,30 @@
+[META]
+chunk_type: text
+source_file: Order splitting.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Order Splitting
+Purpose
+• Allows the fragmentation of an order: splitting certain items or quantities
+into a separate order.
+• Useful when you need to process part of an order immediately or for
+logistical reasons.
+Access
+• Contextual menu on the order to be split → select Split Order.
+Process
+1. The system displays:
+o The original order
+o The quantity for each item reference
+2. User specifies the quantity for the second order in the field:
+o "Spread quantity order 2"
+3. Validate the input.
+4. A confirmation screen appears.
+Result
+• A second order is created with the specified quantities.
+• The new order inherits the header information of the original order
+(customer, delivery details, etc.).
+• Original order is updated with the remaining quantities.
+Sensitivity: Internal

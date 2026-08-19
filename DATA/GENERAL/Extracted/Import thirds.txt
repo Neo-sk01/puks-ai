@@ -1,0 +1,26 @@
+Import thirds
+Available via Settings / Thirds.
+A click on the Import button then on Browse allows to select the file to import.
+The process remains the same whether importing suppliers, carriers or consignees.
+Speed identifies these three types of third parties using the following coding:
+.001 corresponds to a supplier
+.002 corresponds to a carrier
+.003 corresponds to a recipient
+It is possible to import the three types of third parties in the same file. A column named
+Type of Third must therefore systematically be added to the import file.
+The file information appears in SpeedWMS as follow in the tab Data:
+Sensitivity: InternalThe Settings tab then allows to have access to the title mapping:
+The user can then define mandatory and/or modifiable data.
+Sensitivity: InternalOnce the title selected, the tab Insight allows to see the imported elements as they will
+be presented in Speed:
+It is possible to keep the import template using the Save template button:
+Saving as a model is also requested at the end of the import.
+At the bottom right of the view, the Cancel button stops the import process, while the
+Import button allows you to finalize the import of the file.
+It is possible to see the detail and the evolution of the loading of third parties :
+Sensitivity: InternalOnce the import is complete, the new thirds are integrated in the table of the type of
+third party selected:
+Sensitivity: InternalIt will simply be a question of adding the data possibly necessary to complete the files
+of each new imported third party.
+The import process remains the same for all thirds.
+Sensitivity: InternalSensitivity: Internal

@@ -1,0 +1,75 @@
+[META]
+chunk_type: text
+source_file: Creating a receipt header.pdf
+category: RECEIVING GOODS
+total_pages: 3
+[/META]
+
+[PAGE 1]
+SOP: Creating a Receipt Header (GRN) in Speed WMS
+Sensitivity: Internal
+1. Purpose
+To define the standard procedure for creating a receipt header (GRN) in Speed WMS
+in order to formally declare incoming goods before stock creation and processing.
+2. Accessing the Receipt Creation Screen
+The receipt creation function can be accessed by:
+• Selecting Create Receipt from the contextual menu, or
+• Clicking the Add (+) button in the Receipts module
+Once opened, the receipt screen is divided into two sections:
+• Upper section: Receipt Header
+• Lower section: Receipt Lines (goods details)
+3. Receipt Header – System-Initialized Fields
+The following fields are automatically populated when the receipt form opens and
+are not editable unless stated otherwise:
+• Activity Code
+o Represents the current Speed WMS environment
+o Read-only field
+• Speed Receipt Number (REE_NORE)
+o System-generated internal counter
+o Unique and non-modifiable
+• Receipt Date and Time
+o Defaults to the creation date and time
+o Can be modified if required
+• Default Reception Dock
+o Pre-selected based on system configuration
+Sensitivity: Internal
+
+[PAGE 2]
+o Displays all dock-type locations available in the environment
+4. Mandatory User-Defined Fields
+The user must complete the following fields before saving the receipt:
+• Customer Account (REE_CCLI)
+o Required if the activity manages multiple customers
+• Supplier / Third-Party Code
+o Selected from the list of third parties configured in the environment
+o A new third-party record can be created directly from the selection
+screen
+• Receipt Reference
+o Alphanumeric field
+o Optional but strongly recommended
+o Facilitates searching and identification instead of using the Speed
+receipt number
+5. Receipt Lines (Goods Declaration)
+• Goods are entered in the lower table of the receipt screen
+• Each line represents an item declared on the receipt
+• Lines are stored in REL_DAT once the receipt is saved
+6. Outcome
+After saving:
+• A receipt header record is created in REE_DAT
+• Associated receipt lines are created in REL_DAT
+• The receipt becomes available for validation, storage, and downstream
+processes (stock, movements, missions)
+7. Related Tables
+Sensitivity: Internal
+
+[PAGE 3]
+• REE_DAT – Receipt Header
+• REL_DAT – Receipt Lines
+• STK_DAT – Stock (generated after validation)
+• MVT_DAT – Movements
+8. Common RAG Questions This SOP Supports
+• How do I create a GRN in Speed WMS?
+• Which fields are mandatory when creating a receipt?
+• What information is auto-generated in a receipt header?
+• Where are receipt headers and lines stored in the database?
+Sensitivity: Internal

@@ -1,0 +1,70 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.pdf
+category: Speed Support Document
+total_pages: 3
+[/META]
+
+[PAGE 1]
+LPNs Missing on Manifest – Temporary Resolution
+Sensitivity: Internal
+System: Speed WMS
+Module Impacted: Manifest / ETAT
+Audience: Support / Technical Team
+Issue Description
+Operations reported that some LPNs do not appear on the manifest.
+Investigation shows that in certain cases:
+• LPN data from MIL_DAT does not fully pass into SEX_DAT
+• The affected record in SEX_DAT has a missing order number:
+o SEX_NOOE = 0
+• Since the manifest ETAT relies on SEX_DAT, the LPN does not display on the
+manifest
+The root cause is currently unknown.
+The steps below provide a temporary fix when the issue occurs.
+How to Identify Affected LPNs
+Run the following query to find LPNs where the order number is missing:
+SELECT
+sex.SEX_SUPE,
+mil.MIL_SUPP,
+mil.OPE_NOOE,
+mil.MIE_NOMI,
+sex.SEX_NOMI,
+sex.SEX_NOOE
+FROM SEX_DAT sex
+JOIN MIL_DAT mil
+ON mil.ACT_CODE = sex.SEX_ACT
+Sensitivity: Internal
+
+[PAGE 2]
+AND mil.MIE_NoMI = sex.SEX_NoMI
+AND mil.MIL_SUPP = sex.SEX_SUPE
+WHERE sex.SEX_ACT = 'RSAJHBCLA'
+AND sex.SEX_NOOE = '0';
+Interpretation
+• Records returned indicate LPNs that will not appear on the manifest
+• The issue is caused by a missing SEX_NOOE value
+Temporary Fix: Update Missing Order Number
+If records are found with SEX_NOOE = 0, update them by pulling the correct order
+number from MIL_DAT.
+UPDATE sex_dat
+SET sex_nooe = mil.ope_nooe
+FROM sex_dat sex
+JOIN mil_dat mil
+ON mil.ACT_CODE = sex.SEX_ACT
+AND mil.MIE_NoMI = sex.SEX_NoMI
+AND mil.MIL_SUPP = sex.SEX_SUPE
+WHERE sex.SEX_ACT = 'RSAJHBCLA'
+AND sex.SEX_NOOE = '0';
+Expected Outcome
+• SEX_NOOE is populated with the correct OPE_NOOE
+• The LPN correctly reflects on the manifest
+• Manifest ETAT functions as expected
+Important Notes
+• This is a temporary workaround, not a permanent fix
+Sensitivity: Internal
+
+[PAGE 3]
+• Execute only when the issue is confirmed
+• Database updates must be performed by Support
+• Monitor recurring cases to assist with root cause analysis
+Sensitivity: Internal

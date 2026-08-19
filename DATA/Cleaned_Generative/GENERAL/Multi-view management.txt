@@ -1,0 +1,38 @@
+[META]
+chunk_type: text
+source_file: Multi-view management.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Multi-View Management
+Purpose:
+Enable users to configure and manage multiple views for the same functionality,
+improving usability and personalization of the interface.
+1. Functionality
+• SpeedWMS supports multi-view configuration, allowing a single user to
+create and maintain multiple screen views for the same module or function.
+• All configured views are accessible via the drop-down menu at the top of the
+configuration screen.
+2. Options Available
+For each view, users can:
+1. Create a new view using default columns and settings.
+2. Modify, delete, or duplicate an existing view.
+3. Set a default view for the current screen.
+4. Define a standardized column configuration.
+5. Set filters specific to the view.
+6. Additional configuration options as required.
+3. Naming and Navigation
+• Each newly created view is initially named “New view”, followed by a
+sequential number based on the creation counter.
+• The current active view is displayed on the screen.
+• Switching between views is easy using navigation arrows.
+4. Use Cases
+• Quickly switch between views for different workflows.
+• Standardize column layouts and filters for teams.
+Sensitivity: Internal
+
+[PAGE 2]
+• Personalize screens for individual operator efficiency.
+Sensitivity: Internal

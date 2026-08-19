@@ -1,0 +1,60 @@
+[META]
+chunk_type: text
+source_file: Orders management.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Orders Management
+Access
+• Menu: Preparation → Orders
+Purpose
+• Provides a portfolio of all orders in SpeedWMS.
+• Orders are organized into tabs based on their status.
+• Default filter: Creation date in a specific viewing period.
+• Filters can be customized by:
+o Creation date
+o Preparation date
+o Delivery date
+o Printing date
+o Wave release date
+o Modification date
+Order Status Flow
+Status Status
+Description
+Name Code
+Initial status after creation (manual or interface). No
+In Seizure 010
+preparation mission yet.
+Order associated with a preparation wave but not yet
+In Wave 020
+launched. No preparation mission yet.
+Order has been launched in preparation. One or more
+Preparing 030
+preparation missions exist. Direct debits may be associated.
+All preparation missions are complete. All expected direct
+Validated 040
+debits validated (complete, partial, or missing).
+Balanced 050 Special status; no dedicated tab. Used for internal tracking.
+Optional step; used after packing to check prepared
+Dispatch 060
+supports.
+Sensitivity: Internal
+
+[PAGE 2]
+Status Status
+Description
+Name Code
+Confirms goods departure. May be associated with a load
+Shipped 070
+depending on processes.
+• All Tab: Displays all orders regardless of status.
+Additional Notes
+• Orders and order lines can have miscellaneous operations scheduled at any
+stage.
+• These operations can be created directly from the order window or a specific
+order line via the contextual menu.
+• See the Miscellaneous Operations section for details on creating and
+managing these tasks.
+Sensitivity: Internal

@@ -1,0 +1,63 @@
+[META]
+chunk_type: text
+source_file: Creation of receipt lines.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Creation of Receipt Lines
+Purpose
+• After generating the receipt header, individual receipt lines must be added.
+• Each line corresponds to a storage medium to be put into stock.
+• Receipt lines capture: item code, quantity, quality, and any traceability
+information if required.
+Mandatory Information for Each Line
+1. Item code – must exist in SpeedWMS; cannot receive unregistered items.
+2. Quantity – always expressed in units per storage medium.
+3. Quality – default quality comes from the item sheet or activity default.
+4. Traceability info – required if the item is configured for traceability (lot, DLC,
+DLUO, etc.).
+5. Owner – automatically populated if defined on item or activity; can be
+manually selected from allowed third parties.
+Methods to Add Receipt Lines
+1. Direct Addition
+• Enter item code, quantity, and quality directly in the code field.
+2. Search by Item Code
+• Right-click the code field → Search for an article.
+• Can display items attached to the supplier or all items using “All Suppliers”.
+• Select the item → automatically fills the code field; enter quantity and
+quality.
+3. Add via Grid Pattern
+• Access item templates registered in the activity from the code field
+contextual menu.
+• Enter quantities:
+o All column → same quantity for all items sharing a main characteristic.
+Sensitivity: Internal
+
+[PAGE 2]
+o Individual column → quantity per specific reference.
+• Validated quantities generate receipt lines displayed in the receipt window.
+4. Detailed Entry Form
+• Double-click the code field → opens detailed entry form.
+• Allows filling all available fields for a receipt line.
+• Supports multiple logistic variants and traceability fields if configured.
+• Useful for complex items requiring lot/batch tracking.
+5. Import via Excel
+• Excel file must have 3 columns: item code, quantity, quality code.
+• Features:
+o Unknown item code column flags items not existing in Speed.
+o Import first line toggle for headers.
+o Preview shows data as it will be imported.
+• Validation → creates receipt lines automatically.
+• Can modify the receiving dock or update previously entered lines during
+import.
+Important Notes
+• Added lines are not immediately in stock; stock generation must be
+performed separately.
+• Receipt lines can be modified or deleted via contextual menu before stock
+generation without affecting system history.
+• If associated with expected items, consumption is not recorded until stock
+entry movement occurs.
+• Supports bulk entry with splitting over multiple storage media if required.
+Sensitivity: Internal

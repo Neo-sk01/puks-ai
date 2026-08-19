@@ -1,0 +1,78 @@
+[META]
+chunk_type: text
+source_file: Areas.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Warehouse Areas / Zones – RAG-Friendly Version
+Purpose:
+Zones in Speed WMS group warehouse locations to facilitate operations such as
+reception, storage, picking, preparation, and inventory. Each zone type has a
+specific role in warehouse management. Zones are multi-activity, meaning a zone
+created in the environment is available for all activities an operator may access.
+1. Zone Types and Usage
+Speed
+Zone Type Description Exclusivity
+Code
+Non-exclusive
+Used for location searches;
+Storage Area STK (locations can belong to
+can include any location type.
+multiple storage areas)
+Used for order preparation
+Stock Picking
+PRS launches; checks stock Non-exclusive
+Area
+availability.
+Used for order picking;
+Picking Area on
+PRP integrates only picking-type Non-exclusive
+Picking
+locations.
+Supports order mission Exclusive (location
+Preparation
+RPR breaks based on warehouse belongs to one prep
+Staging Area
+physical layout. area)
+Dynamic Picking Supports dynamic picking
+PID Exclusive
+Area processes.
+Advanced Used to manage preparation
+PIA Exclusive
+Picking Area slabs.
+Used for inventory selection
+Inventory Area INV Exclusive
+and breaks.
+Forklift Operator Guides RF operators; lists
+CAR Non-exclusive
+Zone supports for movement.
+Compensation Used in rotating inventory to
+CPS Exclusive
+Zone manage deviations.
+Sensitivity: Internal
+
+[PAGE 2]
+Speed
+Zone Type Description Exclusivity
+Code
+Defines production areas for
+Workshop Area ATL production order Exclusive
+management.
+Restricts location visibility to
+Activity Zone ACT a specific activity. Zone name Non-exclusive
+= activity name.
+Pick to Light Supports pick-to-light
+P2L Non-exclusive
+Zone operations.
+Staging / Defines picking paths for
+CHE Non-exclusive
+Traverse Zone warehouse traversal.
+2. Notes
+• Non-exclusive zones: A location can belong to multiple zones of the same
+type.
+• Exclusive zones: A location can only belong to one zone of that type.
+• Zones are reusable across activities, making configuration flexible and
+efficient.
+Sensitivity: Internal

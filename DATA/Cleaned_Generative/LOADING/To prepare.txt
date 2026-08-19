@@ -1,0 +1,49 @@
+[META]
+chunk_type: text
+source_file: To prepare.pdf
+category: LOADING
+total_pages: 4
+[/META]
+
+[PAGE 1]
+To prepare
+This tab allows the display of all the sampling to be made. The user visualizes all the
+lines of missions not yet processed.
+A pre-selection by the use of filters is possible. The user can choose to specify:
+.An item
+.A recipient
+.An order number
+.A mission number
+.A load
+.An shipment
+.A DN number
+.A support number
+Several options are available from the context menu:
+Sensitivity: Internal
+
+[PAGE 2]
+1.Allocate a load
+Enables to assign to a loading
+Sensitivity: Internal
+
+[PAGE 3]
+It is also possible to create a new load directly from this window, by clicking on the add
+button .
+2.Allocate expedition
+Allows to assign to a shipment on the same principle as the allocation to a load.
+This option allows to manage the concept of shipping without having to go through the
+loading module. It allows traceability of the status of the orders. A shipment is then
+defined by a reference and a description.
+3.Allocate a del. note
+Allows assignment to a delivery note.
+SpeedWMS generates an automatic DN number.
+4.Allocate a support
+Allows the assignment to a prepared support. It will then be fed at the mission line level.
+A list of supports is displayed, without particular control. This option enables to group
+the samplings in the same support.
+Sensitivity: Internal
+
+[PAGE 4]
+5.Move support
+Enables to change the location of the support.
+Sensitivity: Internal

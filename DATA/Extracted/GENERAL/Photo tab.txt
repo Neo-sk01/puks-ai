@@ -1,0 +1,30 @@
+[META]
+chunk_type: text
+source_file: Photo tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Photo Tab
+Purpose:
+Enable the association of images with items to improve identification and
+visualization within the system.
+1. Functionality
+• The Photo tab allows users to attach an image to an item sheet.
+• To add an image:
+1. Click the “Select an image” button.
+2. Browse and select the desired image file.
+• Supported file types: All standard image formats accepted by SpeedWMS.
+2. Use Cases
+• Images can be displayed in the stock display screen for each reference.
+• Improves identification and verification of items during:
+o Receiving
+o Picking
+o Inventory management
+3. Notes
+• The image is linked directly to the item and will be displayed wherever item
+references appear in the system.
+• No additional configuration is required after the image is selected and
+saved.
+Sensitivity: Internal

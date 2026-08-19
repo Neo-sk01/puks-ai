@@ -1,0 +1,30 @@
+[META]
+chunk_type: text
+source_file: Delivery schedule.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Delivery Schedule
+Purpose
+• Automatically updates shipment-related information for selected orders.
+• Uses preconfigured sequences in the Transport module to manage delivery
+timings and codes.
+Access
+• Menu: Contextual menu after selecting one or more orders in Speed Wallet
+Entry.
+• Settings path for configuration: Settings / Transport / Delivery Schedule.
+Functionality
+• Launching the delivery schedule processing can automatically update:
+o Preparation Date – when the order should be prepared.
+o Delivery Date – expected shipment date.
+o Loading Code – code for the transport/load assignment.
+How it Works
+1. Configure the delivery sequences in the Transport settings.
+2. Select the orders to update.
+3. Launch the delivery schedule via the contextual menu.
+4. SpeedWMS applies the configured sequences and updates the order
+information automatically.
+Tip: This feature ensures that the delivery planning stays consistent and up-todate, reducing manual entry errors for dates and transport codes.
+Sensitivity: Internal

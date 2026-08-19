@@ -1,0 +1,24 @@
+[META]
+chunk_type: text
+source_file: Language Code.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Language Code Configuration
+Purpose:
+• Enables the definition of language codes for use at the loading level.
+• Helps standardize communication and documentation in multiple
+languages.
+Steps to Create or Modify a Language Code:
+1. Navigate to Settings → Transport → Language Code.
+2. Code: Double-click the field to enter a unique language code (e.g., EN, FR).
+3. Description: Enter a descriptive name for the language associated with the
+code.
+Both fields are required to ensure proper identification of the language.
+Notes:
+• Language codes can be referenced in transport documents and system
+notifications.
+• Ensure codes are consistent with the organizational language standards.
+Sensitivity: Internal

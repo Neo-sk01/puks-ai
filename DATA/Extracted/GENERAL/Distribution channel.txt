@@ -1,0 +1,19 @@
+[META]
+chunk_type: text
+source_file: Distribution channel.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Distribution Channel
+Access:
+Settings → Other → Distribution channels
+Purpose:
+• Enables the distribution of goods across multiple orders.
+• Supports distribution via different channels, allowing the warehouse to
+manage how items are allocated and shipped to various recipients.
+Usage:
+• The channels defined here are later used in the Distribution Management
+module to guide order fulfillment and allocation.
+Sensitivity: Internal

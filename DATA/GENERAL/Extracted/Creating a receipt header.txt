@@ -1,0 +1,21 @@
+Creating a receipt header
+The first step consists in creating the receipt header in order to declare the goods.
+Function accessible from the contextual menu or through the addition button. The new
+receipt form will then appear on the screen; it is split into 2 parts:
+The lower table will the goods added to the receipt, while the receipt header
+corresponds to the upper part of the form:
+Some data will be automatically initialized at the opening of the form :
+.Current activity, non-editable element.
+Sensitivity: Internal.The Speed number of the reception (internal counter), not modifiable.
+.The date and time of the receipt :by default equal to the moment of the receipt creation
+declaration, can be modified.
+.The default reception dock: depending on the configuration, all the dock type locations
+declared on the environment will be found in the list.
+The user must necessarily fill in the following elements :
+.The customer account, if managed by the activity.
+.The third party supplier code of the receipt: selection from the list of third parties
+declared under the environment. The creation of a new third-party file will be possible
+from the selection screen (see screen below).
+.The receipt reference, alphanumeric type field. This element remains optional, but will
+allow an easier search than by the Speed receipt number.
+Sensitivity: InternalSensitivity: Internal

@@ -1,0 +1,69 @@
+[META]
+chunk_type: text
+source_file: Mapping of the deliveries.pdf
+category: LOADING
+total_pages: 4
+[/META]
+
+[PAGE 1]
+Mapping of the deliveries
+Mapping is a licensed feature of SpeedWMS. It makes it possible to organize and
+visualize the route of the goods transport trucks in an optimal way. The visualization and
+calculation of routes is done by calling the Google Maps tool and therefore requires an
+access key to a Google account.
+The principle is to represent on a map each of the delivery points registered for a load.
+The delivery points simply correspond to the addresses of the various recipients of the
+orders attached to the load in question.
+Mapping requires:
+An access license for Google account, because it uses Windev's Google maps
+management functions (Google API) to:
+1.Retrieve the coordinates of an address (latitude/longitude)
+2.Retrieve the map of a defined location
+3.Make a request (HTTP) to communicate with a Google service
+Technical settings, because the tour plan provided by the delivery map calls Google
+Maps and Javascript to work, so you have to:
+1.Have a Google account to obtain a Google Maps key (paid)
+2.Allow site in default browser
+3.Allow JavaScript in default browser
+Functional settings, because it is necessary to fill in the information related to the
+delivery map in admin:
+➢At the global configuration level of the Shipping module
+Sensitivity: Internal
+
+[PAGE 2]
+•Google Maps license number: the Google Maps license key is required for displaying
+the map.
+•Loading site: corresponds to the default start and end points defined for the activity.
+However, it will be possible to enter one directly at the loading level
+•Top return site: allows to signify the return on site of the truck after the round
+•Average time per delivery (mn): allows you to define the average downtime for a
+delivery. Subsequently, it allows to define the departure time of each delivery point of
+the tour
+•Opacity / Thickness: options allowing customization of the display of the route on the
+map in terms of ergonomics
+➢In the delivery map section in the loading form
+From the upper part of the load management window, the user must first check the
+configuration of the cartography for the load.
+A double click on the load gives access to its file:
+Sensitivity: Internal
+
+[PAGE 3]
+The Cartography tab allows you to edit the following information:
+•Loading site
+•Date and time of departure
+•Site return point: allows you to indicate that the site defined will also be the carrier's
+final return point.
+•Average time per delivery (in mins)
+The lower part is linked to the last known space-time coordinates of the transporter:
+•5.Latitude
+•6. Longitude
+•7. Date and time
+The user is free to enter this information as soon as he has it. This makes it possible to
+place the truck on the map in real time and to recalculate the transit times at the
+various delivery points.
+If all the settings and conditions set out above are met, the user can now use the map to
+view and manage delivery rounds.
+Sensitivity: Internal
+
+[PAGE 4]
+Sensitivity: Internal

@@ -1,0 +1,44 @@
+[META]
+chunk_type: text
+source_file: Workshop approach.pdf
+category: MANUFACTURING
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Workshop Approach
+Access
+• Menu: Manufacturing → Workshop Approach
+• Opens a window where the user selects the workshops (production areas)
+concerned by the operation.
+Purpose
+• Before production can start via radio frequency (RF) transactions, the
+required component quantities must be approached (moved) to the
+workshop.
+• The system will move stock supports (containers, pallets, etc.) from storage
+to the workshop for manufacturing.
+How it Works
+1. MO & Production Area Link
+o Each Manufacturing Order (MO) is associated with a production area
+(workshop).
+2. Stock Movement
+o From the MO lines, the system updates the status of stock supports to
+Status 03, indicating they are ready for the workshop.
+3. Operator Validation
+o Operators validate these movements via RF transactions to confirm
+that components are physically in the workshop.
+4. Location Search Rules
+o If the rule moves goods directly to the production location, they are
+ready for immediate use.
+o If the rule moves goods to a storage area in the workshop, the RF
+Approach Workshop transaction must be used to move them to the
+production location.
+Key Notes
+Sensitivity: Internal
+
+[PAGE 2]
+• This step ensures that all components are physically available at the correct
+workshop before production begins.
+• It prevents shortages during manufacturing and ensures traceability of
+components moved to the workshop.
+Sensitivity: Internal

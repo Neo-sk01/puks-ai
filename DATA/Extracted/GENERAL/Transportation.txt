@@ -1,0 +1,44 @@
+[META]
+chunk_type: text
+source_file: Transportation.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Transportation – RAG-Friendly Version
+Purpose:
+Define and manage the transportation-related elements of goods within
+SpeedWMS, ensuring smooth logistics, planning, and tracking across warehouse
+activities.
+1. Overview
+• The Transportation module is used to configure and manage all aspects of
+goods movement between locations, warehouses, or external sites.
+• It supports cross-functional logistics, integrating with receiving, storage,
+order preparation, and shipment processes.
+2. Key Functions
+1. Transport Definition
+o Create and configure transport methods, vehicles, and carriers.
+o Assign transport types to shipments or orders.
+2. Planning & Scheduling
+o Define planned routes and delivery schedules.
+o Coordinate with warehouse operations to ensure availability of goods
+for transport.
+3. Tracking & Status Management
+o Monitor the status of goods in transit.
+o Link transport operations to related SpeedWMS receipts, orders, or
+missions for visibility.
+4. Integration with Warehouse Processes
+o Transportation settings impact stock movements, order preparation,
+and shipment execution.
+o Supports RF scanning, stock verification, and real-time updates.
+3. Summary
+Sensitivity: Internal
+
+[PAGE 2]
+• The Transportation module ensures efficient movement of goods across the
+supply chain.
+• It provides a centralized configuration point for transport-related
+parameters, improving coordination between warehouse operations,
+carriers, and external systems.
+Sensitivity: Internal

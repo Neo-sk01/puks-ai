@@ -1,0 +1,210 @@
+[META]
+chunk_type: text
+source_file: L’ORÉAL – Anti-Diversion Code (AD Code) Management.pdf
+category: LOREAL
+total_pages: 8
+[/META]
+
+[PAGE 1]
+L’ORÉAL – Anti-Diversion Code (AD Code) Management
+System: Speed WMS
+Module: Multi-Order Preparation (SPD011)
+Speed Version: A.8.6.F (28.06b1)
+Radio Version: 28.06b
+1. Document Control
+1.1 Version History
+Version Description Date Author
+1.0 Initial Version 07/04/2025 AKD
+1.1 Update after Rémi email feedback 09/04/2025 AKD
+2. Business Context
+Within the L’Oréal activity, shipped cartons are traced using an Anti-Diversion Code
+(AD Code).
+This is:
+• A unique identifier
+• Generated during preparation
+• Used to track stock origin
+The use of AD Codes is mandatory based on parameters defined in this SPD.
+3. Activation Rules
+The development is applied only if:
+ACT_TOP13 = 1
+AND
+ART_TOP1 = 1 (AD Code management activated at article level)
+There is no AD management in Speed Admin.
+Sensitivity: Internal
+
+[PAGE 2]
+4. AD Code Level Determination
+The AD Code requirement depends on:
+• Picking type (MIL_TYPR)
+• Article family (GRP_NIV1 / GRP_NIV2)
+• Activity parameters (ACT_TOP1 / ACT_TOP2)
+5. Picking Types (MIL_TYPR)
+Code Meaning Level
+002 Unit Picking SKU
+006 Full Pallet PALLET
+001 Stock Picking SKU or CARTON (depending on TOP parameters)
+6. Family Logic
+AD Codes apply only if:
+GRP_NIV1 = DIVERSION
+And:
+GRP_NIV2 = 10 (LPD)
+GRP_NIV2 = 30 (PPD)
+7. Management Level Rules
+7.1 Type 006 – Full Pallet
+• Always PALLET level
+• One AD Code per pallet
+• One AD Code per support
+Sensitivity: Internal
+
+[PAGE 3]
+7.2 Type 002 – Unit Picking
+If GRP_NIV2 = 10 (LPD)
+→ One AD Code per unit
+Example:
+15 units picked
+→ 15 AD Codes required
+Each AD Code:
+• Must be unique in SPE_AD
+• BP123 allowed (bypass code)
+If GRP_NIV2 = 30 (PPD)
+→ One AD Code per CARTON
+Steps:
+1. Calculate total units picked
+2. Calculate number of cartons:
+Number of cartons = Total Units / ART_QTEC
+(Round up)
+Example:
+15 units
+7 units per carton
+15 / 7 = 2.14 → 3 cartons
+→ 3 AD Codes required
+Each AD Code:
+• Unique within current preparation
+• Not necessarily unique in SPE_AD (if incomplete cartons)
+7.3 Type 001 – Stock Picking
+Family LPD (GRP_NIV2=10)
+Sensitivity: Internal
+
+[PAGE 4]
+Controlled by:
+ACT_TOP1
+ACT_TOP1 Management Level
+1 CARTON
+0 or NULL SKU
+Family PPD (GRP_NIV2=30)
+Always CARTON management.
+8. AD Code Validation Rules
+When validating mission line:
+Call:
+PE30
+After mission line validation.
+If conditions met:
+• ACT_TOP13=1
+• ART_TOP1=1
+• GRP_NIV1=DIVERSION
+Then display new AD Code screen.
+9. AD Code Scanning Screen Logic
+• Based on serial number screen
+• Adapted for AD Code
+Behavior:
+• Each scan adds AD Code to list
+• Scanning existing code removes it
+Sensitivity: Internal
+
+[PAGE 5]
+• Empty scan validates screen
+• Cannot proceed if required quantity not reached
+Error message:
+"Veuillez flasher tous les AD Codes"
+"Please scan all the AD Codes"
+10. AD Code Format Configuration
+Activity parameters:
+Parameter Description
+ACT_ALPHA3 Prefix SKU
+ACT_ALPHA4 Prefix CARTON
+ACT_ALPHA5 Prefix PALLET
+ACT_ALPHA6 EAN128 SKU Code (91–99)
+ACT_ALPHA7 EAN128 CARTON Code
+ACT_ALPHA8 EAN128 PALLET Code
+ACT_NUM1 Length SKU
+ACT_NUM2 Length CARTON
+ACT_NUM3 Length PALLET
+Priority Rule
+If EAN128 parameter is configured (90–99):
+→ EAN128 decoding overrides prefix/length validation.
+Else:
+Validate:
+• Length matches ACT_NUMx
+Sensitivity: Internal
+
+[PAGE 6]
+• Prefix matches ACT_ALPHAx
+Only if ACT_NUMx and/or ACT_ALPHAx are defined.
+11. Bypass Code
+If AD Code cannot be read:
+Operator can scan:
+BP123
+Rules:
+• Stored like normal AD Code
+• Counts as valid
+• Ignores activity format rules
+12. AD Code Storage – Table SPE_AD
+New specific table:
+SPE_AD
+Field Description
+ACT_CODE Activity Code
+MIL_KEYU Mission Line KEYU
+MIE_NOMI Mission Number
+MIL_NOLM Mission Line Number
+OPE_REDO Client Code
+OPE_DAT.TIE_NOM Client Name
+QUANTITY Quantity linked to AD Code
+ART_CODE Article Code
+AD_CODE Scanned AD Code
+Sensitivity: Internal
+
+[PAGE 7]
+Field Description
+AD_VL SKU / CARTON / PALLET
+AD_STAT 040
+AD_JOUR Date (YYYYMMDD)
+12.1 Quantity Allocation Rule (Carton Example)
+Example:
+Carton size (ART_QTEC) = 10 units
+Total picked = 33 units
+Allocation:
+AD Code Quantity
+AD1 10
+AD2 10
+AD3 10
+AD4 3
+Remaining quantity assigned to last AD Code.
+13. PE30 – Technical Logic Summary
+IF ACT_TOP13 = 1
+IF ART_TOP1 = 1
+IF GRP_NIV1 = DIVERSION
+IF GRP_NIV2 = 10 (LPD)
+Apply LPD rules
+ELSE IF GRP_NIV2 = 30 (PPD)
+Apply PPD rules
+Sensitivity: Internal
+
+[PAGE 8]
+Inside each:
+IF MIL_TYPR = 006 → PALLET logic
+IF MIL_TYPR = 002 → SKU or CARTON logic
+IF MIL_TYPR = 001 → Based on ACT_TOP1
+Block validation if required AD Code quantity not met.
+14. Key Uniqueness Rules
+Level Uniqueness Requirement
+SKU Unique in SPE_AD
+PALLET Unique in SPE_AD
+CARTON Unique per preparation, reusable across preps (if incomplete cartons)
+15. Client Validation
+L’Oréal acknowledges and validates the content of this document.
+BK Systèmes commits to delivering the solution as described.
+Any additional request outside this scope may require a separate quotation.
+Signed at: Vaulx-Milieu
+Date: 07/04/2025
+Company Signature & Stamp
+Sensitivity: Internal

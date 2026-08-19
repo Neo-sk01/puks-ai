@@ -1,0 +1,51 @@
+[META]
+chunk_type: text
+source_file: Principle of picking replenishment.pdf
+category: REPLENISHMENT OF THE PICKING LOCATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Topic: Principle of Picking Replenishment
+Core Concept: Replenishment is the process of moving stock to picking locations
+to ensure availability for order fulfillment. Its setup and execution follow specific
+rules.
+1. Prerequisites & Setup
+To enable the creation of replenishments, the following master data must be
+configured:
+• Picking Zones must be defined.
+• Picking Locations must be established and associated with one or more
+picking zones.
+2. Replenishment Rules & Source Logic
+• Source Restriction: A picking location can be replenished from another
+picking location, provided the source location does not belong to the same
+picking area (zone).
+• Parameter Management: Replenishment rules (e.g., min/max levels) are
+typically defined at the picking zone level.
+o Exception & Priority: Specific parameters can be defined at the
+individual item level. These item-specific settings take priority over
+the zone-level parameters.
+3. Execution & Validation Workflow
+Launching a replenishment generates replenishment lines, which are initially
+"orphan" task lines not yet assigned to a move.
+• Generation: The process can be triggered manually or automatically (e.g., via
+batch job).
+• Validation Modes: These lines are converted into executable warehouse
+transfers using one of three validation methods:
+1. Administrative Validation: Confirmed directly from the list of
+replenishment lines in the backend system.
+2. Transfer Validation: Executed via the storage radio frequency (RF)
+transaction on a mobile device, validating the physical transfer.
+3. Replenishment Validation: Executed via the replenishment RF
+transaction on a mobile device, validating the task at the
+replenishment line level.
+Sensitivity: Internal
+
+[PAGE 2]
+4. Monitoring & Reports
+• Replenishment List: A central list is available to view and manage all created
+replenishment tasks.
+• Anomaly List: A dedicated report can be generated on demand to identify
+any issues or errors in the replenishment process (e.g., source shortages,
+invalid parameters).
+Sensitivity: Internal

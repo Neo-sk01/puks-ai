@@ -1,0 +1,1214 @@
+[META]
+chunk_type: text
+source_file: LOREAL_MAROC_MACASLEA1.pdf
+category: LOREAL
+total_pages: 37
+[/META]
+
+[PAGE 1]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+L'Oréal Warehouse Management System Documentation
+• Translated from French to English
+• I. Revision History
+Version Description Date Author
+1.0 Initial Version 10/10/2025 Rémi BAUSSAND
+Added ASN report
+Added location descriptions
+1.1 14/10/2025 Rémi BAUSSAND
+Added LO_PRE zone for reserve locations
+Various corrections
+• II. Context
+Activity Name: MACASLEA1
+Client: L'ORÉAL
+Area: 1 cell of 5000 m² + 1500 m² (for copacking activity)
+The AGL Morocco activity groups 4 different divisions within L'Oréal:
+SAP Code Speed
+Division Full Name Description
+(storage location) Quality Code
+LPD – Luxury Products
+10 RL01 RL01 Luxury products
+Division
+CPD – Consumer
+20 RC01 RC01 Consumer products
+Products Division
+PPD – Professional Professional
+30 RP01 RP01
+Products Division products
+DPD – Dermatologic Dermatological
+40 RA01 RA01
+Products Division products
+The divisions are a structuring element of the activity, as products are not stored in the
+same locations and order typologies vary considerably.
+
+[PAGE 2]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+For example, CPD (consumer) handles large volumes, often full pallets, while LPD (luxury)
+manages smaller volumes, with a high proportion of mezzanine picking.
+Within each division, some products are distinguished:
+• Either by their level of danger (aerosols, risk levels)
+• Or by their specific use (PLV – point-of-sale advertising)
+Some items have a lot number with an expiration date (DLUO) automatically calculated
+from decoding the lot.
+Others require an additional scan during preparation to ensure tracking of the AD Code –
+equivalent to a serial number – particularly for LPD and PPD divisions, for traceability and
+anti-fraud purposes.
+These specificities lead to the coexistence of multiple storage and management rules.
+These will be detailed in the corresponding section. Their implementation required several
+specific developments, including:
+• Entry of logistic data upon receipt
+• Batch decoding
+• AD Code tracking
+Finally, the activity includes a copacking component, i.e., the creation of commercial
+bundles grouping multiple products.
+This flow relies on:
+• Preparation of components via DO Copacking
+• Then, after assembly, receipt of the BOM ASN
+This activity is generally performed under a specific quality code "RLSC".
+There are also two other types of ASN:
+• INB (international)
+• PPP (local product)
+To conclude, the activity also includes management of customer returns, divided into two
+categories:
+• Cancellation (with reference)
+
+[PAGE 3]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• Return (without reference)
+Cancellation can be total or partial. A specific process allows flagging the order to be
+canceled (status "shipped" mandatory). This flag automatically generates an expected
+receipt and corresponding reception.
+Returns, on the other hand, are performed manually, via creation of a reception without
+expected receipt.
+• III. Layout
+Locations
+Location nomenclature: LO001A001
+All L'Oréal locations begin with the prefix "LO".
+The next three digits identify the aisle.
+The following letter indicates the level, with letter A corresponding to ground level.
+In the pallet rack picking area, an intermediate beam was created between levels A and B
+to store cartons in dynamic picking.
+This beam is identified by the letter C. Ground level A is generally dedicated picking.
+The last three digits of the location code determine the lateral position on the beam.
+The warehouse is divided into two main zones:
+• A pallet racking zone, corresponding to aisles 01 to 14
+• A mezzanine zone, dedicated to shelf storage (cartons only), covering locations 300
+to 500 in dynamic picking.
+Aisle First_Location Last_Location Type
+1 LO001A001 LO001H030 Rack
+2 LO002A001 LO002H072 Rack
+3 LO003A001 LO003H072 Rack
+4 LO004A001 LO004H072 Rack
+5 LO005A001 LO005H072 Rack
+
+[PAGE 4]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Aisle First_Location Last_Location Type
+6 LO006A001 LO006H072 Rack
+7 LO007A001 LO007F072 Rack
+8 LO008A001 LO008F072 Rack
+9 LO009A001 LO009F072 Rack
+10 LO010A001 LO010F072 Rack
+11 LO011A001 LO011H012 Rack
+12 LO012A001 LO012H012 Rack
+13 LO013A001 LO013H012 Rack
+14 LO014A001 LO014H012 Rack
+15 LO015A001 LO015I071 Rack
+16 LO016A001 LO016F032 Rack
+17 LO017A001 LO017F033 Rack Aerosol
+18 LO018A001 LO018F033 Rack Aerosol
+20 LO020A001 LO020A108 Mass
+21 LO021A001 LO021A108 Mass
+30 LO030A001 LO030E024 Rack
+31 LO031A001 LO031E028 Rack
+32 LO032A001 LO032E028 Rack
+33 LO033A001 LO033E024 Rack
+40 LO040A001 LO040B108 Mass
+41 LO041A001 LO041B108 Mass
+
+[PAGE 5]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Aisle First_Location Last_Location Type
+42 LO042A001 LO042B108 Mass
+43 LO043A001 LO043B108 Mass
+101 LO101A001 LO101E022 Dynamic mezzanine
+102 LO102A001 LO102E022 Dynamic mezzanine
+103 LO103A001 LO103E022 Dynamic mezzanine
+104 LO104A001 LO104E019 Dynamic mezzanine
+105 LO105A001 LO105E019 Dynamic mezzanine
+106 LO106A001 LO106E022 Dynamic mezzanine
+107 LO107A001 LO107E022 Dynamic mezzanine
+108 LO108A001 LO108E022 Dynamic mezzanine
+109 LO109A001 LO109E088 Dynamic mezzanine
+110 LO110A001 LO110E092 Dynamic mezzanine
+111 LO111A001 LO111E028 Dynamic mezzanine
+112 LO112A001 LO112E036 Dynamic mezzanine
+113 LO113A001 LO113E036 Dynamic mezzanine
+114 LO114A001 LO114E036 Dynamic mezzanine
+201 LO201A001 LO201E066 Dynamic mezzanine
+202 LO202A001 LO202E066 Dynamic mezzanine
+203 LO203A001 LO203E066 Dynamic mezzanine
+204 LO204A001 LO204E057 Dynamic mezzanine
+205 LO205A004 LO205E057 Dynamic mezzanine
+
+[PAGE 6]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Aisle First_Location Last_Location Type
+206 LO206A001 LO206E066 Dynamic mezzanine
+207 LO207A001 LO207E066 Dynamic mezzanine
+208 LO208A001 LO208E066 Dynamic mezzanine
+209 LO209A001 LO209E066 Dynamic mezzanine
+210 LO210A001 LO210E069 Dynamic mezzanine
+211 LO211A001 LO211E021 Dynamic mezzanine
+212 LO212A001 LO212E032 Dynamic mezzanine
+213 LO213A001 LO213E028 Dynamic mezzanine
+214 LO214A001 LO214E028 Dynamic mezzanine
+301 LO301A001 LO301E115 Dynamic mezzanine
+302 LO302A006 LO302E110 Dynamic mezzanine
+303 LO303A006 LO303E110 Dynamic mezzanine
+304 LO304A006 LO304E095 Dynamic mezzanine
+305 LO305A006 LO305E095 Dynamic mezzanine
+306 LO306A006 LO306E110 Dynamic mezzanine
+307 LO307A006 LO307E110 Dynamic mezzanine
+308 LO308A006 LO308E110 Dynamic mezzanine
+309 LO309A006 LO309E110 Dynamic mezzanine
+310 LO310A001 LO310E115 Dynamic mezzanine
+311 LO311A001 LO311E023 Dynamic mezzanine
+312 LO312A001 LO312E036 Dynamic mezzanine
+
+[PAGE 7]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Aisle First_Location Last_Location Type
+313 LO313A004 LO313E024 Dynamic mezzanine
+314 LO314A004 LO314E024 Dynamic mezzanine
+315 LO315A001 LO315E007 Dynamic mezzanine
+316 LO316A001 LO316E034 Dynamic mezzanine
+401 LO401A001 LO401E057 Dynamic mezzanine
+501 LO501A001 LO501E090 Dynamic mezzanine
+BAY LOBAY001 LOBAY005 Prepared support drop location to shipping
+CDC LOCDCA001 LOCDCA001 Prepared support drop location to control
+CDP LOCDPGP001 LOCDPGP002 Prepared support drop location to control
+FIN LOFINDEPREP1 LOFINDEPREP1
+QUA LOQUAEXP001 LOQUAEXP001 Shipping dock
+Reject location when ZPA storage rule (mezzanine)
+RE LOREJET LOREJETZPA
+found no locations
+REL LORELAISZPA01 LORELAISZPA01 Relay location for partial replenishment in ZPA
+Transitional location during preparation support
+TRA LOTRANS001 LOTRANS001
+cancellation
+Zones
+Zones play an essential role in logistics activity management.
+They intervene at several levels:
+• In storage rules
+• In allocation rules
+• In replenishment processes
+• In ZPA transfers
+
+[PAGE 8]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• As well as in equipment operator mission management (access via radio)
+When creating a new location, it is imperative to associate it with the appropriate zones.
+Incorrect association can lead to malfunctions in one or more of the mentioned processes.
+Expected zone configuration:
+For proper allocation and replenishment functioning:
+• All locations: LO_ALL_PRE
+• Reserve locations: LO_STD_STK_ALL (storage zone) + LO_STD (picking zone)
+• Dynamic picking locations: LO_ZPA_LOREA + (LO_ZPA_MEZZ or LO_ZPA_RACK)
+• Dedicated picking locations (all these zones):
+o LO_PICKING_RA01
+o LO_PICKING_RL01
+o LO_PICKING_RP01
+o LO_PICKING_RC01
+o LO_PICKING_RLSC
+o LO_PICKING_ALL
+For proper storage functioning:
+• Reserve locations: zone of type LO_RACK_XXX
+• Dedicated picking locations: N/A
+• Dynamic picking locations: zone of type LO_P_XXXXX
+For equipment operator mission retrieval:
+• Dedicated picking locations: LO_CARISTE_DEDI
+• Dynamic picking locations: LO_CARISTE_ZPA
+
+[PAGE 9]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+Used in
+reserve
+LO_RACK_ALL RACK_FULL_PALLET_RESERVE_ALL 1
+storage rule
+
+Used in
+reserve
+LO_RACK_QLT RACK_FULL_PALLET_RESERVE_QUALITY 1
+storage rule
+
+Used in
+reserve
+LO_RACK_DMG RACK_FULL_PALLET_RESERVE_DAMAGED 1
+storage rule
+
+Used in
+reserve
+LO_CAGE_CPD CAGED_RACK_FULL_PALLET_AEROSOLS_CPD 1
+storage rule
+
+Used in
+reserve
+LO_RACK_CPD RACK_FULL_PALLET_RESERVE_CPD 1
+storage rule
+
+Used in
+reserve
+LO_RACK_PPD RACK_FULL_PALLET_RESERVE_PPD_LPD 1
+storage rule
+
+Used in
+CAGED_RACK_FULL_PALLET_AEROSOLS_LDB_PP reserve
+LO_CAGE_LDB 1
+D_LPD storage rule
+
+[PAGE 10]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+Used in
+reserve
+LO_RACK_LDB RACK_FULL_PALLET_RESERVE_LDB 1
+storage rule
+
+Transitional
+location used
+when deleting
+a shipping
+LO_TRANSITION
+Buffer zone for cycle count 9 support
+EL
+(canceling
+already
+prepared
+mission)
+Used in ZPA
+storage rule
+0002 and
+LO_P_CPD_AER Picking_CPD_Aerosol 1 picking rule
+0003, finer
+than global
+config
+Used in ZPA
+storage rule
+0002 and
+LO_P_ALL_AER Picking_LDB_PPD_LPD_Aerosol 1 picking rule
+0003, finer
+than global
+config
+Used in ZPA
+LO_P_PPD_ALL Picking_PPD_ALL 1
+storage rule
+0002 and
+
+[PAGE 11]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+picking rule
+0003, finer
+than global
+config
+Used in ZPA
+storage rule
+0002 and
+LO_P_CPD_ALL Picking_CPD_ALL 1 picking rule
+0003, finer
+than global
+config
+Used in ZPA
+storage rule
+0002 and
+LO_P_LPD_PLV Picking_LPD_PLV 1 picking rule
+0003, finer
+than global
+config
+Used in ZPA
+storage rule
+0002 and
+LO_P_LDB_ALL Picking_LDB_ALL 1 picking rule
+0003, finer
+than global
+config
+Used in ZPA
+storage rule
+LO_P_LDB_PLV Picking_LDB_PLV 1
+0002 and
+picking rule
+0003, finer
+
+[PAGE 12]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+than global
+config
+Used in ZPA
+storage rule
+0002 and
+LO_P_ALL_PLV Picking_ALL_PLV 1 picking rule
+0003, finer
+than global
+config
+Used in ZPA
+storage rule
+0002 and
+LO_P_CPD_MK Picking_CPD_makeup 1 picking rule
+0003, finer
+than global
+config
+Used in ZPA
+storage rule
+0002 and
+picking rule
+0003, finer
+LO_P_PDD_ALL2 Picking_PPD_ALL_2 1
+than global
+config (_2
+indicates
+overflow
+zone)
+Used in ZPA
+storage rule
+LO_P_LPD_ALL Picking_LPD_ALL 1
+0002 and
+picking rule
+
+[PAGE 13]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+0003, finer
+than global
+config
+Origin storage
+LO_STD_STK_AL
+Storage zone all 1 zone in ZPA
+L
+global config
+Search zone
+used during
+full pallet
+LO_STD L'Oréal Reserve picking zone 2
+allocation in
+launch
+parameters
+Used in
+picking
+allocation
+rules in
+LO_PICKING_AL launch
+L'OREAL_Picking_dedicated_ALL 3
+L parameters.
+Must contain
+all dedicated
+picking
+locations
+Used in ZPA
+global config
+(destination
+zone) and in
+LO_ZPA_LOREA L'Oréal ZPA picking zone 2
+allocation
+rules in
+launch
+parameters.
+
+[PAGE 14]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+Must contain
+all dynamic
+picking
+locations
+Used in
+allocation
+rules to
+differentiate
+mezzanine
+picking from
+LO_ZPA_MEZZ L'Oréal ZPA mezzanine picking zone 2
+rack picking
+(rack picking
+grouped with
+dedicated
+picking
+missions)
+Used in
+allocation
+rules to
+differentiate
+mezzanine
+picking from
+LO_ZPA_RACK L'Oréal ZPA rack picking zone 2
+rack picking
+(rack picking
+grouped with
+dedicated
+picking
+missions)
+Search zone
+LO_ALL_PRE ALL LOCATIONS RESERVE+ZPA+PICKING 2
+used during
+availability
+
+[PAGE 15]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+control in
+launch
+parameters,
+must contain
+all locations
+Used in
+dedicated
+picking
+replenishmen
+LO_PICKING_RL
+L'OREAL Picking dedicated replenishment RL01 3 t rules as only
+
+one quality
+code is
+configurable
+per zone
+Used in
+dedicated
+picking
+replenishmen
+LO_PICKING_RC
+L'OREAL Picking dedicated replenishment RC01 3 t rules as only
+
+one quality
+code is
+configurable
+per zone
+Used in
+dedicated
+picking
+LO_PICKING_RA
+L'OREAL Picking dedicated replenishment RA01 3
+replenishmen
+
+t rules as only
+one quality
+code is
+
+[PAGE 16]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+configurable
+per zone
+Used in
+dedicated
+picking
+replenishmen
+LO_PICKING_RP
+L'OREAL Picking dedicated replenishment RP01 3 t rules as only
+
+one quality
+code is
+configurable
+per zone
+Equipment
+operator zone
+to distinguish
+all equipment
+operator
+LO_CARISTE_DE Equipment operator zone for fixed picking
+8 movements
+DI replenishment
+when
+entering RF
+module, copy
+of
+lo_picking_all
+Equipment
+operator zone
+to distinguish
+all equipment
+LO_CARISTE_RE
+Equipment operator zone from reception 8 operator
+CP
+movements
+when
+entering RF
+module
+
+[PAGE 17]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+ZON
+ZONE LABEL E COMMENTS
+TYPE
+Equipment
+operator zone
+to distinguish
+all equipment
+operator
+LO_CARISTE_ZP movements
+Equipment operator zone for ZPA transfer 8
+A when
+entering RF
+module, copy
+of
+LO_ZPA_LOR
+EA
+• IV. Storage Rules
+There are three main storage rules, each with a specific role in flow management:
+1. Rule 00001 – Reserve location search
+o Applied by default on items and during reception
+o Directs products to standard reserve locations
+2. Rule 00002 – Replenishment to picking (ZPA)
+o Used to direct picking replenishments to appropriate mezzanine locations,
+particularly via ZPA transfer
+o Ensures proper distribution of reserve stock to dynamic picking zones
+3. Rule 00003 – Global picking storage
+o Used for direct storage in picking zone, particularly from reception
+o Unlike rule 00002, it also includes storage in dedicated picking locations
+(often on pallet racks)
+
+[PAGE 18]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+o Includes a specific to control the maximum picking stock threshold
+configured on each item, to avoid exceeding defined capacity
+Detail rule 0001: Reserve storage
+The first four storage rules direct products to caged rack zones, dedicated to storage of
+dangerous products such as aerosols.
+These rules are specific to each division, to ensure separation compliant with safety
+requirements.
+The next four rules guide standard products of each division to their respective storage
+zones, according to typology and associated management mode.
+Finally, the last two rules direct obsolete products or those with quality issues to dedicated
+closed zones, intended for this type of treatment.
+Detail rule 0003: Picking storage
+The first five rules concern items classified as "fixed picking".
+They search for a location in fixed picking zones of type LO_PICKING_XXXX (where XXXX
+corresponds to the quality code).
+The next eleven rules intervene to complete an existing location, based on:
+• Available volume
+• Various item criteria (aerosol level, PLV type, division, etc.)
+Finally, the last eleven rules correspond to free searches.
+They allow finding a new location in the same zones as before, with the same breakdowns
+(aerosols, PLV, division), but they additionally integrate the picking threshold defined in the
+item master data (2 or 5).
+This threshold represents the maximum number of locations authorized in dynamic picking
+for the same item.
+For more details on configuration of these rules, refer to document SPD 020.
+Detail rule 0002: ZPA storage used in dynamic picking transfer
+This rule contains sequences similar to rule 00002.
+• First, a first sequence completes an existing location based on available volume
+• The next sequence searches for a new location in the appropriate zone
+
+[PAGE 19]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• The main difference with previous free searches is the absence of picking threshold
+control: this rule being used in the context of replenishment, it must accept all
+location proposals
+• Finally, a last control sequence detects failure cases (no applicable sequence). In
+this case, the ZPA transfer is not blocked: the support is redirected to a reject
+location, where it must be processed manually by the responsible party.
+• V. Replenishment Rules
+In the AGL – L'Oréal Morocco warehouse, several divisions coexist, each with different
+volumes and order typologies.
+To respond to all preparation modes, picking layout is managed according to two distinct
+approaches:
+1. Dedicated picking (classic)
+→ Locations are fixed and reserved for specific items
+2. Dynamic picking
+→ Managed via transfer to Advanced Preparation Zone (ZPA), allowing flexible
+allocation of locations based on operational needs
+Classic dedicated picking replenishment
+A picking location—generally located at the first level of the pallet rack—is reserved for a
+specific item.
+In this case, the item is classified as "fixed picking" and has a picking layout defined in its
+parameters.
+Note that each fixed picking layout should always contain two lines:
+• One with the standard quality code corresponding to the division
+• A second with the RLSC quality code, associated with copacking activity
+This configuration ensures that products attached to the RLSC quality code can also be
+replenished in the context of copacking order preparation.
+This operation is standard in SPEED: replenishment is automatically triggered at order
+launch when the available quantity in the dedicated location is insufficient to cover the
+need.
+
+[PAGE 20]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Dedicated replenishment configuration:
+• Replenishment is limited to the need of the current wave
+• The replenishment handling unit corresponds to the complete support: the system
+will therefore seek an entire support in reserve, whether or not it corresponds to the
+pallet handling unit
+Dynamic picking replenishment
+Dynamic picking replenishment—i.e., on locations without fixed picking layout (when an
+empty location can be replaced by any other reference)—is not managed by standard in
+SPEED.
+To respond to operational needs, we implemented the ZPA transfer, associated with some
+specifics.
+Recall that ZPA transfer is an anticipated process that relies on the order portfolio to bring
+down the need to a specific picking zone, which will then be targeted during order launch.
+Objectives for L'Oréal:
+1. Bring down only unit needs, not full pallet needs, already covered by complete
+support picking 006 in launch parameters
+2. Avoid complete support replenishment (standard SPEED) and allow choosing a
+partial quantity to bring down, to optimize space in dynamic picking, often heavily
+utilized
+ZPA transfer configuration:
+The ZPA transfer is configured according to this logic:
+• Maximum handling unit to consider: CASE (to not take complete support need)
+• Origin storage zone: all reserve stock
+• Destination zone: LO_ZPA LOREA (dynamic locations, whether in mezzanine or
+pallet rack (level C))
+• And finally targets only items whose classification is items/Type_Picking/Dynamic
+ZPA transfer calculation is based on orders having a preparation date.
+By default, no preparation date is sent down, which allows the scheduler to precisely target
+orders on which they wish to trigger ZPA transfer—in other words, only those for which a
+preparation date has been entered.
+
+[PAGE 21]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Support status management:
+By default, ZPA transfer generates equipment operator transfers with status 03.
+A specific was added to allow generation of replenishments with support at status 04.
+Process harmonization:
+Thanks to this evolution, the same picking replenishment module can now be used to
+execute ZPA transfers.
+This module was also modified to provide operators with real-time information on the
+number of units needed in dynamic picking at time T (displayed on the last line of the
+screen).
+Partial replenishment and stock visibility
+This operation allows performing partial replenishment, adjusted to minimum need.
+For example, if the need is 200 units, the system will bring down the entire support to cover
+the demand as in the example above. But if the quantity of need is less than the support,
+the operator has the choice to enter the minimum quantity. There is no control, however. If
+they enter less than the need, the system will accept.
+A specific view on stock allows visually differentiating replenishment types if necessary:
+• Orange flag: ZPA transfer
+• Blue flag: dedicated replenishment
+• VI. Description of Different Reception Processes
+There are several types of ASNs (expected receipts), as mentioned previously.
+The reception process is identical for INB, PPP and BOM ASNs.
+From creation of the expected receipt by the interface, the system automatically generates
+the associated reception.
+This reception initially contains no lines, as effective stock creation is performed via the
+"Multi BL Reception" radio module, renamed for the occasion "ASN Reception".
+Generally:
+• Reception of non-expected items is not authorized
+• Reception of quantities greater than those expected is not authorized either
+
+[PAGE 22]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Regarding returns, the process differs:
+there is no expected receipt transmitted by the client.
+Choice of items and quantities to receive is therefore left to the discretion of the operator in
+charge of return processing.
+Radio module multi BL reception (without expected receipt)
+For return management, operators will be able to create a reception without expected
+receipt via the menu -> reception without expected receipt and the RETURN tab.
+They can then receive any item and quantity. The applied quality code is RL98.
+They generally use generic labels for creation of support identifiers.
+Classic radio module multi BL reception
+The reception module is configured to successively request:
+1. The BL number
+2. Then the support number
+Several decoding mechanisms were implemented at this stage to allow interpretation of
+EAN128 labels containing:
+• The SSCC of the support
+• The item code
+• And the lot number
+The SSCC number is generally retained to identify complete supports in the system.
+Reception-specific specifics:
+Two SPDs modify radio behavior in reception:
+• SPD09: Authorizes entry of complementary logistic data, such as:
+o Item dimensions
+o Weight
+o Expiration date tracking
+o Pallet and case handling units
+• SPD011: Allows automatic decoding of manufacturing date from lot number
+Regarding SPD09, distinguish two distinct data groups:
+
+[PAGE 23]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• Item dimensions: If at least one item dimension or weight is not entered, the
+dimension entry window will be displayed after creation of a first support
+• Traceability data: Traceability will be requested only once, at first reception of the
+item as well as mandatory pallet and case handling units
+Regarding SPD011, it triggers if the item is checked lot1 tracked. The system requests the
+lot number (if not recovered from the initially scanned EAN128).
+Automatic calculation of manufacturing dates and expiration date (from product shelf life
+present in item master data and decoded manufacturing date).
+For decoding rules of manufacturing date from lot, refer to SPD 011.
+Reception closure
+Reception is closed in admin.
+Logistic closure is mandatory before proceeding to final closure.
+SPD015 intervenes at this stage:
+it automatically deletes expected receipt lines for which there remain non-received
+quantities.
+Indeed, the remainder is not managed in SPEED, but directly in the host system (ERP SAP).
+If a remainder must be processed, a new expected receipt will be generated and sent down
+by SAP.
+Important note:
+A SAP constraint prevents reception of an expected receipt line at 0.
+By default, the EDI interface enters 1 unit when the quantity to receive is zero.
+A stock discrepancy is then corrected manually on both sides by operators.
+Post-reception
+Created supports are stored progressively by equipment operators, as operations proceed,
+via the equipment operator storage transaction.
+They have the possibility to manually switch to rule 0003 to perform direct storage in
+picking zone, if necessary.
+No allocation is possible from reception docks:
+as long as merchandise is not physically stored and validated in stock, it remains nonallocatable.
+
+[PAGE 24]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• VII. Description of Different Preparation Processes: Launch to Shipping
+General Information
+Order launch is performed on the fly, orders rarely being sent down in advance.
+Similarly, ZPA transfer is triggered just before each wave launch, to supply picking zones as
+close as possible to real need.
+Several wave launches are performed throughout the day.
+Replenishments are performed hot and prioritized dynamically based on immediate needs
+of preparers.
+The flowchart below presents the steps of the preparation process from order launch to
+shipping.
+Preparation Steps:
+1. Selection of order batch to launch and modification of preparation date
+2. Launch of availability calculation
+3. Control of shortages and correction if possible (using stock view/allocated orders ->
+allocated and shortage orders) -> a specific view is used in the Stock screen, order
+in entry
+4. Launch of ZPA transfer
+5. Launch of orders
+6. Printing of carton picking and reserve reports
+Preparation:
+Use of radio module: multi-order preparation
+1. Choice of mission type
+2. Scan of mission number displayed on picking report (one or several)
+3. Beginning of picking process (scan location, scan item, then enter quantity)
+4. If item 'AD code' tracked, scan as many AD numbers as units to pick for LPD or as
+cases for PPD
+5. Scan of drop support (prepared support)
+6. Deposit of supports in the finalization location at end of preparation
+
+[PAGE 25]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Finalization:
+Each support is scanned via the finalization module, weight is entered and the support is
+finalized.
+Once all supports are finalized, the order passes to packed status and SHP is sent.
+The client then sends back an order update with the invoice number, payment method and
+shipping conditions.
+Once this information is updated, the shipping report is printed by operators then attached
+to the load.
+The client also sends an invoice by email which is printed and attached to shipping
+documents.
+Note: The load creation process and support loading is not yet used by operators but was
+part of new needs identified in the functional analysis.
+Allocations
+Allocations are divided following this sequence:
+1. Availability control on all stock, zone LO_ALL_PRE
+2. Allocation priority on complete supports in reserve. This encompasses all items and
+is based on zone LO_STD
+3. Stock service PST allocation on dynamic picking locations in rack LO_ZPA_RACK
+4. Stock service PST allocation on dynamic picking locations in mezzanine
+LO_ZPA_MEZZ
+5. 5 picking PPI allocations on dedicated picking locations for each quality code,
+including copacking on zone LO_PICKING_XXXX (XXXX = quality code, RC01 RL01
+RA01 RP01 RLSC)
+6. Stock service for copacking in RLSC on zone LO_ZPA_LOREA
+7. Missing service to recover what passed availability control but was not allocated on
+any other sequence
+Step Description Zone / Rule
+1 Global availability control LO_ALL_PRE
+
+[PAGE 26]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Step Description Zone / Rule
+Complete support allocation in
+2 LO_STD
+reserve
+3 ZPA stock service (rack) LO_ZPA_RACK
+4 ZPA stock service (mezzanine) LO_ZPA_MEZZ
+LO_PICKING_XXXX
+5 Picking PPI (dedicated zones)
+(RL01/RC01/RA01/RP01/RLSC)
+6 Copacking stock service LO_ZPA_LOREA
+7 Missing service Following availability control
+We use the PICKING pattern for allocations 5 and 3 to be able to group them in the same
+missions as picking is done in the rack zone.
+Missions
+Generation and mission structure
+Missions are generated and divided according to several criteria:
+• Division
+• Zone (mezzanine or rack)
+• Number of mission lines (variable by division) for picking, or number of supports
+(maximum 10) for reserve picking
+• Picking type
+• Preparation order number (OPE_NOOE)
+Replenishment missions
+Replenishment missions are generated only for dedicated picking.
+• Source search zone: LO_STD_STK_ALL
+• Target picking zones: zones of type LO_PICKING_XXXX (dedicated picking)
+Missing mission lines can also be generated per order to ensure flow completeness.
+Prepared supports
+
+[PAGE 27]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Prepared supports are created automatically from mission generation.
+There is no pre-boxing:
+one prepared support = one mission.
+Mission nomenclature
+MISSION TYPE DESCRIPTION
+PICK_CPD Picking division CPD
+PICK_LPD Picking division LPD
+PICK_PPD Picking division PPD
+PICK_LDB Picking division LDB
+PICK_CPD_M Picking CPD mezzanine
+PICK_LPD_M Picking LPD mezzanine
+PICK_PPD_M Picking PPD mezzanine
+PICK_LDB_M Picking LDB mezzanine
+PALLET_CPD Complete support picking CPD
+PALLET_LPD Complete support picking LPD
+PALLET_PPD Complete support picking PPD
+PALLET_LDB Complete support picking LDB
+M: mission performed in mezzanine
+PALLET: complete support picking mission
+• VIII. Description of Interfaces and EDI Operation
+General file exchange operation
+Exchanged files transit via L'Oréal's SFTP server:
+• The OUTBOUND directory contains files deposited by L'Oréal for AGL
+
+[PAGE 28]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• The INBOUND directory contains files generated by AGL and retrieved by L'Oréal
+Downstream flow (L'Oréal → SPEED)
+1. Flat files (in text format, separated by tabs) are retrieved by the WebMethods service
+2. WebMethods converts the flat file to a JSON format API call
+3. This call is transmitted to BK System's LINKUP service, which:
+o Interprets the JSON
+o Then updates SPEED with received data
+Return flow (SPEED → L'Oréal)
+1. Similarly, WebMethods performs recurring calls to LINKUP APIs
+2. As soon as data is available, LINKUP returns JSON content
+3. WebMethods converts this JSON to a flat file (.txt), then deposits it on L'Oréal's SFTP
+in the corresponding directory
+LINKUP marking management
+LINKUP marking relies on the KEYU of the main table.
+It allows identifying already transmitted data, to send them only once.
+If needed, it is possible, via SpeedService, to delete the marking to make elements
+available again during the next API call.
+INBOUND Flows
+ASN
+There are 3 types of ASN in the EDI flow:
+• PPP → Local ASN from Morocco
+• INB → International ASN
+• BOM → ASN allowing creation of copack bundles
+The difference between PPP and INB lies in the presence of an inbound number in the case
+of INB in addition to the Purchase order number. For PPP, both fields will have the same
+value.
+Return and cancellation ASNs are outside EDI. They are created from Speed, see ASN
+return section.
+
+[PAGE 29]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+BOM ASN specificities:
+The BOM ASN sent by the client contains a header line representing the quantity of bundle
+to create. It serves to create the BOM ASN.
+In the client file, BOM ASN lines represent components constituting the bundle. They serve
+to create DO COPACK.
+ASN Return
+There are two types of ASN return:
+• Cancellation (with reference), partial or total
+• Customer return without reference
+Creation of return and cancellation expected receipts is not sent down by the client.
+The process differs depending on return type.
+Cancellation:
+We implemented a specific internal EDI flow via linkup that allows creating a reception
+expected receipt matching the order being canceled (the reception is also created by
+interface).
+To trigger it, operators simply check the cancellation_order_creation_expected_auto box
+and enter a cancellation_reason_code.
+The return expected receipt is created with the invoice number as order reference. The flow
+runs approximately every 5 minutes.
+Operators can then receive items as for a classic reception either totally (order entirely
+canceled) or partially. It is important to properly ship the reception to send back the good
+receipt message to L'Oréal.
+Return:
+Returns without reference are created directly from the radio. Using the multi BL reception
+module, then reception without expected receipt and finally the Return tab.
+Similarly, ASN closure will trigger generation of the GR message.
+An additional operation is nevertheless required in this case: enter the following
+complementary information (beginning with 'return' + receptionType) in the reception
+header.
+If this information is missing (particularly receptionType), no message will be sent back.
+
+[PAGE 30]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Distribution Order
+The distribution order flow is classic, orders are typed 'customer_order' in the
+complementary information OPE_ALPHA11 (unlike do Copack which are typed
+'copack_order').
+OUTBOUND Flows
+In most transactional outbound flows, a unique WMSTransactionNumber is sent back.
+The host system (SAP) does not allow integration of multiple messages with the same
+wmsTransactionNumber.
+It is sometimes necessary to resend a message that was in error in SAP. In this case, a new
+WMSTransactionNumber must be used.
+We therefore sometimes use in the JSON a forceReprocessingFlag. If this is at 1, then
+WEBMETHODS will modify the transaction number by adding a suffix XXXXXX_1 XXXXXX_2
+XXXXXX_3 and so on, depending on the number of times the message is reprocessed.
+This allows bypassing the SAP constraint that accepts only one unique
+WMSTransactionNumber per flow.
+Good Receipt
+The GR flow is triggered by complete closure of the expected receipt (logistic closure is not
+sufficient).
+Good Receipt Return
+The GR return flow is triggered by closure of the return ASN (cancellation or return).
+Pay attention to properly enter complementary information in the case of RETURN (see
+ASN return section above).
+In the case of cancellation, information is directly retrieved from the order during creation
+of the expected receipt and reception.
+Shipment Confirmation
+The preparation declaration is triggered when the order passes to status 060, packed.
+Note: Order shipping does not trigger any flow.
+However, it is not possible to ship an order as long as we have not received the doupdate
+(i.e., as long as the invoice number is not entered on the order's IC) -> SPD 026
+Do Update
+
+[PAGE 31]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+The DoUpdate flow is a specific. It is not present in Linkup. Files are saved on the server in:
+H:\P-MAR-CA-S\ENVIRONNEMENTS\INTERFACE_MACASLEA1\COMMANDE_IMPORT
+The DoUpdate flow updates the following information on the order:
+BL comment / invoice number / netAmount / netAmountRet / ShippingType / DueDate /
+methodOfPayment
+Inventory Movement
+The stock adjustment flow only retrieves inter storage location transfers (or quality change
+in SPEED)
+Additionally, a translation table is used to complete the message sent to the client. If the
+transfer is not present in the translation table, the message is not sent to the client.
+Another particularity, if reason code 99 is used, the message is not sent to the client.
+Translation Table 1:
+Input Value Output Value
+RC01-RL99 RC01-RL99 [Transfer to Near Expiry]
+RL01-RL96 RL01-RL96 [Damage]
+RL01-RL88 RL01-RL88 [Transfer To Quality Issue]
+RA01-RL97 RA01-RL97 [Transfer to Destruction]
+RC01-RL96 RC01-RL96 [Damage]
+RA01-RL99 RA01-RL99 [Transfer to Near Expiry]
+RA01-RLSC Transfer to BOM
+RC01-RLSC Transfer to BOM
+RL98-RC01 RL98-RC01 [Return for Sales]
+RL98-RL01 RL98-RL01 [Return for Sales]
+RL98-RA01 RL98-RA01 [Return for Sales]
+RL98-RP01 RL98-RP01 [Return for Sales]
+
+[PAGE 32]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Input Value Output Value
+RC01-RL98 RC01-RL98 [Return for Sales Reverse]
+RL01-RL98 RL01-RL98 [Return for Sales Reverse]
+RA01-RL98 RA01-RL98 [Return for Sales Reverse]
+RP01-RL98 RP01-RL98 [Return for Sales Reverse]
+RL98-RL97 RL98-RL97 [Return to Des]
+RL97-RL98 RL97-RL98 [Return to Des Reverse]
+RL98-RL96 RL98-RL99 [Return to Damage]
+RL96-RL98 RL99-RL98 [Return to Damage Reverse]
+RC01-RL92 RC01-RL92 [Transfer Missing]
+RL01-RL92 RL01-RL92 [Transfer Missing]
+RA01-RL92 RA01-RL92 [Transfer Missing]
+RP01-RL92 RP01-RL92 [Transfer Missing]
+RL92-RC01 RL92-RC01 [Reverse Missing]
+RL92-RL01 RL92-RL01 [Reverse Missing]
+RL92-RA01 RL92-RA01 [Reverse Missing]
+RL92-RP01 RL92-RP01 [Reverse Missing]
+RC01-RL95 RC01-RL95 [Transfer to Warehouse sales]
+RL01-RL95 RLO1-RL95 [Transfer to Warehouse sales]
+RA01-RL95 RA01-RL95 [Transfer to Warehouse sales]
+RP01-RL95 RP01-RL95 [Transfer to Warehouse sales]
+RL95-RC01 RL95-RC01 [Transfer to Warehouse sales-Reverse]
+
+[PAGE 33]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Input Value Output Value
+RL95-RL01 R195-RL01 [Transfer to Warehouse sales-Reverse]
+RL95-RA01 RL95-RA01 [Transfer to Warehouse sales-Reverse]
+RL95-RP01 RL95-RP01 [Transfer to Warehouse sales-Reverse]
+RA01-RL96 RA01-RL96 [Damage]
+RP01-RL96 RP01-RL96 [Damage]
+RL96-RC01 RL96-RC01 [Damage-Reverse]
+RL96-RL01 RL96-RL01 [Damage-Reverse]
+RL96-RA01 RL96-RA01 [Damage-Reverse]
+RL96-RP01 RL96-RP01 [Damage-Reverse]
+RC01-RL97 RC01-RL97 [Transfer to Destruction]
+RL01-RL97 RL01-RL97 [Transfer to Destruction]
+RP01-RL97 RP01-RL97 [Transfer to Destruction]
+RL97-RC01 RL97-RC01 [Transfer to Destruction-reverse]
+RL97-RL01 RL97-RL01 [Transfer to Destruction-reverse]
+RL97-RA01 RL97-RA01 [Transfer to Destruction-reverse]
+RL97-RP01 RL97-RP01 [Transfer to Destruction-reverse]
+RL01-RL99 RL01-RL99 [Transfer to Near Expiry]
+RP01-RL99 RP01-RL99 [Transfer to Near Expiry]
+RL99-RC01 RL99-RC01 [Transfer to Near Expiry - Reversal]
+RL99-RL01 RL99-RL01 [Transfer to Near Expiry - Reversal]
+RL99-RA01 RL99-RA01 [Transfer to Near Expiry - Reversal]
+
+[PAGE 34]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+Input Value Output Value
+RL99-RP01 RL99-RP01 [Transfer to Near Expiry - Reversal]
+RC01-RL88 RC01-RL88 [Transfer To Quality Issue]
+RA01-RL88 RA01-RL88 [Transfer To Quality Issue]
+RP01-RL88 RP01-RL88 [Transfer To Quality Issue]
+RL88-RC01 RL88-RC01 [Transfer To Quality Issue Reverse]
+RL88-RL01 RL88-RL01 [Transfer To Quality Issue Reverse]
+RL88-RA01 RL88-RA01 [Transfer To Quality Issue Reverse]
+RL88-RP01 RL88-RP01 [Transfer To Quality Issue Reverse]
+RLSC-RLSC Transfer to BOM
+RL89-RL99 RL89-RL99 [Transfer To expired]
+RL99-RL89 RL99-RL89 [Transfer To expired]
+Inventory Snapshot
+A stock snapshot is sent once per month.
+Preview of file sent to client (item, client depot code, quality code, UN constant and
+quantity)
+• IX. Specifics
+1. Reception
+• SPD_009 – Item Reception: Entry of weight, dimensions, expiration date, LOT
+This specific concerns the multi BL reception radio module. It allows entering
+dimensions and weight if missing on the item master. It also allows entering if the
+item has lot1 tracking as well as expiration date + pallet and case handling units
+only at first reception of the item.
+• SPD_011 – LOT Decoding Reception V5
+This specific concerns the multi BL reception radio module. It allows decoding the
+
+[PAGE 35]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+manufacturing date from the L'Oréal lot number and entering the expiration date
+based on the product shelf life configured on the item master.
+• SPD_015 – REA balance at reception closure V4
+This specific concerns reception closure in ADMIN. It balances expected receipt
+lines linked to the reception that would not have been 100% received.
+• SPD_017 – REA_RFCV2 Control
+This specific concerns creation of reception from expected receipt lines manually. It
+ensures that all lines with the same BL number have been selected. This spec is
+now obsolete as receptions are created directly by interface.
+• SPD_028 – IC inheritance between AEN expected receipts and REE receptions in
+admin
+This specific concerns inheritance of ICs between AEN expected receipts and REE
+receptions which doesn't work by standard. Notably used for cancellation ASNs
+which require complementary information in header.
+2. Storage & Replenishment
+• SPD_010 – Declarative Quality Item Storage V2
+This specific concerns the equipment operator storage radio module. It allows
+configuring on an IC zones, quality codes for which it is not possible to store in the
+zone in question.
+• SPD_020 – Free search query for control of number of locations per zone vs Item
+IC
+This specific concerns storage. It allows creating a free search with multiple criteria
+to filter items and search for locations in dynamic picking zones. It is notably used to
+respect the max dynamic picking threshold configured on the item master (IC).
+• SPD_024 – ZPA Storage – Transfer to replenishment (Client version)
+This specific concerns ZPA transfer. It allows transforming the generated equipment
+operator movement into a replenishment movement. The picking replenishment
+radio module can then be used as for dedicated picking replenishments.
+• Spec_Reappro_Picking_Dynamique_ZPA
+This specific concerns volume dynamic picking replenishment. It is being drafted by
+BK and not yet deployed.
+3. Preparation, Control & Shipping
+
+[PAGE 36]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• SPD_012 – Anti Diversion (AD CODE) V3
+This specific concerns the multi-order preparation radio module. It allows
+requesting entry of the anti-diversion code (equivalent to serial number for fraud
+prevention) if the item is checked AD code tracking on its ICs. A control is operated
+on uniqueness of codes (unique on each unit for LPD and unique per case for PPD)
+and stores values in a specific SPE_AD table. This table is exported once per month
+to the client.
+• SPD_016 – Finalization Module
+This specific concerns the finalization radio module. It allows printing shipping
+support label and generic label with counter.
+• SPD_026 – Order shipping blockage
+This specific concerns order shipping in admin. We block shipping of
+customer_orders if there is no invoice number entered. This spec does not concern
+copack_orders.
+• SPD_027 – Prepared Support Control Module / Lot Control
+This specific concerns the support control module. It allows displaying lots present
+on the controlled support and validating them or not. If not validated, the support is
+flagged control KO.
+• SPD_031 – Prepared support storage to loading dock associated with the order
+This specific concerns equipment operator storage. It allows guiding a prepared
+support to a shipping dock that was configured at load level.
+• SPD_032 – Mission preparation path
+This specific concerns sequencing of mission lines at the radio in the multi cmd
+preparation module. By default, the system sorts by zone then NOOR (sequence
+number). Dynamic picking and dedicated rack locations belonging to different
+zones, we had to remove the first sort on zone. We keep only the sort on NOOR.
+4. Inventory
+• SPD_014 – Cycle count: Action to limit by User V2
+This specific concerns the cycle count radio module. It allows limiting certain stock
+modification actions to certain user profiles only.
+• SPD_023 – AGL inventory with multiple counts 1.1
+This specific concerns the inventory module.
+
+[PAGE 37]
+AGL – L’Oréal Maroc – WMS Speed – Support Maintenance
+Version 1.0
+• X. Appendix
+Shipping Declaration
+Carton Picking Report
+Carton Reserve Picking Report
+ASN Reception
+The first column allows indicating if it is the first reception of the item.
+End of Document

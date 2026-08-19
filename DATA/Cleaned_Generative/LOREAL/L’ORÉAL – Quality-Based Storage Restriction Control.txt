@@ -1,0 +1,175 @@
+[META]
+chunk_type: text
+source_file: L’ORÉAL – Quality-Based Storage Restriction Control.pdf
+category: LOREAL
+total_pages: 7
+[/META]
+
+[PAGE 1]
+
+Sensitivity: Internal
+
+[PAGE 2]
+Spécifications Détaillées
+• L’ORÉAL – Quality-Based Storage Restriction Control
+System: Speed WMS
+Version: A.8.6.F (28.06b1)
+Radio Version: 28.06b
+Module STD175: 28.06
+• 1. Document Control
+• 1.1 Version History
+Version Description Date Author
+1.0 Initial Version 25/03/2023 AKD
+• 2. Business Context
+As part of the L’ORÉAL warehouse operations, the Multi-BL Reception module is used for receiving
+articles.
+The reception process is configured to operate in Declarative Storage mode.
+Additionally, operators may perform storage using:
+• The Standard Radio Storage module (Cariste module)
+• 2.1 Business Requirement
+The client requires:
+To prevent certain quality-coded items from being stored in specific zones.
+This restriction must depend on:
+• The quality code of the item
+• The zone configuration
+• 3. Functional Design
+• 3.1 Zone Configuration Logic
+The restriction mechanism uses:
+• Zone IC (Information Code): ZEM_ALPHA1
+• Maximum length: 50 characters
+• Quality codes must be separated by: ;
+• Example:
+Sensitivity: I1n1t.e02r.n20a2l6 Page n° 2/7
+
+[PAGE 3]
+Spécifications Détaillées
+• DAMAGED;QUARANTINE;BLOCKED
+If ZEM_ALPHA1 is empty:
+→ No storage restriction applies.
+• 3.2 Important Technical Constraint
+Speed WMS does NOT support variable IC at zone level.
+Therefore:
+• ZEM_ALPHA1 must be used
+• Limited to 50 characters
+• 3.3 Activation Parameter
+Control must only apply if:
+• ACT_TOP17 = 1
+If ACT_TOP17 ≠ 1:
+→ No control is performed.
+This control does NOT apply in Speed Admin.
+It only applies from the Radio interface.
+• 4. Functional Flow – Multi-BL Reception (Direct Declarative Storage)
+• 4.1 Operator Steps (Radio)
+1. Select: Multi-BL Reception
+2. Flash / Select Reception
+3. Confirm Direct Storage (if prompted)
+4. Flash Support (or auto-generate sequential support)
+5. Flash Article Code / EAN
+6. Enter Received Quantity
+7. Flash Storage Location
+• 4.2 Control Point
+Before storage validation:
+Use:
+• PE863
+Sensitivity: I1n1t.e02r.n20a2l6 Page n° 3/7
+
+[PAGE 4]
+Spécifications Détaillées
+• 4.3 Validation Logic (PE863)
+Condition: ACT_TOP17 = 1
+• Case 1 – Location belongs ONLY to zones that forbid the quality
+If the flashed location belongs exclusively to zones where:
+• Current Quality Code ∈ ZEM_ALPHA1
+Then:
+• Display error message:
+English:
+• Zone XXX is not authorized for storage of items with quality code YYYY
+• Clear the location input field
+• Block validation
+• Case 2 – Location belongs to multiple zones
+If:
+• At least one zone allows the quality
+• And another zone forbids it
+Then:
+→ Storage must be ALLOWED
+(Standard behavior continues)
+• 5. Functional Flow – Cariste Storage Module
+• 5.1 Operator Steps
+1. Select: Cariste Storage
+2. Flash Support
+3. Flash Storage Location
+• 5.2 Control Point
+Before validation:
+Use:
+• PE222
+Sensitivity: I1n1t.e02r.n20a2l6 Page n° 4/7
+
+[PAGE 5]
+Spécifications Détaillées
+• 5.3 Validation Logic (PE222)
+Condition: ACT_TOP17 = 1
+• Case 1 – All associated zones forbid the quality
+If the flashed location belongs only to zones where:
+• Current Quality Code ∈ ZEM_ALPHA1
+Then:
+• Display error message:
+• Zone XXX is not authorized for storage of items with quality code YYYY
+• Return FALSE
+• Block storage
+• Case 2 – At least one zone allows the quality
+If:
+• Location belongs to multiple zones
+• At least one zone allows the quality
+Then:
+• Return TRUE
+• Allow storage
+• 6. Technical Implementation
+• 6.1 PE863 – Multi-BL Reception
+• Branch created from STD175 (28.06)
+• PE863 located in:
+• F175_RMB0380
+Add initialization in Speed Radio 28.06b:
+• InitBDDPen(
+• "863",
+• "On Validation - F175_RMB0380",
+Sensitivity: I1n1t.e02r.n20a2l6 Page n° 5/7
+
+[PAGE 6]
+Spécifications Détaillées
+• CodeAPPModuleRadio,
+• "Multi-BL Reception - MOD175",
+• "pListeSTK_KEYU"
+• )
+• PE863 Processing Logic
+If ACT_TOP17 = 1:
+• IF location belongs ONLY to zones that forbid quality:
+• → Show error
+• → Clear input field
+• → Block validation
+•
+• IF location belongs to multiple zones AND at least one allows quality:
+• → Do nothing
+• → Continue standard storage
+• 6.2 PE222 – Cariste Storage
+If ACT_TOP17 = 1:
+• IF location belongs ONLY to zones that forbid quality:
+• → Show error
+• → Return FALSE
+•
+• IF location belongs to multiple zones AND at least one allows quality:
+• → Return TRUE
+• 7. Validation & Legal Statement
+AGL acknowledges and validates all elements described in this document.
+BK Systèmes commits to delivering the solution according to the approved specifications within the
+scope of the agreed quotation.
+Any additional request or evolution beyond this document may be subject to additional quotation.
+Sensitivity: I1n1t.e02r.n20a2l6 Page n° 6/7
+
+[PAGE 7]
+Spécifications Détaillées
+All non-explicitly stated provisions are excluded from scope and remain at the discretion of the
+concerned parties.
+Signed at: Vaulx-Milieu
+Date: 25/03/2025
+Company Signature & Stamp:
+Sensitivity: I1n1t.e02r.n20a2l6 Page n° 7/7

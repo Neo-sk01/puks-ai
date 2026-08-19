@@ -1,0 +1,127 @@
+[META]
+chunk_type: text
+source_file: Management of expected receptions.pdf
+category: RECEIVING GOODS
+total_pages: 5
+[/META]
+
+[PAGE 1]
+SOP: Management of Expected Receptions in Speed WMS
+Sensitivity: Internal
+1. Purpose
+This SOP explains how to view, manage, and process expected receptions in Speed
+WMS.
+Expected receptions are used to anticipate incoming goods (purchase orders or
+returns) before physical receipt and to control receiving accuracy.
+2. Functional Scope
+• Module: Receiving → Expected
+• Business Process: Expected Receipts Management
+• Applicable for:
+o Purchase Orders
+o Returns of Goods
+3. Definition: Expected Reception
+An expected reception line represents:
+• A quantity of a specific item
+• Expected to be received
+• For a given order reference (usually supplier PO)
+• With a planned receipt date
+Each expected reception line is consumed when a corresponding stock entry
+movement is created in Speed.
+Important:
+Expected receptions do not create stock on their own.
+Stock is only created when a receipt is generated and validated.
+4. Accessing Expected Receptions
+1. Navigate to Receiving
+Sensitivity: Internal
+
+[PAGE 2]
+2. Select Expected
+This opens the Expected Receptions Management screen, displaying all expected
+reception data for the current activity.
+5. Display Modes
+Speed allows two different display modes for expected receptions.
+5.1 Expected Reception Headers View
+This view groups expected lines by expected reception header (order-level view).
+Used when:
+• Managing receipts by supplier or PO
+• Initiating reception for multiple lines at once
+5.2 Expected Items Portfolio View
+This view displays individual expected item lines.
+Used when:
+• Managing quantities at item level
+• Modifying or deleting specific expected lines
+5.3 Configuring the Display Mode
+The display mode is controlled via global settings:
+Path:
+System → Global → Module → Expected
+The user must define whether the screen opens in:
+• Header view
+• Item portfolio (line-level) view
+6. Status Management
+Expected receptions are organized by status, which reflects their progression in the
+receiving process.
+Sensitivity: Internal
+
+[PAGE 3]
+Typical lifecycle:
+1. Expected created
+2. Expected linked to a receipt
+3. Quantity consumed when stock entry occurs
+4. Expected closed once fully consumed
+Consumption occurs only when an entry movement into stock is recorded.
+7. Available Actions
+From the Expected Receptions screen, users can:
+7.1 Create Expected Reception Lines
+• Manually create new expected lines
+• Define item, quantity, quality, planned date
+• Interface creation (external import) is also supported
+7.2 Modify Expected Reception Lines
+• Update quantities, dates, or references
+• Changes can be applied:
+o Individually
+o Globally (bulk updates)
+7.3 Import Expected Receptions from File
+• Import a list of expected items (Excel or interface file)
+• Used for bulk creation from supplier data or ERP
+7.4 Delete Expected Reception Lines
+• Allowed only if:
+o The expected line is not already consumed
+o No stock entry movement is linked
+Sensitivity: Internal
+
+[PAGE 4]
+• System constraints apply to prevent data inconsistency
+7.5 Initiate the Reception Process
+• Select one or more expected lines
+• Use the contextual menu
+• Associate selected expected lines with a Speed receipt
+• This action launches the receipt creation process
+8. Business Rules & Behavior
+• One expected line = one planned receipt quantity
+• Partial consumption is allowed
+• Consumption = quantity received into stock
+• Expected lines remain editable until consumption starts
+• Once stock entry is validated, expected quantities are reduced
+9. Data Model Reference (Support / RAG Context)
+Object Table
+Expected Reception Header REA_DAT
+Expected Reception Lines REL_DAT
+Receipt Header REE_DAT
+Stock Entry Movement MVT_DAT
+10. Common RAG Questions This SOP Answers
+• What is an expected reception in Speed?
+• How do expected receptions work?
+• When is an expected quantity consumed?
+• How do I initiate a receipt from expected items?
+Sensitivity: Internal
+
+[PAGE 5]
+• Can expected receptions be deleted or modified?
+• Why does an expected line remain open after receipt creation?
+11. Best Practices
+• Always use expected receptions for planned deliveries
+• Import expected items for large or repetitive receipts
+• Do not delete expected lines that are partially consumed
+• Validate expected data before linking to a receipt
+• Use item-level view for detailed control
+Sensitivity: Internal

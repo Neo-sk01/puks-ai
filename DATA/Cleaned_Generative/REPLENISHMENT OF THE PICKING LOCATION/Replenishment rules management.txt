@@ -1,0 +1,70 @@
+[META]
+chunk_type: text
+source_file: Replenishment rules management.pdf
+category: REPLENISHMENT OF THE PICKING LOCATION
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Access
+• Menu: Settings / Location / Areas
+• Select a picking replenishment zone (type 003) → Context menu →
+Replenishment
+The settings apply to all picking locations within the selected area.
+Main Parameters for Picking Replenishment
+1. Picking quality
+o Defines the quality of items to be replenished at the picking location.
+2. Areas of origin for replenishment
+o Stock is taken from these areas.
+o Multiple areas can be selected with priorities.
+o Rule: Picking zones can only replenish from storage zones and vice
+versa.
+3. Picking expression unit
+o Defines the unit used for picking (e.g., pallet, box).
+o Converts the expression value into item stock units (SU).
+4. Picking capacity
+o Maximum quantity that can be picked (in picking expression units).
+5. Replenishment trigger threshold
+o Percentage threshold that triggers replenishment.
+6. Activation if needed
+o Enables replenishment if certain conditions are met.
+7. Max quantity per replenishment line
+o Defines the maximum quantity moved per replenishment line.
+o Prevents exceeding transport limits; if blank, the entire need can be
+moved at once.
+8. Replenishment SU
+o Specifies which stock unit (SU) to replenish.
+Sensitivity: Internal
+
+[PAGE 2]
+o Must be managed at the item master level.
+o Can be replenished by package, pallet, or stock support.
+9. Support
+o Determines whether to replenish the entire stock support (full pallet,
+bin, etc.), regardless of quantity.
+Criteria for Replenishment Quantity
+These determine how much to replenish:
+1. Restrict to the need
+o Replenish only the minimum quantity necessary.
+2. Necessity replenishment
+o Replenish at least one replenishment unit.
+3. Saturation of the picking
+o Always replenish the minimum needed to serve orders.
+o Saturation only fills up to maximum picking quantity.
+Note: The first three options are mutually exclusive.
+4. Limit to max picking
+o Ensures replenishment does not exceed the maximum picking limit.
+5. Nature of replenishment
+o Allows assigning a type or priority to replenishments for processing in
+RF (e.g., standard, manual, scheduled).
+6. Generation of transfer by forklift
+o Creates transfer forecasts.
+o Updates media status to 03 so operators can move stock.
+Specific Sorting
+• The “Specific sorting” tab controls the order in which stock lines are offered
+for replenishment.
+• Useful for prioritizing stock locations, oldest stock first, or specific zones.
+Sensitivity: Internal
+
+[PAGE 3]
+Sensitivity: Internal

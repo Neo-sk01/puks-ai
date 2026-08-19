@@ -1,0 +1,27 @@
+[META]
+chunk_type: text
+source_file: Sampling details.pdf
+category: LOADING
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Sampling details
+Functionality available from the Shipping menu / Sampling.
+This feature allows you to view all the picking in progress, classify them and assign them
+various shipping items. It is used for maintenance operations, and not recommended
+for operational processes.
+In particular, it allows you to control:
+.The content of an order, a mission, a support etc.
+.The status of an order, a mission, a support etc.
+These direct debits have a changing status, corresponding to the different tabs available
+in the window:
+.To prepare: the samples are generated and are to be prepared; status 010
+.Prepared: samples are taken. The stock issue has been carried out; status 040
+.Pre-shipped: the samples are packed; status 060
+.Shipped: samples are shipped; status 070
+.Terminated: direct debits are balanced; status 050
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

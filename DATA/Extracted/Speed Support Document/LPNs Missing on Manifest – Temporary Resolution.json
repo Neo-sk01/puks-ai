@@ -1,0 +1,76 @@
+{
+  "document_name": "LPNs Missing on Manifest – Temporary Resolution",
+  "version": "1.0",
+  "authoritative": true,
+  "core_tables": {
+    "MIL_DAT": "Mission Lines",
+    "SEX_DAT": "Support Header"
+  },
+  "join_logic": {
+    "inbound": {
+      "primary_keys": [
+        "SEX_NOOE"
+      ],
+      "description": "Identify missing LPNs by comparing mission lines and support headers.",
+      "example_pattern": "MIL_DAT.OPE_NOOE = SEX_DAT.SEX_NOOE"
+    },
+    "outbound": {
+      "primary_keys": [],
+      "description": "N/A",
+      "example_pattern": ""
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "LPNs Missing on Manifest – Temporary Resolution",
+      "category": "Support / Manifest",
+      "access_level": "Support Only",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Identify Affected LPNs",
+          "query": {
+            "sql": "SELECT sex.SEX_SUPE, mil.MIL_SUPP, mil.OPE_NOOE, mil.MIE_NOMI, sex.SEX_NOMI, sex.SEX_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = 'RSAJHBCLA' AND sex.SEX_NOOE = '0';"
+          },
+          "actions": [
+            "Records returned indicate LPNs that will not appear on the manifest.",
+            "The issue is caused by a missing SEX_NOOE value."
+          ]
+        },
+        {
+          "step_number": 2,
+          "description": "Temporary Fix: Update Missing Order Number",
+          "update": {
+            "sql": "UPDATE SEX_DAT SET SEX_NOOE = mil.OPE_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = 'RSAJHBCLA' AND sex.SEX_NOOE = '0';"
+          },
+          "actions": [
+            "SEX_NOOE is populated with the correct OPE_NOOE.",
+            "The LPN now correctly reflects on the manifest.",
+            "Manifest ETAT functions as expected."
+          ]
+        }
+      ],
+      "expected_outcome": [
+        "SEX_NOOE is populated with the correct OPE_NOOE.",
+        "The LPN correctly reflects on the manifest.",
+        "Manifest ETAT functions as expected."
+      ],
+      "important_notes": [
+        "This is a temporary workaround, not a permanent fix.",
+        "Execute only when the issue is confirmed.",
+        "Database updates must be performed by Support.",
+        "Monitor recurring cases to assist with root cause analysis."
+      ]
+    }
+  ],
+  "safety_rules": [
+    "Always execute SELECT before performing any UPDATE.",
+    "Support-level SQL only.",
+    "Verify ACT_CODE and order number before updating."
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "LPNs Missing on Manifest – Temporary Resolution.json",
+    "category": "Speed Support Document"
+  }
+}

@@ -1,0 +1,27 @@
+[META]
+chunk_type: text
+source_file: Storage tab.pdf
+category: STORAGE
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Storage tab
+All the generated reception lines will be accessible via the menu Receiving / Receipts,
+then in the Storage tab of the receipt:
+The following will be specified in particular for each support entered:
+.Its current location, which matches the location of the reception
+.The reference picking layout for the item
+.The intended location of destination, blank by default in administrative mode
+.The status of the support, depending on the status of the activity
+The ranking will be done either declaratively or through the use of parameterized
+location search rules.
+Note that it will be possible to store the goods directly on their picking location. The
+button Initialize picking will allow you to directly enter the picking location as the
+destination location of the selected lines.
+Whichever method is chosen, the result will be the same: it is a question of obtaining a
+planned location for each line of the reception.
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

@@ -1,0 +1,46 @@
+{
+  "document_name": "Trace Movement by Support Number",
+  "version": "1.0",
+  "authoritative": true,
+  "core_tables": {
+    "REE_DAT": "Receipt Header",
+    "REL_DAT": "Receipt Lines",
+    "STK_DAT": "Stock",
+    "MVT_DAT": "Movements",
+    "OPE_DAT": "Order Header",
+    "OPL_DAT": "Order Lines",
+    "MIE_DAT": "Mission Header",
+    "MIL_DAT": "Mission Lines",
+    "CHG_DAT": "Loading Header",
+    "CHL_DAT": "Loading Lines"
+  },
+  "join_logic": {
+    "inbound": {
+      "primary_keys": ["REL_NOSU", "REE_NORE"],
+      "description": "Inbound joins should prioritise NOSU (support number) and REE_NORE (reception line).",
+      "example_pattern": "REL_DAT.REL_NOSU = STK_DAT.STK_NOSU"
+    },
+    "outbound": {
+      "primary_keys": ["OPL_NOSU", "OPE_NOOE"],
+      "description": "Outbound joins should prioritise OPL_NOSU (support number) and OPE_NOOE (order line).",
+      "example_pattern": "OPL_DAT.OPL_NOSU = MVT_DAT.MVT_NOSU"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Trace Movement by Support Number",
+      "category": "Movement",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT * FROM MVT_DAT WHERE ACT_CODE = ACTIVITY_CODE AND MVT_NOSU = SUPPORT_NUMBER;"
+      },
+      "business_logic": "Tracks stock movement by support number."
+    }
+  ],
+  "safety_rules": [
+    "Always execute SELECT before UPDATE.",
+    "Do not execute UPDATE in production without approval.",
+    "Support-level SQL only.",
+    "Follow inbound/outbound join rules."
+  ]
+}

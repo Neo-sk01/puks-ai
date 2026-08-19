@@ -1,0 +1,33 @@
+Sequence creation
+It is possible to create new locations using the burst mode of SpeedWMS.
+This mode allows the easy creation of sequences of locations, including several
+characteristics.
+Just like with the unitary creation, only the elements linked with the warehouse and the
+aisle are mandatory.
+The principle is to specify in column the list of values to include in the map, for each
+characteristic of the locations to create.
+Note: These lists can directly be copied from an Excel file in order to make the process
+easier :
+Sensitivity: Internal.The store: alphanumeric of 6 characters maximum
+.The driveway: alphanumeric of 3 characters maximum
+.The column: alphanumeric of 3 characters maximum
+.The level: alphanumeric of 3 characters maximum
+.The box: alphanumeric of 3 characters maximum
+It is then necessary to indicate to construction method of the location names.
+The user must define , for each element, the position of the first character, and the
+number of characters to take into account.
+Example :
+.1.6 : Taken into account from the first character over a length of 6 characters in total
+.0.0 : Element not taken into account in the construction of the location name
+Sensitivity: InternalIt is also possible to define a separating character between each element. This one can
+be different
+The control location name is updated simultaneously regarding the entered elements:
+Sensitivity: InternalA click on the Generate button enables SpeedWMS to calculate all the locations to the
+map. They will all be listed in the lower part of the table as a preview, but not created yet
+in the environment.
+The validation of the window will enable the creation of the location if the user is
+comfortable with the information of the preview.
+Note : A location name is unique. SpeedWMS controls the uniqueness of the elements
+before their creation. No duplicate detected at this stage of the process will be created
+or added to the locations list.
+Sensitivity: InternalSensitivity: Internal

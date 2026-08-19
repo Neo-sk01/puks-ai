@@ -1,0 +1,5 @@
+Import of expected items
+Possibility to import a list of expected items from Receiving / Expected.
+The Import button allows to import expected:
+Importing is done from an existing excel file:
+Sensitivity: Internal

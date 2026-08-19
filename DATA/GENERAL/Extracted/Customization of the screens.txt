@@ -1,0 +1,39 @@
+Customization of the screens
+The vast majority of screens of SpeedWMS have configurable user views. All the
+elements (data type, layout, filter, etc.) constituting the results table used by the user
+are called a « View ».
+Depending on the activated rights, each Speed user can define, for each feature, his
+own views according to the elements he needs.
+The view is user-specific by default. Thus the screen views can be different from one
+employee to another.
+The configuration of any view is available with the settings button :
+Sensitivity: InternalThe screen is divided into three parts :
+.On the left, the list of the tables in which it is possible to select an information to add to
+the current view. Double-clicking on a table expands its tree structure and displays the
+list of all the elements.
+.On the right, the list of the information currently present in the view :
+-The upper part displays an insight of the screen once validated
+-The lower part, provides information concerning the selected element (with black
+background).
+It is thus possible to customize the titles and adapt the layout for each element
+displayed.
+The list of tables in which it is possible to choose the different information differs
+according to the functionality being configured.
+It is possible to filter the search for items by entering a keyword in the Filter field. For
+each table, the list of elements containing the entered term appears, facilitating the
+search:
+➢Adding an element to the current view
+Sensitivity: InternalA click on after the selection of the line to add to the table, enable to add
+its column to the table.
+A double-click on the element in the left list also enables to add it to the view current
+view.
+The element is added, by default, in the very last position.
+➢Deleting an element from the current view
+Selection of the column corresponding to the element to be deleted in the upper right
+part, and click on to delete the information from the current view.
+Sensitivity: InternalIt is possible to organize the display order of the different elements by directly moving
+the columns in the desired display order.
+Note : Usually, the first information is the unique registration key for SpeedWMS. This
+information is necessary for the proper functioning of SpeedWMS. And it is not possible
+to delete or move it. However, it is possible to hide it (see advanced customization).
+Sensitivity: Internal

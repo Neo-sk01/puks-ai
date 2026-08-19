@@ -1,0 +1,41 @@
+[META]
+chunk_type: text
+source_file: Gauge.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Gauge (Settings / Items / Gauges)
+The Gauge feature in SpeedWMS allows you to qualify the dimensions of locations
+and the objects to be stored. It helps ensure items fit in their assigned slots and
+can be used for calculating occupancy rates.
+Capabilities
+• View all existing gauge codes in the system.
+• Create new gauge codes.
+• Modify properties of an existing gauge.
+• Delete a gauge (with constraints).
+Gauge Sheet Fields
+Field Description
+Gauge Code Unique identifier for the gauge. Alphanumeric, max 10 characters.
+Gauge
+Label or name of the gauge.
+Designation
+Pallet
+Numeric value used to calculate space occupancy.
+Equivalent
+Determines whether the gauge applies to:
+Application - Supports (items to store),
+Scope - Slots (locations),
+- Or both.
+If applied to supports, specifies the physical dimensions of the
+Occupation
+support. Can be used in location search procedures to ensure
+Dimensions
+compatibility, e.g., considering rail width before storage.
+Notes:
+• The gauge is useful for automated location searches to determine if a
+support can fit in a given slot.
+• Helps maintain efficient space utilization and avoid errors during stock
+placement.
+Sensitivity: Internal

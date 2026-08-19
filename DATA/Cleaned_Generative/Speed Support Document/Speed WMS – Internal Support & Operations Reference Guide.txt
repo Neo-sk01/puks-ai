@@ -1,0 +1,248 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – Internal Support & Operations Reference Guide.pdf
+category: Speed Support Document
+total_pages: 9
+[/META]
+
+[PAGE 1]
+Speed WMS – Internal Support Reference Guide
+Sensitivity: Internal
+System: Speed WMS
+Audience: Support / Technical / Operations
+1. User Access & System Support
+Giving a New User Access to Speed
+Contact Person: Alan Bezuidenhout
+Required Information:
+• Windows URL
+• Email Address
+• Active Directory (AD) Account
+Network Issues on Speed
+Contact Persons:
+• Moses Lengoabala
+• Tebogo Masemola
+Use this escalation path when users experience:
+• Connectivity issues
+• Slow system performance
+• Inability to log into Speed
+Adding a New Account (Folder / Country)
+Contact Person: BK System
+2. Support Status – Inbound
+Status Description
+001 In Place
+Sensitivity: Internal
+
+[PAGE 2]
+Status Description
+100 To Store
+200 Closed
+3. Stock Classification
+Class Description
+A Active locations – Fast-moving products (Bulk Storage / Pick & Pack)
+B Racking – Seasonal-moving products
+C Slow-moving products
+4. Picking Sequence
+• Snake Shape
+o Pick Phase
+o Reach Truck Picking
+o Replenishment from top to bottom
+• ZigZag Shape
+o Pick Phase
+5. Stock Rotation Rules
+• FIFO: First-In, First-Out
+• LIFO: Last-In, First-Out
+• Production Company Logic:
+o Production Date determines outbound processing
+o Best Before Date (BBD) is taken into account
+6. Customer & Third-Party Management
+Adding a New Customer Account
+Sensitivity: Internal
+
+[PAGE 3]
+Mandatory Information:
+• Address
+• Prefix
+Third Party Types
+Type Code
+Supplier 001
+Carrier / Transporter 002
+Recipient 003
+Mandatory Fields:
+• Customer Account
+• Third Party Code
+• Third Party Name
+• Third Party Type
+• Address
+7. Receiving & Dock Rules
+Receiving Dock
+• Picking is not allowed on receiving dock locations
+• Exception: Cross-Docking
+Cross-Docking
+A Just-In-Time logistics practice where goods move directly from inbound to outbound
+without storage.
+8. Zones & Locations
+Zone Type
+• Picking Area → Replenishment
+• Replenishment → Restoring stock levels
+Sensitivity: Internal
+
+[PAGE 4]
+Location Search Rule
+• Rule Name: RECH_EMP_STRUCTURE
+• Description: Search within location structure
+9. Item Master Data (New Items)
+Mandatory Fields
+• Customer Account
+• Item Code
+• Long Description
+• Batch Managed (1 = Yes, 0 = No)
+• Classification (Isling: 1–4)
+• Serial Managed
+• Third Party Code
+10. Preparation & Picking
+Preparation Sequence
+Orders must be:
+• Picked
+• Completed
+• Closed per location, before moving to the next
+11. Inbound / Receiving
+Master Data Coding
+• Receipt: 001
+• Returns: 100
+Mandatory Fields
+• Customer Account
+• Third Party Code
+Sensitivity: Internal
+
+[PAGE 5]
+• Receipt Date
+• Receiving Dock
+• Contractor Reference
+• Batch (if managed)
+• Best Before Date (if managed)
+• Serial Number (if managed)
+Location Type
+• Planned location must be associated with Storage Area
+12. Reception Status (Returns)
+Status Description
+001 In Progress
+100 Stored
+200 Closed
+13. Global Settings
+Receiving Information
+• Store before closing → Receiving Dock
+• Storage after closing → Planned Location
+Additional Information
+• Global Information: Applies to all customer accounts
+• Variables Information: Activity-specific, can vary by customer
+14. Inbound Template Import
+• Ensure the Excel file is saved and closed before importing into Speed
+15. Stock Management
+Sensitivity: Internal
+
+[PAGE 6]
+Stock Modification
+• Requires Reason Codes
+• Reason Codes are created under:
+o Global Settings → Modules → Stock
+Support Number
+• Auto-generated if not provided in dataloader
+• Used for full stock traceability
+16. Order Preparation
+Order Statuses
+Status Description
+010 In Seizure
+020 In Wave
+030 Preparing
+050 Validated
+060 Packed
+070 Shipped
+Order Types
+• Preparation
+• Replenishment
+• Countermark
+• Cross-stock
+17. Mission Lines
+Status Description
+010 To Prepare
+Sensitivity: Internal
+
+[PAGE 7]
+Status Description
+030 In Progress
+040 Validated
+050 Terminated
+18. Loading
+• Investigate Grouping Support Number issues when loading errors occur
+19. Item Code Updates
+View Item
+SELECT *
+FROM ART_PAR
+WHERE ACT_CODE = 'Activity Code'
+AND ART_CCLI = 'Customer Account';
+Update Item
+UPDATE ART_PAR
+WHERE ACT_CODE = 'Activity Code'
+AND ART_CCLI = 'Customer Account'
+AND ART_KEYU = 'Item KEYU';
+Important:
+If stock already exists, you must also update:
+• Movements
+• Stock
+• Reception Lines
+20. Reception Line Update
+SELECT *
+FROM REL_DAT
+Sensitivity: Internal
+
+[PAGE 8]
+WHERE ACT_CODE = 'Activity Code';
+UPDATE REL_DAT
+SET ART_CODE = 'Updated Item Code'
+WHERE ACT_CODE = 'Activity Code'
+AND ART_CODE = 'Current Item Code'
+AND ART_KEYU = 'Item KEYU';
+Definitions:
+• ART_CODC → Actual Customer Item Code
+• ART_CODE → Prefixed Item Code
+• REL_DAT → Reception Line Table
+• REL_SSUP → Storage Support Status
+21. Location / Zone Updates
+SELECT *
+FROM EMP_BAS;
+UPDATE EMP_BAS
+SET EMP_ZONE = 'Updated Area'
+WHERE EMP_KEYU = 'Location KEYU';
+22. Updating Reception Status
+UPDATE REE_DAT
+SET REE_ETRE = '100'
+WHERE REE_NoRE = 'Reception Number'
+AND ACT_CODE = 'Activity Code'
+AND REE_KEYU = 'Reception Header KEYU';
+Sensitivity: Internal
+
+[PAGE 9]
+Warning:
+Do not update inbound stock directly via DB unless absolutely necessary, as it will
+require deleting:
+• Stock
+• Movements
+• Reception Lines
+23. Orders – Reversal from Shipped (070)
+Revert Order to Packed
+SELECT *
+FROM OPE_DAT
+WHERE ACT_CODE = 'Activity Code'
+AND OPE_NOOE = 'Order Number';
+UPDATE OPE_DAT
+SET OPE_STAT = '060'
+WHERE ACT_CODE = 'Activity Code'
+AND OPE_NOOE = 'Order Number';
+Important Process Notes
+• After reverting to Packed (060):
+o Continue actions in Speed, not SQL
+o Move order back to Validated
+o Then to Preparation
+o Then to Seizure (010)
+Only at Seizure can the order be modified or deleted.
+Sensitivity: Internal

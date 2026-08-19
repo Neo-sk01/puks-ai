@@ -1,0 +1,131 @@
+[META]
+chunk_type: text
+source_file: LOREAL Sorting Logic Modification in Multi-Order Picking.pdf
+category: LOREAL
+total_pages: 5
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Sorting Logic Modification in Multi-Order Picking
+Module: MOD11
+Screen: PMC0300
+Version: 1.0
+Date: 08/07/2025
+Author: ZBA
+DOCUMENT METADATA (for Vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"module": "MOD11 - Multi-Order Picking",
+"screen": "PMC0300",
+"feature": "Mission Line Sorting Modification",
+"activation_flag": "ACT_TOP31",
+"version": "1.0"
+}
+SECTION 1 — Business Context / Functional Need
+1.1 Current Context
+As part of the L’Oréal project, the client uses:
+MOD11 – Multi-Order Picking
+Within screen:
+PMC0300 – Picking Details Screen
+This screen displays mission lines (picking tasks).
+Sensitivity: Internal
+
+[PAGE 2]
+1.2 Current Sorting Logic
+Today, mission lines are sorted as follows:
+1. First by Zone (ZEM_CODE)
+2. Then by Picking Path Order (MIL_NoOR)
+Current Sorting Logic
+ORDER BY ZEM_CODE,
+MIL_NoOR
+1.3 Business Issue
+In the client’s warehouse layout:
+• ZPA rack zone
+• Dedicated picking zone
+are located:
+• In the same aisle
+• One above the other vertically
+Because sorting prioritizes zone first:
+The operator may pass through the same aisle multiple times
+Picking efficiency is reduced
+1.4 Requested Evolution
+The client wants mission lines to be sorted:
+Only by picking path order (MIL_NoOR)
+No sorting by zone
+This allows:
+• A single physical pass in the aisle
+• Simultaneous picking from both zones
+SECTION 2 — Functional Behavior
+Sensitivity: Internal
+
+[PAGE 3]
+Activation Condition
+This specific behavior will only be active if:
+ACT_TOP31 = 1
+New Sorting Logic (When ACT_TOP31 is Enabled)
+IF ACT_TOP31 = 1
+THEN
+ORDER BY MIL_NoOR
+ELSE
+ORDER BY ZEM_CODE,
+MIL_NoOR
+ENDIF
+SECTION 3 — Process Flow
+1. Operator launches MOD11.
+2. Screen PMC0300 displays picking mission lines.
+3. System checks:
+IF ACT_TOP31 is flagged
+4. If flagged:
+o Apply sorting only on MIL_NoOR.
+5. If not flagged:
+o Apply standard sorting (Zone + MIL_NoOR).
+SECTION 4 — Technical Logic
+Standard Logic (Without PE)
+ORDER BY ZEM_CODE,
+MIL_NoOR
+Sensitivity: Internal
+
+[PAGE 4]
+Custom Logic (With PE + ACT_TOP31)
+ORDER BY MIL_NoOR
+Entry Point Behavior
+ON PMC0300_LOAD:
+IF ACT_TOP31 = TRUE THEN
+APPLY_SORT(MIL_NoOR)
+ELSE
+APPLY_STANDARD_SORT(ZEM_CODE, MIL_NoOR)
+ENDIF
+SECTION 5 — Functional Summary (RAG Optimized)
+What module is impacted?
+MOD11 – Multi-Order Picking.
+What screen is impacted?
+PMC0300 – Picking Details Screen.
+What is modified?
+Sorting order of mission lines.
+What changes?
+Sorting is based only on MIL_NoOR instead of ZEM_CODE + MIL_NoOR.
+Why?
+To allow picking in ZPA rack and dedicated picking zones in a single aisle pass.
+How is it activated?
+By flag ACT_TOP31.
+SECTION 6 — Conditions Matrix
+Sensitivity: Internal
+
+[PAGE 5]
+ACT_TOP31 Sorting Logic Applied
+0 (Not flagged) ZEM_CODE, MIL_NoOR
+1 (Flagged) MIL_NoOR only
+SECTION 7 — Client Validation
+AGL acknowledges receipt and validates all elements included in this document.
+BK Systèmes commits to delivering the solution that meets the validated requirements
+within the scope of the approved quotation.
+Any additional request or evolution beyond this document may require a supplementary
+quotation.
+Any provision not explicitly stated in this document is not covered and remains at the
+discretion of the concerned parties.
+Signed at Vaulx-Milieu, on 25/03/2025.
+Company stamp and signature:
+Sensitivity: Internal

@@ -1,0 +1,30 @@
+Customer account management
+Functionality accessible only if the activity manages the Customer account.
+It enables to split the activity by customer account and each receiving or preparation
+operation will necessarily be assigned to a customer account.
+Customer account management must be activated in the relevant activity sheet.
+Access: System / Activity / double-click on the activity:
+It will be possible to define if the data (items, third parties, etc.) are common to all
+customer accounts.
+Those which are not will see their pr code prefixed with the relevant customer account.
+.Create different customer accounts
+.Validate and restart SpeedWMS for the change to be taken into account.
+Feature then available for setting through Settings /Third p. / Customer accounts:
+Sensitivity: InternalThe creation of a customer account is done via the add button, and allows to open a
+new customer account form :
+.Activity :filled in automatically, it'sactivity on which the operator is located when
+creating the account
+.Code :customer account reference.
+.Designation :customer account name.
+Sensitivity: Internal.Prefix :alphanumeric characters (maximum of 5 characters). The account item codes
+will consist of the defined prefix followed by the item code.
+Possibility to also assign a logo to the customer account
+Then you have to fill in the coordinates are of the customer; it is even possible to add
+useful Comments that might give information when preparing an order, generating a
+delivery note or a bill for example.
+Additionnal information can also be included in the dedicated tab.
+Each customer can also be the subject of specific diverse operations according to the
+setting.
+For more information related to this subject, please consult the section dedicated to
+the Diverse operations .
+Sensitivity: Internal

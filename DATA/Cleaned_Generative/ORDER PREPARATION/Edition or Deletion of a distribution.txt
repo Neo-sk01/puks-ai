@@ -1,0 +1,20 @@
+[META]
+chunk_type: text
+source_file: Edition or Deletion of a distribution.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Edition / Deletion of a Distribution
+Access
+• Menu: Preparation / Distribution
+• Options: Available in the contextual menu under General Actions
+Key Points
+• Edit Distribution: Allows modification of a distribution before it is launched.
+• Delete Distribution: Allows removal of a distribution before it is launched.
+• Restriction: Once a distribution has been launched, it cannot be edited or
+deleted.
+Tip: Always ensure that the distribution details are correct before launching, as
+changes are irreversible afterward.
+Sensitivity: Internal

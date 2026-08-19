@@ -1,0 +1,26 @@
+[META]
+chunk_type: text
+source_file: Place management.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS – Place Management
+Purpose:
+Define and manage the concept of “Place” for transportation in SpeedWMS,
+ensuring loads are correctly characterized and documented.
+1. Definition
+• Place management is a transport characteristic assigned to a load.
+• It is defined in the “Transport” tab of the load in SpeedWMS.
+2. Functionality
+• Users can create or modify places directly in the table provided within the
+module.
+• The “Mention” field allows free-text comments that may be used for:
+o Documentation purposes
+o Transport instructions
+3. Key Notes
+• Place management ensures proper load classification and can be
+referenced in transport documents.
+• Changes are effective immediately once saved in the system.
+Sensitivity: Internal

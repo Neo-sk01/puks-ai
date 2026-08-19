@@ -1,0 +1,45 @@
+[META]
+chunk_type: text
+source_file: Introductions- Favourites.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Favourites, Shortcuts & Dynamic Menu
+Purpose:
+• Allows users to organize main actions and functions for quick access.
+• Improves efficiency by providing direct links to frequently used screens.
+Key Concepts:
+Concept Description
+Records a view and its active filters. Accessible via the Favourites
+Favourite
+button in the shortcuts ribbon.
+Any element that can be inserted into the dynamic menu. Must be
+Widget
+linked to a Favourite.
+A type of widget representing a Favourite in the dynamic menu.
+Bench Displays a cumulative view and is clickable to access the screen
+directly.
+The user’s welcome screen in SpeedWMS containing different
+Dynamic
+benches/widgets. Appears automatically on application start once
+Menu
+configured.
+Provides direct access to an operational function of SpeedWMS from
+Shortcut
+the Shortcuts ribbon, based on the current view.
+Ribbon – My Shortcuts Section:
+Contains three menus to manage favourites and shortcuts:
+1. Widget Menu – Manage widgets inserted in the dynamic menu.
+2. Personal Menu – Configure user-specific shortcuts and preferences.
+3. Add a Shortcut – Create direct access to frequently used operational
+functions.
+Notes:
+• All favourites, widgets, and shortcuts are user-specific.
+Sensitivity: Internal
+
+[PAGE 2]
+• Configuration allows for customized views and direct navigation, improving
+workflow efficiency.
+Sensitivity: Internal

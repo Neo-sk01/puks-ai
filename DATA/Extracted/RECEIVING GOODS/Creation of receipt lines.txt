@@ -1,0 +1,140 @@
+[META]
+chunk_type: text
+source_file: Creation of receipt lines.pdf
+category: RECEIVING GOODS
+total_pages: 5
+[/META]
+
+[PAGE 1]
+SOP: Creating Receipt Lines in Speed WMS
+Sensitivity: Internal
+1. Purpose
+To describe the standard procedure for adding receipt lines to an existing receipt
+header in Speed WMS.
+Each receipt line represents one storage medium that will later be generated into
+stock.
+2. Prerequisite
+• A receipt header must already exist and be open.
+• Receipt lines are added before stock generation.
+• No stock movement is created until stock generation is performed.
+3. General Rules for Receipt Lines
+Regardless of the input method used, the following rules always apply:
+• Item code must exist
+o It is not possible to receive an item that does not have an article
+master (item sheet) in Speed WMS.
+• Quantity is always stored in units per storage medium
+o Even if entered in alternative logistic units, Speed converts and stores
+quantities in units.
+• Default quality
+o Taken from the item sheet or the default activity configuration.
+• Traceability fields
+o Fields such as Lot, Lot2, DLC, DLUO, etc. are mandatory if configured
+on the item sheet.
+• Owner assignment
+o Automatically populated if defined on:
+1. The item sheet (priority), or
+Sensitivity: Internal
+
+[PAGE 2]
+2. The activity
+o If no owner is predefined, the user must select one from the list of
+authorized owners.
+4. Minimum Required Information
+Each receipt line requires at least:
+• Item Code
+• Quantity to be received
+• Quality code
+5. Methods for Adding Receipt Lines
+Speed WMS provides multiple ways to add receipt lines. All methods create the
+same result.
+5.1 Direct Addition (Manual Entry)
+• Enter the item code directly in the New Receipt Line field.
+• Enter the quantity and quality.
+• Validate to create the line.
+Use case:
+Fast entry when the item code is known.
+5.2 Addition by Item Search
+• Right-click in the Item Code field.
+• Select Search for an Article.
+• The system displays items linked to the receipt supplier.
+• Enable All Suppliers to view all items in the activity.
+• Select the item → item code is auto-filled.
+• Enter quantity and quality, then validate.
+Sensitivity: Internal
+
+[PAGE 3]
+Use case:
+When item code is unknown or needs confirmation.
+5.3 Addition Using Item Templates (Grid Pattern)
+• Right-click in the Item Code field.
+• Select Item Templates.
+• Choose a predefined template linked to the activity.
+• Enter quantities:
+o All column: same quantity for all references
+o Individual columns: different quantities per reference
+• Validate to generate multiple receipt lines at once.
+Use case:
+Bulk or standardized receipts.
+5.4 Addition via Detailed Entry Form
+• Double-click in the Item Code field.
+• The detailed entry screen opens.
+• Allows access to:
+o All logistic units
+o Traceability fields
+o Advanced item attributes
+• Mandatory traceability fields become editable if required by the item.
+• Validate to create the receipt line.
+Use case:
+Complex items requiring traceability or advanced data entry.
+5.5 Addition by Excel Import
+• Click the Excel Import icon.
+• Paste or import an Excel file containing exactly three columns in this order:
+Sensitivity: Internal
+
+[PAGE 4]
+1. Item Code
+2. Quantity
+3. Quality Code
+Import options:
+• Unknown Item Code column displays items not existing in Speed.
+• Import First Line determines whether the first row is imported.
+• Preview / Printing shows how data will be imported.
+• Validate creates the receipt lines.
+Use case:
+Mass receipt creation from external systems.
+6. Reception Dock Handling
+• The reception dock is initially inherited from the receipt header.
+• If the dock is changed on the header after lines already exist, Speed prompts
+the user to:
+1. Keep existing lines unchanged, or
+2. Update the dock on all existing receipt lines
+7. Receipt Line Status Before Stock Generation
+• Receipt lines are saved but not yet in stock.
+• Field Tick Stock Input remains set to 0.
+• No stock movement (MVT_DAT) is created.
+• Supplier expected quantities are not consumed yet.
+• Receipt lines can still be:
+o Modified
+o Deleted
+without impacting Speed history.
+8. Stock Generation (Next Step)
+Sensitivity: Internal
+
+[PAGE 5]
+• Receipt lines only become stock after Stock Generation is executed.
+• Stock generation:
+o Creates records in STK_DAT
+o Creates movement records in MVT_DAT
+o Consumes expected quantities if linked to a supplier order
+9. Related Tables
+• REE_DAT – Receipt Header
+• REL_DAT – Receipt Lines
+• STK_DAT – Stock
+• MVT_DAT – Movements
+10. Common RAG Questions This SOP Supports
+• How do I add receipt lines in Speed WMS?
+• What information is mandatory for a receipt line?
+• Why don’t receipt lines appear in stock immediately?
+• How does Excel import work for receipts?
+• Where are receipt lines stored in the database?
+Sensitivity: Internal

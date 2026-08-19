@@ -1,0 +1,30 @@
+[META]
+chunk_type: text
+source_file: Ergonomics.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+SpeedWMS Ergonomics & User-Friendliness
+SpeedWMS is designed with ergonomics and ease of use as core principles. Users
+can:
+1. Display & Personalization
+• Configure which information is shown on list screens.
+• Customize column titles for clarity.
+2. Printing & Editions
+• Select from a list of available document editions.
+• Create activity-specific editions if required.
+• Modify personal edition templates (for trained users).
+3. Filtering & Queries
+• Apply filters to screens to quickly find information.
+• Build custom queries for specific operational needs.
+4. Data Export & Import
+• Export screen content to Excel, XML, or Word.
+• Import data from Excel or CSV files.
+5. Communication
+• Send emails directly from the interface.
+• Initiate phone calls to contacts from screens (e.g., receipts, order entry).
+Essentially, SpeedWMS empowers users to adapt screens, reports, and
+interactions to their workflows, making operations faster and reducing errors.
+Sensitivity: Internal

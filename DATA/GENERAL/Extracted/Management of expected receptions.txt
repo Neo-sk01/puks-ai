@@ -1,0 +1,30 @@
+Management of expected receptions
+Functionality available from the Receiving tab / Expected.
+Access to the functionality allows to obtain on the screen the list of all the expected
+receptions lines integrated under Speed. The different tabs allow you to view these
+expected receptions according to their status within the associated Speed reception.
+The receptions can correspond to both purchase orders and the return of goods (see
+section dedicated to the Creation of an expected reception).
+Each expected receptions line corresponds to a quantity of an item reference waiting to
+be received in the warehouse, for a given order-giver reference, and an planned date.
+Generally, the sold-to-order reference corresponds to the supplier purchase order
+number.
+A quantity consumed on an expected corresponds to a quantity received. The
+consumption of an expected will be effective when there is, under Speed, an entry into
+stock movement associated with the expected.
+The main screen of the expected items can be displayed either with the headers of the
+expected items, or with the expected items portfolio (the exp. Item lines). The user must
+set the display through the global settings of the expected items :
+Access : System / Global / Module / Expected :
+Sensitivity: InternalDisplay with the exp. Items headers :
+Display with the exp. Items portfolio :
+From these screens, it will be possible to:
+.Manually create new lines of expected receipts (while noting that the interface of these
+lines is still possible).
+.Modify the existing expected reception lines individually or globally.
+.Import an expected receptions list from a file.
+Sensitivity: Internal.Delete (not without certain constraints) one or more existing expected reception line
+(s).
+.Initiate the reception process and associate the selected lines with a speed reception
+via the contextual menu.
+Sensitivity: Internal

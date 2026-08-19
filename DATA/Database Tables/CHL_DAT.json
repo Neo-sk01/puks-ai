@@ -1,0 +1,477 @@
+{
+  "table_name": "CHL_DAT",
+  "description": "CONTAINER LOADING LINE TABLE",
+  "primary_key": "CHL_KEYU",
+  "columns": [
+    {
+      "name": "ACT_CODE",
+      "description": "Activity code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ACT_PAR",
+      "references_column": "ACT_CODE"
+    },
+    {
+      "name": "CHG_CODE",
+      "description": "Loading code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CHG_DAT",
+      "references_column": "CHG_CODE"
+    },
+    {
+      "name": "CHG_DATE",
+      "description": "Loading date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CHG_DAT",
+      "references_column": "CHG_DATE"
+    },
+    {
+      "name": "CHL_ALPHA1",
+      "description": "Additional info Alpha1",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA2",
+      "description": "Additional info Alpha2",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA3",
+      "description": "Additional info Alpha3",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA4",
+      "description": "Additional info Alpha4",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA5",
+      "description": "Additional info Alpha5",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA6",
+      "description": "Additional info Alpha6",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA7",
+      "description": "Additional info Alpha7",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA8",
+      "description": "Additional info Alpha8",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA9",
+      "description": "Additional info Alpha9",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_ALPHA10",
+      "description": "Additional info Alpha10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_CRDA",
+      "description": "Creation date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_CRHE",
+      "description": "Creation time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_CRQI",
+      "description": "Creator profile",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_DATE1",
+      "description": "Additional date1",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_DATE2",
+      "description": "Additional date2",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_DATE3",
+      "description": "Additional date3",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_DATE4",
+      "description": "Additional date4",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_DATE5",
+      "description": "Additional date5",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_HEURE1",
+      "description": "Additional time1",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_HEURE2",
+      "description": "Additional time2",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_HEURE3",
+      "description": "Additional time3",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_HEURE4",
+      "description": "Additional time4",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_HEURE5",
+      "description": "Additional time5",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_KEYU",
+      "description": "CHL_DAT identifier",
+      "type_sql_server": "INT",
+      "type_oracle": "INTEGER NOT IDENTI",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_MTPR",
+      "description": "Floor meters",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_NOOR",
+      "description": "Order number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_NUM1",
+      "description": "Additional number1",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_NUM2",
+      "description": "Additional number2",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_NUM3",
+      "description": "Additional number3",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_NUM4",
+      "description": "Additional number4",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_NUM5",
+      "description": "Additional number5",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_PASL",
+      "description": "Pallets on floor",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_PATT",
+      "description": "Total pallets",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_POIDS",
+      "description": "Weight",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_POUR",
+      "description": "Order percentage",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_RVDA",
+      "description": "Appointment date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_RVHE",
+      "description": "Appointment time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_TOP1",
+      "description": "Additional top1",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_TOP2",
+      "description": "Additional top2",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_TOP3",
+      "description": "Additional top3",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_TOP4",
+      "description": "Additional top4",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_TOP5",
+      "description": "Additional top5",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CHL_VOLU",
+      "description": "Volume",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "OPE_NOOE",
+      "description": "Order number",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "OPE_DAT",
+      "references_column": "OPE_NOOE"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "document_name": "Handling Loaded Support Tickets (Loading Management)",
+  "version": "1.0",
+  "authoritative": true,
+  "core_tables": {
+    "CHG_DAT": "Loading Header",
+    "CHL_DAT": "Loading Lines",
+    "#order_table": "Temporary Order Table"
+  },
+  "join_logic": {
+    "loading_management": {
+      "primary_keys": [ "chg_code"],
+      "description": "For loading management, the primary keys for joining tables are chg_code, chg_date, and act_code. These keys ensure accurate linking of loading records across CHG_DAT and CHL_DAT, allowing us to identify discrepancies and update records effectively.",
+      "example_pattern": "SELECT * FROM chg_dat chg JOIN chl_dat chl ON chg.chg_code = chl.chg_code AND chg.chg_date = chl.chg_date AND chg.act_code = chl.act_code WHERE chg.act_code = 'ZAR';"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Create Temporary Order Table",
+      "category": "Loading Management",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT DISTINCT chg.chg_lib, chl.ope_nooe, chg.act_code INTO #order_table FROM chg_dat chg JOIN chl_dat chl ON chg.chg_code = chl.chg_code AND chg.chg_date = chl.chg_date WHERE chg.act_code = 'ZAR';"
+      },
+      "business_logic": "Create a temporary table to capture order numbers linked to loaded containers for further processing. Outcome: #order_table contains order numbers associated with loading records."
+    },
+    {
+      "procedure_name": "Identify Containers Missing in CHL_DAT",
+      "category": "Loading Management",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT 'ZAR' AS act_code, ord.ope_nooe AS ope_nooe, chg.chg_date, chg.chg_code, '100' AS chl_pour, 'SUPPORT' AS chl_crqi, GETDATE() AS current_time FROM chg_dat chg JOIN #order_table ord ON chg.act_code = ord.act_code AND chg.chg_lib = ord.CHG_LIB LEFT JOIN chl_dat chl ON chg.chg_code = chl.chg_code AND chg.chg_date = chl.chg_date AND chg.act_code = 'ZAR' WHERE chl.chg_code IS NULL AND chg.chg_stat BETWEEN '030' AND '040';"
+      },
+      "business_logic": "Check for containers that exist in CHG_DAT but are missing from the Loading Management Line table. Interpretation: No results = data already aligned; Results returned = containers exist but are not recorded in CHL_DAT."
+    },
+    {
+      "procedure_name": "Insert Missing Records into CHL_DAT",
+      "category": "Loading Management",
+      "access_level": "Support",
+      "update": {
+        "sql": "INSERT INTO chl_dat (act_code, ope_nooe, chg_date, chg_code, chl_pour, chl_crqi, chl_crda) SELECT 'ZAR', ord.ope_nooe, chg.chg_date, chg.chg_code, '100', 'SUPPORT', GETDATE() FROM chg_dat chg JOIN #order_table ord ON chg.act_code = ord.act_code AND chg.chg_lib = ord.CHG_LIB LEFT JOIN chl_dat chl ON chg.chg_code = chl.chg_code AND chg.chg_date = chl.chg_date AND chg.act_code = 'ZAR' WHERE chl.chg_code IS NULL AND chg.chg_stat BETWEEN '030' AND '040';"
+      },
+      "business_logic": "Insert missing loading records into CHL_DAT so containers appear correctly in Loading Management."
+    },
+    {
+      "procedure_name": "Clean Up Temporary Table",
+      "category": "Loading Management",
+      "access_level": "Support",
+      "update": {
+        "sql": "DROP TABLE #order_table;"
+      },
+      "business_logic": "Remove the temporary order table after completing the update."
+    }
+  ],
+  "safety_rules": [
+    "Use this procedure only when automatic updates fail.",
+    "Requires database access and Support-level execution.",
+    "Do not execute in production without approval.",
+    "Ensure #order_table is cleaned up to avoid conflicts.",
+    "Verify containers are correctly reflected in CHL_DAT after procedure."
+  ]
+}

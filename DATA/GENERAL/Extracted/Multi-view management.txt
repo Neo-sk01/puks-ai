@@ -1,0 +1,21 @@
+Multi-view management
+The configuration of the screens is multi-view : which means that it is possible, for the
+same user, on the same SpeedWMS functionality, to create and set as many views as
+necessary.
+The list of configured views is accessible via the drop-down menu at the top of the
+configuration screen :
+The button enables to display all the views created for the current
+window in SpeedWMS :
+Several options are available for the user, amongst which :
+.Creation of new views, with the default rubrics of the view
+.Modify / delete / duplicate a view
+.Select a new default view for the screen
+.Define a standardized configuration for the columns of the view
+Sensitivity: Internal.define the filters that can be used for the view
+.etc.
+Each new view created is by default called “New view”; accompanied by the
+incremented number of the view according to the counter :
+Once the setting of the views done, the name of the view in use is reminded for the
+current SpeedWMS screen, and
+it is very easy to switch from a view to another thanks to the arrows .
+Sensitivity: InternalSensitivity: Internal

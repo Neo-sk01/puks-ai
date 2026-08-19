@@ -1,0 +1,59 @@
+[META]
+chunk_type: text
+source_file: Receipt closure.pdf
+category: RECEIVING GOODS
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SOP: Receipt Closure in Speed WMS
+Sensitivity: Internal
+1. Purpose
+This SOP describes the receipt closure process in Speed WMS, including its
+effects, constraints, and operational usage.
+2. Definition of Receipt Closure
+Receipt closure is the final step in the lifecycle of a Speed WMS receipt.
+The closure operation freezes all receipt data and confirms the reception as
+complete.
+Once closed, the receipt becomes read-only.
+3. Effects of Receipt Closure
+After a receipt is closed:
+• The receipt cannot be modified
+• No new receipt lines can be added
+• Existing receipt lines cannot be edited or deleted
+• No new media or attachments can be added
+However:
+• The receipt remains accessible in consultation mode
+• All attached documents can still be viewed and printed
+• Receipt data can be used for reporting and audit purposes
+4. System Integration Considerations
+• Receipt closure is generally the trigger point for:
+o Data feedback to external systems (n+1 systems)
+o ERP or sales management system synchronization
+• Only closed receipts should be considered final and reliable for downstream
+processing
+Sensitivity: Internal
+
+[PAGE 2]
+5. How to Close a Receipt
+Receipt closure is performed from the Receipt Management Screen using one of
+the following methods:
+• Contextual menu → Close Receipt
+• Speed WMS command bar → Close Receipt button
+Both methods perform the same operation and apply the same validation rules.
+6. Preconditions for Closure
+Before closing a receipt, ensure that:
+• All receipt lines have been correctly recorded
+• Quantities and item references are validated
+• Required documents or media have been attached
+• No further modifications are expected
+7. Best Practices
+• Close receipts only after full verification
+• Avoid premature closure, as reopening is not possible
+• Ensure closure is aligned with external system synchronization schedules
+8. Related Modules
+• Receipt Management
+• Stock Movements
+• Document Management
+• ERP / n+1 System Interfaces
+Sensitivity: Internal

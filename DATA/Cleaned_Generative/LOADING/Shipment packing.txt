@@ -1,0 +1,24 @@
+[META]
+chunk_type: text
+source_file: Shipment packing.pdf
+category: LOADING
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Shipment packing
+Access : Shipping / Shipment packing
+This feature allows to display the list of prepared supports for a mission, and to control
+each of the supports. It will then be possible to:
+•Scan each of the mission supports
+•Select a carrier
+•Enter the packaging code associated with each support
+•Operate a weight control. The system allows the configuration of a balance.
+•Create new supports
+•Edit labels
+The weight control can be configured at the level of the System / Global configuration /
+Module Packing:
+Sensitivity: Internal
+
+[PAGE 2]
+Sensitivity: Internal

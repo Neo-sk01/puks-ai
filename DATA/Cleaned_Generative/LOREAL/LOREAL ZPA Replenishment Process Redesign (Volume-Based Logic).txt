@@ -1,0 +1,195 @@
+[META]
+chunk_type: text
+source_file: LOREAL ZPA Replenishment Process Redesign (Volume-Based Logic).pdf
+category: LOREAL
+total_pages: 8
+[/META]
+
+[PAGE 1]
+RAG-READY DOCUMENT
+Project: L’ORÉAL
+Feature: ZPA Replenishment Process Redesign (Volume-Based Logic)
+Version: 2.2
+Initial Date: 12/11/2025
+Last Update: 14/01/2026
+Authors: ZBA / CDE
+DOCUMENT METADATA (Vector DB Ready)
+{
+"document_type": "Technical & Functional Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"process": "ZPA Replenishment",
+"feature": "Volume-Based Replenishment and Stock Splitting",
+"related_modules": ["ZPA", "Replenishment Module"],
+"entry_point_modified": "PE482",
+"status_handling": ["01", "03"],
+"version": "2.2"
+}
+SECTION 1 — Business Context
+1.1 Background
+As part of the L’Oréal project, the ZPA replenishment process is being redesigned
+to:
+• Improve handling of partial replenishments
+• Consider real volume constraints of storage locations
+• Optimize flow between pallets/boxes and dynamic picking locations
+Sensitivity: Internal
+
+[PAGE 2]
+1.2 Current Limitations
+The existing ZPA process:
+• Transfers full supports only
+• Does not calculate actual available volume
+• Does not split intelligently based on capacity
+This causes:
+• Lack of shelf space
+• Large variability in article volume (lipsticks vs bottles)
+• No automatic calculation of remaining capacity
+• Manual management of partial replenishments
+SECTION 2 — Functional Objectives
+The workshop defined the following goals:
+1. Automatically split replenishments according to destination volume.
+2. Fill picking locations based on volume, not only quantity.
+3. Improve ergonomics in the replenishment module.
+4. Make ZPA replenishment more dynamic (triggered at wave launch).
+5. Manage saturated locations (rejection or deferred handling).
+6. Handle residual quantities via rejection location.
+7. Avoid intrusive changes in standard launch module.
+SECTION 3 — ZPA Functional Solutions
+3.1 New “Free Location” Search Rule
+A new free-location search rule will replace the current ZPA logic.
+Stock Splitting Logic
+Sensitivity: Internal
+
+[PAGE 3]
+If required quantity < support quantity:
+SPLIT original_stock_line
+NEW_LINE.quantity = replenishment_need
+ORIGINAL_LINE remains in original location
+Location Eligibility Criteria
+For the new stock line, search empty eligible locations based on:
+• Destination Zone
+• Original Support Format
+• Quality Codes (include/exclude)
+• Aerosol Codes (ART_ALPHA3 include/exclude)
+• Family Codes (ART_ALPHA11 include/exclude)
+• ART_ALPHA8 include/exclude
+• ART_ALPHA9 include/exclude
+Threshold Rule
+If threshold reached (ART_NUM2):
+NO available location returned
+Volume Check
+Before assigning location:
+required_volume = article_volume × quantity_to_store
+Article volume must be taken from:
+art_dim table – unit dimensions (500)
+If required volume fits → assign location.
+If Volume Does NOT Fit
+Sensitivity: Internal
+
+[PAGE 4]
+Split stock again, keeping:
+• Full parcels only
+• Limited to available location volume
+Parcel volume:
+parcel_volume = article_volume × parcel_packaging_quantity
+Continue searching other locations until:
+• Stock exhausted
+OR
+• No more locations available
+Foisonnement Coefficient
+A configurable coefficient at activity level will:
+adjusted_volume = calculated_volume × foisonnement_coefficient
+This applies to:
+• Unit volume
+• Parcel volume
+SECTION 4 — ZPA Residual (Rejection) Management
+If stock cannot be stored:
+→ Automatically sent to a destination location of type:
+REJET (Rejection)
+Behavior Rules
+• Stock lines without valid location remain in status 03.
+• They are NOT converted into replenishment mission lines.
+Entry Point Modification
+PE482 (end of ZPA process) must be modified:
+Sensitivity: Internal
+
+[PAGE 5]
+GENERATE replenishment missions
+ONLY IF destination_location_type ≠ REJET
+REJET Lines
+Lines linked to REJET location:
+• Remain in status 03
+• No mission generation
+Contextual Menu
+A specific contextual menu will allow operators to:
+Change status from 03 → 01
+Clear STK_LIEUP
+Relaunch ZPA using standard process
+SECTION 5 — Replenishment Module Improvements
+5.1 Grouping Replenishments by Origin Location
+Goal:
+Allow operators to process multiple replenishments from the same source location
+simultaneously.
+Sorting Adaptation
+Modify radio sorting to group replenishments by:
+• Zone
+• Origin location
+5.2 Relay Location (Temporary Support)
+Operators may:
+1. Scan a relay cart or pallet.
+Sensitivity: Internal
+
+[PAGE 6]
+2. Load parcels onto relay support.
+3. Move to picking locations.
+4. Scan relay support again for storage.
+SECTION 6 — Operational Feedback (Workshop 21/01/2026)
+Case: 48 Parcels on a 50-Parcels Pallet
+If split into 20 replenishments:
+Problem:
+Operator must:
+• Scan source location 20 times
+• Validate quantity 20 times
+Optimization needed to reduce repetitive validation.
+Volume Completion Rule
+Discussion needed on whether to maintain strict volume completion logic.
+Volume Source Clarification
+Confirmed by RBA (21/01/2026):
+Article volume must be taken from:
+art_dim table – unit dimension (code 500)
+SECTION 7 — Technical Logic Overview
+FOR each ZPA replenishment:
+IF need < stock_quantity:
+SPLIT stock_line
+Sensitivity: Internal
+
+[PAGE 7]
+FOR each eligible_location:
+CALCULATE adjusted_volume
+IF adjusted_volume fits:
+ASSIGN location
+ELSE:
+SPLIT in full parcels
+CONTINUE search
+IF no location found:
+SEND to REJET
+KEEP status 03
+SECTION 8 — Status Management Matrix
+Condition Status Mission Generated
+Valid location found Standard Yes
+Location type = REJET 03 No
+Manual reset via menu 01 Relaunch possible
+SECTION 9 — Why This Spec Is Structurally Important
+This document introduces:
+• Volume-driven replenishment
+• Multi-level stock splitting
+• Threshold control (ART_NUM2)
+• Activity-based coefficient logic
+• Entry point filtering (PE482)
+• Operational ergonomics changes
+Sensitivity: Internal
+
+[PAGE 8]
+• Explicit status management logic
+This is now the core ZPA redesign reference document in your knowledge base.
+Sensitivity: Internal

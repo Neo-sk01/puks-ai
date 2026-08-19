@@ -1,0 +1,28 @@
+{
+  "document_name": "Picking Sequence",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "sequences": [
+    {
+      "name": "Snake Shape",
+      "phases": [
+        "Pick Phase",
+        "Reach Truck Picking",
+        "Replenishment from top to bottom"
+      ]
+    },
+    {
+      "name": "ZigZag Shape",
+      "phases": [
+        "Pick Phase"
+      ]
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "picking_squence.json",
+    "category": "Speed Support Document"
+  }
+}

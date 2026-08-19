@@ -1,0 +1,73 @@
+[META]
+chunk_type: text
+source_file: Launch in preparation.pdf
+category: ORDER PREPARATION
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Launch in Preparation – Overview
+The launch in preparation is the process that takes orders from entry and assigns
+stock to order lines, generating preparation missions and eventually preparation
+notes (PNs).
+Key Principles
+1. Execution Scope
+o Can be executed for one or more orders simultaneously.
+o Each order line is processed individually based on stock availability
+and service rules.
+2. Missions
+o A mission groups samples (stock assignments) created during launch.
+o One mission can include multiple orders.
+o One order can be split across multiple missions.
+o Missions form the basis for preparation notes (PN).
+Process Flow per Order Line
+For each order line, SpeedWMS will:
+1. Find procedures for sample creation
+o These are the pre-configured rules for generating stock allocations.
+2. Check application conditions
+o Activity, recipient, item, and other filters defined in the procedure.
+o Only applicable order lines are processed.
+3. Apply stock search conditions
+o Check zones, SU (stock units), and other stock parameters.
+o Only unblocked stock is considered.
+4. Create samples
+o Each sample is an assignment of stock to an order line, including:
+▪ Item
+Sensitivity: Internal
+
+[PAGE 2]
+▪ SU (stock unit)
+▪ Quality
+▪ Location
+▪ Quantity
+o Sample types:
+1. Sample from stock – Direct allocation from stock.
+2. Picking sample – Allocation from the picking location.
+3. Missing sample – When stock is insufficient.
+5. Ensure fulfillment
+o Multiple samples may be created until the sum of all samples = order
+line quantity.
+Mission Generation Rules
+• The portfolio of created samples is analyzed to generate missions.
+• Rules are applied sequentially and are defined by application criteria such
+as:
+o Activity
+o Zone
+o Type of sample
+o Reason
+o Recipient
+• Generation parameters determine:
+o How withdrawals are sorted.
+o Break rules that trigger the creation of a mission.
+Each sample must belong to a mission before the process is considered complete.
+Summary
+Sensitivity: Internal
+
+[PAGE 3]
+Step Description
+1 Select orders for launch
+2 Apply procedures to create samples per order line
+3 Check stock availability and generate missing samples if needed
+4 Group samples into missions based on configured rules
+5 Missions are then used to generate Preparation Notes (PNs)
+Sensitivity: Internal

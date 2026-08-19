@@ -1,0 +1,20 @@
+{
+  "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+  "total_vectors": 673,
+  "dimension": 384,
+  "index_type": "IndexFlatIP",
+  "normalised": true,
+  "operational_boost": 2,
+  "schema_boost": 1,
+  "chunk_type_counts": {
+    "schema_overview": 18,
+    "schema_core_columns": 17,
+    "schema_extra_columns": 15,
+    "text_prose": 470,
+    "text_table": 25,
+    "wms_overview": 18,
+    "wms_join_logic": 18,
+    "wms_safety_rules": 18,
+    "wms_procedure": 28
+  }
+}

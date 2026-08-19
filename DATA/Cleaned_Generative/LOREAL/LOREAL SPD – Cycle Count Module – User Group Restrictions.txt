@@ -1,0 +1,178 @@
+[META]
+chunk_type: text
+source_file: LOREAL SPD – Cycle Count Module – User Group Restrictions.pdf
+category: LOREAL
+total_pages: 7
+[/META]
+
+[PAGE 1]
+LOREAL SPD – Cycle Count Module – User Group Restrictions
+DOCUMENT METADATA
+Document Title
+SPD – Cycle Count Module – User Group Option Restrictions
+Client
+AGL – L’ORÉAL Activity
+Version
+1.0
+Date
+15/04/2025
+Author
+AKD
+Speed Versions
+• Speed Version: A.8.6.F => 28.06b1
+• Speed Radio Version: 28.06b
+CHANGE HISTORY
+Version Description Date Author
+1.0 Initial Version 15/04/2025 AKD
+VALIDATION HISTORY
+Version Comment Date By
+1.0 Initial Version 15/04/2023 AKD
+BUSINESS CONTEXT
+Sensitivity: Internal
+
+[PAGE 2]
+4.1 Functional Context
+Within the L’ORÉAL activity, the standard Cycle Count module is used.
+This module:
+• Does NOT rely on a dedicated inventory zone.
+• Does NOT block warehouse locations.
+• Allows immediate stock updates based on declared quantities.
+The radio cycle count module is used for stock adjustments, especially when:
+• A pallet is found in the warehouse without an assigned location.
+• A stock support needs to be consumed or modified.
+4.2 Business Requirement
+Since this module is accessible to all radio operators, the client requires restriction of
+certain options depending on the user profile.
+Access to specific functionalities must be controlled based on:
+The user group of the connected operator.
+CONFIGURATION PARAMETERS
+5.1 Activation Parameter
+Parameter Description
+ACT_TOP22 Enables or disables option restriction logic
+If:
+ACT_TOP22 = 1
+Then:
+→ Option filtering logic must be applied.
+If:
+ACT_TOP22 = 0
+Sensitivity: Internal
+
+[PAGE 3]
+Then:
+→ Standard behavior (no restriction).
+5.2 User Group Configuration
+Parameter Description
+ACT_ALPHA12 List of restricted user groups separated by ";"
+Example:
+USER;TEMP;EXTERNAL
+If the logged-in user belongs to one of these groups:
+→ Restricted options must be hidden.
+OPTIONS MANAGEMENT
+6.1 Standard Available Options
+The standard radio module includes the following options:
+• Modify Quality
+• Modify Traceability Elements
+• Modify Template
+• Modify Packaging
+• Reset
+• Support Label
+• New Reference
+• Modify Movement Reason
+• Unit Control
+• Declare Event
+• Modify Variable Information
+6.2 Options to Restrict for USER Group
+Sensitivity: Internal
+
+[PAGE 4]
+If user group = USER (configured in ACT_ALPHA12), the following options must be
+hidden:
+• Modify Quality
+• Modify Traceability Elements
+• Modify Packaging
+• Reset (To be confirmed)
+• New Reference
+PROCESS FLOW (Radio Synoptic)
+7.1 Cycle Count Process
+Step 1
+User selects:
+Cycle Count
+Press:
+F5
+Step 2
+Scan:
+• Support OR
+• Location
+Press:
+F5
+Step 3
+Enter counted quantity.
+Step 4
+Sensitivity: Internal
+
+[PAGE 5]
+When user clicks on:
+Options
+If:
+ACT_TOP22 = 1
+Then:
+Use PE884 during option window initialization to:
+→ Display ONLY authorized options based on the connected user's group.
+TECHNICAL IMPLEMENTATION
+8.1 Entry Point Used
+Entry Point Description
+PE884 Option window initialization
+8.2 Logic – PE884
+Condition
+IF ACT_TOP22 = 1
+Then:
+1. Retrieve logged-in user's group
+2. Check if user group exists in ACT_ALPHA12
+3. If YES:
+o Hide restricted options
+4. If NO:
+o Display full standard option list
+8.3 Filtering Logic (Pseudo-code)
+IF ACT_TOP22 = 1 THEN
+Sensitivity: Internal
+
+[PAGE 6]
+user_group = GET_CONNECTED_USER_GROUP()
+restricted_groups = SPLIT(ACT_ALPHA12, ";")
+IF user_group IN restricted_groups THEN
+HIDE:
+- Modify Quality
+- Modify Traceability Elements
+- Modify Packaging
+- Reset
+- New Reference
+ENDIF
+ENDIF
+FUNCTIONAL SUMMARY (RAG-Optimized)
+What triggers restriction?
+ACT_TOP22 = 1
+Where is the logic implemented?
+PE884 (Option Window Initialization)
+How are restricted groups defined?
+ACT_ALPHA12 (semicolon-separated list)
+What happens if user belongs to restricted group?
+Certain options are hidden.
+Is there any database change?
+No.
+Is standard inventory behavior modified?
+Sensitivity: Internal
+
+[PAGE 7]
+No.
+Only UI option filtering is applied.
+CLIENT VALIDATION
+AGL acknowledges and validates all elements described in this document.
+BK Systèmes commits to delivering the solution that meets the validated
+requirements within the agreed quotation framework.
+Any additional requests or modifications beyond this document may require a
+separate quotation.
+Any provisions not explicitly stated in this document are not covered and remain at
+the discretion of the concerned parties.
+Signed at Vaulx-Milieu, 15/04/2025.
+Signature and company stamp:
+Sensitivity: Internal

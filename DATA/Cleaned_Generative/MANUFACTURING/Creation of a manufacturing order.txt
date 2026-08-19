@@ -1,0 +1,68 @@
+[META]
+chunk_type: text
+source_file: Creation of a manufacturing order.pdf
+category: MANUFACTURING
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Creation of a Manufacturing Order (MO)
+Access
+• Menu: Manufacturing → Manufacture
+• Click the Addition button in the ribbon to create a new MO.
+Structure of a Manufacturing Order
+An MO consists of two main parts: Header and Lines.
+Header
+The header contains essential information for the MO:
+Mandatory fields:
+1. MO Reference – unique identifier of the manufacturing order.
+2. Product Reference – the finished product to be manufactured.
+3. Quantity – number of units of the finished product to produce.
+Optional fields:
+• Production area
+• Production dates
+• Traceability elements (lot, serial number, etc.)
+• Template tick (to save the MO as a template for future use)
+Quantities Summary:
+• Shows the breakdown of total units into different Stock Units (SU) like
+pallets, packages, and units.
+Lines (Components)
+Each line represents a component needed for the finished product.
+Key points:
+• Specify the quantity of the component required per finished product unit.
+• Choose consumption type:
+Sensitivity: Internal
+
+[PAGE 2]
+o Automatic – system deducts components when production is
+confirmed.
+o Declarative – user manually declares the consumption.
+Serial Number Management:
+• If components and finished product manage serial numbers, the MO can
+inherit serial numbers of components (only for single-unit components).
+Tabs available for lines:
+• Particularities – traceability, tolerances, etc.
+• Replenishment – picking replenishment info
+• Info – general information about the line
+Line operations:
+• Modify quantity or quality directly via contextual menu
+• Disable obsolete lines (double-click → Info tab → Tick disabled)
+Template Option
+• An MO can be saved as a template for future use.
+• Activate template mode via the Template tick.
+• Obsolete lines can be disabled while keeping the MO as a template.
+Activation of the MO
+The MO must be activated before production can start:
+Methods:
+1. Contextual menu (right-click → Activate)
+2. Change status in Info tab of the MO form
+Info tab also tracks:
+• Date & time of creation, modification, activation, and closing
+• User who performed each action
+Sensitivity: Internal
+
+[PAGE 3]
+Miscellaneous Operations
+• Each MO can be subject to additional pre-defined operations (see
+Miscellaneous transactions section).
+Sensitivity: Internal

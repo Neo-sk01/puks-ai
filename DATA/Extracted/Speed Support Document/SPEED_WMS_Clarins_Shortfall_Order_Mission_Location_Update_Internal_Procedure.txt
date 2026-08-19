@@ -1,0 +1,57 @@
+[META]
+chunk_type: text
+source_file: SPEED_WMS_Clarins_Shortfall_Order_Mission_Location_Update_Internal_Procedure.pdf
+category: Speed Support Document
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Clarins Shortfall Order – Mission Location Update Procedure
+Sensitivity: Internal
+Client: Clarins
+System: Speed WMS
+Audience: Support / Technical Team
+Purpose
+This procedure is used when a Clarins order has been launched and results in a
+shortfall, even though:
+• The SKU or LPN is confirmed to be in stock, and
+• The order line is missing a valid picking location at launch time.
+In this scenario, the mission must be manually updated to assign the correct
+picking location.
+Preconditions
+Before modifying any mission lines, verify the following:
+• The SKU exists in stock
+• The LPN exists and is available
+• The stock is located in a valid active picking location
+• The mission line has a status below 040
+Step 1: Identify Affected Mission Lines
+Retrieve all mission lines for the affected SKU that are not yet validated.
+SELECT MIL_KEYU, MIL_EMP, *
+FROM MIL_DAT
+WHERE ART_CODE = '80110136'
+AND MIL_STAT < '040';
+Confirm that the order you are working on appears in the result set.
+Sensitivity: Internal
+
+[PAGE 2]
+Step 2: Determine the Correct Picking Location
+• Identify the correct stock location (STK_LIEU) from which the SKU should be
+picked
+• Copy the MIL_KEYU(s) associated with the affected order line(s)
+• Copy the target picking location
+Step 3: Update the Mission Line Picking Location
+Assign the correct picking location to the mission line.
+UPDATE MIL_DAT
+SET MIL_EMP = 'CA002A035',
+MIL_EMPO = 'CA002A035'
+WHERE MIL_KEYU IN (144522, 147153);
+Expected Outcome
+• The mission line is now linked to a valid picking location
+• The shortfall condition is resolved
+• The order can proceed through validation and picking
+Important Notes
+• This procedure applies only to Clarins
+• Mission lines must have MIL_STAT < '040'
+• Updates must be performed by Support, due to database access restrictions
+• Always validate stock availability before modifying missions
+Sensitivity: Internal

@@ -1,0 +1,118 @@
+[META]
+chunk_type: text
+source_file: Loading creation.pdf
+category: LOADING
+total_pages: 9
+[/META]
+
+[PAGE 1]
+Loading creation
+Feature accessible from the addition button of the ribbon, in the Loading window.
+The following entry form will then be displayed on the screen.
+The characteristics of a load are divided into several tabs:
+1.Transportation
+2.Documentation
+3.Dock organization
+4.Traceability
+5.Mapping
+6.Additional info
+The user can create a new load :
+1.Select one from the list of templates: all the information saved for the chosen
+template will then be specified in the corresponding fields. (See section Save as
+template)
+2.Create a new loading code
+Sensitivity: Internal
+
+[PAGE 2]
+General information should be entered in the upper part of the window. It defines:
+1.The loading site
+2.The carrier
+3.The loading model used for the creation of the loading
+4.Loading date
+5.Loading code
+6.The description of the load
+The banner containing these general information remains available for each of the
+screens dedicated to the different tabs that characterize a load.
+Transport
+Default home screen, the Transport tab offers the user direct access to all the
+information related to the transport of the load:
+1.Transport comments: allows you to enter comments
+2.Transport mode (Air, Sea etc.)
+3.Freight forwarder: must be defined at third party level
+4.Place and date of loading: defined at site level
+5.Place and date of boarding: defined at the site level
+6.Place and date of unloading: defined at site level
+7.Place and date of delivery: defined at the level of the place
+This information available for the searches of the different places is configured at the
+level of the user.
+Documentation
+In this screen, the user has access to all the documentary information related to a load:
+1.The Incoterm
+Sensitivity: Internal
+
+[PAGE 3]
+2.The place incoterm
+3.The language: defined in the transport settings
+4.Transport reference: free information
+5.Transport doc number
+6.Notified to: defined at third party level
+Dock organisation
+In this screen, the user has access to all organizational information related to a
+shipment:
+1.Loading dock
+2.Load duration
+3.Deposition area
+4.Schedule code
+5.Provision time
+Sensitivity: Internal
+
+[PAGE 4]
+6.Appointment date
+7.Location sorter (sorting lane before loading)
+When selecting the dock, SpeedWMS displays all the appointments already registered
+for the available docks:
+Sensitivity: Internal
+
+[PAGE 5]
+Traceability
+This tab is used to enter all the loading performance data:
+1.Truck arrival date and time
+2.Truck departure date and time
+3.License plates
+4.Drivers name
+5.Filling
+6.Controller
+7.The person who loads
+Mapping
+This tab allows you to enter information that will display the load delivery route on a
+Google map:
+Sensitivity: Internal
+
+[PAGE 6]
+1.Loading site
+2.Date and time of departure
+3.Top return site
+4.Average time per delivery (in min)
+5.Information related to the last position of the truck (normally entered by interface):
+.Latitude
+.Longitude
+.Date and time of transmission of information
+If this tab is not filled in, the default values of the mapping will be taken into account.
+Additional info.
+This tab enables to see additional information linked with the load.
+Sensitivity: Internal
+
+[PAGE 7]
+Once created (and only in creation), the load can be saved as a model (template) via the
+dedicated option in the contextual menu.
+In this case, it can be used to create a new load:
+Sensitivity: Internal
+
+[PAGE 8]
+Sensitivity: Internal
+
+[PAGE 9]
+The loadings can also be subject to various operations. It is indeed possible to schedule
+specific billable tasks for a selected load in the loads window. For more information,
+please consult the dedicated section to this feature: Miscellaneous operations.
+Sensitivity: Internal

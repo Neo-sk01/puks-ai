@@ -1,0 +1,37 @@
+{
+  "document_name": "User Access & System Support",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "steps": [
+    {
+      "title": "Giving a New User Access to Speed",
+      "contact_person": "Alan Bezuidenhout",
+      "required_information": [
+        "Windows URL",
+        "Email Address",
+        "Active Directory (AD) Account"
+      ]
+    },
+    {
+      "title": "Network Issues on Speed",
+      "contact_persons": [
+        "Moses Lengoabala",
+        "Tebogo Masemola"
+      ],
+      "notes": [
+        "Use this escalation path when users experience connectivity issues, slow system performance, or inability to log into Speed."
+      ]
+    },
+    {
+      "title": "Adding a New Account (Folder / Country)",
+      "contact_person": "BK System"
+    }
+  ],
+  "_meta": {
+    "chunk_type": "schema",
+    "source_file": "User Access & System Support.json",
+    "category": "Speed Support Document"
+  }
+}

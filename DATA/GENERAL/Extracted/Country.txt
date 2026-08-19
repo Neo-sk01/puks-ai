@@ -1,0 +1,18 @@
+Country
+Functionality accessible from the menu Settings/ Third p. /Country.
+Mainly used for transport management, this functionality enables to configure and
+declare a list of countries in SpeedWMS
+It will then be possible to :
+.Create new country codes
+.Modify the properties of an existing country
+.Delete (not without certain constraints) an existing country
+Description of the country form :
+Sensitivity: Internal.Country code : unique identifier of the country. Alphanum type fielde6 character
+riskeres max.
+.Country name : country name, 50 charyouemax res
+.Language : country language code, 5 charactersemax res
+.Belongs to the European Union : box to tick if the country is part of the EU
+These last two last criteria might be used for example to set an automatic printing
+language of the documents, or the type of document to print depending in the belonging
+or not of the country to the European Union or not
+Sensitivity: Internal

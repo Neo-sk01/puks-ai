@@ -1,0 +1,5 @@
+Comments tab
+Tab for entering the comments to appear on the editions of the preparation or delivery
+slips concerning the third party, but also on the reception documents.
+Note: the different reports must include a comments field so that it is actually printed.
+Sensitivity: Internal

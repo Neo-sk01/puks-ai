@@ -1,0 +1,31 @@
+[META]
+chunk_type: text
+source_file: Using order Templates.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Order Templates
+Purpose
+• Allows you to quickly add predefined sets of order lines to an order.
+• Saves time by reusing commonly ordered items or standard combinations.
+Access
+• Go to the Lines tab of an order.
+• Open the context menu → select Order Templates.
+Process
+1. A list of configured templates appears.
+2. Select the desired template.
+3. Specify the quantity to process.
+4. Click Import → the order lines from the template are added to the order
+automatically.
+Creating New Templates
+• Can be done directly from order lines:
+o From scratch: manually define the lines.
+o From an existing order: use the current order as the basis for the new
+template.
+In short:
+• Templates = reusable sets of order lines
+• Add quickly → Save time → Reduce errors
+• Can create new templates from existing orders or manually.
+Sensitivity: Internal

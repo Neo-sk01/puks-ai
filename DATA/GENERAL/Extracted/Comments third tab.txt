@@ -1,0 +1,6 @@
+Comments Tab
+This tab enables to enter the possible comments regarding the third, and that will be
+available in the edition of the preparation or delivery notes.
+Note: The different printing statuses must include a comments field in order to print the
+comments
+Sensitivity: Internal

@@ -1,0 +1,20 @@
+[META]
+chunk_type: text
+source_file: Shipped.pdf
+category: LOADING
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Shipped
+This tab allows the display of all the shipped samplings (status 070).
+A preselection by the use of filters is possible. The user can choose to specify :
+.An item
+.A recipient
+.An order
+.A mission
+.A load
+.A shipment
+.A delivery note
+.A support number
+Sensitivity: Internal

@@ -1,0 +1,78 @@
+[META]
+chunk_type: text
+source_file: Creating and modifying an order.pdf
+category: ORDER PREPARATION
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Creating and Modifying an Order
+Access
+• Manual creation: Click the New button in the control bar.
+• Interface creation: Orders can also be created automatically via external
+interfaces.
+Modifying Orders
+• Orders can be modified only if their status is “In Seizure” (010).
+• For orders in advanced statuses, the status must first be reverted to In
+Seizure using the available operations.
+• Double-clicking on an order opens the modification screen.
+Order Structure
+Orders are made of Header data and Order line data:
+• Order Header: Contains general information about the order.
+• Order Lines: Cannot exist without a header; list of items and quantities for
+the order.
+Header Fields
+Field Description
+Order number Internal number; cannot be modified.
+Order date Default is current date; modifiable.
+Default: Preparation. Other types: Replenishment, Countermark,
+Type
+Export.
+Nature Blank by default.
+Customer
+Customer account, if managed.
+account
+Mandatory; links the order to a recipient. Must be selected from
+Recipient code
+third parties of type Recipients or Suppliers.
+Sensitivity: Internal
+
+[PAGE 2]
+Field Description
+Ref. contractor Optional alphanumeric field (50 chars) for sales order reference.
+Order index Default 001; auto-increments per contractor reference.
+Third-party Optional alphanumeric field (50 chars) for customer order
+reference number.
+Carrier code Optional; defaults to carrier associated with third party.
+Grouping code Optional; defaults to grouping code of third party.
+Department Optional; defaults to department code of third party.
+Preparation date Initialized with Delivery date – recipient delivery time.
+Delivery date Initialized with the first business date for the recipient.
+Preparation
+Defaults to STD file.
+sector
+Guides operator where to deposit prepared supports at the end
+of preparation. Priority order:
+1. Order Header Deposition Location
+Drop-off
+2. Load Deposition Location
+location
+3. Third Party Deposition Location
+4. General Location (System / Global / Module / Preparation /
+Shipping)
+Delivery data Initialized from third-party form; fully modifiable.
+Order Lines
+• The first line is a simplified entry line for items/quantities.
+• The bottom table lists all goods in the order, showing what must be taken
+from stock.
+• Adding lines: Multiple methods available (manual, templates, or import).
+Key Notes
+• Orders cannot exist without a header.
+Sensitivity: Internal
+
+[PAGE 3]
+• Header fields like recipient code, delivery date, and preparation date are
+critical for processing.
+• Drop-off location prioritization ensures smooth workflow for RF Storage
+operations.
+Sensitivity: Internal

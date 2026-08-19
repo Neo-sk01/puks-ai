@@ -1,0 +1,63 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – SpeedLink Clarins Message Relaunch SOP.pdf
+category: Speed Support Document
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Standard Operating Procedure (SOP)
+Title: Relaunching Messages for Clarins via SpeedLink
+Department: WMS JACC
+Effective Date: 23/06/2025
+Prepared By: Waseela Salim
+1. Objective
+To guide team members through relaunching Clarins messages in SpeedLink on the
+Production Server (PFS03 GMT +2) when a relaunch request is received.
+2. Procedure
+Step 1 – Connect to the Production Server
+1. Launch your remote desktop or server access tool.
+2. Connect to the Production Server: PFS03 GMT +2.
+3. Log in using authorized credentials.
+Step 2 – Access the SpeedLink Directory
+1. Open File Explorer.
+2. Navigate to:
+F:\Interfaces\P-ZAF-CA-S1\SpeedLink
+3. Locate and open the SpeedLink application.
+Step 3 – Log Into SpeedLink
+1. On the login screen, enter:
+o Access Code: LINKUP
+o Password: 1234
+2. Press Enter.
+3. You will be redirected to the SpeedLink Homepage.
+Sensitivity: Internal
+
+[PAGE 2]
+Step 4 – Access the Markings Section
+1. On the left-hand navigation panel, click Markings.
+2. The Markings screen will appear.
+Step 5 – Filter for the Message
+1. Use the Order_Key field to filter for the specific order.
+2. Select the message type to be relaunched from the drop-down menu.
+3. Click Refresh to update the view.
+Step 6 – Remove the Marking
+1. Once the message appears:
+o Right-click on the message.
+o Click Remove marking from the context menu.
+o Confirm in the pop-up by clicking Yes.
+2. The message will now be queued for the next scheduled run.
+Step 7 – Verify Message Relaunch
+1. Navigate to the Historical section via the navigation panel.
+2. Click Refresh until the next scheduled run completes.
+3. Confirm that the relaunched message appears in the Historical logs.
+Step 8 – Final Confirmation
+1. Notify Clarins and confirm whether the message was successfully received.
+3. Important Notes
+• Only remove markings for messages explicitly requested by Clarins.
+• Follow all steps precisely to avoid processing errors.
+Sensitivity: Internal
+
+[PAGE 3]
+• In case of any errors, escalate immediately to your supervisor or the support
+team.
+Sensitivity: Internal

@@ -1,0 +1,15 @@
+Ergonomics
+Ergonomics and ease of use are the fundamental principles that have guided the design
+of SpeedWMS.
+In a very simple way, it is possible for users to:
+.Set up the information that can be displayed on the list screens, as well as their title
+.Choose an edition from a list of available editions (by default the printing statuses are
+common, but it is possible to create specific statuses by activity, displayed only for the
+said activity)
+.Modify the model of its own editions (users trained in mock-up)
+.Use filters and build your own queries
+.Export the content of many screens to Excel, Xml and Word
+.Import data from Excel or any CSV
+.Send an email directly, or initiate a phone call to a contact in the entry screens
+(receipts, order entry, etc.)
+Sensitivity: Internal

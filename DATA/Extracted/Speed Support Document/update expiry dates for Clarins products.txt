@@ -1,0 +1,79 @@
+[META]
+chunk_type: text
+source_file: update expiry dates for Clarins products.pdf
+category: Speed Support Document
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Updating Expiry Dates for Clarins Products
+Sensitivity: Internal
+Client: Clarins
+System: Speed WMS
+Audience: Support / Technical Team
+1. Objective
+To update expiry dates for Clarins products in the WMS database, ensuring consistency
+between:
+• Stock records (STK_DAT)
+• Picking / mission records (MIL_DAT)
+2. Procedure
+Step 1: Verify the Stock Record
+Confirm that the LPN exists and review the current expiry date.
+SELECT stk_dluo, *
+FROM stk_dat
+WHERE stk_nosu = 'LPN No'
+AND act_code = 'RSAJHBCLA';
+✔ Proceed only if the record exists.
+Step 2: Update the Stock Table (STK_DAT)
+Update the expiry date to the new value provided.
+UPDATE stk_dat
+SET stk_dluo = 'New Date'
+WHERE stk_nosu = 'LPN No'
+AND act_code = 'RSAJHBCLA';
+Ensure the date format matches the system standard (e.g. YYYY-MM-DD).
+Sensitivity: Internal
+
+[PAGE 2]
+Step 3: Check the Picking Table (MIL_DAT)
+Determine whether the LPN is involved in any open missions.
+SELECT mil_dluop, *
+FROM mil_dat
+WHERE mil_nosu = 'LPN No'
+AND act_code = 'RSAJHBCLA'
+AND mil_stat < '040';
+Step 4: Update the Picking Table (If Required)
+If Step 3 returns records, update the expiry date in the picking table.
+UPDATE mil_dat
+SET mil_dluop = 'New Date'
+WHERE mil_nosu = 'LPN No'
+AND act_code = 'RSAJHBCLA'
+AND mil_stat < '040';
+3. Important Notes
+• Always update STK_DAT first, then MIL_DAT if applicable
+• If no records are found in MIL_DAT, no update is required
+• Keep an audit record of:
+o LPN
+o Old expiry date
+o New expiry date
+• Perform updates in Test / QA before Production (where applicable)
+4. Example
+LPN: CLS000000000199735
+New Expiry Date: 2027-03-26
+Sensitivity: Internal
+
+[PAGE 3]
+-- Update Stock
+UPDATE stk_dat
+SET stk_dluo = '2027-03-26'
+WHERE stk_nosu = 'CLS000000000199735'
+AND act_code = 'RSAJHBCLA';
+-- Update Picking (only if open missions exist)
+UPDATE mil_dat
+SET mil_dluop = '2027-03-26'
+WHERE mil_nosu = 'CLS000000000199735'
+AND act_code = 'RSAJHBCLA'
+AND mil_stat < '040';
+Expected Outcome
+• Stock and picking records reflect the same correct expiry date
+• No inconsistencies during picking, validation, or outbound processes
+Sensitivity: Internal

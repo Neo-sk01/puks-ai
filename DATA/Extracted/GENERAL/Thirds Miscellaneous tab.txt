@@ -1,0 +1,32 @@
+[META]
+chunk_type: text
+source_file: Thirds Miscellaneous tab.pdf
+category: GENERAL
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Thirds Miscellaneous Tab – RAG-Friendly Version
+Purpose:
+The Miscellaneous Tab allows associating additional, non-standard information
+with a third party. This can include administrative, financial, or operational data
+that is not captured in the main third-party fields.
+1. Key Capabilities
+Depending on the type of third party, the Miscellaneous tab can store:
+• Supplier:
+o VAT numbers, star codes, ownership information, or other
+compliance details.
+• Recipient:
+o Special delivery instructions, account references, or other
+operational notes.
+• Carrier / Site:
+o Loading/unloading locations, transport hub identifiers, or site-
+specific information.
+2. Usage Notes
+• Fields in this tab are optional but recommended when additional
+information is required for logistics, accounting, or legal compliance.
+• Allows the system to capture extended attributes for a third party without
+altering the standard tabs.
+• Enhances reporting, validation, and integration with other modules such as
+transport planning or stock management.
+Sensitivity: Internal

@@ -1,0 +1,39 @@
+[META]
+chunk_type: text
+source_file: Management of expected receptions.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Management of Expected Receptions
+Access:
+• Menu: Receiving → Expected
+• Global settings: System → Global → Module → Expected
+Purpose:
+• Provides a view of all expected reception lines integrated into SpeedWMS.
+• Allows management of expected receptions from purchase orders or
+returned goods.
+Expected Reception Lines:
+• Each line represents a quantity of an item awaiting receipt in the warehouse.
+• Associated with a supplier purchase order or order-giver reference and a
+planned date.
+• Quantity consumed on an expected line corresponds to the quantity actually
+received.
+• Consumption is registered only when a stock movement is recorded in
+Speed.
+Display Options:
+1. Headers view – shows expected items at header level.
+2. Portfolio view – shows all expected item lines.
+Users can configure the default display in System → Global → Module → Expected.
+Actions Available:
+• Create new expected receipt lines manually.
+• Modify existing lines individually or in bulk.
+• Import expected reception lines from an Excel file.
+• Delete existing lines (with constraints).
+Sensitivity: Internal
+
+[PAGE 2]
+• Initiate reception – associate selected lines with a SpeedWMS receipt via
+the contextual menu.
+Sensitivity: Internal

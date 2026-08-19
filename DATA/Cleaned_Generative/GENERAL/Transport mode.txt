@@ -1,0 +1,40 @@
+[META]
+chunk_type: text
+source_file: Transport mode.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Transport Mode – RAG-Friendly Version
+Purpose:
+Define the different modes of transport available in SpeedWMS to classify and
+manage shipments efficiently.
+1. Overview
+• The Transport Mode is a property of a shipment or load.
+• It allows the system and users to identify how goods are moved (e.g., truck,
+air, rail, sea).
+• Proper configuration ensures accurate planning, tracking, and reporting of
+logistics operations.
+2. Access
+• Navigate via: Settings → Transport → Mode of Transport.
+• Each transport mode is linked to a shipment under the Transport tab.
+3. Configuration
+• Create a new transport mode by entering a unique code and description.
+• Modify an existing transport mode directly in the transport mode table.
+• Transport modes can be assigned to multiple shipments, supporting
+standardized reporting and analytics.
+4. Usage
+• When creating or updating a load, select the appropriate transport mode.
+• The mode of transport impacts:
+o Scheduling and routing decisions
+o Integration with warehouse and shipment processes
+o Reporting and KPI tracking for logistics operations
+Sensitivity: Internal
+
+[PAGE 2]
+5. Summary
+• Transport Modes provide a consistent method to classify shipments in
+SpeedWMS.
+• They support both operational execution and strategic reporting.
+Sensitivity: Internal

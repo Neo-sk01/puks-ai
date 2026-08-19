@@ -1,0 +1,51 @@
+[META]
+chunk_type: text
+source_file: Receipt generation from an exp.pdf
+category: RECEIVING GOODS
+total_pages: 5
+[/META]
+
+[PAGE 1]
+Receipt generation from an exp. item
+This operation allows, in addition to associating the expected with a receipt, to directly
+generate the corresponding receipt lines.
+The receipt is created by purchase order by purchase order. Regardless of the number of
+expected lines selected, it is always the entire purchase order that will be returned to
+the processing screen. It will not be possible to process several purchase orders at
+once, the operation must be repeated for each of them.
+This feature is accessible from the context menu expected:
+All the lines of the purchase order will then be brought back to the screen:
+The information that can be modified are those highlighted in yellow.
+Sensitivity: Internal
+
+[PAGE 2]
+For each expected line corresponding to goods received, it is necessary to check the
+quantity to be returned to stock, to modify it if necessary, and to tick the box TG (“ To
+generate”) to indicate Speed that the line is to be treated within the framework of the
+reception.
+Lines that have already been received are automatically ticked G(“generated”), and
+cannot be modified.
+In the event that one of the items manages the variable weight, it is necessary to specify
+the total weight of the expected quantity:
+It is possible to process in reception a quantity lower than the expected quantity, the
+expected line will in this case be split to keep a remainder which will be received later.
+Sensitivity: Internal
+
+[PAGE 3]
+The validation button allows to proceed to the receipt generation stage when all the
+lines to be processed have been completed and possibly modified.
+The different validation options will then appear:
+Sensitivity: Internal
+
+[PAGE 4]
+Refer to the chapter dealing with the different stages of a reception for more details on
+the stock generation and editing options.
+The expected lines are received and managed according to the settings chosen in the
+previous screen:
+Sensitivity: Internal
+
+[PAGE 5]
+If additional information were saved for the expected items from which the receipt was
+generated, if the inheritance of the additional information is activated, or if the
+inheritance mapping was made, the user will find them again in the generated receipt.
+Sensitivity: Internal

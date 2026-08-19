@@ -1,0 +1,39 @@
+[META]
+chunk_type: text
+source_file: The different statuses of a support.pdf
+category: STORAGE
+total_pages: 2
+[/META]
+
+[PAGE 1]
+SpeedWMS – Status of a Support
+When stock is generated during reception, each storage support (e.g., pallet, bin) is
+assigned a status depending on its handling and location assignment.
+Initial Status After Reception
+1. 01 – Support in place
+o Support is already in its location.
+o Typically used when locations are not managed.
+2. 02 – Location to be assigned
+o Support is on the reception platform.
+o Destination location is unknown at this stage.
+Assigned Location
+• When a destination location is assigned (manually in the Storage tab or via
+automatic location search), the support status changes to:
+3. 03 – Movement to be performed
+o Support knows its planned storage location, but has not yet been
+moved.
+After Movement
+• Once the support is moved to the planned location:
+o Status changes from 03 → 01
+o Initial location is replaced with the planned location.
+o The movement is recorded in Speed history.
+Key Notes:
+• Status 01 can represent both “already in place” and “moved to its
+destination.”
+• Status 02 is temporary until the system or user assigns a location.
+Sensitivity: Internal
+
+[PAGE 2]
+• Status 03 indicates a pending move—critical for tracking warehouse
+operations.
+Sensitivity: Internal

@@ -1,0 +1,191 @@
+[META]
+chunk_type: text
+source_file: LOREAL Restriction of Options in Cycle Counting Radio Module.pdf
+category: LOREAL
+total_pages: 7
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Restriction of Options in Cycle Counting Radio Module
+Version: 1.0
+Date: 15/04/2025
+Author: AKD
+DOCUMENT METADATA (for your vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"module": "Cycle Counting (Radio)",
+"process_event": "PE 884",
+"activity_parameters": ["ACT_TOP22", "ACT_ALPHA12"],
+"speed_version": "A.8.6.F => 28.06b1",
+"speed_radio_version": "28.06b"
+}
+SECTION 1 — Business Context
+1.1 Functional Context
+Within the L’ORÉAL activity, the standard Cycle Counting module is used.
+This module:
+• Does not rely on a specific inventory zone.
+• Does not block storage locations.
+• Allows immediate stock updates based on declared quantities.
+The radio cycle counting module is used by warehouse teams for stock adjustment,
+particularly in the following situations:
+• When a pallet is found in the warehouse without an assigned location.
+Sensitivity: Internal
+
+[PAGE 2]
+• When consuming or modifying a stock support.
+1.2 Business Requirement
+Since this module is accessible to all radio operators, the client wants to restrict
+access to certain options based on the user profile.
+Access to specific functionalities must depend on the user group.
+1.3 User Group Restriction
+Initially:
+The USER group will NOT have access to the following options:
+• Modify Quality
+• Modify Traceability Elements
+• Modify Packaging
+• Reset (to be confirmed with client)
+• New Reference
+The list of user groups concerned will be configured in:
+ACT_ALPHA12
+Group names must be separated by a semicolon (“;”).
+1.4 Standard Options Available in the Module
+The standard module includes the following options:
+• Modify Quality
+• Modify Traceability Elements
+• Modify Template
+• Modify Packaging
+• Reset
+• Support Label
+• New Reference
+Sensitivity: Internal
+
+[PAGE 3]
+• Modify Movement Reason
+• Unit Control
+• Declare Event
+• Modify Variable Information
+1.5 Activation Parameter
+A specific activity parameter will control whether the restriction logic is applied.
+Parameter:
+ACT_TOP22
+If:
+ACT_TOP22 = 1
+→ Restriction logic is activated.
+If:
+ACT_TOP22 = 0
+→ Standard behavior (no restriction).
+SECTION 2 — Functional Flow (Radio Process)
+2.1 Radio Navigation
+Step 1
+Select:
+Cycle Counting
+Press:
+F5
+Step 2
+Scan support or location
+Press:
+F5
+Sensitivity: Internal
+
+[PAGE 4]
+Step 3
+Enter counted quantity
+Then, when clicking to access:
+Option Window
+2.2 Conditional Behavior
+If:
+ACT_TOP22 = 1
+At the initialization of the option window:
+→ Use PE 884 to display only the options allowed for the connected user group.
+SECTION 3 — Technical Implementation
+3.1 Entry Point Used
+Entry Point Description
+PE 884 Option window initialization logic
+3.2 Technical Condition
+When:
+ACT_TOP22 = 1
+Then:
+Use PE 884 to filter visible options.
+3.3 Filtering Logic
+If the connected user belongs to the group configured in:
+ACT_ALPHA12
+Then the following options must be hidden:
+Sensitivity: Internal
+
+[PAGE 5]
+• Modify Quality
+• Modify Traceability Elements
+• Modify Packaging
+• Reset
+• New Reference
+3.4 Logical Flow (Pseudo-Code)
+IF ACT_TOP22 = 1 THEN
+restricted_groups = GET_VALUE(ACT_ALPHA12)
+IF current_user.group IN restricted_groups THEN
+HIDE_OPTION("Modify Quality")
+HIDE_OPTION("Modify Traceability Elements")
+HIDE_OPTION("Modify Packaging")
+HIDE_OPTION("Reset")
+HIDE_OPTION("New Reference")
+ENDIF
+ENDIF
+SECTION 4 — Functional Summary (RAG-Optimized)
+What module is impacted?
+Cycle Counting – Radio Module
+Which entry point is used?
+PE 884
+Sensitivity: Internal
+
+[PAGE 6]
+Which parameter activates the restriction?
+ACT_TOP22
+Where are restricted groups configured?
+ACT_ALPHA12
+What happens if ACT_TOP22 = 0?
+No restriction is applied.
+What happens if ACT_TOP22 = 1?
+Options are filtered based on the user group.
+SECTION 5 — Client Validation
+AGL acknowledges receipt and validates all elements included in this document.
+BK Systèmes commits to delivering the solution that meets the expressed and
+validated needs within the framework of the approved quotation.
+Any additional request or new evolution beyond this document may require an
+additional quotation.
+Any provision not explicitly stated in this document is not covered and remains at
+the discretion of the concerned parties.
+Signed at Vaulx-Milieu, on 15/04/2025.
+Signature and company stamp:
+Recommended RAG Chunking Strategy
+Here is how you should split it for your vector store:
+Chunk 1 — Business Context
+Metadata:
+{
+"section": "functional_context",
+"module": "cycle_counting_radio"
+}
+Sensitivity: Internal
+
+[PAGE 7]
+Chunk 2 — Restricted Options List
+Metadata:
+{
+"section": "restricted_options",
+"group": "USER",
+"parameter": "ACT_ALPHA12"
+}
+Chunk 3 — Activation Parameter
+Metadata:
+{
+"section": "activation_logic",
+"parameter": "ACT_TOP22"
+}
+Chunk 4 — PE 884 Technical Logic
+Metadata:
+{
+"section": "process_event",
+"pe_number": "884"
+}
+Sensitivity: Internal

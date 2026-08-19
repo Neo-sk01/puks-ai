@@ -1,0 +1,62 @@
+{
+  "document_name": "Cancel Shipped Order Procedure",
+  "version": "1.0",
+  "authoritative": true,
+  "core_tables": {
+    "OPE_DAT": "Order Header",
+    "MIL_DAT": "Mission Lines",
+    "MIE_DAT": "Mission Header"
+  },
+  "join_logic": {
+    "outbound": {
+      "primary_keys": [ "OPE_NOOE"],
+      "description": "Outbound joins should prioritise OPE_NOOE (order number) so it order number(OPE_DAT) CAN BE USED TO JOIN ALL THE TABLES(OPE_DAT, MIL_DAT, MIE_DAT) ALSO THE ACT_CODE CAN BE USED JUST TO LIMIT THE NUMBER OF ROWS RETURN TO MAKE THE PROCESSING FASTER.",
+      "example_pattern": "SELECT  * FROM OPE_DAT JOIN MIE_DAT ON OPE_DAT.OPE_NOOE = MIE_DAT.OPE_NOOE AND OPE_DAT.ACT_CODE = MIE_DAT.ACT_CODE JOIN MIL_DAT ON MIE_DAT.MIE_NOHE = MIL_DAT.MIE_NOHE AND MIL_DAT.ACT_CODE = MIE_DAT.ACT_CODE WHERE OPE_DAT.OPE_NOOE = [Order Number] AND OPE_DAT.ACT_CODE = 'Activity Account';"
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Verify the Order in the Database",
+      "category": "Outbound",
+      "access_level": "Support",
+      "query": {
+        "sql": "SELECT OPE_KEYU, OPE_NOOE, * FROM OPE_DAT WHERE ACT_CODE = 'Activity Account' AND OPE_NOOE = [Order Number];"
+      },
+      "business_logic": "Confirm the order details and current status before making any changes."
+    },
+    {
+      "procedure_name": "Revert the Order Status from 070 to 060",
+      "category": "Outbound",
+      "access_level": "Support",
+      "update": {
+        "sql": "UPDATE OPE_DAT SET OPE_STAT = '060' WHERE ACT_CODE = 'Activity Account' AND OPE_NOOE = [Order Number] AND OPE_KEYU = [Order Keyu];"
+      },
+      "business_logic": "Update the order status in the database to allow further processing in Speed. Must be executed by Support team."
+    },
+    {
+      "procedure_name": "Invalidate Mission Lines in Speed",
+      "category": "Outbound",
+      "access_level": "User / Support",
+      "business_logic": "After the order status has been reverted to 060, navigate to the Mission tab, select the relevant Mission, open Mission Header, display Mission Lines, and invalidate all mission lines. Repeat if multiple mission headers exist."
+    },
+    {
+      "procedure_name": "Cancel the Mission",
+      "category": "Outbound",
+      "access_level": "User / Support",
+      "business_logic": "Once all mission lines are invalidated, the order moves to status 030. Cancel the mission. After cancellation, the order will move to status 010."
+    },
+    {
+      "procedure_name": "Cancel the Order",
+      "category": "Outbound",
+      "access_level": "User / Support",
+      "business_logic": "When the order reaches status 010, it can now be fully cancelled in the system."
+    }
+  ],
+  "safety_rules": [
+    "Orders in status 070 cannot be cancelled directly.",
+    "Status 070 → 060 requires a database update.",
+    "Only Support can perform database updates.",
+    "All mission lines must be invalidated before mission cancellation.",
+    "Final order cancellation is only possible at status 010."
+  ]
+}

@@ -1,0 +1,52 @@
+[META]
+chunk_type: text
+source_file: Support_Ticket(speed not open).pdf
+category: Support Ticket Docs
+total_pages: 1
+[/META]
+
+[PAGE 1]
+[TABLE]
+Field | Value
+Ticket Title | speed not open
+Ticket Category | Bug
+Module Affected | wms
+Warehouse | pomona
+Priority | Medium
+Root Cause | test
+Issue Description | can't enter password
+Final Resolution Summary | test
+Closed Date | 04 Feb 2026, 22:00
+Keywords / Tags |
+[/TABLE]
+
+[TABLE]
+Tables
+Involved | Number of
+Steps | Step
+Description | SQL
+Code | Tools
+Used | Validation
+Steps | Prevention
+Steps
+[/TABLE]
+
+Support Ticket ID: 1016
+Date Created: 04 Feb 2026, 22:00
+Logged By: Kgathola
+Closed By:Kgathola Puka
+Ticket Header Information
+Field Value
+Ticket Title speed not open
+Ticket Category Bug
+Module Affected wms
+Warehouse pomona
+Priority Medium
+Root Cause test
+Issue Description can't enter password
+Final Resolution Summary test
+Closed Date 04 Feb 2026, 22:00
+Keywords / Tags
+Ticket Steps / Code
+Tables Number of Step SQL Tools Validation Prevention
+Involved Steps Description Code Used Steps Steps

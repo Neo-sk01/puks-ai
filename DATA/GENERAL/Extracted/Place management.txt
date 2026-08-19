@@ -1,0 +1,7 @@
+Place management
+Functionality accessible from the menu Settings / Transport / Place management
+Place management is a characteristic of the load, it is defined in the "Transport" tab of
+the load.
+The entry or modification of the modes is done directly in the table. The mention is a
+free comment which could possibly be used on documents.
+Sensitivity: Internal

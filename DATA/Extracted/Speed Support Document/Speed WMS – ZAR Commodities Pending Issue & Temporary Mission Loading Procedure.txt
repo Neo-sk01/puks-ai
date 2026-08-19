@@ -1,0 +1,70 @@
+[META]
+chunk_type: text
+source_file: Speed WMS – ZAR Commodities Pending Issue & Temporary Mission Loading Procedure.pdf
+category: Speed Support Document
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Notice: Pending Issue – Missions Loading Before Full Picking (ZAR Commodities)
+Please be advised that there is a known and pending issue affecting ZAR
+commodities, where missions can be loaded even when the full order has not been
+completely picked.
+This behaviour is currently causing operational backlogs and delays.
+Current Status
+• The issue has been formally escalated to BKS.
+• We are awaiting their feedback and a permanent fix.
+Temporary Mitigation
+While waiting for BKS resolution, a temporary workaround has been implemented:
+• A task scheduler runs every 5 minutes to update affected missions.
+• This allows missions to be loaded without further operational disruption.
+This is a temporary solution and should be treated as such.
+Manual Intervention (If Required)
+If manual correction is needed, please use the scripts below to identify and update
+affected missions.
+1. Identify Affected Records
+SELECT
+mil.mil_nosu,
+mil.mil_stat,
+sex.sex_stsup
+FROM mil_dat mil
+JOIN ope_dat ope
+ON ope.act_code = mil.act_code
+AND ope.ope_nooe = mil.ope_nooe
+Sensitivity: Internal
+
+[PAGE 2]
+JOIN sex_dat sex
+ON sex.sex_act = mil.act_code
+AND sex.sex_supe = mil.mil_nosu
+WHERE mil.act_code = 'zar'
+AND mil.mil_stat = '040'
+AND sex.sex_stsup = '020'
+AND ope.ope_stat <= '040';
+2. Update Mission Status
+UPDATE sex_dat
+SET sex_stsup = mil.mil_stat
+FROM mil_dat mil
+JOIN ope_dat ope
+ON ope.act_code = mil.act_code
+AND ope.ope_nooe = mil.ope_nooe
+JOIN sex_dat sex
+ON sex.sex_act = mil.act_code
+AND sex.sex_supe = mil.mil_nosu
+WHERE mil.act_code = 'zar'
+AND mil.mil_stat = '040'
+AND sex.sex_stsup = '020'
+AND ope.ope_stat <= '040';
+Important Notes
+• Always run the SELECT query first to confirm impacted records.
+• Apply updates only where conditions are met.
+• Keep an audit trail of:
+o Mission number
+Sensitivity: Internal
+
+[PAGE 3]
+o Old status
+o New status
+o Date/time of update
+• Perform actions in Test/QA first, where applicable.
+Sensitivity: Internal

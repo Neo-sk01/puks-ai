@@ -1,0 +1,27 @@
+[META]
+chunk_type: text
+source_file: Launching.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Launching a Distribution
+Access:
+Preparation / Distribution
+Steps to Launch a Distribution
+1. Select the distribution(s) you want to process.
+2. Use the contextual menu and choose:
+GO: Validate the distributions
+What Happens When You Launch
+• Orders are generated based on the distribution model.
+• Orders are automatically validated (depending on configuration).
+• Picking notes and labels are created for the orders.
+• Optional: Print a label per recipient or per shipping support using the Print
+markup labels option.
+Notes
+• Launching a distribution is the step that converts received goods into
+prepared orders.
+• Ensures that the distribution is ready for picking and shipping.
+• Labels can be customized per recipient for easier handling.
+Sensitivity: Internal

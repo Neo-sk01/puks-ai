@@ -1,0 +1,62 @@
+[META]
+chunk_type: text
+source_file: Creating a distribution.pdf
+category: ORDER PREPARATION
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Creating a Distribution
+Access:
+Preparation / Distribution
+• Orders must be in In Seizure (010) status to create a distribution.
+• Click the Addition (+) button to open the distribution form.
+• The form is divided into several tabs.
+Header Tab
+Displayed by default, divided into three main sections:
+Section Purpose
+Select a distribution template and enter initialization info for the
+Distribution
+distribution.
+External
+Enter information related to the third-party supplier.
+Data
+Organization Fill in delay information and distribution preparation circuit.
+Lines Tab
+• Displays items from the selected distribution template.
+• Adjustments via contextual menu:
+o Add new lines using the addition button.
+o Only items for which the selected supplier is the main supplier can be
+selected.
+• Mandatory input per line:
+o Quantity to allocate
+o Weight
+o Traceability
+• Distribution methods:
+o Entered Distribution: Manually enter quantities per line based on
+assigned percentages.
+Sensitivity: Internal
+
+[PAGE 2]
+o Auto Distribution: SpeedWMS automatically fills line quantities based
+on the distribution template.
+Recipient Lines Tab
+• Displays how the parcels are distributed per recipient.
+• Allows modification of the number of parcels assigned to each recipient.
+Comments Tab
+• Enter comments that will appear in the distribution-related documents.
+General Information Tab
+• Tracks creation and updates of the distribution.
+Additional Info Tab
+• Optional information can be added at different levels of the process:
+o Division
+o Preparation voucher (BP)
+o Delivery note (BL)
+o Label
+Info Tab
+• Summary of general information of the current distribution.
+Key Notes
+• A distribution is linked to a template, a supplier, and specific recipients.
+• Quantities can be assigned manually or automatically.
+• All tabs allow for documentation and traceability of the distribution process.
+Sensitivity: Internal

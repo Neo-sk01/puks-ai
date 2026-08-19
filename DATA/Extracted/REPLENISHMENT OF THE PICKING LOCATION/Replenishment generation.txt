@@ -1,0 +1,39 @@
+[META]
+chunk_type: text
+source_file: Replenishment generation.pdf
+category: REPLENISHMENT OF THE PICKING LOCATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Topic: Replenishment Generation
+Access Path: Preparation / Replenish. → Click the 'Generate' button (located on the
+right side of the interface).
+Purpose: This function launches a process to calculate and create replenishment
+tasks based on user-defined criteria.
+1. Generation Window & Criteria
+The Replenishment Generation Window is the interface where users define the
+criteria for the system to calculate required replenishments.
+• Primary Selection: You must first select the picking area (zone) concerned by
+the generation.
+• Granular Selection: Within the selected zone, you can further narrow the
+scope by specifying:
+o A single Item
+o A single Location
+o An Item Family
+• Parameter Initialization: When a zone is selected, all other calculation
+parameters (e.g., min/max levels) are automatically initialized with the
+values defined for that zone.
+2. Key Parameter: "Complete Pickings"
+• Purpose: When enabled, this parameter directs the system to generate
+replenishments with the sole goal of filling existing picking tasks, regardless
+of the standard stock level requirements.
+• Effect: It ensures that all items requested in open pickings are fully available
+at the picking location.
+3. Execution
+• Process: After defining the criteria, click the dedicated
+validation/confirmation button in the window.
+• Outcome: This action triggers the system's calculation engine, which
+processes the inputs and generates the specific replenishment tasks
+desired by the user.
+Sensitivity: Internal

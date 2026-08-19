@@ -1,0 +1,171 @@
+[META]
+chunk_type: text
+source_file: LOREAL Lot Control in “Prepared Support Control” (Radio Module).pdf
+category: LOREAL
+total_pages: 6
+[/META]
+
+[PAGE 1]
+Project: L’ORÉAL
+Feature: Lot Control in “Prepared Support Control” (Radio Module)
+Specification: SPD27
+Version: 1.0
+Date: 04/06/2025
+Author: ZBA
+DOCUMENT METADATA (for Vector DB)
+{
+"document_type": "Technical Specification",
+"project": "L'OREAL",
+"system": "Speed WMS",
+"module": "Radio - Prepared Support Control",
+"module_code": "CPA0200",
+"feature": "Lot Control During Prepared Support Validation",
+"parameter_flag": "ART_LOT1",
+"activity_flag": "ACT_TOP29",
+"spec_code": "SPD27",
+"version": "1.0"
+}
+SECTION 1 — Business Context / Functional Need
+1.1 Current Process
+Within the L’Oréal project, the client uses the radio module:
+Prepared Support Control
+This module allows operators to:
+• Scan (flash) a prepared support
+• Verify the quantities of prepared items
+Sensitivity: Internal
+
+[PAGE 2]
+Currently:
+✔ Only quantities are controlled
+The lot used during picking is not validated during support control
+1.2 Identified Need
+If the article manages lot 1 (lot tracking enabled),
+the client wants to:
+✔ Control the picked lot
+✔ Display lot traceability during radio control
+✔ Require operator confirmation
+1.3 Activation Condition
+The functionality is activated through:
+ACT_TOP29 – SPEC 27
+Scope:
+Control lot during prepared support control in:
+U-MAR-COMA > MACASLEA1
+SECTION 2 — Functional Behavior
+The logic applies when flashing an article during prepared support control.
+SPECIFIC FLOW — SPD27-1
+Trigger
+(PE) When the operator scans (flashes) an article.
+Step 1 — Check Lot Management
+IF ART_LOT1 = 0
+→ Standard module behavior
+ENDIF
+Sensitivity: Internal
+
+[PAGE 3]
+If the article does NOT manage lot1 → no change.
+IF ART_LOT1 = 1
+→ Open specific traceability window
+ENDIF
+If article manages lot1 → special control applies.
+Step 2 — Traceability Window
+System opens a specific window showing:
+• List of missions
+• Lot traceability for that article
+Example:
+Article A
+Traceability window:
+2 × Lot N°1
+1 × Lot N°4
+Flash 3 articles A
+Step 3 — Operator Confirmation
+System displays message:
+Do you confirm lot conformity? Yes / No
+⚠ A physical visual check is performed by the operator.
+Step 4 — Decision Logic
+Case 1 — YES (Lots Conform)
+IF YES THEN
+Sensitivity: Internal
+
+[PAGE 4]
+RETURN TO STANDARD (CPA0200)
+NEUTRALIZE ARTICLE
+ENDIF
+Behavior:
+• Article validated
+• Continue standard control flow
+Case 2 — NO (Lots Not Conform)
+IF NO THEN
+RETURN TO STANDARD
+NEUTRALIZE ARTICLE
+MARK SUPPORT AS CONTROL KO (at end of process)
+ENDIF
+Behavior:
+• Article neutralized
+• Support flagged as control failure (KO)
+SPECIFIC FLOW — SPD27-2
+Additional Functionality
+(PE) When pressing F2:
+System displays:
+Lot of the mission line
+Purpose:
+• Allow operator to view lot details directly from mission line.
+SECTION 3 — Technical Logic
+ON ARTICLE_SCAN:
+Sensitivity: Internal
+
+[PAGE 5]
+IF ART_LOT1 = 1 THEN
+DISPLAY TRACEABILITY WINDOW
+DISPLAY LOT DISTRIBUTION
+ASK CONFIRMATION (YES/NO)
+IF YES THEN
+VALIDATE ARTICLE
+ELSE
+VALIDATE ARTICLE
+FLAG SUPPORT = CONTROL_KO
+ENDIF
+ELSE
+STANDARD CONTROL FLOW
+ENDIF
+SECTION 4 — Functional Summary (RAG-Optimized)
+What module is impacted?
+Radio – Prepared Support Control (CPA0200)
+What activates the feature?
+ACT_TOP29 – SPEC 27
+What field controls the logic?
+ART_LOT1
+When does the special control apply?
+When ART_LOT1 = 1 (lot-managed article)
+What is displayed?
+Lot traceability window showing picked lot distribution.
+What does the operator do?
+Sensitivity: Internal
+
+[PAGE 6]
+Performs physical visual control and confirms conformity.
+What happens if lots are incorrect?
+Support is flagged as control KO.
+What does F2 do?
+Displays lot of mission line.
+SECTION 5 — Process Flow Overview
+1. Flash support.
+2. Flash article.
+3. System checks ART_LOT1.
+4. If lot-managed:
+o Display lot traceability.
+o Ask confirmation.
+5. Based on response:
+o Validate article
+o Possibly flag support as KO
+6. Continue standard control flow.
+SECTION 6 — Client Validation
+AGL acknowledges receipt and validates all elements included in this document.
+BK Systèmes commits to delivering the solution that meets the validated
+requirements within the scope of the approved quotation.
+Any additional request or evolution beyond this document may require a
+supplementary quotation.
+Any provision not explicitly stated in this document is not covered and remains at
+the discretion of the concerned parties.
+Signed at Vaulx-Milieu, on 25/03/2025.
+Company stamp and signature:
+Sensitivity: Internal

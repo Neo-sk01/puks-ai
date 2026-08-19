@@ -1,0 +1,16 @@
+Import locations
+Accessed via the menu Settings / Locations.
+A click on the Import button allows to import locations in the environment through an
+Excel file.
+Here is an example of excel file to import as it is :
+Once the data file selected, the information appear in the Data tab like this :
+Sensitivity: InternalThe selection of a separator (in the higher right corner of the picture) becomes available.
+A click on the Setting tab enables to map the titles of the columns with existing titles
+from SpeedWMS :
+The Preview tab enables to confirmand save all the locations to import :
+Sensitivity: InternalAll the line with the DNI box checked will not be imported.
+A click on the Import button (lower right corner) allows to validate the import.
+The Cancel button enables to end the import process at any time.
+Once the import completed, it will also be possible to save the template for a later use.
+Sensitivity: InternalThe new imported locations appear at the end of the list in the locations window :
+Sensitivity: Internal

@@ -1,0 +1,12 @@
+[META]
+chunk_type: text
+source_file: Operations.pdf
+category: ORDER PREPARATION
+total_pages: 1
+[/META]
+
+[PAGE 1]
+Operations on ''in seizure'' orders
+There are various operations accessible via the contextual menu on the portfolio of
+in seizure orders.
+Sensitivity: Internal

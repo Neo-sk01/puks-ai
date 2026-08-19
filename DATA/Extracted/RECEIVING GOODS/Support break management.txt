@@ -1,0 +1,49 @@
+[META]
+chunk_type: text
+source_file: Support break management.pdf
+category: RECEIVING GOODS
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Support Break Management – RAG-Friendly Version
+Purpose:
+The support break feature allows Speed WMS to automatically split large incoming
+quantities into multiple storage supports during receipt line creation, based on the
+packaging plan defined in the item sheet.
+1. Parameter Location
+• Found in the Storage tab of each item sheet.
+• Activated per stock unit (SU) type configured on the item.
+• Determines how quantities are split across storage media when creating
+receipt lines.
+2. Behavior Without Support Break
+• Example:
+o Item pallet = 750 units
+o Received quantity = 4 pallets → 3000 units
+• If support break is not activated:
+o A single receipt line will contain the entire 3000 units.
+o To match the actual pallets, 4 separate receipt lines must be created
+manually.
+3. Behavior With Support Break Activated
+• Support break activated on Pallet SU:
+o System automatically splits the incoming quantity into multiple
+storage supports according to the item’s packaging plan.
+• Example:
+o Received quantity = 10000 units
+o Support break splits:
+▪ 2 supports of 4500 units each
+▪ 1 support for the remaining 1000 units
+Sensitivity: Internal
+
+[PAGE 2]
+• Benefits:
+o Optimizes administrative entry of incoming goods
+o Ensures receipt lines match the physical pallets received
+4. Rules & Notes
+• The number and size of supports generated depend on the item sheet
+packaging plan.
+• Only quantities that comply with the item’s packaging plan can be
+automatically split.
+• If the received pallets do not comply with the packaging plan, manual
+adjustment is needed.
+Sensitivity: Internal

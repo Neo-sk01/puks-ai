@@ -1,0 +1,215 @@
+[META]
+chunk_type: text
+source_file: Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).pdf
+category: Support Ticket Docs
+total_pages: 2
+[/META]
+
+[PAGE 1]
+[TABLE]
+Field | Value
+Ticket Title | Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS
+Ticket Category | Request
+Module Affected | Inbound
+Warehouse | Durban
+Priority | Low
+Root Cause | Incorrect information captured
+Issue Description | Kindly assist with amending GRN numbers for Jinko Solar as in attached record of GRN numbers per receipt
+of the same.
+Final Resolution
+Summary | Change status for receipt to 100
+Closed Date | 04 Feb 2026, 22:00
+Keywords / Tags |
+[/TABLE]
+
+[TABLE]
+Tables Involved | Number
+of
+Steps | Step Description | SQL Code | Tools
+Used | Validation
+Steps | Prevention
+Steps
+REE_dat,REL_DAT,STK_Dat,mvt_DAT |  | !.Select the receipt from the
+database 2.update GRN
+Numbers (REE_NOFO)
+3.SELECT RECEIPT FROM
+TEH STOCK TABLE 4.UPDATE
+THE STOCK
+TABLE(STK_RETI) 5. SELECT
+THE RECEIPT FROM THE
+MOVEMENT TABLE 6.UPDATE
+THE
+MOVEMENTTABLE(STK_RETI) | 1.select *
+from
+ree_dat
+where
+ree_NOFO =
+'36490'
+and
+act_code =
+'RSADBNWH'
+2.uPDATE
+REE_DAT
+SET
+REE_NOFO
+='4603'
+WHERE
+REE_NOFO =
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH'
+3.SELECT *
+FROM
+STK_DAT
+WHERE
+STK_RETI =
+'36490' | SQL | SELECT
+THE
+UPDATED
+RECEIPT
+TO
+CHECK
+IUF IT IS
+PRESENT
+AND IT
+HAS
+BEEN
+UPDATED | THEY
+SHOULD
+MAKE SURE
+TO INPUT
+CORRECT
+INFORMATION
+BEFORE
+CLOSING TEH
+GRN
+[/TABLE]
+
+Support Ticket ID: 1017
+Date Created: 05 Feb 2026, 04:02
+Logged By: Anusha Reddy
+Closed By:Kgathola Puka
+Ticket Header Information
+Field Value
+Ticket Title Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS
+Ticket Category Request
+Module Affected Inbound
+Warehouse Durban
+Priority Low
+Root Cause Incorrect information captured
+Issue Description Kindly assist with amending GRN numbers for Jinko Solar as in attached record of GRN numbers per receipt
+of the same.
+Final Resolution Change status for receipt to 100
+Summary
+Closed Date 04 Feb 2026, 22:00
+Keywords / Tags
+Ticket Steps / Code
+Tables Involved Number Step Description SQL Code Tools Validation Prevention
+of Used Steps Steps
+Steps
+REE_dat,REL_DAT,STK_Dat,mvt_DAT !.Select the receipt from the SQL SELECT THEY
+database 2.update GRN 1.select * THE SHOULD
+Numbers (REE_NOFO) from UPDATED MAKE SURE
+3.SELECT RECEIPT FROM ree_dat RECEIPT TO INPUT
+TEH STOCK TABLE 4.UPDATE where TO CORRECT
+THE STOCK ree_NOFO = CHECK INFORMATION
+TABLE(STK_RETI) 5. SELECT '36490' IUF IT IS BEFORE
+THE RECEIPT FROM THE PRESENT CLOSING TEH
+and
+MOVEMENT TABLE 6.UPDATE AND IT GRN
+act_code =
+THE HAS
+'RSADBNWH'
+MOVEMENTTABLE(STK_RETI) BEEN
+2.uPDATE
+UPDATED
+REE_DAT
+SET
+REE_NOFO
+='4603'
+WHERE
+REE_NOFO =
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH'
+3.SELECT *
+FROM
+STK_DAT
+WHERE
+STK_RETI =
+'36490'
+
+[PAGE 2]
+[TABLE]
+|  |  | AND
+ACT_CODE =
+'RSADBNWH'
+4.uPDATE
+STK_DAT
+SET
+STK_RETI
+='4603'
+WHERE
+STK_RETI=
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH'
+5.SELECT *
+FROM
+MVT_DAT
+WHERE
+STK_RETI =
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH'
+6.uPDATE
+MVT_DAT
+SET
+STK_RETI
+='4603'
+WHERE
+STK_RETI=
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH' |  |  |
+[/TABLE]
+
+AND
+ACT_CODE =
+'RSADBNWH'
+4.uPDATE
+STK_DAT
+SET
+STK_RETI
+='4603'
+WHERE
+STK_RETI=
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH'
+5.SELECT *
+FROM
+MVT_DAT
+WHERE
+STK_RETI =
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH'
+6.uPDATE
+MVT_DAT
+SET
+STK_RETI
+='4603'
+WHERE
+STK_RETI=
+'36490'
+AND
+ACT_CODE =
+'RSADBNWH'

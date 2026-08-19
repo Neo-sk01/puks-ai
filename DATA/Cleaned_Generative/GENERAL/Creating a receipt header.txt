@@ -1,0 +1,41 @@
+[META]
+chunk_type: text
+source_file: Creating a receipt header.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Creating a Receipt Header
+Purpose
+• The receipt header is the first step in declaring goods in SpeedWMS.
+• It contains general information about the receipt and precedes the creation
+of receipt lines.
+Access
+• Accessible via:
+o Contextual menu
+o Add / New receipt button
+Screen Layout
+• The form is divided into two parts:
+1. Upper part → Receipt Header (general info about the receipt)
+2. Lower part → Goods table (where receipt lines will be added)
+Automatically Initialized Fields
+• Current activity → non-editable
+• Speed receipt number → internal counter, non-editable
+• Date and time → defaults to the moment of creation, can be modified
+• Default reception dock → list of dock-type locations configured in the
+environment
+Mandatory Fields to Fill
+1. Customer account → if the activity is managing customer accounts
+2. Third-party supplier code → select from declared third parties in the
+environment
+o Option to create a new third-party file directly from the selection
+screen
+Sensitivity: Internal
+
+[PAGE 2]
+3. Receipt reference → alphanumeric, optional but useful for easier search
+Next Steps
+• After the receipt header is created, receipt lines can be added (see the
+previous documentation on receipt line creation).
+Sensitivity: Internal

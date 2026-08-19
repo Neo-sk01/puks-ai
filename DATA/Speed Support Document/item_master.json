@@ -1,0 +1,8 @@
+{
+  "document_name": "Item Master Data (New Items)",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "mandatory_fields": ["Customer Account", "Item Code", "Long Description", "Batch Managed (1 = Yes, 0 = No)", "Classification (Isling: 1–4)", "Serial Managed", "Third Party Code"]
+}

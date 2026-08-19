@@ -1,0 +1,239 @@
+[META]
+chunk_type: text
+source_file: L’ORÉAL – Batch Decoding & Automatic DFAB,DLUO Calculation.pdf
+category: LOREAL
+total_pages: 9
+[/META]
+
+[PAGE 1]
+L’ORÉAL – Batch Decoding & Automatic DFAB/DLUO Calculation
+System: Speed WMS
+Speed Version: A.8.6.F (28.06b1)
+Radio Version: 28.06b
+Module STD175: 28.06
+1. Document Control
+1.1 Version History
+Version Description Date Author
+1.0 Initial version 03/04/2025 AKD
+1.1 Added batch decoding for cycle counting 07/04/2025 AKD
+1.2 Email feedback update 09/04/2025 AKD
+1.3 Teams exchange update 17/04/2025 AKD
+2. Business Context
+Within the L’ORÉAL activity, the Multi-BL Reception module is used to receive
+articles.
+A control must be implemented to:
+Decode the received batch number (LOT)
+Automatically determine:
+• Manufacturing Date (DFAB)
+• Best Before Date (DLUO)
+⚠ The decoding logic depends on how the batch number is entered:
+• Manually entered
+• Retrieved from standard EAN128 scan
+3. Functional Design
+3.1 Activation Parameter
+Control is applied only if:
+Sensitivity: Internal
+
+[PAGE 2]
+ACT_TOP18 = 1
+If ACT_TOP18 ≠ 1:
+→ No automatic decoding is performed.
+4. Batch Decoding Rules
+There are two distinct decoding methods:
+4.1 Method 1 – "Before ISIS"
+Condition
+The batch number:
+• Starts with "+"
+• Has the same length as ACT_ALPHA1
+• Mask defined in activity IC:
+ACT_ALPHA1 = "+AJJJX"
+4.1.1 Mask Interpretation
+The mask is dynamic.
+We must retrieve:
+• Position of first "A" (Year)
+• Number of consecutive "A"
+• Position of "JJJ" (Day of year)
+⚠ Positions are NOT fixed — must be dynamically extracted from ACT_ALPHA1.
+Year (A)
+• Extract position of "A"
+• Use transcoding table where:
+TRANS_NAME = "AYR"
+Example:
+Sensitivity: Internal
+
+[PAGE 3]
+K → 2013
+Day of Year (JJJ)
+• Extract numeric day (001–365 or 366)
+• Must respect leap year logic
+Examples:
+001 → 01/01
+365 → 31/12 (non-leap year)
+366 → 31/12 (leap year)
+Example – Case 1
+Batch:
++K0060
+Article:
+ART_NUM1 = 10
+From TRANS table:
+K → 2013
+006 → 6th day of year
+DFAB:
+06 January 2013
+DLUO:
+DFAB + ART_NUM1 days
+06/01/2013 + 10 = 16/01/2013
+4.2 Method 2 – "After ISIS"
+Condition
+The batch:
+• Does NOT start with "+"
+Sensitivity: Internal
+
+[PAGE 4]
+• Contains at least one letter
+• Has same length as ACT_ALPHA2
+• Mask defined in:
+ACT_ALPHA2 = XXAMXX
+4.2.1 Mask Interpretation
+Positions must be dynamically extracted.
+Retrieve:
+• Position of "A" → Year
+• Position of "M" → Month
+Year (A)
+Use transcoding table:
+TRANS_NAME = "BYR"
+Example:
+J → 2012
+Month (M)
+Use transcoding table:
+TRANS_NAME = "AMO"
+Example:
+7 → July
+O → October
+N → November
+D → December
+Default rule:
+Manufacturing date = First day of extracted month
+Sensitivity: Internal
+
+[PAGE 5]
+Example – Case 2
+Batch:
+2YJ700
+Article:
+ART_NUM1 = 10
+From TRANS table:
+J → 2012
+7 → July
+DFAB:
+01 July 2012
+DLUO:
+01/07/2012 + 10 days = 11/07/2012
+4.3 Invalid Batch
+If the batch:
+• Does not start with "+"
+• Does not match ACT_ALPHA2 format
+• Does not contain required letter positions
+→ It cannot be decoded.
+In this case:
+• DFAB must be manually entered
+• DLUO must be manually entered
+• DLC remains manually entered (no relation to batch)
+5. DLUO Calculation Rule
+Once DFAB is determined:
+DLUO = DFAB + ART_NUM1 (Number of days between DFAB and DLUO)
+Sensitivity: Internal
+
+[PAGE 6]
+6. Functional Flow – Multi-BL Reception
+1. Select Multi-BL Reception
+2. Select Reception / BL
+3. Flash Support
+4. Flash Article / EAN
+5. Enter Quantity
+6. Open Traceability Window
+7. Batch1 field:
+o If EAN scanned → batch auto-filled
+o Else → operator manually enters batch
+Control Point
+Use:
+PE882
+At initialization of traceability window.
+If ACT_TOP18 = 1:
+→ Perform decoding logic.
+7. Technical Implementation
+7.1 PE882 – Reception
+• Duplicate standard window into specific version
+• Perform decoding logic inside specific window
+• DLC remains manual
+Check:
+ACT_TOP18 = 1
+Then:
+Logic Summary
+IF LOT starts with "+" AND matches ACT_ALPHA1 length:
+Sensitivity: Internal
+
+[PAGE 7]
+→ Decode using AYR
+→ Extract JJJ
+→ Calculate DFAB
+→ Calculate DLUO
+ELSE IF LOT matches ACT_ALPHA2:
+→ Decode using BYR
+→ Extract month using AMO
+→ DFAB = First day of month
+→ Calculate DLUO
+ELSE:
+→ No decoding
+→ Manual entry required
+7.2 PE884 – Cycle Counting (Version 1.2)
+Same decoding logic must apply for:
+• Cycle Counting module
+Implementation:
+• Duplicate window
+• Apply same logic as PE882
+8. Transcoding Table – TRANS_BAS
+Table structure:
+Field Type Example
+TRANS_NAME String AYR
+TRANS_IN String K
+Sensitivity: Internal
+
+[PAGE 8]
+Field Type Example
+TRANS_OUT String 2013
+8.1 Year Transcoding (AYR & BYR)
+Letters I, O, Q are excluded.
+Example mapping (valid until 31/12/2025):
+A → 2004
+B → 2005
+...
+K → 2013
+...
+Z → 2026
+8.2 Month Transcoding (AMO)
+1 → January
+2 → February
+...
+9 → September
+O → October
+N → November
+D → December
+8.3 Year Mapping From 01/01/2026
+New mapping applies:
+A → 2026
+B → 2027
+...
+Z → 2048
+Sensitivity: Internal
+
+[PAGE 9]
+Must be updated in TRANS_BAS table accordingly.
+9. Client Validation
+AGL acknowledges and validates the content of this document.
+BK Systèmes commits to delivering the solution according to the approved scope.
+Any additional evolution outside this scope may require additional quotation.
+Signed at: Vaulx-Milieu
+Date: 03/04/2025
+Company Signature & Stamp
+Sensitivity: Internal

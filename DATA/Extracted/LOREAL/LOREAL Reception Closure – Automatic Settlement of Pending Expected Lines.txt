@@ -1,0 +1,169 @@
+[META]
+chunk_type: text
+source_file: LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.pdf
+category: LOREAL
+total_pages: 7
+[/META]
+
+[PAGE 1]
+SPD – Reception Closure – Automatic Settlement of Pending Expected Lines
+DOCUMENT METADATA
+Document Title
+SPD – Reception Closure – Automatic Settlement of Pending Expected Lines
+Client
+AGL – L’ORÉAL Activity
+Version
+1.1
+Date
+14/04/2025 – 15/04/2025
+Author
+AKD
+Speed Version
+A.8.6.F => 28.06b1
+Entry Point
+PE22
+CHANGE HISTORY
+Version Description Date Author
+1.0 Initial Version 14/04/2025 AKD
+1.1 Update after Rémi email 15/04/2025 AKD
+VALIDATION HISTORY
+Sensitivity: Internal
+
+[PAGE 2]
+Version Comment Date By
+1.0 Initial Version 14/04/2023 AKD
+BUSINESS CONTEXT
+4.1 Business Requirement
+Within the L’ORÉAL activity, the client requires that:
+When closing a reception,
+If there are still pending expected lines (not received) linked to the current reception
+DO reference,
+These pending lines must be automatically settled (closed).
+4.2 Why This Control Is Required
+This control aims to:
+Prevent reporting inconsistencies
+• When a reception is closed, reception data is transmitted.
+• The DO reference is closed.
+• The same DO reference must NOT be receivable again in another reception.
+Clean the reception backlog (expected lines portfolio)
+• An expected line with the same BL reference as a closed reception can no
+longer be processed by operators.
+• The client would otherwise need to resend a new expected line.
+4.3 Clarification Regarding DO References
+Speed technically allows multiple DO references per reception.
+However, for this activity:
+One reception = One DO reference
+Therefore:
+Sensitivity: Internal
+
+[PAGE 3]
+The logic must use:
+REE_NOFO = BL Reference (REA_BL)
+The pending expected lines to settle must match:
+• The DO reference of the reception
+• The BL reference (REE_NOFO)
+4.4 Radio Behavior
+There will be:
+No reception closure allowed from radio.
+This option will be blocked.
+Closure is handled only in Speed Admin.
+CONFIGURATION PARAMETER
+Parameter Description
+ACT_TOP21 Enables or disables automatic settlement logic
+If:
+ACT_TOP21 = 1
+→ Apply settlement logic.
+If:
+ACT_TOP21 = 0
+→ Standard behavior (no automatic settlement).
+TECHNICAL IMPLEMENTATION
+6.1 Entry Point Used
+Sensitivity: Internal
+
+[PAGE 4]
+Entry Point Description
+PE22 Triggered after reception closure in Speed Admin
+6.2 Functional Trigger
+Trigger occurs:
+When:
+• A reception is selected
+• User clicks the "Close" button
+• Reception closure is completed
+Then:
+→ Execute additional logic via PE22.
+6.3 PE22 – Pending Line Settlement Logic
+Condition
+IF ACT_TOP21 = 1
+Then execute the following:
+Step 1 – Verify Pending Lines
+After reception closure:
+Check if there are remaining expected lines (attendus):
+• Linked to the same DO reference
+• Matching BL reference (REE_NOFO = REA_BL)
+• Not fully consumed
+Step 2 – Behavior
+Case 1 – No Remaining Expected Lines
+Sensitivity: Internal
+
+[PAGE 5]
+If no pending expected lines exist:
+→ Do nothing.
+Case 2 – Remaining Expected Lines Exist
+If pending expected lines remain:
+→ Automatically settle (close) the remaining expected lines for that reception.
+6.4 Logical Flow (Pseudo-code)
+IF ACT_TOP21 = 1 THEN
+reception_DO = CURRENT_RECEPTION_DO
+reception_BL = REE_NOFO
+pending_lines = GET_EXPECTED_LINES(
+DO = reception_DO,
+BL = reception_BL,
+status = NOT_CONSUMED
+)
+IF pending_lines IS NOT EMPTY THEN
+FOR each line IN pending_lines:
+SET line.status = CLOSED
+ENDFOR
+ENDIF
+ENDIF
+Sensitivity: Internal
+
+[PAGE 6]
+FUNCTIONAL SUMMARY (RAG-Optimized)
+What triggers this logic?
+Reception closure in Speed Admin.
+Is radio affected?
+Yes – radio closure is blocked.
+No settlement logic runs from radio.
+Which parameter controls activation?
+ACT_TOP21
+Which entry point is used?
+PE22
+What is the matching key?
+• DO reference
+• BL reference (REE_NOFO = REA_BL)
+What happens if pending expected lines remain?
+They are automatically settled.
+What happens if none remain?
+Nothing.
+TECHNICAL IMPACT
+• No new tables created.
+• No UI modification.
+• Logic only executed at reception closure.
+• Ensures data consistency.
+• Prevents re-processing of closed DO references.
+• Cleans reception backlog.
+Sensitivity: Internal
+
+[PAGE 7]
+CLIENT VALIDATION
+AGL acknowledges receipt and validates all elements described in this document.
+BK Systèmes commits to delivering the solution that meets the validated
+requirements within the agreed quotation framework.
+Any additional requests or modifications beyond this document may require a
+separate quotation.
+Any provisions not explicitly stated in this document are not covered and remain at
+the discretion of the concerned parties.
+Signed at Vaulx-Milieu, 14/04/2025.
+Signature and company stamp:
+Sensitivity: Internal

@@ -1,0 +1,47 @@
+[META]
+chunk_type: text
+source_file: Build a formula.pdf
+category: GENERAL
+total_pages: 2
+[/META]
+
+[PAGE 1]
+Build a Formula
+Purpose
+• Allows users to create custom queries or calculations within SpeedWMS.
+• Example: calculating stock valuation, generating KPIs, or deriving any metric
+using available fields.
+Access
+• Click on the fx button in the relevant screen or module where formula
+creation is supported.
+Steps to Build a Formula
+1. Open the Formula Builder
+o Click on fx to launch the formula construction window.
+2. Name the Formula
+o Enter a meaningful name at the top of the window (e.g., Stock
+Valuation).
+3. Select Fields
+o Pick the fields you want to use in your calculation.
+o Example: Quantity in stock and Unit price.
+4. Add Operators
+o Use the mathematical operators provided: +, -, *, /, parentheses ().
+5. Construct the Formula
+o Example formula for stock valuation:
+o (Quantity in stock) * (Unit price)
+o Steps in the builder:
+▪ Open a parenthesis (
+▪ Send Quantity in stock to the formula window
+▪ Click * (multiplication)
+▪ Send Unit price to the formula window
+Sensitivity: Internal
+
+[PAGE 2]
+▪ Close parenthesis )
+6. Validate
+o Click Validate to save and make the formula usable.
+Tips
+• Use parentheses to control calculation order.
+• You can combine multiple fields and operators to create complex formulas.
+• Once saved, the formula can be used in reports, dashboards, or data queries
+within SpeedWMS.
+Sensitivity: Internal

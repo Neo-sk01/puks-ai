@@ -1,0 +1,1877 @@
+{
+  "table_name": "MIL_DAT",
+  "description": "MISSION LINE TABLE",
+  "primary_key": "MIL_KEYU",
+  "columns": [
+    {
+      "name": "ACT_CODE",
+      "description": "Activity code",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ACT_PAR",
+      "references_column": "ACT_CODE"
+    },
+    {
+      "name": "ART_CODE",
+      "description": "Article code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ART_PAR",
+      "references_column": "ART_CODE"
+    },
+    {
+      "name": "ART_LIB1",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_LIB2",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_LIB3",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_LIB4",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_LIB5",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_LIB6",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_NIV1",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_NIV2",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_NIV3",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_NIV4",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_NIV5",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_NIV6",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ART_ORIG",
+      "description": "Original article code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "BLI_NUM",
+      "description": "BL number",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "BLI_DAT",
+      "references_column": "BLI_NUM"
+    },
+    {
+      "name": "CHG_CODE",
+      "description": "Loading code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CHG_DAT",
+      "references_column": "CHG_CODE"
+    },
+    {
+      "name": "CHG_DATE",
+      "description": "Loading date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "CHG_DAT",
+      "references_column": "CHG_DATE"
+    },
+    {
+      "name": "CND_CODE",
+      "description": "Packaging code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "CPR_CODE",
+      "description": "Preparation line",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "EXP_REF",
+      "description": "Shipment reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "EXP_DAT",
+      "references_column": "EXP_REF"
+    },
+    {
+      "name": "MIE_KEYU",
+      "description": "Mission header ID",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": true,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_AFDA",
+      "description": "Loading assignment date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_AFHE",
+      "description": "Loading assignment time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA1",
+      "description": "Additional info A01",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA2",
+      "description": "Additional info A02",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA3",
+      "description": "Additional info A03",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA4",
+      "description": "Additional info A04",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA5",
+      "description": "Additional info A05",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA6",
+      "description": "Additional info A06",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA7",
+      "description": "Additional info A07",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA8",
+      "description": "Additional info A08",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA9",
+      "description": "Additional info A09",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ALPHA10",
+      "description": "Additional info A10",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ARNV1",
+      "description": "Article hierarchy level 1",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ARNV2",
+      "description": "Article hierarchy level 2",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ARNV3",
+      "description": "Article hierarchy level 3",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ARNV4",
+      "description": "Article hierarchy level 4",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ARNV5",
+      "description": "Article hierarchy level 5",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ARNV6",
+      "description": "Article hierarchy level 6",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CFIS",
+      "description": "Tax type code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CHDA",
+      "description": "Charged top date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CHHE",
+      "description": "Charged top time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CHQI",
+      "description": "Charged by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_COPA",
+      "description": "Reserved BK",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CRDA",
+      "description": "Creation date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CRHE",
+      "description": "Creation time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CRQI",
+      "description": "Created by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CTDA",
+      "description": "Control date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CTHE",
+      "description": "Control time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CTQI",
+      "description": "Controlled by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_CTST",
+      "description": "Control status",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DARA",
+      "description": "Ramasse assignment",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DATE1",
+      "description": "Additional date D01",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DATE2",
+      "description": "Additional date D02",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DATE3",
+      "description": "Additional date D03",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DATE4",
+      "description": "Additional date D04",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DATE5",
+      "description": "Additional date D05",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DAVL",
+      "description": "Validation date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DFAB",
+      "description": "Fabrication date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DFABP",
+      "description": "Fabrication date prelev\u00e9e",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLC",
+      "description": "Expiry date (reservation)",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLCM",
+      "description": "DLC minimum",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLCP",
+      "description": "Expiry date prelev\u00e9e",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLOM",
+      "description": "DLUO minimum",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLOO",
+      "description": "DLUO required",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLUOP",
+      "description": "DLUO prelev\u00e9e",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLV",
+      "description": "Limit sale date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLVM",
+      "description": "DLV minimum",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_DLVP",
+      "description": "DLV prelev\u00e9e",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_EMBL",
+      "description": "Packaging code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_EMP",
+      "description": "Pick location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_EMPD",
+      "description": "Drop-off location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_EMPDR",
+      "description": "Drop-off ramasse",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_EMPO",
+      "description": "Original pick location",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_EXDA",
+      "description": "Shipment assignment",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_EXHE",
+      "description": "Shipment assignment",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_GRP",
+      "description": "Operation grouping code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_GRPB",
+      "description": "BP grouping code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_GRPM",
+      "description": "Mission grouping code",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_HERA",
+      "description": "Ramasse assignment",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_HEURE1",
+      "description": "Additional info H01",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_HEURE2",
+      "description": "Additional info H02",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_HEURE3",
+      "description": "Additional info H03",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_HEURE4",
+      "description": "Additional info H04",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_HEURE5",
+      "description": "Additional info H05",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_HEVL",
+      "description": "Validation time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_KEYU",
+      "description": "Mission line ID INT",
+      "type_sql_server": "INTEGER",
+      "type_oracle": "NOT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_LOT1",
+      "description": "Lot 1 (reservation)",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_LOT1P",
+      "description": "Lot1 prelev\u00e9",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_LOT2",
+      "description": "Lot 2 (reservation)",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_LOT2P",
+      "description": "Lot2 prelev\u00e9",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_LOT3",
+      "description": "Lot 3 (reservation)",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_LOT3P",
+      "description": "Lot3 prelev\u00e9",
+      "type_sql_server": "VARCHAR(100)",
+      "type_oracle": "NVARCHAR2(100)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_MEMO",
+      "description": "Miscellaneous info",
+      "type_sql_server": "TEXT",
+      "type_oracle": "CLOB",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_MODA",
+      "description": "Modification date",
+      "type_sql_server": "DATETIME",
+      "type_oracle": "NCHAR(8)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_MOHE",
+      "description": "Modification time",
+      "type_sql_server": "VARCHAR(6)",
+      "type_oracle": "NVARCHAR2(6)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_MOQI",
+      "description": "Modified by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_MOT",
+      "description": "Picking reason",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_NATU",
+      "description": "Replenishment nature",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_NTIM",
+      "description": "Customs document",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_NUM1",
+      "description": "Additional number N01",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_NUM2",
+      "description": "Additional number N02",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_NUM3",
+      "description": "Additional number N03",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_NUM4",
+      "description": "Additional number N04",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_NUM5",
+      "description": "Additional number N05",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_POIP",
+      "description": "Picked weight (gr)",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_POIT",
+      "description": "Total weight to prepare",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_POIV",
+      "description": "Variable weight",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QIPK",
+      "description": "Performed by 2",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QIRA",
+      "description": "Ramasse assignment",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QIRE",
+      "description": "Performed by",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QKIT",
+      "description": "Kit quantity to prepare",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QREI",
+      "description": "Reintegrated quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QSCL",
+      "description": "Service parcel qty",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QSCO",
+      "description": "Service couche qty",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QSPA",
+      "description": "Service palette qty",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QSSP",
+      "description": "Service SPCB qty",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTCA",
+      "description": "Parcels to pick",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTCP",
+      "description": "Parcels picked",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTMA",
+      "description": "Missing quantity",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTOA",
+      "description": "Layers to pick",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTOP",
+      "description": "Layers picked",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTPA",
+      "description": "Pallets to pick",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTPP",
+      "description": "Pallets picked",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTSA",
+      "description": "SPCB to pick",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTSE",
+      "description": "Permanent inventory",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTSP",
+      "description": "SPCB picked",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTTA",
+      "description": "Total units to pick",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTTP",
+      "description": "Total units picked",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTUA",
+      "description": "Units to pick",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_QTUP",
+      "description": "Units picked",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_RERE",
+      "description": "Reservation reference",
+      "type_sql_server": "VARCHAR(20)",
+      "type_oracle": "NVARCHAR2(20)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_REXE",
+      "description": "Replenishment execution",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_RKIT",
+      "description": "Kit reference",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_SEQ",
+      "description": "Sequence launch",
+      "type_sql_server": "NUMERIC(10)",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_SEQC",
+      "description": "Sequence comment",
+      "type_sql_server": "VARCHAR(150)",
+      "type_oracle": "NVARCHAR2(150)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_SSCC",
+      "description": "Parcel number",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_STAT",
+      "description": "Mission line status",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_STRA",
+      "description": "Mission ramasse status",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_STRE",
+      "description": "Allocation status",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_SUPP",
+      "description": "Prepared support",
+      "type_sql_server": "VARCHAR(25)",
+      "type_oracle": "NVARCHAR2(25)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TCHG",
+      "description": "Top charged",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TCTR",
+      "description": "Top control",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TGCO",
+      "description": "Top generation qty in",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TGOU",
+      "description": "Top generation qty in",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TGPA",
+      "description": "Top generation qty in",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TGSP",
+      "description": "Top generation qty in",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TGUN",
+      "description": "Top generation qty in unit",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TINV",
+      "description": "Permanent inventory top",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TINV1",
+      "description": "Tier hierarchy level 1",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TINV2",
+      "description": "Tier hierarchy level 2",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TINV3",
+      "description": "Tier hierarchy level 3",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TINV4",
+      "description": "Tier hierarchy level 4",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TINV5",
+      "description": "Tier hierarchy level 5",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TINV6",
+      "description": "Tier hierarchy level 6",
+      "type_sql_server": "VARCHAR(30)",
+      "type_oracle": "NVARCHAR2(30)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TMVC",
+      "description": "Top status 05 (forklift",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TOP1",
+      "description": "Additional info T01",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TOP2",
+      "description": "Additional info T02",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TOP3",
+      "description": "Additional info T03",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TOP4",
+      "description": "Additional info T04",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TOP5",
+      "description": "Additional info T05",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TOPE",
+      "description": "Reserved BK",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TPLP",
+      "description": "Reserved BK",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TPQM",
+      "description": "Top missing line qty",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_TYPR",
+      "description": "Picking type",
+      "type_sql_server": "VARCHAR(10)",
+      "type_oracle": "NVARCHAR2(10)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_UNCO",
+      "description": "Reserved BK",
+      "type_sql_server": "BIGINT",
+      "type_oracle": "INTEGER",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_VOLP",
+      "description": "Picked volume (cm\u00b3)",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_VOLT",
+      "description": "Total volume to prepare",
+      "type_sql_server": "FLOAT",
+      "type_oracle": "FLOAT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "MIL_ZRGP",
+      "description": "Preparation grouping zone",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "QUA_CODE",
+      "description": "Quality code",
+      "type_sql_server": "VARCHAR(5)",
+      "type_oracle": "NVARCHAR2(5)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "QUA_PAR",
+      "references_column": "QUA_CODE"
+    },
+    {
+      "name": "SUB_SEQ",
+      "description": "Substitution sequence",
+      "type_sql_server": "VARCHAR(3)",
+      "type_oracle": "NVARCHAR2(3)",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "TIE_CODE",
+      "description": "Recipient code",
+      "type_sql_server": "VARCHAR(35)",
+      "type_oracle": "NVARCHAR2(35)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_CODE"
+    },
+    {
+      "name": "TIE_LIB1",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB1"
+    },
+    {
+      "name": "TIE_LIB2",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB2"
+    },
+    {
+      "name": "TIE_LIB3",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB3"
+    },
+    {
+      "name": "TIE_LIB4",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB4"
+    },
+    {
+      "name": "TIE_LIB5",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB5"
+    },
+    {
+      "name": "TIE_LIB6",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(50)",
+      "type_oracle": "NVARCHAR2(50)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_LIB6"
+    },
+    {
+      "name": "TIE_NIV1",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_NIV1"
+    },
+    {
+      "name": "TIE_NIV2",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_NIV2"
+    },
+    {
+      "name": "TIE_NIV3",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_NIV3"
+    },
+    {
+      "name": "TIE_NIV4",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_NIV4"
+    },
+    {
+      "name": "TIE_NIV5",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_NIV5"
+    },
+    {
+      "name": "TIE_NIV6",
+      "description": "Reserved BK",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "TIE_PAR",
+      "references_column": "TIE_NIV6"
+    },
+    {
+      "name": "TOP_RES",
+      "description": "Reserved BK",
+      "type_sql_server": "TINYINT",
+      "type_oracle": "SMALLINT",
+      "is_primary_key": false,
+      "is_foreign_key": false,
+      "references_table": null,
+      "references_column": null
+    },
+    {
+      "name": "ZEM_CODE",
+      "description": "Prep zone",
+      "type_sql_server": "VARCHAR(15)",
+      "type_oracle": "NVARCHAR2(15)",
+      "is_primary_key": false,
+      "is_foreign_key": true,
+      "references_table": "ZEM_BAS",
+      "references_column": "ZEM_CODE"
+    }
+  ]
+}

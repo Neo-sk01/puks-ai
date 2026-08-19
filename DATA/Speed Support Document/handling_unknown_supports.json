@@ -1,0 +1,92 @@
+{
+  "document_name": "Handling Issues with Unknown Supports",
+  "version": "1.0",
+  "authoritative": true,
+  "core_tables": {
+    "SEX_DAT": "Support Header"
+  },
+  "join_logic": {
+    "inbound": {
+      "primary_keys": ["SEX_NOOE"],
+      "description": "Identify supports related to an order.",
+      "example_pattern": "SEX_DAT.SEX_NOOE = ORDER_NUMBER"
+    },
+    "outbound": {
+      "primary_keys": [],
+      "description": "N/A",
+      "example_pattern": ""
+    }
+  },
+  "procedures": [
+    {
+      "procedure_name": "Handling Issues with Unknown Supports",
+      "category": "Support Validation",
+      "access_level": "Support Only",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Check Mission Details in Speed",
+          "actions": [
+            "Navigate to Preparation Module → Manage Missions.",
+            "Open the Validated tab.",
+            "Filter the list to locate the affected mission.",
+            "Double-click the mission to open the mission details."
+          ]
+        },
+        {
+          "step_number": 2,
+          "description": "Verify Support Numbers",
+          "actions": [
+            "Confirm that both support numbers are visible: iLPN, 0LPN.",
+            "If both supports are present, proceed to database verification."
+          ]
+        },
+        {
+          "step_number": 3,
+          "description": "Check Support Status in the Database",
+          "query": {
+            "sql": "SELECT * FROM SEX_DAT WHERE SEX_STSUP = '020' AND SEX_NOOE = 'order number' AND SEX_ACT = 'ZAR';"
+          }
+        },
+        {
+          "step_number": 4,
+          "description": "Identify the Issue",
+          "actions": [
+            "Supports with status 020 indicate that they are not yet validated.",
+            "These supports must be updated before containers can be loaded."
+          ]
+        },
+        {
+          "step_number": 5,
+          "description": "Update Support Status to Validated",
+          "update": {
+            "sql": "UPDATE SEX_DAT SET SEX_STSUP = '040' WHERE SEX_STSUP = '020' AND SEX_NOOE = 'order number' AND SEX_ACT = 'ZAR';"
+          }
+        },
+        {
+          "step_number": 6,
+          "description": "Request Container Loading",
+          "actions": [
+            "Once the update is complete, notify the Operations team.",
+            "Operations can now load the containers successfully."
+          ]
+        }
+      ],
+      "expected_outcome": [
+        "Support numbers are validated (040).",
+        "Unknown support issue is resolved.",
+        "Containers can be loaded without errors."
+      ],
+      "important_notes": [
+        "This procedure requires database access and must be executed by Support.",
+        "Always verify support visibility in iLPN and 0LPN before updating the database.",
+        "Ensure the correct order number and activity code are used."
+      ]
+    }
+  ],
+  "safety_rules": [
+    "Always execute SELECT before performing any UPDATE.",
+    "Support-level SQL only.",
+    "Verify order number and activity code before updating."
+  ]
+}

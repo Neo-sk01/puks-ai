@@ -1,0 +1,11 @@
+{
+  "document_name": "Receiving & Dock Rules",
+  "category": "Speed WMS Internal Guide",
+  "system": "Speed WMS",
+  "audience": "Support / Technical / Operations",
+  "sensitivity": "Internal",
+  "receiving_dock": {
+    "rules": ["Picking is not allowed on receiving dock locations"],
+    "exceptions": ["Cross-Docking: Just-In-Time logistics practice where goods move directly from inbound to outbound without storage"]
+  }
+}

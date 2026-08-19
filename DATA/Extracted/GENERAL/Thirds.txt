@@ -1,0 +1,72 @@
+[META]
+chunk_type: text
+source_file: Thirds.pdf
+category: GENERAL
+total_pages: 3
+[/META]
+
+[PAGE 1]
+Thirds (Third Parties) – RAG-Friendly Version
+Purpose:
+Manage all third parties in SpeedWMS, including suppliers, carriers, recipients,
+contacts, and sites, to support logistics, transport, and order processes.
+1. Access
+• Navigate via: Settings → Thirds.
+• The interface displays a list of all third parties declared in the Speed
+environment.
+• Tabs organize the thirds:
+o Suppliers
+o Carriers
+o Recipients
+o All (common tab showing all thirds)
+2. Types of Thirds
+1. Suppliers – Used in:
+o Receiving process
+o Returns and property management
+o Supplier purchase orders (expected receipts)
+2. Carriers – Used in:
+o Shipping management
+o Transport planning
+o Transport label generation
+3. Recipients – Used in:
+o Order preparation
+o Reservation management
+4. Contacts – Non-logistics related; linked to cases in case management.
+5. Sites – Defines start/end points of carrier rounds for transport operations.
+Sensitivity: Internal
+
+[PAGE 2]
+3. Third Party Operations
+From the Thirds interface, it is possible to:
+• Create a new third
+• Modify properties of an existing third
+• Delete an existing third (with constraints)
+• Import thirds from external files
+Note: When creating a new third from the All tab, an additional window appears to
+select the type of third.
+4. Third Party Form Fields
+Each third party has a form mask that is consistent regardless of type:
+• Activity – Non-editable; indicates the Speed activity associated with the
+third.
+• Code – Unique identifier (alphanumeric, max 15 characters). Mandatory.
+• Name – Designation of the third (max 50 characters). Mandatory.
+Additional tabs may include:
+• Delivery address
+• Delivery settings
+• Classification
+• Remarks
+• Additional information
+• Miscellaneous
+• Transfer (for Recipients only)
+Licensed modules may add extra tabs, e.g., for alcohol or hazardous materials
+management.
+5. Usage
+• Third party data is essential for all logistics operations in SpeedWMS.
+Sensitivity: Internal
+
+[PAGE 3]
+• Suppliers and recipients link to receipts and orders, while carriers and sites
+support transport planning and execution.
+• Proper setup ensures accurate document generation, stock handling, and
+transport management.
+Sensitivity: Internal
