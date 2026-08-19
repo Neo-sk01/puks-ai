@@ -156,7 +156,7 @@ There are **three** `st.secrets["GROQ_API_KEY"]` call sites, not one — `APP.py
 Then:
 
 ```bash
-python3.11 -m venv .venv && source .venv/bin/activate      # 3.11 — NOT 3.14, see §9
+python3.11 -m venv .venv && source .venv/bin/activate      # 3.11 pinned for reproducibility; 3.10+ also resolves
 pip install -r requirements.txt                            # ~2 GB: torch, faiss, transformers
 mkdir -p "APPLICATION(STREAMLIT)/.streamlit"
 echo 'GROQ_API_KEY = "<your-own-new-key>"' > "APPLICATION(STREAMLIT)/.streamlit/secrets.toml"
@@ -220,7 +220,7 @@ Run in order. Every notebook has hardcoded Windows paths that need the same fix 
 "Explain warehouse picking process"
 ```
 
-**Capture a baseline against these before you change retrieval.** Record which source documents come back in the top 5 for each. Without that, fixing defect §10.1 is unfalsifiable — you will have no way to show the change helped rather than hurt. Note that *"How do I reverse a GRN?"* currently retrieves a 165-character empty procedure (§10.6), so it is a useful canary for corpus problems as well as retrieval ones.
+**Capture a baseline against these before you change retrieval.** Record which source documents come back in the top 5 for each. Without that, fixing defect §10.1 is unfalsifiable — you will have no way to show the change helped rather than hurt. Note that *"How do I reverse a GRN?"* retrieves a 165-character chunk whose SQL exists but is never rendered into the prompt (§10.6) — a useful canary for the context-assembly bug as well as for retrieval.
 
 ### 5.2 `structured_data` is not uniformly shaped
 
@@ -362,7 +362,10 @@ Disabling basic auth closes **one of two** accepted auth schemes on the Kudu end
 
 ### Deploying to awat002 (the recommended target)
 
+> **This is the runbook for the planned Next.js build ([§13](#13-where-this-is-going)), not for the Streamlit app in this repo.** There is no Node application here yet — `find . -name package.json` returns nothing. Steps 0–4 are safe today; **step 5 needs an artefact that does not exist**, and running 0–4 alone leaves the site switched away from Python with nothing deployed. For the Streamlit app, use `PYTHON|3.11` and a `streamlit run` startup command instead.
+
 ```bash
+az account set -s f700ffcf-f34a-462a-9876-234f445307d0   # four subscriptions are in scope; pin it
 RG=CH011AGL0C8-AGEW-RGRT001
 APP=ch011agl0c8-agew-awat002
 
@@ -370,8 +373,21 @@ APP=ch011agl0c8-agew-awat002
 az webapp log config -g $RG -n $APP --web-server-logging filesystem --detailed-error-messages true
 
 # 1. Attach the existing managed identity (awat002 has none today)
-az webapp identity assign -g $RG -n $APP \
-  --identities /subscriptions/f700ffcf-f34a-462a-9876-234f445307d0/resourcegroups/$RG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/CH011AGL0C8-AGEW-UMIT001
+UMI=$(az identity show -g $RG -n CH011AGL0C8-AGEW-UMIT001 --query id -o tsv)
+az webapp identity assign -g $RG -n $APP --identities "$UMI"
+
+# 1b. REQUIRED. Neither site has a system-assigned identity, so without this
+#     DefaultAzureCredential probes one that does not exist and every Foundry
+#     call returns 401 — hours after a deploy that reported success.
+CID=$(az identity show -g $RG -n CH011AGL0C8-AGEW-UMIT001 --query clientId -o tsv)
+az webapp config appsettings set -g $RG -n $APP --settings AZURE_CLIENT_ID=$CID
+
+# 1c. Data-plane access to gpt-5. This is what the User Access Administrator
+#     request in section 6 is FOR. Needs Owner or UAA on the resource group.
+PID=$(az identity show -g $RG -n CH011AGL0C8-AGEW-UMIT001 --query principalId -o tsv)
+az role assignment create --assignee-object-id $PID --assignee-principal-type ServicePrincipal \
+  --role "Cognitive Services OpenAI User" \
+  --scope $(az cognitiveservices account show -g $RG -n ch011agl0c8-agew-aift003 --query id -o tsv)
 
 # 2. Runtime — confirm the stack first, it is stamp-specific
 az webapp list-runtimes --os linux | grep -i NODE
@@ -448,7 +464,19 @@ If you ever revisit: container image pull is **configuration traffic**, not appl
 
 **`semanticSearch: 'free'` is capped at 1,000 requests/month service-wide**, after which semantic queries return a *billing error*, not degraded results.
 
-**Python 3.14 has no wheels for this stack.** `faiss-cpu`, `torch` and `sentence-transformers` do not build on 3.14. Use 3.11 locally. The App Service is set to `PYTHON|3.14`, which is one reason the current app could never have run there.
+**Python 3.14 is not the problem — check wheels before you blame a version.** *Corrected 2026-08-19; an earlier version of this README claimed the opposite.* All three packages install on 3.14: `torch` 2.13.0 ships `cp314-cp314-manylinux_2_28_x86_64`, `faiss-cpu` 1.15.0 ships `cp310-abi3` (stable ABI, installs on 3.10–3.14), and `sentence-transformers` 6.0.0 is `py3-none-any`.
+
+To check against the deploy target rather than your laptop, pass the target tags — omitting `--abi abi3 --abi none` hides faiss-cpu's stable-ABI wheel and every pure-Python wheel, which is how this myth starts:
+
+```bash
+pip install --dry-run --only-binary=:all: \
+  --python-version 3.14 --implementation cp \
+  --abi cp314 --abi abi3 --abi none \
+  --platform manylinux_2_28_x86_64 --platform any \
+  -r requirements.txt
+```
+
+The app has still never run on that App Service — because of the hardcoded Windows paths (§4), the absent `appCommandLine`, and the fact that neither site has ever been deployed to. Not because of Python 3.14.
 
 **Storage private endpoint is `file` only**, while every real dependency on `sact001` (Function deployment packages, `azure-webjobs-hosts`, `azure-webjobs-secrets`) is **blob**. Blob traffic uses the public endpoint. It works, but the private-link posture is cosmetic.
 
@@ -491,28 +519,51 @@ Both keyword sets contain ordinary WMS nouns. *"List all columns in the receipt 
 
 `has_schema` is set only for `schema_overview`. The 32 `schema_core_columns` and `schema_extra_columns` chunks — the ones that actually enumerate columns — never trigger it.
 
-### 10.5 1,574 column names are unreachable
+### 10.5 MVT_DAT has 32 unretrievable columns
 
-Column names live in `structured_data`, which is embedded nowhere and BM25-indexed nowhere. *"Which column holds the reception date?"* cannot be answered even though the answer is in the library. For `MVT_DAT`, 32 column names appear in no chunk's raw text anywhere.
+*Corrected 2026-08-19. An earlier version of this section claimed all 1,574 column names were unreachable. That was wrong — measure before you act on it.*
 
-### 10.6 Six of 28 procedures are empty
+Of the 1,574 column entries across 18 tables, **1,542 appear verbatim in some chunk's raw text**, which is both embedded and BM25-indexed. They are retrievable.
 
-Six `wms_procedure` chunks (21%) carry a title but no steps — under 300 characters, no SQL, the content reading `N/A`:
+The exception is **MVT_DAT**: it is the only table with no `schema_core_columns` chunk, so 32 of its columns — including `MVT_QTE` (quantity), `MVT_SENS` (direction), `MVT_NoMV` (movement number) — appear in no chunk text anywhere. They reach the model only if the MVT_DAT `schema_overview` chunk is retrieved by some other signal, at which point `build_context_text` (`APP.py:352-383`) dumps `structured_data["columns"]` into the prompt.
 
-| Procedure | Chars |
+Verify with:
+
+```python
+names = [col["name"] for c in chunks
+         if isinstance(c.get("structured_data"), dict)
+         for col in c["structured_data"].get("columns", [])]
+alltext = "\n".join(c["text"] for c in chunks)
+missing = [n for n in names if n not in alltext]   # → 32, all MVT_DAT
+```
+
+### 10.6 Nineteen procedures have SQL the app never shows the model
+
+*Corrected 2026-08-19. Earlier versions of this section said these procedures were empty and needed a subject-matter expert. That was wrong on both counts — most of them are complete, and the fix is code.*
+
+`build_context_text` rebuilds context from `structured_data` for `TABLE_SCHEMA` chunks. The `OPERATIONAL_REFERENCE` branch does not:
+
+```python
+elif doc_type == "OPERATIONAL_REFERENCE":
+    has_operational = True          # APP.py:385-386 — and nothing else
+```
+
+It sets a flag and falls through to the raw `text`. So for procedure chunks, everything in `structured_data` — the `validate_before_update` queries, the `update` statements, the numbered steps — is **silently dropped before the prompt is built**.
+
+Measured over the 22 `wms_procedure` chunks under 400 characters:
+
+| | Count |
 |---|---:|
-| **Reverse Closed GRN** | 165 |
-| Handling Issues with Unknown Supports | 182 |
-| LPNs Missing on Manifest – Temporary Resolution | 202 |
-| Cancel the Order | 222 |
-| Resend Pegasus file | 241 |
-| Cancel the Mission | 290 |
+| SQL present in `structured_data`, never rendered | **19** |
+| Genuinely empty — nothing anywhere | **3** |
 
-The remaining 22 all contain real SQL. **Reverse Closed GRN** is the worst case and one of the most-asked procedures — perfect retrieval scores zero on it, because there is nothing to retrieve.
+The three with nothing are **Cancel the Order**, **Clean Up Temporary Table** and **Cancel the Mission**. Those need someone who knows the procedures.
 
-This needs someone who knows the procedures, not an engineer.
+The other nineteen — including **Reverse Closed GRN**, which carries both a `validate_before_update` SELECT and an UPDATE against `REE_DAT` — need an afternoon of engineering. Render the `OPERATIONAL_REFERENCE` branch the way the schema branch already renders, and nineteen procedures come back.
 
-> Counting `N/A` occurrences gives 11, which overstates it. Three of those are `BUSINESS LOGIC: N/A` — a single blank field on a procedure that is otherwise complete — and two more have working SQL. Measure by content, not by string match.
+**Do this before commissioning any content work.** The corpus is substantially richer than the app can currently use.
+
+> Counting by string match misleads here in both directions. Grepping `SQL: N/A` finds nothing; grepping `N/A` finds 11; screening on text length and SQL keywords finds 6. None of those is the number that matters, which is how many have usable content the pipeline discards.
 
 ### 10.7 Everything else
 
