@@ -419,9 +419,24 @@ Both keyword sets contain ordinary WMS nouns. *"List all columns in the receipt 
 
 Column names live in `structured_data`, which is embedded nowhere and BM25-indexed nowhere. *"Which column holds the reception date?"* cannot be answered even though the answer is in the library. For `MVT_DAT`, 32 column names appear in no chunk's raw text anywhere.
 
-### 10.6 Eleven of 28 procedures are empty
+### 10.6 Six of 28 procedures are empty
 
-39% of `wms_procedure` chunks are `SQL: N/A` stubs — including **Reverse Closed GRN**, one of the most-asked procedures. Perfect retrieval scores zero on it. This needs someone who knows the procedures, not an engineer.
+Six `wms_procedure` chunks (21%) carry a title but no steps — under 300 characters, no SQL, the content reading `N/A`:
+
+| Procedure | Chars |
+|---|---:|
+| **Reverse Closed GRN** | 165 |
+| Handling Issues with Unknown Supports | 182 |
+| LPNs Missing on Manifest – Temporary Resolution | 202 |
+| Cancel the Order | 222 |
+| Resend Pegasus file | 241 |
+| Cancel the Mission | 290 |
+
+The remaining 22 all contain real SQL. **Reverse Closed GRN** is the worst case and one of the most-asked procedures — perfect retrieval scores zero on it, because there is nothing to retrieve.
+
+This needs someone who knows the procedures, not an engineer.
+
+> Counting `N/A` occurrences gives 11, which overstates it. Three of those are `BUSINESS LOGIC: N/A` — a single blank field on a procedure that is otherwise complete — and two more have working SQL. Measure by content, not by string match.
 
 ### 10.7 Everything else
 
