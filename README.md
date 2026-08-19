@@ -38,7 +38,25 @@ Five things that will otherwise cost you a day each.
 | 4 | **You probably cannot see the Azure subscription.** The resources live in `f700ffcf-…`, which most AGL accounts cannot reach. Verify before planning anything. See [§6](#6-the-azure-environment). |
 | 5 | **`ci-cd.yml` and `docs/DEPLOYMENT.md` are fiction.** They deploy to app names that do not exist, in a region this project does not use. Do not follow them. See [§7](#7-deploying). |
 
-The previous marketing-style README is preserved in git history at commit `ed3b4d6`. Deeper API-level detail lives in [`DOCUMENTATION.md`](DOCUMENTATION.md), which is accurate about the code but not about deployment.
+### Trust map
+
+The repo ships more documentation than code, and most of it describes a system that was never built. Before you open anything:
+
+| File | Verdict |
+|---|---|
+| **`README.md`** (this) | Trust. Every fact dated and sourced; see the closing note. |
+| **`DOCUMENTATION.md`** (68 KB) | **Trust the code sections only.** Its deployment half is fiction: it creates `rg-puks-ai` in `southafricanorth`, supplies Terraform for infrastructure that does not exist, rolls back via slot swap on a **B1 plan that cannot have slots**, and references a `retrain.sh` that is not in the tree. |
+| **`docs/DEPLOYMENT.md`** | **Do not follow.** Same greenfield fantasy, wrong region, wrong resource group. |
+| **`.github/workflows/ci-cd.yml`** | **Do not follow.** Builds an image with `push: false` and deploys to app names that do not exist. |
+| **`Dockerfile`** / **`docker-compose.yml`** | Delete. Streamlit/torch image, unused, and Compose multi-container on App Service retires 2027-03-31. |
+| **`CONTRIBUTING.md`** / **`SECURITY.md`** / **`CHANGELOG.md`** | Generic boilerplate. Harmless, not project-specific. |
+| **`Handover Documents/AGL_Handover_1_Overview.pdf`** | Unreviewed. Read it before assuming this README is complete. |
+| **`APPLICATION(STREAMLIT)/data/vector_store/`** | Delete. Wrong model, wrong size — see §4. |
+| **`SCRIPTS/07_llm_answer_generation - Copy.ipynb`** | Delete. Unreconciled duplicate. |
+| **`SCRIPTS/08_end_to_end_validation.ipynb`** | A stub. There is no end-to-end validation — see §5. |
+| **`home.py`** / **`Help Page.py`** | Deletable. A redundant landing page and a form that submits nowhere. |
+
+The previous marketing-style README is preserved in git history at commit `ed3b4d6`.
 
 ---
 
@@ -74,7 +92,7 @@ APPLICATION(STREAMLIT)/
   APP.py                  main app (22 KB) — chat, retrieval, prompt assembly
   home.py                 landing page — the ONLY file with correct relative paths
   Help Page.py            help form (a no-op mock; submits nowhere)
-  data/vector_store/      ⚠ STALE — 400 vectors. Not the real index. See §9.
+  data/vector_store/      ⚠ STALE — 200 vectors at 768 dims, a different model. See §4.
   style/style.css
   Pictures/
 
@@ -115,7 +133,25 @@ CHUNKS_PATH   = BASE / "DATA" / "unified_semantic_chunks" / "unified_chunks.json
 VECTOR_STORE  = BASE / "DATA" / "vector_store"                  # NOT APPLICATION(STREAMLIT)/data
 ```
 
-> **Point `VECTOR_STORE` at `DATA/vector_store`, not the copy beside the app.** The one under `APPLICATION(STREAMLIT)/data/vector_store` holds 400 vectors against a 627-chunk corpus and has no `config.json`. It is stale and wrong. Verified: `faiss.index` is 614,445 bytes = 400 × 384 × 4 + header, versus 1,033,773 = 673 × 384 × 4 + header for the real one.
+> **Point `VECTOR_STORE` at `DATA/vector_store`, not the copy beside the app.** The one under `APPLICATION(STREAMLIT)/data/vector_store` is from a different experiment entirely and has no `config.json`.
+
+Read the FAISS headers rather than trusting file size — the two are indistinguishable by size alone:
+
+```python
+import struct
+d, ntotal = struct.unpack('<iq', open("<path>/faiss.index", 'rb').read(16)[4:16])
+```
+
+| Index | `d` | `ntotal` | Bytes |
+|---|---:|---:|---:|
+| `DATA/vector_store/` ✅ | **384** | **673** | 1,033,773 |
+| `APPLICATION(STREAMLIT)/data/vector_store/` ❌ | **768** | **200** | 614,445 |
+
+`d = 768` means the stale index was built with a **different embedding model**, not merely fewer documents — 384 is `all-MiniLM-L6-v2`. Loading it against a MiniLM query vector fails outright on dimension mismatch; there is no silent-wrong-answer mode, which is the one mercy here.
+
+> Do not try to identify these by byte count. `400 × 384 × 4` and `200 × 768 × 4` are **both** 614,400. Only the header distinguishes them.
+
+There are **three** `st.secrets["GROQ_API_KEY"]` call sites, not one — `APP.py:145`, `home.py:52`, `Help Page.py:54`. If you only fix `APP.py` the other two still raise on import. The cleaner fix is to delete `home.py` and `Help Page.py`: the first is a redundant landing page and the second is a form that submits nowhere.
 
 Then:
 
@@ -159,11 +195,36 @@ Run in order. Every notebook has hardcoded Windows paths that need the same fix 
 | `02_text_cleaning_preprocessing` | `DATA/Extracted/` | `DATA/Cleaned_Generative/` |
 | `03_text_chunking` | `DATA/Cleaned_Generative/` | `DATA/unified_semantic_chunks/` |
 | `04_embeddings_and_vector_store` | `unified_chunks.json` | `DATA/vector_store/` |
-| `05_retrieval_testing` | index | — (evaluation) |
-| `06_rag_pipeline` | index | — (context assembly) |
-| `07_llm_answer_generation` | — | — (prompt/answer testing) |
-| `08_end_to_end_validation` | — | — (validation) |
+| `05_retrieval_testing` | index | — evaluation. **Contains the 8 seed queries** — see §5.1 |
+| `06_rag_pipeline` | index | — context assembly |
+| `07_llm_answer_generation` | — | — prompt/answer testing |
+| `07_llm_answer_generation - Copy` | — | **duplicate, delete it** |
+| `08_end_to_end_validation` | — | ⚠ **a 4-cell stub.** Its entire code is `print('Full system validation')` and `pip install streamlit`. There is no end-to-end validation. |
 | `table_scheme` | `DATA/Database Tables/` (xlsx) | schema JSON |
+
+### 5.1 The only evaluation asset that exists
+
+`05_retrieval_testing.ipynb` carries an 8-query `test_queries` list. It is not a golden set — there are no expected answers — but it is the seed of one, and it is the only thing in the repo resembling a test:
+
+```python
+# Operational
+"How do I reverse a GRN?"
+"Reset a mission in Speed"
+"Resend outbound shipment"
+# Schema
+"What is the primary key of REE_DAT?"
+"Show join between REE_DAT and DOS_DAT"
+"List columns of REE_DAT"
+"How does receipt relate to STK_DAT table?"
+# Text/General
+"Explain warehouse picking process"
+```
+
+**Capture a baseline against these before you change retrieval.** Record which source documents come back in the top 5 for each. Without that, fixing defect §10.1 is unfalsifiable — you will have no way to show the change helped rather than hurt. Note that *"How do I reverse a GRN?"* currently retrieves a 165-character empty procedure (§10.6), so it is a useful canary for corpus problems as well as retrieval ones.
+
+### 5.2 `structured_data` is not uniformly shaped
+
+Of the 100 chunks with non-empty `structured_data`: **82 are dicts, 18 are lists.** Any code touching it must handle both. `chunk_type` lives under `metadata`, not at the top level.
 
 **To add a document:** drop it in the right `DATA/Cleaned_Generative/<AREA>/` folder, then re-run `03` and `04`. There is no incremental path — it is a full rebuild.
 
@@ -207,6 +268,21 @@ If that returns `Subscription 'f700ffcf-…' not found`, you have tenant access 
 
 Ask for both at once. Requesting Contributor alone gets you blocked a week later.
 
+### Why the estate looks incoherent
+
+The environment makes no sense until you see that **it was provisioned for a different, more ambitious system than the one in this repo.** The evidence is in `Powerapps/` — nine HTML templates full of Power Automate bindings (`@{triggerOutputs()?['body/TicketID']}`, `body/RootCause`, `body/FinalResolutionSummary`, `body/ValidationSteps`, `body/PreventionSteps`) against a Dataverse ticket system.
+
+| | Intended | Actually built |
+|---|---|---|
+| Retrieval | Azure AI Search | local FAISS |
+| Generation | Foundry `gpt-5` | Groq API |
+| Ticket capture | Power Automate → Azure SQL | the Help form saves nothing |
+| Knowledge growth | resolved tickets feed the corpus | static 627-chunk snapshot |
+
+That single gap explains everything otherwise puzzling here: why **$245/month of AI Search sits idle**, why a `gpt-5` deployment with capacity 50 has no caller, why there is an empty Cosmos account wired into AI Foundry, why the SQL database `0C8_wmsspeedai_puksai` exists with no schema this repo references, and why the Help & Support form is a mock.
+
+The resolved-ticket corpus is also the highest-value knowledge source available and it is **not in the index** — those tickets carry root causes and validation steps, which is exactly what `wms_procedure` chunks are missing (§10.6).
+
 ### What exists
 
 | Resource | Name | Config that matters |
@@ -246,7 +322,7 @@ Both web apps, identically:
 | `alwaysOn` | **`false`** | Worker unloads after ~20 min idle. Free to enable on B1. |
 | `healthCheckPath` | *absent* | No health probe. |
 | `httpLoggingEnabled` / `detailedErrorLoggingEnabled` | **`false`** | **You will debug a failed boot blind.** Turn these on first. |
-| `webSocketsEnabled` | `false` | Breaks WebSockets. **Server-Sent Events still work** — SSE is plain chunked HTTP. |
+| `webSocketsEnabled` | `false` | **Inert on Linux** — WebSockets are always enabled for Linux apps and the ARM property does not apply. Do not spend time on it. If a Streamlit WebSocket drops, look at XSRF/CORS behind the front-end proxy, not this flag. |
 | `use32BitWorkerProcess` | `true` | **Inert on Linux.** A Windows-template leftover, not a real constraint. |
 | `vnetRouteAllEnabled` | `true` | All outbound goes through the integration subnet, whose NSGs/UDRs live in `ALEW1IT-RG-T01` — a different resource group. |
 | `defaultDocuments` | includes `hostingstart.html` | Neither site has ever been deployed to. |
@@ -493,6 +569,8 @@ Standing cost, Azure list prices for West Europe, excluding any AGL enterprise d
 | Cosmos DB | $0.00 *(no containers provisioned)* |
 | Function Apps FC1, AI Foundry S0 | $0.00 |
 | **Total** | **~$349** |
+
+> **Verify this before quoting it.** Both B1 plans carry a `freeOfferExpirationTime` that has **already passed** — `ASPT001` on 2026-08-06 and `ASPT002` on 2026-08-08. They were created under a free offer that has now lapsed, so current billing may differ from the $26.28 above, and the plans may have been downgraded. Check with `az appservice plan show` once you have access.
 
 **Waste worth acting on:**
 
