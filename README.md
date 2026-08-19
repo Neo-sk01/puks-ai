@@ -1,376 +1,511 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Streamlit-1.31+-red?logo=streamlit&logoColor=white" alt="Streamlit">
-  <img src="https://img.shields.io/badge/FAISS-Vector_Search-green" alt="FAISS">
-  <img src="https://img.shields.io/badge/LLM-Groq_API-purple" alt="Groq">
-  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License">
-</p>
+# Puks AI — Speed WMS Support Assistant
 
-# 🚀 Puks AI — Speed WMS Intelligent Support System
+> **Predictive Unified Knowledge System.** A RAG assistant that answers Speed WMS support questions from AGL's warehouse documentation.
 
-> **Predictive Unified Knowledge System** — An enterprise RAG (Retrieval-Augmented Generation) solution providing intelligent, context-aware support for Speed WMS warehouse management operations.
+**Status: not deployed. Does not currently run outside its original author's laptop.** Read [§1](#1-read-this-first) before doing anything.
 
-<p align="center">
-  <img src="docs/images/architecture-overview.png" alt="Architecture Overview" width="800">
-</p>
-
-## 📋 Table of Contents
-
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [Architecture](#-architecture)
-- [Quick Start](#-quick-start)
-- [Project Structure](#-project-structure)
-- [Configuration](#-configuration)
-- [Data Pipeline](#-data-pipeline)
-- [Deployment](#-deployment)
-- [Contributing](#-contributing)
-- [License](#-license)
+Built for **AGL / Africa Global Logistics** (MSC group). Original author: Siyanda Matolengwe. Azure environment owner (per resource tags): **Dominique Kouassi**, ServiceNow case `INC2620802`.
 
 ---
 
-## 🎯 Overview
+## Table of contents
 
-**Puks AI** is an AI-powered knowledge assistant designed for Speed WMS (Warehouse Management System) support teams. It combines semantic search with large language models to deliver accurate, contextual answers from:
-
-- 📊 **18+ Database Schema Definitions** — Complete table structures with foreign key relationships
-- 📖 **40+ Operational Procedures** — Step-by-step guides for common WMS tasks
-- 🔧 **Support Ticket Knowledge Base** — Historical resolutions and troubleshooting patterns
-- 📄 **SOP Documentation** — Standard operating procedures in PDF/DOCX format
-
-### Problem Statement
-
-Support teams struggle with:
-- Scattered documentation across multiple sources
-- Time-consuming manual searches for procedures
-- Inconsistent answers to recurring questions
-- Knowledge loss when experienced staff leave
-
-### Solution
-
-Puks AI provides:
-- **Instant answers** from unified knowledge base
-- **SQL query generation** based on actual schema definitions
-- **Step-by-step procedures** with safety rules and validation steps
-- **Conversation memory** for multi-turn interactions
+1. [Read this first](#1-read-this-first)
+2. [What it does and how](#2-what-it-does-and-how)
+3. [Repository layout](#3-repository-layout)
+4. [Running it locally](#4-running-it-locally)
+5. [The knowledge base and how to rebuild it](#5-the-knowledge-base-and-how-to-rebuild-it)
+6. [The Azure environment](#6-the-azure-environment)
+7. [Deploying](#7-deploying)
+8. [What the bicep does not contain](#8-what-the-bicep-does-not-contain)
+9. [Traps](#9-traps)
+10. [Known defects](#10-known-defects)
+11. [Security and compliance](#11-security-and-compliance)
+12. [Cost](#12-cost)
+13. [Where this is going](#13-where-this-is-going)
 
 ---
 
-## ✨ Key Features
+## 1. Read this first
 
-| Feature | Description |
-|---------|-------------|
-| 🔍 **Hybrid Search** | Combines dense vector search (FAISS) with sparse BM25 for optimal retrieval |
-| 🎯 **Intent Classification** | Automatically detects query type (schema, operational, SQL) |
-| 🔄 **Cross-Encoder Reranking** | MS-MARCO trained reranker for precision |
-| 💬 **Conversation Memory** | Maintains context across 8 conversation turns |
-| 🤖 **Multi-Model Support** | Switch between Llama 4, Qwen 3, and Llama 3.1 |
-| 📊 **Debug Mode** | Transparent retrieval with confidence scores |
-| 🛡️ **Guardrails** | Strict context-only answering, no hallucination |
+Five things that will otherwise cost you a day each.
+
+| # | Thing |
+|---|---|
+| 1 | **Three live Groq API keys were published to a public GitHub repo.** They are redacted here but **not revoked**. Rotate them at `console.groq.com` before anything else. See [§11](#11-security-and-compliance). |
+| 2 | **The app cannot start anywhere but its author's machine.** `APP.py:24-25` hardcodes `C:\Users\kgathola.puka\OneDrive - MSC\...`. See [§4](#4-running-it-locally). |
+| 3 | **BM25 contributes no recall.** It only re-ranks the 40 documents dense retrieval already picked, so the search ceiling is 40/627 = **6.4%** of the corpus. This is a design fault, not a tuning problem. See [§10](#10-known-defects). |
+| 4 | **You probably cannot see the Azure subscription.** The resources live in `f700ffcf-…`, which most AGL accounts cannot reach. Verify before planning anything. See [§6](#6-the-azure-environment). |
+| 5 | **`ci-cd.yml` and `docs/DEPLOYMENT.md` are fiction.** They deploy to app names that do not exist, in a region this project does not use. Do not follow them. See [§7](#7-deploying). |
+
+The previous marketing-style README is preserved in git history at commit `ed3b4d6`. Deeper API-level detail lives in [`DOCUMENTATION.md`](DOCUMENTATION.md), which is accurate about the code but not about deployment.
 
 ---
 
-## 🏗️ Architecture
+## 2. What it does and how
+
+A support agent asks *"how do I reverse a closed GRN?"*. Puks AI finds the most relevant documents from a 627-chunk knowledge base, hands them to an LLM, and the LLM answers **using only what it was given**.
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        USER INTERFACE                           │
-│  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐           │
-│  │  Streamlit  │   │  Power Apps │   │  Power Apps │           │
-│  │   Web App   │   │  (Puks AI)  │   │   (Commo)   │           │
-│  └──────┬──────┘   └──────┬──────┘   └──────┬──────┘           │
-└─────────┼─────────────────┼─────────────────┼───────────────────┘
-          │                 │                 │
-          ▼                 ▼                 ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      RAG PIPELINE                                │
-│  ┌────────────┐   ┌──────────────┐   ┌──────────────────────┐  │
-│  │   Query    │──▶│   Hybrid     │──▶│  Answer Generation   │  │
-│  │ Classifier │   │  Retrieval   │   │    (Groq LLM)        │  │
-│  └────────────┘   └──────────────┘   └──────────────────────┘  │
-└─────────────────────────────────────────────────────────────────┘
-          │                 │
-          ▼                 ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      DATA LAYER                                  │
-│  ┌──────────────┐   ┌──────────────┐   ┌──────────────────┐    │
-│  │ FAISS Index  │   │   BM25       │   │ Unified Chunks   │    │
-│  │ (384 dims)   │   │   Corpus     │   │   (673 docs)     │    │
-│  └──────────────┘   └──────────────┘   └──────────────────┘    │
-└─────────────────────────────────────────────────────────────────┘
+Question
+   │
+   ├─ classify_query()        schema / operational / SQL intent
+   │
+   ├─ FAISS dense search      all-MiniLM-L6-v2, 384-dim, IndexFlatIP, top 40
+   │     └─ BM25 re-weights   ⚠ only those same 40 — see §10.1
+   │
+   ├─ CrossEncoder rerank     ms-marco-MiniLM-L-6-v2, top 25 → top 5
+   │
+   ├─ build_prompt()          context-only guardrails, 8-turn memory
+   │
+   └─ Groq API                gpt-oss-120b / llama-4-maverick / qwen3-32b / llama-3.1-8b
 ```
 
-### Tech Stack
+**Retrieval weights** (`APP.py:36-39`): `W_VECTOR 0.6`, `W_BM25 0.3`, then `W_HYBRID 0.7`, `W_RERANK 0.3`.
 
-| Component | Technology |
-|-----------|------------|
-| **Frontend** | Streamlit, Power Apps |
-| **Embedding Model** | sentence-transformers/all-MiniLM-L6-v2 |
-| **Vector Store** | FAISS (IndexFlatIP, normalized) |
-| **Reranker** | cross-encoder/ms-marco-MiniLM-L-6-v2 |
-| **Lexical Search** | BM25 (rank_bm25) |
-| **LLM Provider** | Groq API (Llama 4, Qwen 3, Llama 3.1) |
-| **Data Processing** | pdfplumber, python-docx, LangChain |
+> These weights do not mean what they appear to. `ms-marco-MiniLM-L-6-v2` is configured with Identity activation, so `predict()` returns unbounded BCE logits (roughly ±11) which are summed onto a bounded quantity. The reranker actually carries **77–95%** of the score variance, not 30%. Tuning those constants moves very little.
 
 ---
 
-## 🚀 Quick Start
+## 3. Repository layout
 
-### Prerequisites
+```
+APPLICATION(STREAMLIT)/
+  APP.py                  main app (22 KB) — chat, retrieval, prompt assembly
+  home.py                 landing page — the ONLY file with correct relative paths
+  Help Page.py            help form (a no-op mock; submits nowhere)
+  data/vector_store/      ⚠ STALE — 400 vectors. Not the real index. See §9.
+  style/style.css
+  Pictures/
 
-- Python 3.9+ (3.11 recommended)
-- [Groq API Key](https://console.groq.com) (free tier available)
+DATA/
+  Cleaned_Generative/     cleaned source documents, by WMS area
+    Database Tables/      18 table schemas as JSON
+    LOREAL/               19 client-specific procedure documents
+    Speed Support Document/
+    GENERAL/ LOADING/ ORDER PREPARATION/ RECEIVING GOODS/ ...
+  Extracted/              raw text extracted from PDF/DOCX (pipeline stage 1 output)
+  unified_semantic_chunks/
+    unified_chunks.json   ← THE CORPUS. 627 chunks, 1.3 MB.
+  vector_store/           ← THE REAL INDEX. 673 vectors. faiss.index + metadata.pkl + config.json
+  Support Ticket Docs/    only 2 tickets
 
-### Installation
+SCRIPTS/                  9 notebooks — the build pipeline, see §5
+Powerapps/                Power Automate HTML email templates (Dataverse-backed, separate system)
+Handover Documents/       AGL_Handover_1_Overview.pdf
+docs/DEPLOYMENT.md        ⚠ boilerplate, targets a greenfield RG that does not exist
+.github/workflows/        ⚠ aspirational, see §7
+Dockerfile                ⚠ Streamlit/torch image. Not used. Slated for deletion — see §7.
+docker-compose.yml        ⚠ same
+```
+
+---
+
+## 4. Running it locally
+
+**It will not start as-is.** `APP.py:24-25` and `Help Page.py:39` point at an absolute Windows path on the original author's OneDrive.
+
+Minimum change to run:
+
+```python
+# APP.py — replace lines 24-25
+from pathlib import Path
+BASE          = Path(__file__).resolve().parent.parent          # repo root
+CHUNKS_PATH   = BASE / "DATA" / "unified_semantic_chunks" / "unified_chunks.json"
+VECTOR_STORE  = BASE / "DATA" / "vector_store"                  # NOT APPLICATION(STREAMLIT)/data
+```
+
+> **Point `VECTOR_STORE` at `DATA/vector_store`, not the copy beside the app.** The one under `APPLICATION(STREAMLIT)/data/vector_store` holds 400 vectors against a 627-chunk corpus and has no `config.json`. It is stale and wrong. Verified: `faiss.index` is 614,445 bytes = 400 × 384 × 4 + header, versus 1,033,773 = 673 × 384 × 4 + header for the real one.
+
+Then:
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/puks-ai.git
-cd puks-ai
-
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# Windows:
-.\venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
+python3.11 -m venv .venv && source .venv/bin/activate      # 3.11 — NOT 3.14, see §9
+pip install -r requirements.txt                            # ~2 GB: torch, faiss, transformers
+mkdir -p "APPLICATION(STREAMLIT)/.streamlit"
+echo 'GROQ_API_KEY = "<your-own-new-key>"' > "APPLICATION(STREAMLIT)/.streamlit/secrets.toml"
+streamlit run "APPLICATION(STREAMLIT)/APP.py"
 ```
 
-### Configuration
+`.streamlit/secrets.toml` is gitignored. Get your own key; do not reuse the redacted ones.
 
-Create `.streamlit/secrets.toml`:
+---
 
-```toml
-GROQ_API_KEY = "your-groq-api-key-here"
+## 5. The knowledge base and how to rebuild it
+
+**627 chunks** from **194 source files**, no exact duplicates.
+
+| `chunk_type` | Count | What it is |
+|---|---:|---|
+| `text_prose` | 470 | narrative procedure text |
+| `wms_procedure` | 28 | step-by-step operations with SQL |
+| `text_table` | 25 | tabular content |
+| `schema_overview` | 18 | table definitions |
+| `wms_overview` | 18 | area introductions |
+| `wms_join_logic` | 18 | table relationships |
+| `wms_safety_rules` | 18 | do-not-do rules |
+| `schema_core_columns` | 17 | primary columns |
+| `schema_extra_columns` | 15 | remaining columns |
+
+Chunk text: min 45 chars, median 680, mean 754, max 6,059. 100 chunks carry `structured_data`.
+
+### The pipeline
+
+Run in order. Every notebook has hardcoded Windows paths that need the same fix as §4.
+
+| Notebook | Reads | Writes |
+|---|---|---|
+| `01_document_ingestion` | `DATA/` (PDF, DOCX) | `DATA/Extracted/` |
+| `02_text_cleaning_preprocessing` | `DATA/Extracted/` | `DATA/Cleaned_Generative/` |
+| `03_text_chunking` | `DATA/Cleaned_Generative/` | `DATA/unified_semantic_chunks/` |
+| `04_embeddings_and_vector_store` | `unified_chunks.json` | `DATA/vector_store/` |
+| `05_retrieval_testing` | index | — (evaluation) |
+| `06_rag_pipeline` | index | — (context assembly) |
+| `07_llm_answer_generation` | — | — (prompt/answer testing) |
+| `08_end_to_end_validation` | — | — (validation) |
+| `table_scheme` | `DATA/Database Tables/` (xlsx) | schema JSON |
+
+**To add a document:** drop it in the right `DATA/Cleaned_Generative/<AREA>/` folder, then re-run `03` and `04`. There is no incremental path — it is a full rebuild.
+
+### Why the index has 673 vectors for 627 chunks
+
+`04_embeddings_and_vector_store.ipynb` cell 5 embeds `wms_procedure` and `schema_overview` chunks **twice** (`OPERATIONAL_BOOST = 2`, plus a hardcoded duplication of `schema_overview` that ignores `SCHEMA_BOOST = 1`). 627 + 28 + 18 = 673.
+
+**This never worked as a ranking boost.** Identical vectors produce identical inner products in an exact `IndexFlatIP` search, land adjacently in the results, and `APP.py:252`'s `if text in seen_texts: continue` keeps the first at exactly the rank it would have held without duplication. It only consumed a candidate slot. Do not reproduce it.
+
+### `enrich_text()` — load-bearing, easy to lose
+
+`04` cell 4 prepends metadata to each chunk **before embedding**: `CATEGORY`, `SOURCE`, `DOCUMENT TYPE`, plus type-specific fields (`TABLE NAME`, `RELATED TABLES`, `PRIMARY KEY`, `FOREIGN KEYS` for schemas; `PROCEDURE`, `BUSINESS LOGIC`, `ACCESS LEVEL`, join keys for operational chunks).
+
+It also appends a keyword-stuffing line **only for `OPERATIONAL_REFERENCE` chunks**:
+
+```
+KEYWORDS: reverse, resend, reset, grn, receipt, order, movement, mission, loading, stock, inbound, outbound
 ```
 
-### Run the Application
+That asymmetry is why *"reverse a GRN"* finds operational content. If you re-embed without porting `enrich_text()` verbatim, retrieval quality drops and the cause is not obvious.
+
+---
+
+## 6. The Azure environment
+
+Everything below is from the ARM export (`main.bicep`, 3,059 lines, 33 params) taken 2026-08-18.
+
+**Subscription** `f700ffcf-f34a-462a-9876-234f445307d0` · **RG** `CH011AGL0C8-AGEW-RGRT001` · **Region** West Europe · **Tenant** `088e9b00-ffd0-458e-bfa1-acf4c596d3cb`
+
+### Check your access first
 
 ```bash
-cd app
-streamlit run APP.py
+az login --tenant 088e9b00-ffd0-458e-bfa1-acf4c596d3cb
+az account show --subscription f700ffcf-f34a-462a-9876-234f445307d0
 ```
 
-The application will be available at `http://localhost:8501`
+If that returns `Subscription 'f700ffcf-…' not found`, you have tenant access but not subscription access, and **every Azure step in this README is blocked**. Raise it immediately — it is the longest-lead item in the project. Ask for:
+
+- **Contributor** on `CH011AGL0C8-AGEW-RGRT001` — deploy, site config, model deployments
+- **User Access Administrator** on the same scope — to create the role assignments the app's managed identity needs
+
+Ask for both at once. Requesting Contributor alone gets you blocked a week later.
+
+### What exists
+
+| Resource | Name | Config that matters |
+|---|---|---|
+| **AI Foundry** | `ch011agl0c8-agew-aift003` | `AIServices` S0, SystemAssigned identity, `publicNetworkAccess: Enabled`, project **`WMS-Speed-AI-Chatbot`** |
+| **Model deployment** | `gpt-5` | version `2025-08-07`, GlobalStandard, capacity 50, RAI `Microsoft.DefaultV2` — **the only model deployed** |
+| **AI Search** | `ch011agl0c8-agew-asst001` | `standard`, 1 replica / 1 partition, `semanticSearch: free`, **`authOptions: apiKeyOnly`** |
+| **App Service** | `ch011agl0c8-agew-awat001` | B1 Linux, **`publicNetworkAccess: Disabled`**, **has UMIT001**, subnet `SNTT025-VINT` |
+| **App Service** | `ch011agl0c8-agew-awat002` | B1 Linux, **`publicNetworkAccess: Enabled`**, **no identity**, subnet `SNTT026-VINT` |
+| **Function Apps** | `…-afut001` / `…-afut002` | FlexConsumption FC1, Python 3.13, `publicNetworkAccess: Disabled` |
+| **Azure SQL** | `0C8_wmsspeedai_puksai` | on `ch011agl0c8-agew-sqlt01`, GP_S_Gen5_2 serverless, 32 GB |
+| **Cosmos DB** | `ch0110c8agl-agew-cdbt001` | **zero databases, zero containers** — empty placeholder |
+| **Key Vault** | `CH011AGL0C8-AGEW-AKVT001` | access policies (not RBAC), **`publicNetworkAccess: Disabled`** |
+| **Storage** | `…xsact001` / `…xsact002` | both `publicNetworkAccess: Enabled`, `allowSharedKeyAccess: true` |
+| **Managed identity** | `CH011AGL0C8-AGEW-UMIT001` | attached to **awat001 only** |
+| **Form Recognizer** | `DECLARE` | F0, **francecentral** — unrelated to this project, see §9 |
+
+### The two web apps are configured backwards
+
+This is the single most important structural fact about the environment:
+
+| | awat001 | awat002 |
+|---|---|---|
+| Reachable by users | ❌ private | ✅ public |
+| Has a managed identity | ✅ UMIT001 | ❌ none |
+
+**Reachability and authorization live in different sites.** Whichever you pick, you fix one of these. Attaching an identity to awat002 is a one-line `az webapp identity assign`; making awat001 reachable needs VPN/ExpressRoute plus `privatelink.azurewebsites.net` DNS for every client machine — owned by a team outside this resource group.
+
+### Site config is wrong for anything but Python
+
+Both web apps, identically:
+
+| Property | Value | Verdict |
+|---|---|---|
+| `linuxFxVersion` | **`PYTHON\|3.14`** | Set in **two** places per site — the inline `siteConfig` *and* the `config/web` child. Change both. |
+| `appCommandLine` | *absent* | No startup command at all. |
+| `alwaysOn` | **`false`** | Worker unloads after ~20 min idle. Free to enable on B1. |
+| `healthCheckPath` | *absent* | No health probe. |
+| `httpLoggingEnabled` / `detailedErrorLoggingEnabled` | **`false`** | **You will debug a failed boot blind.** Turn these on first. |
+| `webSocketsEnabled` | `false` | Breaks WebSockets. **Server-Sent Events still work** — SSE is plain chunked HTTP. |
+| `use32BitWorkerProcess` | `true` | **Inert on Linux.** A Windows-template leftover, not a real constraint. |
+| `vnetRouteAllEnabled` | `true` | All outbound goes through the integration subnet, whose NSGs/UDRs live in `ALEW1IT-RG-T01` — a different resource group. |
+| `defaultDocuments` | includes `hostingstart.html` | Neither site has ever been deployed to. |
+| `ipSecurityRestrictions` | `Allow all` | On public awat002 this means **fully open** at the app layer. |
+
+`outboundVnetRouting` on both: `applicationTraffic: true`, `imagePullTraffic: false`, everything else false.
 
 ---
 
-## 📁 Project Structure
+## 7. Deploying
 
-```
-puks-ai/
-├── 📂 app/                          # Streamlit application
-│   ├── APP.py                       # Main application entry point
-│   ├── home.py                      # Home page component
-│   ├── Help Page.py                 # Support form
-│   ├── requirements.txt             # App dependencies
-│   └── style/
-│       └── style.css                # Custom styling
-│
-├── 📂 data/                         # Knowledge base
-│   ├── database_tables/             # Schema definitions (JSON)
-│   │   ├── OPE_DAT.json            # Order Header
-│   │   ├── OPL_DAT.json            # Order Lines
-│   │   ├── REE_DAT.json            # Reception Header
-│   │   └── ...                      # 18 total tables
-│   ├── procedures/                  # Operational procedures
-│   │   ├── 01_general_rules.json
-│   │   ├── 03_inbound.json
-│   │   ├── 04_outbound.json
-│   │   └── ...                      # 40+ procedures
-│   ├── unified_semantic_chunks/
-│   │   └── unified_chunks.json      # Processed chunks
-│   └── vector_store/
-│       ├── faiss.index              # FAISS vector index
-│       ├── metadata.pkl             # Chunk metadata
-│       └── config.json              # Index configuration
-│
-├── 📂 notebooks/                    # Data pipeline notebooks
-│   ├── 01_document_ingestion.ipynb
-│   ├── 02_text_cleaning.ipynb
-│   ├── 03_text_chunking.ipynb
-│   ├── 04_embeddings.ipynb
-│   ├── 05_retrieval_testing.ipynb
-│   └── 08_validation.ipynb
-│
-├── 📂 docs/                         # Documentation
-│   ├── DOCUMENTATION.md             # Full technical docs
-│   ├── DEPLOYMENT.md                # Deployment guide
-│   └── images/                      # Documentation assets
-│
-├── 📂 powerapps/                    # Power Apps templates
-│   └── html_forms/                  # Support ticket HTML
-│
-├── .gitignore
-├── LICENSE
-├── README.md
-└── requirements.txt                 # Project dependencies
-```
+### The `ci-cd.yml` in this repo does not work
 
----
+- The Docker build has **`push: false`** — the image is built and discarded, never pushed anywhere.
+- It deploys to `puks-ai-staging` and `puks-ai-production`. **Neither exists.**
+- It authenticates with `secrets.AZURE_CREDENTIALS` (a service principal blob), not OIDC.
 
-## ⚙️ Configuration
+`docs/DEPLOYMENT.md` is the same: it targets a greenfield `rg-puks-ai` in `southafricanorth`. Ignore both.
 
-### Vector Store Configuration
+### Basic auth being disabled does *not* block deployment
 
-`data/vector_store/config.json`:
+All four sites have `basicPublishingCredentialsPolicies` `ftp: allow=false` **and** `scm: allow=false`. This looks like a wall. It is not.
 
-```json
-{
-  "model_name": "sentence-transformers/all-MiniLM-L6-v2",
-  "total_vectors": 673,
-  "dimension": 384,
-  "index_type": "IndexFlatIP",
-  "normalised": true
-}
-```
+Disabling basic auth closes **one of two** accepted auth schemes on the Kudu endpoint. Entra tokens still work. Per [Microsoft Learn](https://learn.microsoft.com/azure/app-service/configure-basic-auth-disable#deploy-without-basic-authentication), `az webapp deploy` and `az webapp up` **"fall back to Microsoft Entra authentication"** on Azure CLI ≥ 2.48.1.
 
-### Retrieval Parameters
+| Method | Works with basic auth off? |
+|---|---|
+| `az webapp deploy` / `az webapp up` | ✅ Entra fallback |
+| `azure/webapps-deploy@v3` + `azure/login` OIDC | ✅ uses an ARM token |
+| Azure Pipelines `AzureWebApp` task | ✅ |
+| FTP | ❌ |
+| Local Git | ❌ |
+| Publish profile | ❌ |
+| **ACR webhook / container "Continuous deployment" toggle** | ❌ **requires SCM basic auth** |
 
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| `VECTOR_CANDIDATES` | 40 | Initial vector search results |
-| `RERANK_CANDIDATES` | 25 | Candidates for reranking |
-| `TOP_K` | 5 | Final results returned |
-| `W_VECTOR` | 0.6 | Vector score weight |
-| `W_BM25` | 0.3 | BM25 score weight |
-| `W_RERANK` | 0.3 | Rerank score weight |
+> **`ftp: allow=false` is redundant** — SCM basic auth is a prerequisite for FTP basic auth.
 
-### Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `GROQ_API_KEY` | ✅ | Groq API authentication |
-| `VECTOR_STORE_PATH` | ❌ | Custom vector store location |
-| `LOG_LEVEL` | ❌ | Logging verbosity (default: INFO) |
-
----
-
-## 🔄 Data Pipeline
-
-The knowledge base is built through a sequential notebook pipeline:
-
-```
-Raw Documents → Ingestion → Cleaning → Chunking → Embedding → Index
-     📄            📥          🧹         ✂️          🔢        🗄️
-```
-
-### Pipeline Steps
-
-| Step | Notebook | Input | Output |
-|------|----------|-------|--------|
-| 1 | `01_document_ingestion` | PDFs, DOCX, JSON | Extracted text |
-| 2 | `02_text_cleaning` | Extracted text | Cleaned text |
-| 3 | `03_text_chunking` | Cleaned text | Semantic chunks |
-| 4 | `04_embeddings` | Chunks | FAISS index |
-| 5 | `05_retrieval_testing` | Index | Quality metrics |
-
-### Chunk Types
-
-| Type | Count | Description |
-|------|-------|-------------|
-| `text_prose` | 470 | General documentation |
-| `wms_procedure` | 28 | Step-by-step procedures |
-| `schema_overview` | 18 | Table descriptions |
-| `schema_core_columns` | 17 | Primary columns |
-| `wms_safety_rules` | 18 | Safety guidelines |
-
----
-
-## 🚢 Deployment
-
-### Local Development
+### Deploying to awat002 (the recommended target)
 
 ```bash
-streamlit run app/APP.py
+RG=CH011AGL0C8-AGEW-RGRT001
+APP=ch011agl0c8-agew-awat002
+
+# 0. Turn on logging BEFORE anything else, or you debug blind
+az webapp log config -g $RG -n $APP --web-server-logging filesystem --detailed-error-messages true
+
+# 1. Attach the existing managed identity (awat002 has none today)
+az webapp identity assign -g $RG -n $APP \
+  --identities /subscriptions/f700ffcf-f34a-462a-9876-234f445307d0/resourcegroups/$RG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/CH011AGL0C8-AGEW-UMIT001
+
+# 2. Runtime — confirm the stack first, it is stamp-specific
+az webapp list-runtimes --os linux | grep -i NODE
+az webapp config set -g $RG -n $APP --linux-fx-version "NODE|22-lts"
+
+# 3. Always On — free on B1, the highest-value single change here
+az webapp config set -g $RG -n $APP --always-on true
+
+# 4. Startup command + skip the platform build (deploy a prebuilt artifact)
+az webapp config set -g $RG -n $APP --startup-file "node server.js"
+az webapp config appsettings set -g $RG -n $APP --settings SCM_DO_BUILD_DURING_DEPLOYMENT=false
+
+# 5. Deploy, and PROVE it used Entra rather than basic auth
+az webapp deploy -g $RG -n $APP --src-path app.zip --type zip --debug 2>&1 \
+  | grep -iE "bearer|token|publishingcredential|401|403"
 ```
 
-### Docker
+Step 5 should show a **bearer token** being acquired, not publishing credentials.
 
-```dockerfile
-FROM python:3.11-slim
+> **App settings: use `az`, not bicep.** A bicep `Microsoft.Web/sites/config` child named `appsettings` is a **full replace** and silently wipes every existing setting. `az webapp config appsettings set` is a genuine PATCH. Back up first: `az webapp config appsettings list -g $RG -n $APP > appsettings-backup.json`.
 
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+### Deploying to awat001 (private)
 
-COPY app/ ./app/
-COPY data/ ./data/
+`publicNetworkAccess: Disabled` gates **both** the main site and the SCM site, so a GitHub-hosted runner cannot reach Kudu regardless of auth. Two Kudu-free routes exist:
 
-EXPOSE 8501
-CMD ["streamlit", "run", "app/APP.py", "--server.address=0.0.0.0"]
+1. **ARM `onedeploy` extension** — routes through `management.azure.com` rather than Kudu
+2. **`WEBSITE_RUN_FROM_PACKAGE`** pointed at a blob — unsupported for Python and Java, **Node is not excluded**, but `wwwroot` becomes read-only, which Next.js ISR and the image optimiser may not tolerate. Test under load, not just at startup.
+
+A **self-hosted runner inside the VNet** would make every option work on both sites. Worth asking whether AGL already runs one.
+
+### Do not containerise
+
+Evaluated and rejected. No ACR exists in the RG; Basic and Standard ACR **cannot be network-restricted at all** (no IP rule surface), so posture consistency forces Premium at **$50.69/mo**; and the Kudu-free deploy path it would buy already works via Entra. The `Dockerfile` and `docker-compose.yml` here target the Streamlit/torch stack and should be deleted — Compose multi-container on App Service supports neither managed identity nor VNet integration and retires **2027-03-31**.
+
+If you ever revisit: container image pull is **configuration traffic**, not application traffic. `vnetRouteAllEnabled` does not route it; the separate property is `outboundVnetRouting.imagePullTraffic`.
+
+---
+
+## 8. What the bicep does not contain
+
+> **Important caveat.** ARM exports **never** include app settings, connection strings, or role assignments. Their absence from `main.bicep` is *not* evidence they are unset in Azure. Verify with `az` once you have access before concluding anything is missing.
+
+| Missing | Consequence |
+|---|---|
+| **Any embedding model deployment** | Only `gpt-5` is deployed. Any vector search needs a `text-embedding-3-*` deployment added. |
+| **Application Insights / Log Analytics** | No telemetry anywhere. Filesystem logging (§7 step 0) is the only diagnostic until you add it. |
+| **Role assignments** | None visible. Whether UMIT001 can actually reach Foundry, Search or Storage is **unknown** until checked live. |
+| **A staging slot** | B1 Basic does not support deployment slots. No blue/green. |
+| **Container registry** | None. See §7. |
+| **NAT gateway, firewall, route table** | None in the export — the subnets' NSGs and UDRs live in `ALEW1IT-RG-T01`. Egress behaviour is unverified. |
+
+### Provisioned but unused
+
+| Resource | Status |
+|---|---|
+| **Cosmos DB** | Zero databases, zero containers. Costs **$0** — but it is wired into AI Foundry as an AAD connection, so something expected it to be real. |
+| **Azure SQL `0C8_wmsspeedai_puksai`** | Serverless, no schema referenced anywhere in this repo. |
+| **AI Search `asst001`** | ~**$245/month**, unused by the current app, which uses local FAISS. |
+| **Function Apps ×2** | Two separate FC1 plans for two apps sharing one storage account and one SNOW case. One plan would have done. |
+| **Form Recognizer `DECLARE`** | F0, in **francecentral** — the only resource outside West Europe, no tags, no identity, no relationship to anything else. Almost certainly a stray from another project sharing the RG. |
+| **`ch011agl0c8-agew-aift001-PL`** | A private endpoint, status `Disconnected`, pointing at a search service **that does not exist**. Still billed ~**$7.30/mo**. |
+
+---
+
+## 9. Traps
+
+**`keyVaultReferenceIdentity: 'SystemAssigned'` is set on all four sites, and not one has a system-assigned identity.** Every `@Microsoft.KeyVault(...)` app setting will resolve to the literal reference string rather than the secret. To use Key Vault on awat001 you must set `keyVaultReferenceIdentity` to the UMIT001 *resource ID* and add UMIT001 to the vault's access policies.
+
+**The Key Vault private endpoint has no `privateDnsZoneGroup`** — the only one of eight without one. It relies on a `customDnsConfig` of `172.29.35.81`, which is descriptive output, not configuration. With the vault at `publicNetworkAccess: Disabled`, anything that cannot resolve that FQDN by other means simply fails. Avoid Key Vault for this project unless you have a reason.
+
+**The AI Search service contradicts its own Foundry connection.** The Foundry connection declares `authType: 'AAD'`, but the service has `authOptions: { apiKeyOnly: {} }` — Entra data-plane auth is *disabled*. Managed-identity queries will fail until someone runs `az search service update --auth-options aadOrApiKey`.
+
+**Never redeclare the search service in bicep.** A full resource declaration is a PUT and will silently reset `semanticSearch: 'free'`, disabling the semantic reranker. It presents as "results got worse", not as an error. Use `az search service update` instead.
+
+**`semanticSearch: 'free'` is capped at 1,000 requests/month service-wide**, after which semantic queries return a *billing error*, not degraded results.
+
+**Python 3.14 has no wheels for this stack.** `faiss-cpu`, `torch` and `sentence-transformers` do not build on 3.14. Use 3.11 locally. The App Service is set to `PYTHON|3.14`, which is one reason the current app could never have run there.
+
+**Storage private endpoint is `file` only**, while every real dependency on `sact001` (Function deployment packages, `azure-webjobs-hosts`, `azure-webjobs-secrets`) is **blob**. Blob traffic uses the public endpoint. It works, but the private-link posture is cosmetic.
+
+**Four subscriptions are referenced by this bicep**, three of which most AGL accounts cannot see. Notably `0f13f064-…` (**HQ**) holds two of the four private DNS zones this estate depends on — and that one *is* commonly accessible.
+
+**`main.bicep` cannot be redeployed as-is.** It has one `@secure()` param, `vulnerabilityAssessments_Default_storageContainerPath`, with **no default value**. Any `az deployment group create` will prompt interactively or fail. Treat the file as documentation of current state, not as a deployable template. Make changes with a small additive module using `existing` references.
+
+**If you build a Next.js front end:** `.next/standalone` does **not** copy `public/` or `.next/static` — the app boots and every asset 404s. And Docker injects `HOSTNAME=<container-id>`, which Next's standalone server binds to; never create an app setting named `HOSTNAME`.
+
+---
+
+## 10. Known defects
+
+### 10.1 BM25 contributes no recall — the big one
+
+`APP.py:233` searches FAISS for `VECTOR_CANDIDATES = 40`. Line 243 then iterates **only those 40** and looks up `bm25_norm[raw_idx]`.
+
+BM25 can never surface a document that dense retrieval missed. It only re-weights dense's picks. **Recall ceiling: 40/627 = 6.4%.**
+
+The practical effect: a document findable only by an exact code (`REE_DAT`, `LPN`, `ZPA`, `DLUO`) is invisible if the semantic search missed it. Fixing this means running both retrievers independently across the full corpus and fusing the results — the standard fix is Reciprocal Rank Fusion.
+
+### 10.2 The refusal threshold is not calibrated
+
+`CONFIDENCE_THRESHOLD = 0.01` gates whether the app answers or says "I don't know". It compares a blend of a bounded hybrid score and an **unbounded** CrossEncoder logit. Its effective strictness varies roughly **7×** depending on which metadata boosts happened to fire — loosest exactly when retrieval is most driven by hand-tuned priors.
+
+This matters more than it sounds: the answers include SQL that people run against a live WMS.
+
+### 10.3 Intent classification inverts on common queries
+
+`APP.py:211-212`:
+
+```python
+if is_schema and is_operational:
+    is_schema = False
 ```
 
-### Azure App Service
+Both keyword sets contain ordinary WMS nouns. *"List all columns in the receipt header table REE_DAT"* contains "receipt" → classified operational → gets the operational boost and **not** the schema boost. Exactly backwards. 11 of 50 schema chunks contain an operational keyword in their own header text, so this is systematic.
 
-```bash
-# Deploy to Azure
-az webapp up --name puks-ai --runtime "PYTHON:3.11"
-```
+### 10.4 SCHEMA MODE never fires for the chunks that list columns
 
-See [DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
+`has_schema` is set only for `schema_overview`. The 32 `schema_core_columns` and `schema_extra_columns` chunks — the ones that actually enumerate columns — never trigger it.
 
----
+### 10.5 1,574 column names are unreachable
 
-## 🤝 Contributing
+Column names live in `structured_data`, which is embedded nowhere and BM25-indexed nowhere. *"Which column holds the reception date?"* cannot be answered even though the answer is in the library. For `MVT_DAT`, 32 column names appear in no chunk's raw text anywhere.
 
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) first.
+### 10.6 Eleven of 28 procedures are empty
 
-### Adding New Documents
+39% of `wms_procedure` chunks are `SQL: N/A` stubs — including **Reverse Closed GRN**, one of the most-asked procedures. Perfect retrieval scores zero on it. This needs someone who knows the procedures, not an engineer.
 
-1. Place documents in appropriate `data/` subfolder
-2. Run the notebook pipeline (01-04)
-3. Test retrieval quality
-4. Submit PR with updated vector store
+### 10.7 Everything else
 
-### Adding New Schemas
-
-1. Create JSON file following the schema format
-2. Place in `data/database_tables/`
-3. Re-run chunking and embedding notebooks
+- **Hardcoded Windows paths** in `APP.py`, `Help Page.py` and 8 notebooks (§4)
+- **Stale vector store** at `APPLICATION(STREAMLIT)/data/vector_store` (§4)
+- **`Help Page.py` is a mock** — the support form submits nowhere
+- **`ci-cd.yml` and `docs/DEPLOYMENT.md` are fiction** (§7)
+- **`07_llm_answer_generation - Copy.ipynb`** is an unreconciled duplicate
 
 ---
 
-## 📊 Performance Metrics
+## 11. Security and compliance
 
-| Metric | Value |
-|--------|-------|
-| Average Response Time | < 3 seconds |
-| Retrieval Precision@5 | 0.85 |
-| Knowledge Base Size | 673 chunks |
-| Supported Query Types | Schema, Operational, SQL |
+### Rotate the Groq keys
 
----
+**Three distinct live keys** were committed across five locations and published to `github.com/E-siyanda-matolengwe_MSC/puks-ai`. In this repo they read `gsk_REDACTED_KEY_WAS_ROTATED`, and the original git history was **not** carried over — but redaction here does not revoke them.
 
-## 📜 License
+**Rotate at `console.groq.com`.** They were public; assume they are compromised.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### This repository must stay private
 
----
+`DATA/` contains third-party client material and production system internals:
 
-## 🙏 Acknowledgments
+- **19 L'Oréal** operational documents
+- **12 Clarins** files
+- **18 production WMS table schemas**
+- Support ticket resolutions with real customer references
 
-- **BK Systèmes** — Speed WMS documentation
-- **Sentence Transformers** — Embedding models
-- **FAISS** — Vector similarity search
-- **Groq** — LLM inference API
-- **Streamlit** — Web application framework
+This is MSC/AGL customer data, not project IP. It is not publishable.
 
----
+### Data residency
 
-## 📞 Support
+Any **new** model deployment needs a deliberate SKU choice. `GlobalStandard` (what the existing `gpt-5` uses) explicitly may route requests outside the EU; `DataZoneStandard` confines inference to EU member states. **The SKU cannot be changed in place** — switching later means recreating the deployment. Decide with whoever owns data residency for this estate before deploying.
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/puks-ai/issues)
-- **Email**: support@example.com
-- **Documentation**: [Full Documentation](docs/DOCUMENTATION.md)
+### Other
+
+- `ipSecurityRestrictions` is `Allow all` on the public awat002 — no IP allow-listing
+- Both storage accounts have `allowSharedKeyAccess: true`
+- SQL threat protection is enabled at server scope but **disabled** on both databases
 
 ---
 
-<p align="center">
-  <b>Built with ❤️ by the Speed WMS Support Team</b>
-</p>
+## 12. Cost
+
+Standing cost, Azure list prices for West Europe, excluding any AGL enterprise discount:
+
+| Item | Monthly |
+|---|---:|
+| AI Search S1 | $245.28 |
+| 8 private endpoints | $58.40 |
+| 2 × App Service B1 Linux | $26.28 |
+| Defender for SQL | $15.00 |
+| SQL storage | $4.38 |
+| Cosmos DB | $0.00 *(no containers provisioned)* |
+| Function Apps FC1, AI Foundry S0 | $0.00 |
+| **Total** | **~$349** |
+
+**Waste worth acting on:**
+
+- **AI Search — $245/mo** for a service the current app does not use. At 627 documents an in-process index is viable. Do not switch it off until a replacement is proven.
+- **Orphaned private endpoint `ch011agl0c8-agew-aift001-PL` — $7.30/mo** pointing at a search service that does not exist. Safe to delete.
+- If the serverless SQL database ever fails to auto-pause, its minimum compute bill is roughly **$282/mo**, which would nearly double the standing cost. Worth an alert.
+
+---
+
+## 13. Where this is going
+
+A rebuild is planned: a Next.js front end replacing Streamlit, retrieval reworked so both search methods cover the full corpus, and generation moved from Groq to the already-provisioned `gpt-5` deployment using managed identity instead of API keys.
+
+Work that needs **no Azure access** and can start immediately:
+
+- Port the retrieval logic and add parity tests against the current behaviour
+- Build the evaluation set — there is currently **no ground truth at all**, so no way to prove a change helped
+- Fix the hardcoded paths and delete the stale vector store
+- Front-end shell against mocked retrieval
+
+Everything touching Azure is gated on the access grant in [§6](#6-the-azure-environment). Request it first; it has the longest lead time.
+
+### Open questions for the environment owner
+
+1. Does AGL run **VNet-resident CI runners**? If so, the private site becomes viable and most deployment complexity disappears.
+2. Who owns **data residency** sign-off for this estate?
+3. Is there a **real support ticket queue** to draw evaluation questions from? This repo has only two tickets.
+
+---
+
+*Environment facts in this document were read from `main.bicep` (exported 2026-08-18) and verified against the repository. Azure behaviour was verified against Microsoft Learn on 2026-08-19. Anything marked unverified has not been confirmed against a live subscription, because none was reachable at the time of writing.*
