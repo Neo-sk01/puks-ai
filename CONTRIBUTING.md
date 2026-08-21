@@ -22,7 +22,7 @@ This project and everyone participating in it is governed by our Code of Conduct
 
 - Python 3.9+ (3.11 recommended)
 - Git
-- A Groq API key (free tier available at [console.groq.com](https://console.groq.com))
+- An Azure Foundry key for `<foundry-resource>` (see `.env.example`)
 
 ### Quick Setup
 
@@ -40,7 +40,7 @@ pip install -r requirements.txt
 
 # Set up secrets
 mkdir -p .streamlit
-echo 'GROQ_API_KEY = "your-api-key"' > .streamlit/secrets.toml
+cp .env.example .env   # then set AZURE_AI_KEY
 ```
 
 ## How Can I Contribute?

@@ -2,52 +2,42 @@
 # Puks AI - Speed WMS Intelligent Support
 # Python Dependencies
 # ===========================================
+#
+# Generation, embeddings and reranking all run on an Azure Foundry resource
+# configured by environment variable. There is no local model, so torch,
+# sentence-transformers and transformers are gone — with them went ~2 GB of
+# wheels, the huggingface.co startup dependency, and the B1 build timeout.
 
-# Core Application
+# Core application
 streamlit>=1.31.0
 numpy>=1.23.0
 
-# Vector Search & Embeddings
+# Vector search
 faiss-cpu>=1.7.4
-sentence-transformers>=2.2.2
 
-# Reranking
-# (included in sentence-transformers)
-
-# Lexical Search
+# Lexical search
 rank-bm25>=0.2.2
 
-# LLM Integration
-groq>=0.9.0
+# Azure Foundry — gpt-5 and text-embedding-3-large.
+# 1.99+ is required for `reasoning_effort` and `verbosity` on gpt-5.
+openai>=1.99.0
 
-# Document Processing
-pypdf>=4.2.0
-python-docx>=1.1.0
-pdfplumber>=0.10.0
-beautifulsoup4>=4.12.3
-
-# Data Processing
-pandas>=2.2.0
-langchain>=0.2.0
-langchain-core>=0.2.0
-langchain-community>=0.2.0
-
-# Tokenization
-tiktoken>=0.7.0
-
-# ML/Transformers
-transformers>=4.40.0
-accelerate>=0.30.0
-
-# API Framework (optional - for API deployment)
-fastapi>=0.111.0
-uvicorn>=0.30.0
-
-# Utilities
-python-dotenv>=1.0.0
+# Cohere rerank on Foundry uses Cohere's own /v2/rerank route rather than the
+# chat/embeddings inference API, so it is called over plain HTTP.
 requests>=2.32.0
 
-# Development Dependencies
+# Local development only — App Service supplies app settings as real env vars
+python-dotenv>=1.0.0
+
+# Pipeline notebooks 01-03 (document ingestion and chunking) only.
+# Not imported by the app; skip these for a slim deployment artifact.
+# pypdf>=4.2.0
+# python-docx>=1.1.0
+# pdfplumber>=0.10.0
+# beautifulsoup4>=4.12.3
+# pandas>=2.2.0
+
+# Development
 # -----------------------
 # jupyter>=1.0.0
 # pytest>=8.0.0

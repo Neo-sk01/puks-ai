@@ -81,7 +81,11 @@ The system implements several guardrails:
 ### Data Residency
 
 - Vector store can be deployed in any Azure region
-- LLM inference via Groq API (check their data residency policies)
+- LLM inference, embeddings and reranking run on AGL's own Azure Foundry
+  resource in West Europe. No request leaves the tenant. Note that the `gpt-5`
+  deployment is `GlobalStandard`, which may route inference outside the EU —
+  `DataZoneStandard` confines it to EU member states and the SKU cannot be
+  changed in place.
 - Consider self-hosted LLM for strict data residency requirements
 
 ## Security Updates

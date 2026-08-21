@@ -1,5 +1,13 @@
 # Deployment Guide
 
+> [!WARNING]
+> **Superseded — do not follow.** This document describes a Groq-based Streamlit
+> deployment into a greenfield resource group (`rg-agl-ai` / `rg-puks-ai`) that
+> does not exist, in a region this project does not use. Generation, embeddings
+> and reranking now all run on Azure Foundry; there is no Groq key to set.
+> The current architecture and the working deployment runbook are in
+> [`README.md`](../README.md) §6-§7.
+
 This guide covers deploying Puks AI to various environments.
 
 ## Table of Contents
