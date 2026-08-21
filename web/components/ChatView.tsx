@@ -122,28 +122,37 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
         return next;
       });
 
-    await sendMessage({
-      message: text,
-      messages,
-      topK,
-      onRetrieved: (retrieved) => update({ retrieved }),
-      onToken: (token) =>
-        setMessages((current) => {
-          const next = [...current];
-          const last = next[next.length - 1];
-          next[next.length - 1] = { ...last, content: last.content + token };
-          return next;
-        }),
-      onDone: (done) => {
-        // Refusal short-circuits before any token, so the bubble is still empty.
-        update({ done, refused: done.refused, ...(done.refused ? { content: REFUSAL_TEXT } : {}) });
-        setStreaming(false);
-      },
-      onError: (message) => {
-        update({ content: `**Request failed.**\n\n\`\`\`\n${message}\n\`\`\``, refused: true });
-        setStreaming(false);
-      },
-    });
+    try {
+      await sendMessage({
+        message: text,
+        messages,
+        topK,
+        onRetrieved: (retrieved) => update({ retrieved }),
+        onToken: (token) =>
+          setMessages((current) => {
+            const next = [...current];
+            const last = next[next.length - 1];
+            next[next.length - 1] = { ...last, content: last.content + token };
+            return next;
+          }),
+        onDone: (done) => {
+          // Refusal short-circuits before any token, so the bubble is still empty.
+          update({ done, refused: done.refused, ...(done.refused ? { content: REFUSAL_TEXT } : {}) });
+          setStreaming(false);
+        },
+        onError: (message) => {
+          update({ content: `**Request failed.**\n\n\`\`\`\n${message}\n\`\`\``, refused: true });
+          setStreaming(false);
+        },
+      });
+    } finally {
+      // Covers every exit: a stream that closes with no `done` event, and a
+      // throw out of parseSSE on malformed JSON. onDone/onError already call
+      // this on the happy paths; setState is idempotent, so the double call is
+      // harmless. Without it, a mid-stream drop disables the composer until
+      // the page is reloaded.
+      setStreaming(false);
+    }
   }
 
   return (
