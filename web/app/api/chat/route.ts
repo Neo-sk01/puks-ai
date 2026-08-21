@@ -1,4 +1,5 @@
 import { FASTAPI_URL } from "@/lib/server";
+import { extractDetail } from "@/lib/errors";
 
 /** Node runtime: the stream is passed through untouched and must not be
  *  buffered or transformed by the edge runtime. */
@@ -28,8 +29,11 @@ export async function POST(request: Request) {
   }
 
   if (!upstream.ok || !upstream.body) {
-    const detail = await upstream.text();
-    return Response.json({ detail: detail || upstream.statusText }, { status: upstream.status });
+    const raw = await upstream.text();
+    return Response.json(
+      { detail: extractDetail(raw, upstream.statusText) },
+      { status: upstream.status },
+    );
   }
 
   return new Response(upstream.body, {
