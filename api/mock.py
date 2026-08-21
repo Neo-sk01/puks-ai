@@ -15,14 +15,21 @@ import re
 import time
 from pathlib import Path
 
-from puks_rag import CHAT_DEPLOYMENT, CONFIDENCE_THRESHOLD, REFUSAL_TEXT
+from puks_rag import CHAT_DEPLOYMENT, CONFIDENCE_THRESHOLD, REFUSAL_TEXT, TOP_K_DEFAULT
 
 FIXTURES           = Path(__file__).resolve().parent / "fixtures"
 TOKEN_DELAY_SECONDS = 0.012
 
 
 class MockCorpus:
-    """Stands in for Corpus so the API surface is identical in both modes."""
+    """A stand-in for Corpus in mock mode.
+
+    NOT an interface match for the real Corpus, which exposes .index, .config,
+    .chunks, .bm25 and .exact_name_hits() and has none of these attributes.
+    These three exist only so Engine.info() can report index facts uniformly:
+    it reads them here, and reads .index.d / .index.ntotal / .config on the
+    real object. Nothing else may assume these attributes exist on a Corpus.
+    """
     ntotal    = 627
     dimension = 3072
     model     = "mock"
@@ -49,7 +56,7 @@ def _tokenise(text: str) -> list[str]:
 
 
 def answer(corpus, query: str, memory_text: str = "(No prior conversation)",
-           top_k: int = 5) -> dict:
+           top_k: int = TOP_K_DEFAULT) -> dict:
     fixture = _select(query)
     refused = fixture["answer"] is None
     return {
@@ -62,7 +69,7 @@ def answer(corpus, query: str, memory_text: str = "(No prior conversation)",
 
 
 def answer_stream(corpus, query: str, memory_text: str = "(No prior conversation)",
-                  top_k: int = 5):
+                  top_k: int = TOP_K_DEFAULT):
     fixture = _select(query)
     refused = fixture["answer"] is None
 

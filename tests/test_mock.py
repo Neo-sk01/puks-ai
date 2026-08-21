@@ -35,8 +35,12 @@ def test_stream_refusal_emits_no_tokens(monkeypatch):
     assert events[1][1]["reason"] == "below_threshold"
 
 
-def test_mock_chunks_carry_no_structured_data(monkeypatch):
+def test_mock_chunks_are_exactly_wire_shaped(monkeypatch):
+    """Fixtures must carry the nine WIRE_FIELDS and nothing else — an extra
+    field would reach the browser as untyped surface."""
+    from puks_rag import WIRE_FIELDS
     monkeypatch.setattr(mock, "TOKEN_DELAY_SECONDS", 0)
     events = list(mock.answer_stream(mock.MockCorpus(), "reverse a GRN"))
+    assert events[0][1]["chunks"]
     for chunk in events[0][1]["chunks"]:
-        assert "structured_data" not in chunk
+        assert set(chunk) == set(WIRE_FIELDS)
