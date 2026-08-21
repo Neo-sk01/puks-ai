@@ -50,3 +50,9 @@ Thumbs.db
 
 # Internal — tenant identifiers, access chain, network posture. Never commit.
 ENVIRONMENT.local.md
+
+# Next.js
+web/node_modules/
+web/.next/
+web/out/
+web/.env.local
