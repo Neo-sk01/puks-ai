@@ -76,7 +76,7 @@ export function RetrievalPanel({ retrieved }: { retrieved: RetrievedPayload }) {
               <summary className="cursor-pointer text-xs text-muted">
                 Text ({chunk.text.length} chars)
               </summary>
-              <p className="mt-2 whitespace-pre-wrap text-xs text-muted">{chunk.text}</p>
+              <p className="mt-2 whitespace-pre-wrap break-words text-xs text-muted">{chunk.text}</p>
             </details>
           </section>
         ))}
