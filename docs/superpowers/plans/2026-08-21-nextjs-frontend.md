@@ -3108,15 +3108,71 @@ The file already carries a "Superseded — do not follow" warning. Extend that w
 > `web/` and the FastAPI service in `api/`. See `docs/superpowers/specs/2026-08-21-nextjs-frontend-design.md`.
 ```
 
+- [ ] **Step 6b: Update `CONTRIBUTING.md` and `DOCUMENTATION.md`**
+
+Both carry live "run the Streamlit app" instructions that would be actively misleading once
+the app is gone. These are targeted edits — do NOT rewrite either document.
+
+In `CONTRIBUTING.md`, the "Running the Application" block (~line 131) currently reads
+`cd app` / `streamlit run APP.py`. Replace the code block with:
+
+```bash
+# Terminal 1 — the API
+PUKS_MOCK=1 uvicorn api.main:app --port 8001
+
+# Terminal 2 — the front end
+cd web && pnpm install && pnpm dev
+```
+
+In `DOCUMENTATION.md`, four places:
+
+- ~line 947, `pip install -r "APPLICATION(STREAMLIT)/requirements.txt"` → `pip install -r api/requirements.txt`
+- ~line 964-965, the `cd "APPLICATION(STREAMLIT)"` / `streamlit run APP.py` block → the same
+  two-terminal block as above, and change the following line's
+  `http://localhost:8501` to `http://localhost:3000`
+- ~line 1114, `streamlit run "APPLICATION(STREAMLIT)/APP.py"` → `cd web && pnpm dev`
+- ~line 1566, the repo-tree diagram's `APPLICATION(STREAMLIT)/` block (APP.py, home.py,
+  Help Page.py, requirements.txt) → replace those entries with:
+
+```
+├── api/                          # FastAPI service (SSE + JSON)
+│   ├── main.py                   # /api/chat, /api/answer, /api/config, /health
+│   ├── engine.py                 # Corpus lifecycle; captures ConfigError
+│   ├── mock.py                   # fixture-backed engine for PUKS_MOCK=1
+│   └── requirements.txt
+├── web/                          # Next.js front end
+│   ├── app/                      # App Router pages + SSE proxy route
+│   ├── components/               # ChatView, Sidebar, RetrievalPanel, ...
+│   └── lib/                      # SSE parser, history rules, wire types
+```
+
+- [ ] **Step 6c: Reword the `tests/test_memory.py` docstring**
+
+Its first line points at `APPLICATION(STREAMLIT)/APP.py`, which will no longer exist. Keep the
+`ReferenceMemory` oracle class exactly as it is — only the docstring changes:
+
+```python
+"""format_memory must reproduce the Streamlit app's ConversationMemory byte-for-byte —
+it is part of the prompt, not a display concern.
+
+The Streamlit app has since been removed (see the Next.js front-end migration). The
+ReferenceMemory class below is a verbatim copy of its ConversationMemory, kept as the
+oracle so the prompt contract stays pinned to the original behaviour."""
+```
+
 - [ ] **Step 7: Verify nothing still references the deleted app**
 
 ```bash
-grep -rn "APPLICATION(STREAMLIT)\|streamlit run\|import streamlit" \
-  --include="*.py" --include="*.md" --include="*.txt" --include="*.yml" . \
+grep -rn "APPLICATION(STREAMLIT)\|streamlit run\|import streamlit\|streamlit>=" \
+  --include="*.py" --include="*.md" --include="*.txt" --include="*.yml" --include="*.toml" . \
   | grep -v node_modules | grep -v "docs/superpowers" | grep -v "^./docs/DEPLOYMENT.md"
 ```
 
 Expected: no output. Anything that appears must be fixed before committing.
+
+`docs/DEPLOYMENT.md` is excluded because Step 6 leaves its superseded commands intact under an
+explicit "do not follow" warning — rewriting a document that already says it is wrong would be
+churn. Everything else must come back clean.
 
 - [ ] **Step 8: Full suite one more time, then commit**
 
