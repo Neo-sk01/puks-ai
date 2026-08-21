@@ -5,6 +5,7 @@ import { Sidebar } from "./Sidebar";
 import { NotReadyBanner } from "./NotReadyBanner";
 import { Composer } from "./Composer";
 import { Markdown } from "./Markdown";
+import { RetrievalPanel } from "./RetrievalPanel";
 import { sendMessage } from "@/lib/chat";
 import type { AppConfig, ChatMessage, Chunk, Health } from "@/lib/types";
 
@@ -185,6 +186,7 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
                         </p>
                       )
                     )}
+                    {debug && message.retrieved && <RetrievalPanel retrieved={message.retrieved} />}
                     {message.done && (
                       <p className="text-xs text-muted">
                         {message.done.refused
