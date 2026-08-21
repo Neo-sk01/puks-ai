@@ -1,0 +1,16 @@
+{
+  "match": "",
+  "confidence": 0.11,
+  "answer": null,
+  "chunks": [
+    {
+      "index": 300, "fusion_score": 0.0081, "in_dense": true, "in_bm25": false,
+      "in_exact": false, "doc_type": "TEXT", "relevance_score": 0.11,
+      "metadata": {"source": "GENERAL/intro.docx", "category": "GENERAL",
+                   "chunk_type": "text_prose"},
+      "text": "Speed WMS is a warehouse management system used across AGL sites."
+    }
+  ],
+  "intent": {"is_schema": false, "is_operational": false, "is_sql": false,
+             "schema_hits": [], "operational_hits": []}
+}

@@ -1,0 +1,24 @@
+{
+  "match": "grn",
+  "confidence": 0.87,
+  "answer": "To reverse a GRN in Speed WMS:\n\n1. **Validate first** — confirm the receipt is not already closed:\n\n```sql\nSELECT REE_NUM, REE_STATUS FROM REE_DAT WHERE REE_NUM = :grn;\n```\n\n2. **Reverse** once the status is confirmed open.\n\n| Field | Value |\n|---|---|\n| Table | REE_DAT |\n| Access level | Supervisor |\n\nRespect the safety rules: never reverse a GRN with downstream missions.",
+  "chunks": [
+    {
+      "index": 41, "fusion_score": 0.0163, "in_dense": true, "in_bm25": true,
+      "in_exact": true, "doc_type": "OPERATIONAL_REFERENCE", "relevance_score": 0.87,
+      "metadata": {"source": "RECEIVING GOODS/reverse_grn.docx", "category": "RECEIVING GOODS",
+                   "table_name": "REE_DAT", "procedure_name": "Reverse GRN",
+                   "chunk_type": "wms_procedure"},
+      "text": "Reversing a goods receipt note requires supervisor access. Validate the receipt status before any update, and confirm no downstream missions exist."
+    },
+    {
+      "index": 12, "fusion_score": 0.0142, "in_dense": true, "in_bm25": false,
+      "in_exact": false, "doc_type": "TABLE_SCHEMA", "relevance_score": 0.64,
+      "metadata": {"source": "Database Tables/REE_DAT.md", "category": "Database Tables",
+                   "table_name": "REE_DAT", "chunk_type": "schema_overview"},
+      "text": "REE_DAT — receipt header. Primary key REE_NUM. Foreign keys: REE_SUPPLIER -> SUP_DAT."
+    }
+  ],
+  "intent": {"is_schema": false, "is_operational": true, "is_sql": false,
+             "schema_hits": [], "operational_hits": ["reverse", "grn"]}
+}
