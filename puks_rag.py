@@ -337,6 +337,44 @@ def call_llm(prompt: str, system: str) -> str:
         return (completion.choices[0].message.content or "").strip()
 
 
+def call_llm_stream(prompt: str, system: str):
+    """Stream generation with gpt-5. Yields content deltas as they arrive.
+
+    Same parameter set as call_llm — reasoning models take max_completion_tokens
+    and reject temperature/top_p/max_tokens. Verified against Microsoft Learn
+    2026-08-21: gpt-5 (2025-08-07) supports streaming on Chat Completions
+    alongside reasoning_effort.
+
+    The `verbosity` retry sits around create() only, which runs before the first
+    yield — retrying after tokens had been emitted would replay them.
+    """
+    kwargs = {
+        "model":                 CHAT_DEPLOYMENT,
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user",   "content": prompt},
+        ],
+        "max_completion_tokens": MAX_OUTPUT,
+        "reasoning_effort":      REASONING_EFFORT,
+        "stream":                True,
+    }
+
+    try:
+        stream = get_client().chat.completions.create(verbosity=VERBOSITY, **kwargs)
+    except TypeError:
+        # Older openai SDKs do not know `verbosity`. Retry without it.
+        stream = get_client().chat.completions.create(**kwargs)
+
+    for chunk in stream:
+        # Azure emits chunks with an empty `choices` list for prompt filter
+        # results and for the final usage chunk.
+        if not chunk.choices:
+            continue
+        text = chunk.choices[0].delta.content
+        if text:
+            yield text
+
+
 # ==================================================
 # INDEX LOADING
 # ==================================================
