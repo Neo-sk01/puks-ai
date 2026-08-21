@@ -2822,8 +2822,21 @@ test("retrieval panel shows provenance and scores when enabled", async ({ page }
   await panel.click();
 
   await expect(page.getByText("Rank 1")).toBeVisible();
-  await expect(page.getByText("dense", { exact: true })).toBeVisible();
-  await expect(page.getByText("bm25", { exact: true })).toBeVisible();
+
+  // Both fixture chunks have in_dense: true, so a bare getByText("dense") resolves
+  // to two elements and Playwright's strict mode throws. Scope to rank 1's chip row
+  // and assert the full provenance set there — which is what the panel is for.
+  const rank1 = page.locator("section").filter({ hasText: "Rank 1" }).first();
+  await expect(rank1.getByText("dense", { exact: true })).toBeVisible();
+  await expect(rank1.getByText("bm25", { exact: true })).toBeVisible();
+  await expect(rank1.getByText("exact", { exact: true })).toBeVisible();
+
+  // Only chunk[1] lacks bm25/exact, so rank 2 must show dense alone — this is the
+  // assertion that would actually catch the chips being wired to the wrong chunk.
+  const rank2 = page.locator("section").filter({ hasText: "Rank 2" }).first();
+  await expect(rank2.getByText("dense", { exact: true })).toBeVisible();
+  await expect(rank2.getByText("bm25", { exact: true })).toHaveCount(0);
+
   await expect(page.getByText("0.0163")).toBeVisible();
 });
 
