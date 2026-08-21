@@ -4,7 +4,7 @@
 
 **Goal:** Replace the Streamlit UI with a Next.js front end talking to a FastAPI service that wraps `puks_rag.py`, adding token streaming, and delete `APPLICATION(STREAMLIT)/`.
 
-**Architecture:** Next.js (App Router) proxies SSE through a server-side route handler to FastAPI on :8000, which calls `puks_rag.answer_stream()`. Retrieval — FAISS, BM25, RRF, Cohere rerank — is untouched; `puks_rag.py` gains only a shared `_prepare()`, a streaming LLM call, a generator, and a memory formatter. FastAPI is stateless: the client sends conversation history, the server formats it into the prompt.
+**Architecture:** Next.js (App Router) proxies SSE through a server-side route handler to FastAPI on :8001 locally, which calls `puks_rag.answer_stream()`. Retrieval — FAISS, BM25, RRF, Cohere rerank — is untouched; `puks_rag.py` gains only a shared `_prepare()`, a streaming LLM call, a generator, and a memory formatter. FastAPI is stateless: the client sends conversation history, the server formats it into the prompt.
 
 **Tech Stack:** Python 3.11 · FastAPI · uvicorn · pytest · Next.js (App Router) · TypeScript · Tailwind · Vitest · Playwright · Docker Compose
 
@@ -1456,10 +1456,10 @@ Expected: 45 passed (the `clamped_top_k` parametrize contributes 5)
 - [ ] **Step 5: Smoke-test the real server**
 
 ```bash
-PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8000 &
+PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8001 &
 sleep 3
-curl -s localhost:8000/health | head -c 200; echo
-curl -sN -X POST localhost:8000/api/chat \
+curl -s localhost:8001/health | head -c 200; echo
+curl -sN -X POST localhost:8001/api/chat \
   -H 'content-type: application/json' \
   -d '{"message":"how do I reverse a GRN?"}' | head -20
 kill %1
@@ -1935,7 +1935,7 @@ import type { AppConfig, Health } from "./types";
 /** Server-only. Never imported from a client component — the URL, and any
  *  credential added to it later, must not reach the browser. The Health type
  *  itself lives in ./types so client components can name it. */
-export const FASTAPI_URL = process.env.FASTAPI_URL ?? "http://127.0.0.1:8000";
+export const FASTAPI_URL = process.env.FASTAPI_URL ?? "http://127.0.0.1:8001";
 
 export type { Health };
 
@@ -1969,7 +1969,7 @@ Create `web/.env.local.example`:
 
 ```
 # The FastAPI service. Server-side only — never exposed to the browser.
-FASTAPI_URL=http://127.0.0.1:8000
+FASTAPI_URL=http://127.0.0.1:8001
 ```
 
 - [ ] **Step 2: Create the chat proxy**
@@ -2037,7 +2037,7 @@ export async function GET() {
 
 ```bash
 cd ~/Developer/puks-ai
-PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8000 &
+PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8001 &
 (cd web && pnpm dev --port 3000 &)
 sleep 8
 curl -sN -X POST localhost:3000/api/chat \
@@ -2248,7 +2248,7 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
 - [ ] **Step 4: Verify both states render**
 
 ```bash
-PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8000 &
+PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8001 &
 (cd web && pnpm dev --port 3000 &)
 sleep 8
 curl -s localhost:3000 | grep -c "Speed WMS Intelligence"   # expect 1
@@ -2505,7 +2505,7 @@ Replace the `<main>` contents with:
 - [ ] **Step 5: Verify streaming in a browser**
 
 ```bash
-PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8000 &
+PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8001 &
 (cd web && pnpm dev --port 3000 &)
 ```
 
@@ -2764,15 +2764,15 @@ export default defineConfig({
   use: { baseURL: "http://127.0.0.1:3000" },
   webServer: [
     {
-      command: "cd .. && PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8000",
-      url: "http://127.0.0.1:8000/health",
+      command: "cd .. && PUKS_MOCK=1 .venv/bin/python -m uvicorn api.main:app --port 8001",
+      url: "http://127.0.0.1:8001/health",
       reuseExistingServer: !process.env.CI,
     },
     {
       command: "pnpm dev --port 3000",
       url: "http://127.0.0.1:3000",
       reuseExistingServer: !process.env.CI,
-      env: { FASTAPI_URL: "http://127.0.0.1:8000" },
+      env: { FASTAPI_URL: "http://127.0.0.1:8001" },
     },
   ],
 });
@@ -2938,7 +2938,7 @@ services:
       AZURE_RERANK_MODEL: "${AZURE_RERANK_MODEL:-Cohere-rerank-v4.0-pro}"
       PUKS_CONFIDENCE_THRESHOLD: "${PUKS_CONFIDENCE_THRESHOLD:-0.30}"
     ports:
-      - "8000:8000"
+      - "8001:8000"
 
   web:
     build:
@@ -3005,7 +3005,7 @@ In `.github/workflows/ci-cd.yml`, add this job after `test:`. Leave the existing
 cd ~/Developer/puks-ai
 PUKS_MOCK=1 docker compose up --build -d
 sleep 25
-curl -s localhost:8000/health
+curl -s localhost:8001/health
 curl -s localhost:3000 | grep -c "Enterprise Speed WMS Intelligence"
 docker compose down
 ```
@@ -3081,14 +3081,14 @@ az cognitiveservices account keys list \
 
 python SCRIPTS/build_index.py                           # ~1 min, one embedding pass
 
-uvicorn api.main:app --port 8000 &                      # terminal 1
+uvicorn api.main:app --port 8001 &                      # terminal 1
 cd web && pnpm install && pnpm dev                      # terminal 2 → localhost:3000
 ```
 
 Add beneath it:
 
 ```markdown
-No key yet? `PUKS_MOCK=1 uvicorn api.main:app --port 8000` serves captured fixtures, so
+No key yet? `PUKS_MOCK=1 uvicorn api.main:app --port 8001` serves captured fixtures, so
 the front end runs and its whole test suite passes without Azure access.
 ```
 
