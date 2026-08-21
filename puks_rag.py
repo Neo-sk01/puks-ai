@@ -818,27 +818,44 @@ INSTRUCTIONS
 Provide a clear, professional, well-structured response:""".strip()
 
 
-def answer(corpus: Corpus, query: str, memory_text: str = "(No prior conversation)",
-           top_k: int = TOP_K_DEFAULT) -> dict:
-    """End-to-end: retrieve, guard, generate. The only entry point a UI needs."""
+REFUSAL_TEXT = ("I do not have enough information to answer this. "
+                "Please contact support.")
+
+
+def _prepare(corpus: Corpus, query: str, memory_text: str, top_k: int):
+    """Shared front half of both answer paths: retrieve, classify, guard, build prompt.
+
+    Returns (retrieved, confidence, intent, prompt). `prompt` is None when the
+    context fails the confidence gate — the single place that decision is made,
+    so the streaming and non-streaming paths cannot drift apart.
+    """
     retrieved, confidence = retrieve_context(corpus, query, top_k=top_k)
     intent = classify_query(query)
 
     if not validate_context(retrieved, confidence):
+        return retrieved, confidence, intent, None
+
+    return retrieved, confidence, intent, build_prompt(query, retrieved, memory_text, intent)
+
+
+def answer(corpus: Corpus, query: str, memory_text: str = "(No prior conversation)",
+           top_k: int = TOP_K_DEFAULT) -> dict:
+    """End-to-end: retrieve, guard, generate. Blocking; see answer_stream to stream."""
+    retrieved, confidence, intent, prompt = _prepare(corpus, query, memory_text, top_k)
+
+    if prompt is None:
         return {
-            "answer": "I do not have enough information to answer this. "
-                      "Please contact support.",
-            "retrieved": retrieved,
+            "answer":     REFUSAL_TEXT,
+            "retrieved":  retrieved,
             "confidence": confidence,
-            "intent": intent,
-            "refused": True,
+            "intent":     intent,
+            "refused":    True,
         }
 
-    prompt = build_prompt(query, retrieved, memory_text, intent)
     return {
-        "answer": call_llm(prompt, SYSTEM_PROMPT),
-        "retrieved": retrieved,
+        "answer":     call_llm(prompt, SYSTEM_PROMPT),
+        "retrieved":  retrieved,
         "confidence": confidence,
-        "intent": intent,
-        "refused": False,
+        "intent":     intent,
+        "refused":    False,
     }
