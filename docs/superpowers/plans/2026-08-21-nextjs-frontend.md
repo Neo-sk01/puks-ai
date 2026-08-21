@@ -2132,8 +2132,8 @@ export function Sidebar({ config, health, topK, onTopK, debug, onDebug, onReset 
       </div>
 
       <nav className="flex flex-col gap-1 text-sm">
-        <a href="/" className="rounded px-2 py-1 hover:bg-white/5">Chatbot</a>
-        <a href="/about" className="rounded px-2 py-1 hover:bg-white/5">About</a>
+        <Link href="/" className="rounded px-2 py-1 hover:bg-white/5">Chatbot</Link>
+        <Link href="/about" className="rounded px-2 py-1 hover:bg-white/5">About</Link>
       </nav>
 
       <section className="flex flex-col gap-3">
@@ -2651,6 +2651,8 @@ relevance, fusion score, doc type, metadata JSON, full chunk text."
 Create `web/app/about/page.tsx`:
 
 ```tsx
+import Link from "next/link";
+
 import { getConfig } from "@/lib/server";
 
 export const dynamic = "force-dynamic";
@@ -2669,7 +2671,7 @@ export default async function About() {
   return (
     <main className="mx-auto max-w-3xl space-y-8 p-10">
       <div>
-        <a href="/" className="text-sm text-white/50 hover:text-white">← Back to chat</a>
+        <Link href="/" className="text-sm text-white/50 hover:text-white">← Back to chat</Link>
         <h1 className="mt-4 text-2xl font-semibold">About Puks AI</h1>
       </div>
 
