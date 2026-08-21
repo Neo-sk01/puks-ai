@@ -40,8 +40,10 @@ body {
   outline-offset: 2px;
 }
 
-/* Quality floor: prefers-reduced-motion disables the (future) provenance
- * rail shimmer and any streaming animation. */
+/* Quality floor: prefers-reduced-motion disables the provenance rail
+ * shimmer (ProvenanceRail in ChatView.tsx, an animate-pulse utility) and
+ * any other streaming animation. The universal `*` selector below already
+ * covers it — no shimmer-specific rule needed. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
