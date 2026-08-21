@@ -37,7 +37,7 @@
 | `tests/test_api.py` (create) | FastAPI routes via `TestClient` |
 | `api/engine.py` (create) | Chooses real `puks_rag` or mock; owns `Corpus` load + `ConfigError` capture |
 | `api/mock.py` (create) | Fixture-backed `answer` / `answer_stream` for `PUKS_MOCK=1` |
-| `api/fixtures/*.json` (create) | Four captured results: answered, refused, schema, operational |
+| `api/fixtures/*.json` (create) | Two captured results: `answered.json` (carries both an OPERATIONAL_REFERENCE and a TABLE_SCHEMA chunk, so both render paths are exercised) and `refused.json` |
 | `api/main.py` (create) | FastAPI app: `/health`, `/api/config`, `/api/answer`, `/api/chat` |
 | `api/requirements.txt` (create) | fastapi, uvicorn, + root requirements |
 | `web/lib/sse.ts` (create) | SSE parser over a `ReadableStream` |
