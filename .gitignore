@@ -47,3 +47,6 @@ desktop.ini
 Thumbs.db
 .vscode/
 .idea/
+
+# Internal — tenant identifiers, access chain, network posture. Never commit.
+ENVIRONMENT.local.md

@@ -1,5 +1,13 @@
 # Speed WMS AI System - Complete Technical Documentation
 
+> [!WARNING]
+> **Superseded — do not follow.** This document describes a Groq-based Streamlit
+> deployment into a greenfield resource group (`rg-agl-ai` / `rg-puks-ai`) that
+> does not exist, in a region this project does not use. Generation, embeddings
+> and reranking now all run on Azure Foundry; there is no Groq key to set.
+> The current architecture and the working deployment runbook are in
+> [`README.md`](README.md) §6-§7.
+
 **Project Name:** Puks AI - Predictive Unified Knowledge System  
 **Version:** 1.0  
 **Last Updated:** June 2026  
