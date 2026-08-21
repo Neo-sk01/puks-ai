@@ -62,3 +62,42 @@ def test_config_reports_whether_rerank_is_configured(client, monkeypatch):
     assert client.get("/api/config").json()["rerank_configured"] is False
     monkeypatch.setattr(puks_rag, "RERANK_ENDPOINT", "https://x.services.ai.azure.com/models/v2/rerank")
     assert client.get("/api/config").json()["rerank_configured"] is True
+
+
+def test_startup_survives_a_non_configerror_from_corpus(monkeypatch):
+    """A corrupt index file raises RuntimeError, not ConfigError. Startup must
+    still succeed — a crash-looping container is the failure this prevents."""
+    import puks_rag
+    from api.main import create_app
+
+    def boom():
+        raise RuntimeError("could not read index header")
+
+    monkeypatch.delenv("PUKS_MOCK", raising=False)
+    monkeypatch.setattr(puks_rag, "Corpus", boom)
+
+    with TestClient(create_app()) as client:
+        body = client.get("/health").json()
+
+    assert body["ready"] is False
+    assert "RuntimeError" in body["error"]        # type preserved for diagnosis
+    assert "could not read index header" in body["error"]
+
+
+def test_configerror_message_is_not_type_prefixed(monkeypatch):
+    """The ConfigError text is written for a human and rendered verbatim in the
+    UI banner — it must not gain a 'ConfigError: ' prefix."""
+    import puks_rag
+    from api.main import create_app
+
+    def boom():
+        raise puks_rag.ConfigError("Index is 384-dim but AZURE_EMBED_DIMENSIONS is 3072")
+
+    monkeypatch.delenv("PUKS_MOCK", raising=False)
+    monkeypatch.setattr(puks_rag, "Corpus", boom)
+
+    with TestClient(create_app()) as client:
+        body = client.get("/health").json()
+
+    assert body["error"] == "Index is 384-dim but AZURE_EMBED_DIMENSIONS is 3072"
+    assert not body["error"].startswith("ConfigError")

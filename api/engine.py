@@ -35,7 +35,17 @@ class Engine:
         try:
             self.corpus = puks_rag.Corpus()
         except puks_rag.ConfigError as exc:
+            # The expected failure: a missing, stale or mismatched index.
             self.error = str(exc)
+        except Exception as exc:  # noqa: BLE001
+            # Everything else Corpus() can raise — a corrupt FAISS file
+            # (RuntimeError), malformed config.json or metadata.json
+            # (JSONDecodeError), a bad legacy pickle. Startup must survive
+            # these too, or the container crash-loops on a bad data mount,
+            # which is the outcome this whole design exists to prevent.
+            # The class name is kept so a genuine programming error stays
+            # diagnosable through /health instead of looking like bad data.
+            self.error = f"{type(exc).__name__}: {exc}"
 
     @property
     def ready(self) -> bool:
