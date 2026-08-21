@@ -142,3 +142,69 @@ def test_typeerror_during_iteration_propagates_instead_of_retrying(monkeypatch):
 
     assert emitted == ["a"]                          # delivered once, not replayed
     assert len(client.chat.completions.calls) == 1   # no second create() — no retry
+
+
+from puks_rag import answer_stream, wire_chunk
+from tests.conftest import make_chunk
+
+
+def test_wire_chunk_drops_structured_data():
+    """Streamlit never displayed it, build_context_text already folded it into
+    the prompt, and README 5.2 documents it as not uniformly shaped."""
+    wired = wire_chunk(make_chunk())
+    assert "structured_data" not in wired
+    assert set(wired) == {"index", "fusion_score", "in_dense", "in_bm25", "in_exact",
+                          "doc_type", "relevance_score", "metadata", "text"}
+
+
+def test_wire_chunk_sends_text_in_full():
+    wired = wire_chunk(make_chunk(text="y" * 2000))
+    assert len(wired["text"]) == 2000
+
+
+def test_stream_emits_retrieved_then_tokens_then_done(monkeypatch, corpus, high_confidence):
+    monkeypatch.setattr(puks_rag, "call_llm_stream", lambda prompt, system: iter(["Vali", "date"]))
+    events = list(answer_stream(corpus, "reverse a GRN"))
+
+    assert [name for name, _ in events] == ["retrieved", "token", "token", "done"]
+
+    _, retrieved = events[0]
+    assert retrieved["confidence"] == 0.87
+    assert len(retrieved["chunks"]) == 1
+    assert "structured_data" not in retrieved["chunks"][0]
+    assert retrieved["intent"]["is_operational"] is True
+
+    assert events[1][1] == {"text": "Vali"}
+    assert events[3][1]["refused"] is False
+    assert events[3][1]["model"] == puks_rag.CHAT_DEPLOYMENT
+
+
+def test_refusal_short_circuits_past_every_token(monkeypatch, corpus, low_confidence):
+    def explode(*args, **kwargs):
+        raise AssertionError("generation must not run on the refusal path")
+    monkeypatch.setattr(puks_rag, "call_llm_stream", explode)
+
+    events = list(answer_stream(corpus, "what is the weather"))
+    assert [name for name, _ in events] == ["retrieved", "done"]
+
+    done = events[1][1]
+    assert done["refused"] is True
+    assert done["reason"] == "below_threshold"
+    assert done["confidence"] == 0.11
+    assert done["threshold"] == puks_rag.CONFIDENCE_THRESHOLD
+
+
+def test_retrieved_lands_before_any_generation_work(monkeypatch, corpus, high_confidence):
+    """The retrieval panel must fill before gpt-5 starts reasoning — that is
+    the entire latency argument for streaming a reasoning model."""
+    order = []
+
+    def track(prompt, system):
+        order.append("generation-started")
+        yield "x"
+
+    monkeypatch.setattr(puks_rag, "call_llm_stream", track)
+    stream = answer_stream(corpus, "reverse a GRN")
+    name, _ = next(stream)
+    assert name == "retrieved"
+    assert order == []

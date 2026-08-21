@@ -897,3 +897,46 @@ def answer(corpus: Corpus, query: str, memory_text: str = "(No prior conversatio
         "intent":     intent,
         "refused":    False,
     }
+
+
+# Fields sent to the browser. `structured_data` is deliberately absent: the UI
+# never displayed it, build_context_text already folded it into the prompt, and
+# it is not uniformly shaped (README 5.2).
+WIRE_FIELDS = ("index", "fusion_score", "in_dense", "in_bm25", "in_exact",
+               "doc_type", "relevance_score", "metadata", "text")
+
+
+def wire_chunk(chunk: dict) -> dict:
+    """Project a retrieved chunk down to the fields the front end renders."""
+    return {field: chunk[field] for field in WIRE_FIELDS if field in chunk}
+
+
+def answer_stream(corpus: Corpus, query: str, memory_text: str = "(No prior conversation)",
+                  top_k: int = TOP_K_DEFAULT):
+    """Streaming sibling of answer().
+
+    Yields ("retrieved", {chunks, confidence, intent}) as soon as retrieval is
+    done — before generation begins — then ("token", {"text": ...}) per delta,
+    then ("done", {...}). A refusal short-circuits straight to "done".
+    """
+    retrieved, confidence, intent, prompt = _prepare(corpus, query, memory_text, top_k)
+
+    yield "retrieved", {
+        "chunks":     [wire_chunk(chunk) for chunk in retrieved],
+        "confidence": confidence,
+        "intent":     intent,
+    }
+
+    if prompt is None:
+        yield "done", {
+            "refused":    True,
+            "reason":     "below_threshold",
+            "confidence": confidence,
+            "threshold":  CONFIDENCE_THRESHOLD,
+        }
+        return
+
+    for token in call_llm_stream(prompt, SYSTEM_PROMPT):
+        yield "token", {"text": token}
+
+    yield "done", {"refused": False, "model": CHAT_DEPLOYMENT}
