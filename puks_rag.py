@@ -436,6 +436,32 @@ def classify_query(query: str) -> dict:
 
 
 # ==================================================
+# CONVERSATION MEMORY
+# ==================================================
+# Ported verbatim from the Streamlit ConversationMemory. These rules are part
+# of the prompt, not a display concern: the model sees this text. The API is
+# stateless — the client sends raw history and the server formats it — so that
+# the truncation and labelling rules cannot drift into the front end.
+MEMORY_MAX_TURNS   = 8
+MEMORY_TRUNCATE_AT = 400
+
+
+def format_memory(history: list[dict], max_turns: int = MEMORY_MAX_TURNS) -> str:
+    """Render a message list as the CONVERSATION HISTORY block of the prompt."""
+    if not history:
+        return "(No prior conversation)"
+
+    lines = []
+    for message in history[-(max_turns * 2):]:
+        role    = "USER" if message["role"] == "user" else "ASSISTANT"
+        content = message["content"]
+        if message["role"] == "assistant" and len(content) > MEMORY_TRUNCATE_AT:
+            content = content[:MEMORY_TRUNCATE_AT] + "... [truncated]"
+        lines.append(f"{role}: {content}")
+    return "\n".join(lines)
+
+
+# ==================================================
 # RETRIEVAL — true hybrid, fused by RRF, reranked by Cohere
 # ==================================================
 def retrieve_context(corpus: Corpus, query: str, top_k: int = TOP_K_DEFAULT):
