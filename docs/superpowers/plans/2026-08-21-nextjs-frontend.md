@@ -1992,9 +1992,12 @@ export async function POST(request: Request) {
     upstream = await fetch(`${FASTAPI_URL}/api/chat`, {
       method: "POST",
       headers: { "content-type": "application/json" },
+      // `body` is a string, not a ReadableStream, so `duplex: "half"` is not
+      // needed here — undici requires it only for streamed request bodies, and
+      // `duplex` is absent from RequestInit in lib.dom.d.ts, @types/node and
+      // Next's own global augmentation, so passing it would not type-check.
+      // The RESPONSE is what streams; that needs nothing special on the request.
       body,
-      // @ts-expect-error — Node fetch needs this to stream a request body
-      duplex: "half",
     });
   } catch (error) {
     return Response.json(
