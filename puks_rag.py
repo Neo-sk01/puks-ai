@@ -4,11 +4,15 @@ Puks AI — retrieval and generation core.
 Provider-neutral at the call sites, Azure Foundry underneath. No Streamlit
 imports live here, so this module is reusable by a FastAPI/Next.js backend.
 
-Everything runs on one Azure Foundry resource, configured entirely by
-environment variable — see .env.example. No resource name is baked in:
+Two providers, selected by PUKS_PROVIDER (see .env.example):
+
+    azure   (default)  one Azure Foundry resource — production
+    openai             public OpenAI + public Cohere APIs — local development
+
+The models are the same either way, so an index built on one serves the other:
 
     embeddings   text-embedding-3-large   (3072-dim)
-    reranking    Cohere-rerank-v4.0-pro   (Cohere /v2/rerank route)
+    reranking    Cohere rerank            (Cohere /v2/rerank route)
     generation   gpt-5                    (reasoning model — see call_llm)
 
 `enrich_text()` and `detect_document_type()` live here rather than in the
@@ -27,8 +31,16 @@ from pathlib import Path
 import faiss
 import numpy as np
 import requests
-from openai import AzureOpenAI
+from dotenv import load_dotenv
+from openai import AzureOpenAI, OpenAI
 from rank_bm25 import BM25Okapi
+
+# Local development reads .env.local (overrides) then .env. Neither is ever
+# committed; on App Service the app settings are already in the environment
+# and take precedence over both — load_dotenv never overwrites a set variable.
+_ROOT = Path(__file__).resolve().parent
+load_dotenv(_ROOT / ".env.local")
+load_dotenv(_ROOT / ".env")
 
 # ==================================================
 # PATHS
@@ -45,21 +57,47 @@ CONFIG_PATH     = VECTOR_STORE / "config.json"
 # CONFIG — all from environment (App Service app settings, or .env locally)
 # ==================================================
 AI_ENDPOINT      = os.getenv("AZURE_AI_ENDPOINT", "")
-AI_KEY           = os.getenv("AZURE_AI_KEY", "")
+AI_KEY           = os.getenv("AZURE_AI_KEY", "").strip()
 AI_API_VERSION   = os.getenv("AZURE_AI_API_VERSION", "2025-04-01-preview")
 
-CHAT_DEPLOYMENT  = os.getenv("AZURE_CHAT_DEPLOYMENT", "gpt-5")
-EMBED_DEPLOYMENT = os.getenv("AZURE_EMBED_DEPLOYMENT", "text-embedding-3-large")
-EMBED_DIMENSIONS = int(os.getenv("AZURE_EMBED_DIMENSIONS", "3072"))
+OPENAI_KEY       = os.getenv("OPENAI_API_KEY", "").strip()
+COHERE_KEY       = os.getenv("COHERE_API_KEY", "").strip()
+
+# Explicit PUKS_PROVIDER wins. Unset, prefer Azure when it is configured and
+# fall back to OpenAI only when an OpenAI key is the sole credential present,
+# so a production box with Azure settings can never be redirected by a stray
+# OPENAI_API_KEY.
+PROVIDER = os.getenv("PUKS_PROVIDER", "").lower() or (
+    "openai" if OPENAI_KEY and not AI_KEY else "azure"
+)
+if PROVIDER not in ("azure", "openai"):
+    raise RuntimeError(f"PUKS_PROVIDER must be 'azure' or 'openai', got {PROVIDER!r}")
+
+if PROVIDER == "openai":
+    CHAT_DEPLOYMENT  = os.getenv("OPENAI_CHAT_MODEL", "gpt-5")
+    EMBED_DEPLOYMENT = os.getenv("OPENAI_EMBED_MODEL", "text-embedding-3-large")
+    EMBED_DIMENSIONS = int(os.getenv("OPENAI_EMBED_DIMENSIONS", "3072"))
+else:
+    CHAT_DEPLOYMENT  = os.getenv("AZURE_CHAT_DEPLOYMENT", "gpt-5")
+    EMBED_DEPLOYMENT = os.getenv("AZURE_EMBED_DEPLOYMENT", "text-embedding-3-large")
+    EMBED_DIMENSIONS = int(os.getenv("AZURE_EMBED_DIMENSIONS", "3072"))
 
 # The Cohere rerank models do NOT use the chat/embeddings inference route.
 # Microsoft: "To perform inferencing with Cohere rerank models, you're required
 # to use Cohere's custom rerank APIs." Read the real route off the deployment
 # page in the Foundry portal after deploying, and set AZURE_RERANK_ENDPOINT to
 # it. Unset, reranking is skipped and results keep their fusion order.
-RERANK_ENDPOINT  = os.getenv("AZURE_RERANK_ENDPOINT", "")
-RERANK_MODEL     = os.getenv("AZURE_RERANK_MODEL", "Cohere-rerank-v4.0-pro")
-RERANK_KEY       = os.getenv("AZURE_RERANK_KEY", "") or AI_KEY
+#
+# Under the openai provider the same payload goes to Cohere's public API, which
+# needs only COHERE_API_KEY; the endpoint and model default sensibly.
+if PROVIDER == "openai":
+    RERANK_ENDPOINT = os.getenv("COHERE_RERANK_ENDPOINT", "https://api.cohere.com/v2/rerank") if COHERE_KEY else ""
+    RERANK_MODEL    = os.getenv("COHERE_RERANK_MODEL", "rerank-v3.5")
+    RERANK_KEY      = COHERE_KEY
+else:
+    RERANK_ENDPOINT = os.getenv("AZURE_RERANK_ENDPOINT", "")
+    RERANK_MODEL    = os.getenv("AZURE_RERANK_MODEL", "Cohere-rerank-v4.0-pro")
+    RERANK_KEY      = os.getenv("AZURE_RERANK_KEY", "") or AI_KEY
 
 REASONING_EFFORT = os.getenv("PUKS_REASONING_EFFORT", "low")
 VERBOSITY        = os.getenv("PUKS_VERBOSITY", "medium")
@@ -99,6 +137,13 @@ class ConfigError(RuntimeError):
 
 
 def _require_config() -> tuple[str, str]:
+    if PROVIDER == "openai":
+        if not OPENAI_KEY:
+            raise ConfigError(
+                "OPENAI_API_KEY not set (PUKS_PROVIDER=openai). "
+                "Copy .env.example to .env.local and fill it in."
+            )
+        return OPENAI_KEY, ""
     missing = [name for name, value in
                (("AZURE_AI_KEY", AI_KEY), ("AZURE_AI_ENDPOINT", AI_ENDPOINT))
                if not value]
@@ -111,19 +156,22 @@ def _require_config() -> tuple[str, str]:
     return AI_KEY, AI_ENDPOINT
 
 
-_client: AzureOpenAI | None = None
+_client: OpenAI | None = None
 
 
-def get_client() -> AzureOpenAI:
-    """Lazily built Azure OpenAI client, shared by embeddings and generation."""
+def get_client() -> OpenAI:
+    """Lazily built OpenAI-compatible client, shared by embeddings and generation."""
     global _client
     if _client is None:
         key, endpoint = _require_config()
-        _client = AzureOpenAI(
-            azure_endpoint=endpoint,
-            api_key=key,
-            api_version=AI_API_VERSION,
-        )
+        if PROVIDER == "openai":
+            _client = OpenAI(api_key=key)
+        else:
+            _client = AzureOpenAI(
+                azure_endpoint=endpoint,
+                api_key=key,
+                api_version=AI_API_VERSION,
+            )
     return _client
 
 

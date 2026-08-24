@@ -1,11 +1,11 @@
 {
-  "model_name": "sentence-transformers/all-MiniLM-L6-v2",
-  "total_vectors": 673,
-  "dimension": 384,
+  "model_name": "text-embedding-3-large",
+  "provider": "openai",
+  "total_vectors": 627,
+  "dimension": 3072,
   "index_type": "IndexFlatIP",
   "normalised": true,
-  "operational_boost": 2,
-  "schema_boost": 1,
+  "duplicated_chunks": false,
   "chunk_type_counts": {
     "schema_overview": 18,
     "schema_core_columns": 17,

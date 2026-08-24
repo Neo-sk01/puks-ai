@@ -41,6 +41,7 @@ from puks_rag import (  # noqa: E402
     EMBED_DIMENSIONS,
     FAISS_PATH,
     METADATA_PATH,
+    PROVIDER,
     VECTOR_STORE,
     detect_document_type,
     embed_texts,
@@ -99,7 +100,7 @@ def main() -> int:
     METADATA_PATH.write_text(json.dumps(chunks, ensure_ascii=False), encoding="utf-8")
     CONFIG_PATH.write_text(json.dumps({
         "model_name":        EMBED_DEPLOYMENT,
-        "provider":          "azure-openai",
+        "provider":          PROVIDER,
         "total_vectors":     index.ntotal,
         "dimension":         index.d,
         "index_type":        "IndexFlatIP",

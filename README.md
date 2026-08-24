@@ -125,7 +125,7 @@ DATA/
   Extracted/              raw text extracted from PDF/DOCX (pipeline stage 1 output)
   unified_semantic_chunks/
     unified_chunks.json   ← THE CORPUS. 627 chunks, 1.3 MB.
-  vector_store/           ← THE REAL INDEX. 673 vectors. faiss.index + metadata.pkl + config.json
+  vector_store/           ← THE REAL INDEX. 627 vectors, 3072-dim. faiss.index + metadata.json + config.json
   Support Ticket Docs/    only 2 tickets
 
 SCRIPTS/
@@ -150,26 +150,32 @@ The hardcoded Windows paths are gone — `puks_rag.py` resolves everything relat
 python3.11 -m venv .venv && source .venv/bin/activate   # 3.10+ also resolves
 pip install -r requirements.txt                         # ~40 MB now, not 2 GB
 
-cp .env.example .env
+cp .env.example .env                                    # or .env.local, which overrides .env
+
+# EITHER — production stack (Azure Foundry):
 az cognitiveservices account keys list \
   -g <resource-group> -n <foundry-resource> \
   --query key1 -o tsv                                   # paste into AZURE_AI_KEY
 
-python SCRIPTS/build_index.py                           # ~1 min, one embedding pass
+# OR — no Foundry access: PUKS_PROVIDER=openai with OPENAI_API_KEY and
+# COHERE_API_KEY (public APIs, same models — see .env.example).
+
+python SCRIPTS/build_index.py                           # ~1 min, one embedding pass; only if the index is stale
 streamlit run "APPLICATION(STREAMLIT)/APP.py"
 ```
 
 `.env` is gitignored; `.env.example` documents every setting.
 
-### You must rebuild the index before the app will start
+### Index status
 
-Embeddings moved from a local 384-dim MiniLM to `text-embedding-3-large` at 3072 dims, so **the committed index is unusable** and `Corpus()` refuses to load it rather than returning silently wrong answers:
+Embeddings moved from a local 384-dim MiniLM to `text-embedding-3-large` at 3072 dims. `Corpus()` checks the index dimension against `EMBED_DIMENSIONS` and refuses a mismatch rather than returning silently wrong answers. The committed `DATA/vector_store/` was rebuilt on 2026-08-24 (627 vectors, 3072-dim, via the public OpenAI API — identical model to the Foundry deployment, so it serves both providers):
 
 | Index | `d` | `ntotal` | Status |
 |---|---:|---:|---|
-| `DATA/vector_store/` | 384 | 673 | ❌ MiniLM-era. Rebuild over it. |
+| `DATA/vector_store/` | **3072** | **627** | ✅ current |
 | `APPLICATION(STREAMLIT)/data/vector_store/` | 768 | 200 | ❌ A different experiment entirely. Delete. |
-| after `build_index.py` | **3072** | **627** | ✅ |
+
+Re-run `build_index.py` after any corpus change.
 
 `build_index.py` writes `metadata.json` rather than the old `metadata.pkl`: the chunks are plain dicts, so pickle bought nothing and unpickling a file that will later be shipped from Blob Storage is a risk worth not carrying. The legacy `.pkl` is still readable so the old store can be inspected, but the dimension check rejects that index anyway.
 

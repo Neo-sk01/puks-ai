@@ -1,0 +1,584 @@
+<title>Puks AI Acceptance Questions</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#F2F4F6; --surface:#FFFFFF; --ink:#18222C; --ink-2:#4E5A66; --ink-3:#7C8792;
+    --line:#D6DCE2; --accent:#0B6B8A; --accent-soft:#DDEEF4;
+    --pass:#2E7D4F; --partial:#B5720F; --fail:#B23B3B; --refuse:#6B4FA8; --refuse-soft:#ECE6F7;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --cond:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F151B; --surface:#161E26; --ink:#E4E9EE; --ink-2:#A9B4BE; --ink-3:#77838E;
+      --line:#2A3540; --accent:#4FB3D1; --accent-soft:#12303B;
+      --pass:#5DBF87; --partial:#E0A33B; --fail:#E06A6A; --refuse:#B39CE6; --refuse-soft:#2A2340;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0F151B; --surface:#161E26; --ink:#E4E9EE; --ink-2:#A9B4BE; --ink-3:#77838E;
+    --line:#2A3540; --accent:#4FB3D1; --accent-soft:#12303B;
+    --pass:#5DBF87; --partial:#E0A33B; --fail:#E06A6A; --refuse:#B39CE6; --refuse-soft:#2A2340;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+  .wrap{max-width:960px;margin:0 auto;padding:40px 24px 80px}
+  header{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:28px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  h1{font-family:var(--cond);font-weight:600;font-size:40px;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+  .meta{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-align:right;line-height:1.7}
+  .intro{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;margin-bottom:36px}
+  .intro p{margin:0 0 10px;max-width:62ch;color:var(--ink-2)}
+  .rules{background:var(--surface);border:1px solid var(--line);padding:16px 18px;font-size:14px}
+  .rules h3{font-family:var(--cond);font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px}
+  .rules dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+  .rules dt{font-family:var(--mono);font-size:12px;font-weight:500;padding-top:2px}
+  .rules dd{margin:0;color:var(--ink-2)}
+  .score{display:flex;gap:18px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--ink-3);margin:0 0 28px;padding:10px 14px;background:var(--surface);border:1px solid var(--line);flex-wrap:wrap}
+  .score b{color:var(--ink);font-weight:500}
+  .score .k{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .score button{margin-left:auto;font:inherit;background:none;border:1px solid var(--line);color:var(--ink-2);padding:3px 9px;cursor:pointer}
+  .score button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  section{margin-bottom:38px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:6px}
+  .sec-head h2{font-family:var(--cond);font-weight:600;font-size:22px;margin:0;letter-spacing:-.005em}
+  .sec-head .tag{font-family:var(--mono);font-size:12px;color:var(--accent);background:var(--accent-soft);padding:2px 7px}
+  .sec-head .why{font-size:13px;color:var(--ink-3);margin-left:auto;text-align:right;max-width:44ch}
+  .q{display:grid;grid-template-columns:56px 1fr 132px;gap:0 16px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+  .q:last-child{border-bottom:0}
+  .id{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);padding-top:3px}
+  .ask{font-weight:500;margin:0 0 6px;max-width:70ch}
+  .ask em{font-style:italic;font-weight:400;color:var(--ink-2)}
+  .expect{font-size:13.5px;color:var(--ink-2);margin:0 0 4px;max-width:78ch}
+  .expect b{font-weight:500;color:var(--ink)}
+  .src{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+  .src span{color:var(--ink-2)}
+  code{font-family:var(--mono);font-size:.92em;background:var(--accent-soft);padding:0 4px;border-radius:2px}
+  .refuse .id{color:var(--refuse)} .refuse code{background:var(--refuse-soft)}
+  .res{display:flex;gap:4px;justify-self:end}
+  .res button{font-family:var(--mono);font-size:11px;width:40px;height:26px;border:1px solid var(--line);background:var(--surface);color:var(--ink-3);cursor:pointer;padding:0}
+  .res button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .res button[aria-pressed="true"].p{background:var(--pass);border-color:var(--pass);color:#fff}
+  .res button[aria-pressed="true"].m{background:var(--partial);border-color:var(--partial);color:#fff}
+  .res button[aria-pressed="true"].f{background:var(--fail);border-color:var(--fail);color:#fff}
+  .note{font-size:13px;color:var(--ink-3);border-left:2px solid var(--line);padding-left:12px;margin:10px 0 0;max-width:72ch}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3);max-width:72ch}
+  @media (max-width:640px){
+    header,.intro{grid-template-columns:1fr}.meta{text-align:left}
+    .q{grid-template-columns:48px 1fr}.res{grid-column:2;justify-self:start;margin-top:8px}
+    .sec-head .why{display:none}
+  }
+  @media print{.res,.score button{display:none}body{background:#fff;color:#000}}
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <p class="eyebrow">Acceptance test · Speed WMS knowledge base</p>
+    <h1>Puks AI Acceptance Questions</h1>
+  </div>
+  <div class="meta">Corpus: 627 chunks · 194 source files<br>Retrieval: text-embedding-3-large + BM25 → Cohere rerank<br>Refusal threshold: relevance &lt; 0.30<br>Set v1 · 24 Aug 2026</div>
+</header>
+
+<div class="intro">
+  <div>
+    <p>Fifty questions written against the documents Puks actually indexes, grouped by warehouse process. Every question names the file the answer lives in and the facts a correct answer must contain, so you can judge an answer against the corpus rather than against your own memory of Speed.</p>
+    <p>Ask them in the chat as written, then try your own phrasing. Tick <b>Show retrieved context</b> in the sidebar for at least a few — the top source file and its relevance score are shown under every answer and are the fastest way to tell a retrieval miss from a generation miss.</p>
+  </div>
+  <div class="rules">
+    <h3>How to score</h3>
+    <dl>
+      <dt>PASS</dt><dd>Contains every <b>must-contain</b> fact, cites the expected source, nothing invented.</dd>
+      <dt>PART</dt><dd>Right source, but a fact is missing, vague, or padded with things not in the doc.</dd>
+      <dt>FAIL</dt><dd>Wrong source, invented detail, or refused when it should have answered (and vice versa).</dd>
+    </dl>
+  </div>
+</div>
+
+<div class="score" id="score">
+  <span><b id="n-done">0</b>/<b id="n-total">0</b> scored</span>
+  <span class="k"><i class="dot" style="background:var(--pass)"></i><b id="n-pass">0</b> pass</span>
+  <span class="k"><i class="dot" style="background:var(--partial)"></i><b id="n-part">0</b> partial</span>
+  <span class="k"><i class="dot" style="background:var(--fail)"></i><b id="n-fail">0</b> fail</span>
+  <button id="clear" type="button">Clear results</button>
+</div>
+
+<!-- ============================ RECEIVING ============================ -->
+<section>
+  <div class="sec-head"><h2>Receiving goods</h2><span class="tag">R</span><span class="why">The best-covered process: 44 chunks, plus the end-to-end SOP.</span></div>
+
+  <div class="q" data-id="R1"><span class="id">R1</span><div>
+    <p class="ask">How do I create a receipt header in Speed WMS?</p>
+    <p class="expect"><b>Must contain:</b> Receipts module → Create Receipt / Add; header and lines sections; system-filled fields — activity code (read-only), Speed receipt number <code>REE_NORE</code> (non-editable), receipt date/time, default reception dock.</p>
+    <span class="src">Source: <span>Creating a receipt header</span> · RECEIVING GOODS</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="R2"><span class="id">R2</span><div>
+    <p class="ask">What does the "Top Stock Input" field on a receipt line mean?</p>
+    <p class="expect"><b>Must contain:</b> it tracks stock-generation status; only lines at <b>0</b> can be generated; it moves to <b>1</b> after Generate Stock; generated lines can't be edited or deleted.</p>
+    <span class="src">Source: <span>Stock generation</span> / <span>End to End Receipt</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="R3"><span class="id">R3</span><div>
+    <p class="ask">What can and can't I do with a receipt once it's closed?</p>
+    <p class="expect"><b>Must contain:</b> no new media/lines, existing lines can't be modified or deleted, information stays in read-only (advisory) mode, attached documents remain viewable; feedback to the upstream (n+1 / ERP) system happens after closure.</p>
+    <span class="src">Source: <span>Receipt closure</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="R4"><span class="id">R4</span><div>
+    <p class="ask">What is support break and where do I switch it on?</p>
+    <p class="expect"><b>Must contain:</b> splits large received quantities into multiple storage supports at receipt-line creation, per the packaging plan; configured in the <b>Storage tab of the item sheet</b>, per stock-unit type. Bonus: the 4 pallets × 750 units example.</p>
+    <span class="src">Source: <span>Support break management</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="R5"><span class="id">R5</span><div>
+    <p class="ask">Why is stock generation a separate step after creating receipt lines?</p>
+    <p class="expect"><b>Must contain:</b> lines aren't in stock until generated; generation consumes expected items, creates stock-entry movements, and makes supports available to picking/sampling flows.</p>
+    <span class="src">Source: <span>Stock generation</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="R6"><span class="id">R6</span><div>
+    <p class="ask">How do I generate a receipt from an expected reception?</p>
+    <p class="expect"><b>Must contain:</b> import/select expected items, generate the receipt from them, process one purchase order at a time. Watch for: does it keep expected-item import and receipt generation as distinct steps?</p>
+    <span class="src">Source: <span>Receipt generation from an exp</span> / <span>Import of expected items</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ ORDER PREPARATION ============================ -->
+<section>
+  <div class="sec-head"><h2>Order preparation</h2><span class="tag">O</span><span class="why">30 short files — many near-duplicates (Put in wave vs Put in wave (1)). Tests dedup.</span></div>
+
+  <div class="q" data-id="O1"><span class="id">O1</span><div>
+    <p class="ask">How do orders get put into a wave?</p>
+    <p class="expect"><b>Must contain:</b> Speed does it automatically when orders are launched for preparation; all orders in the launch batch share one wave; manual wave management is only for specific processes.</p>
+    <span class="src">Source: <span>Put in wave</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="O2"><span class="id">O2</span><div>
+    <p class="ask">What's the difference between the absolute rate and the proximity rate in the availability calculation?</p>
+    <p class="expect"><b>Must contain:</b> optional pre-launch step; <b>absolute</b> = whole warehouse, overall availability vs total need; <b>proximity</b> = an advanced preparation zone, tells you whether transfers into that zone are needed.</p>
+    <span class="src">Source: <span>Availability calculation</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="O3"><span class="id">O3</span><div>
+    <p class="ask">How do I split part of an order into a second order?</p>
+    <p class="expect"><b>Must contain:</b> context menu → Split Order; enter the quantity in <b>"Spread quantity order 2"</b>; validate; a second order is created that inherits the original header.</p>
+    <span class="src">Source: <span>Order splitting</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="O4"><span class="id">O4</span><div>
+    <p class="ask">What do I need to do before launching orders in preparation?</p>
+    <p class="expect"><b>Must contain:</b> a coherent sequence drawn from launch settings / availability calculation / launching. Watch for: does it blend multiple files without contradicting them?</p>
+    <span class="src">Source: <span>Launch settings</span> / <span>Launch in preparation</span> / <span>Launching</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="O5"><span class="id">O5</span><div>
+    <p class="ask">How does automatic launch differ from launching manually?</p>
+    <p class="expect"><b>Must contain:</b> the automatic-launch conditions/schedule from the doc; must not invent parameters not present in it.</p>
+    <span class="src">Source: <span>Automatic launch</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="O6"><span class="id">O6</span><div>
+    <p class="ask">What is a distribution template used for?</p>
+    <p class="expect"><b>Must contain:</b> a reusable model for distributing an order; how it relates to creating / editing / deleting a distribution.</p>
+    <span class="src">Source: <span>Distribution template</span> / <span>Order distribution</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ LOADING / SHIPPING ============================ -->
+<section>
+  <div class="sec-head"><h2>Loading &amp; shipping</h2><span class="tag">L</span><span class="why">Short files with concrete status codes — easy to check precisely.</span></div>
+
+  <div class="q" data-id="L1"><span class="id">L1</span><div>
+    <p class="ask">Which status code means an order has been shipped, and where can I see shipped samplings?</p>
+    <p class="expect"><b>Must contain:</b> status <b>070</b>; the <b>Shipped</b> tab; filterable by item, recipient, order, mission, load, shipment, delivery note, support number.</p>
+    <span class="src">Source: <span>Shipped</span> · LOADING</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="L2"><span class="id">L2</span><div>
+    <p class="ask">What does the Terminated tab show?</p>
+    <p class="expect"><b>Must contain:</b> terminated / balanced samplings at status <b>050</b>. One-line doc — the answer should be short, not padded.</p>
+    <span class="src">Source: <span>Terminated</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="L3"><span class="id">L3</span><div>
+    <p class="ask">How do I create a loading and assign deliveries to it?</p>
+    <p class="expect"><b>Must contain:</b> loading creation steps; mapping of deliveries onto the load; assignment from order preparation.</p>
+    <span class="src">Source: <span>Loading creation</span> / <span>Mapping of the deliveries</span> / <span>Assignment to a loading</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="L4"><span class="id">L4</span><div>
+    <p class="ask">Where is the Incoterm defined on a load?</p>
+    <p class="expect"><b>Must contain:</b> it's a characteristic of the load, set in the load's <b>Documentation</b> tab; codes are maintained under Settings → Transport → Incoterm Code.</p>
+    <span class="src">Source: <span>Incoterm code</span> · GENERAL</span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ REPLENISHMENT / STORAGE / STOCK ============================ -->
+<section>
+  <div class="sec-head"><h2>Replenishment, storage &amp; stock</h2><span class="tag">S</span><span class="why">Small areas (4–10 chunks each) — tests recall on thin coverage.</span></div>
+
+  <div class="q" data-id="S1"><span class="id">S1</span><div>
+    <p class="ask">Where do I configure replenishment rules for a picking zone, and what's the rule about zone types?</p>
+    <p class="expect"><b>Must contain:</b> Settings / Location / Areas → pick a picking-replenishment zone (<b>type 003</b>) → context menu → Replenishment; applies to all locations in the area; picking zones can only replenish from storage zones (and vice versa).</p>
+    <span class="src">Source: <span>Replenishment rules management</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="S2"><span class="id">S2</span><div>
+    <p class="ask">What does the restocking calculation take into account?</p>
+    <p class="expect"><b>Must contain:</b> replenishment unit, max quantity at picking, replenishment threshold, quantity already in orders in preparation.</p>
+    <span class="src">Source: <span>Restocking calculation method</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="S3"><span class="id">S3</span><div>
+    <p class="ask">What are the statuses a support can have after reception, and what moves it between them?</p>
+    <p class="expect"><b>Must contain:</b> <b>01</b> support in place · <b>02</b> location to be assigned (on the reception platform) · <b>03</b> movement to be performed (after a location is assigned manually in the Storage tab or by automatic location search).</p>
+    <span class="src">Source: <span>The different statuses of a support</span> · STORAGE</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="S4"><span class="id">S4</span><div>
+    <p class="ask">What does the Deadline Reservation function do?</p>
+    <p class="expect"><b>Must contain:</b> Stock / Deadline Reservation; removes reservations whose reservation date is earlier than today; works with the reservation setup at item level.</p>
+    <span class="src">Source: <span>Deadline Reservation</span> · STOCK MANAGEMENT</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="S5"><span class="id">S5</span><div>
+    <p class="ask">What's the difference between total and partial validation of a replenishment?</p>
+    <p class="expect"><b>Must contain:</b> the distinction as the two docs state it; must not invent a third mode.</p>
+    <span class="src">Source: <span>Total validation</span> / <span>Partial validation</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="S6"><span class="id">S6</span><div>
+    <p class="ask">How does automatic location search work when storing a support?</p>
+    <p class="expect"><b>Must contain:</b> the search logic from the doc; status change to 03 once a location is assigned.</p>
+    <span class="src">Source: <span>Automatic search location</span> / <span>The different statuses of a support</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ SAMPLING / MANUFACTURING / PACKAGING ============================ -->
+<section>
+  <div class="sec-head"><h2>Sampling, manufacturing &amp; packaging</h2><span class="tag">M</span><span class="why">3 files each. A wrong answer here usually means retrieval reached for a bigger neighbour.</span></div>
+
+  <div class="q" data-id="M1"><span class="id">M1</span><div>
+    <p class="ask">What are the mandatory fields when creating a manufacturing order?</p>
+    <p class="expect"><b>Must contain:</b> Manufacturing → Manufacture → Addition; mandatory: <b>MO reference, product reference, quantity</b>; optional: production area, dates, traceability (lot / serial), template tick.</p>
+    <span class="src">Source: <span>Creation of a manufacturing order</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="M2"><span class="id">M2</span><div>
+    <p class="ask">Where are sampling rules set up and in what order are they applied?</p>
+    <p class="expect"><b>Must contain:</b> System / Receiving – Sampling; rules define which received items go to quality control; evaluated in <b>priority order</b>; new rules get an auto-incremented numeric ID and an editable default title.</p>
+    <span class="src">Source: <span>Sampling rules</span> · SAMPLING</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="M3"><span class="id">M3</span><div>
+    <p class="ask">What information is shown for each packaging type?</p>
+    <p class="expect"><b>Must contain:</b> Packagings tab / Packaging types; code, designation, price (in configured currency), comments, image.</p>
+    <span class="src">Source: <span>Creation of the packaging types</span> · PACKAGING</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="M4"><span class="id">M4</span><div>
+    <p class="ask">What is the workshop approach in manufacturing?</p>
+    <p class="expect"><b>Must contain:</b> the workshop concept and zone settings as described; no SAP/other-WMS terminology.</p>
+    <span class="src">Source: <span>Workshop approach</span> / <span>Workshop zone settings</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ GENERAL / SETTINGS ============================ -->
+<section>
+  <div class="sec-head"><h2>General settings &amp; concepts</h2><span class="tag">G</span><span class="why">53 files of one-page settings screens. Menu paths are the checkable detail.</span></div>
+
+  <div class="q" data-id="G1"><span class="id">G1</span><div>
+    <p class="ask">What are the different zone types in Speed WMS and which ones are exclusive?</p>
+    <p class="expect"><b>Must contain:</b> zones group locations for reception/storage/picking/preparation/inventory; zones are multi-activity; <b>STK</b> storage area is non-exclusive (a location can be in several); <b>PRS</b> stock picking is used for preparation launches. Bonus: the other types in the table.</p>
+    <span class="src">Source: <span>Areas</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="G2"><span class="id">G2</span><div>
+    <p class="ask">How do I remove a location from a zone?</p>
+    <p class="expect"><b>Must contain:</b> select the location(s) → right-click → <b>Deallocate location</b>; immediate; affects only the zone assignment, not the location; can be reassigned later.</p>
+    <span class="src">Source: <span>Location deallocation</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="G3"><span class="id">G3</span><div>
+    <p class="ask">How do user rights work — can I give one user a special permission?</p>
+    <p class="expect"><b>Must contain:</b> every user needs a profile; users belong to groups and inherit group rights; for specific rights, <b>create and configure a new group first</b>, then assign the user; menu System → Rights.</p>
+    <span class="src">Source: <span>User profiles and rights management</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="G4"><span class="id">G4</span><div>
+    <p class="ask">What is a customs status used for?</p>
+    <p class="expect"><b>Must contain:</b> managing bonded goods; Settings / Other / Customs status; applied during receiving; becomes a property of the stock for traceability.</p>
+    <span class="src">Source: <span>Customs status</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="G5"><span class="id">G5</span><div>
+    <p class="ask">What does "Activity" mean in Speed WMS?</p>
+    <p class="expect"><b>Must contain:</b> separates management within one warehouse for multiple activities, trades or customers; items, thirds, receptions, orders and the receiving/storage/preparation rules are linked to an activity.</p>
+    <span class="src">Source: <span>Glossary</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="G6"><span class="id">G6</span><div>
+    <p class="ask">How deep can item classification go?</p>
+    <p class="expect"><b>Must contain:</b> up to <b>999 families</b>, up to <b>5 tree levels</b>; the Family → Consumer/Professional example.</p>
+    <span class="src">Source: <span>Glossary</span> / <span>Classification tab</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="G7"><span class="id">G7</span><div>
+    <p class="ask">How do I import locations or third parties in bulk?</p>
+    <p class="expect"><b>Must contain:</b> the import screens and file expectations from the two docs, kept distinct.</p>
+    <span class="src">Source: <span>Import locations</span> / <span>Import thirds</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="G8"><span class="id">G8</span><div>
+    <p class="ask">How do I build a formula in Speed?</p>
+    <p class="expect"><b>Must contain:</b> the formula-builder steps and operators as documented; nothing about Excel.</p>
+    <span class="src">Source: <span>Build a formula</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ DATABASE ============================ -->
+<section>
+  <div class="sec-head"><h2>Database tables &amp; SQL</h2><span class="tag">D</span><span class="why">Schema chunks are split overview / core / extra. Column names must be exact.</span></div>
+
+  <div class="q" data-id="D1"><span class="id">D1</span><div>
+    <p class="ask">What does the STK_DAT table hold and what is its primary key?</p>
+    <p class="expect"><b>Must contain:</b> current stock table; PK <code>stk_keyu</code>; links to <code>ACT_PAR</code> and <code>ART_PAR</code> (article and packaging columns).</p>
+    <span class="src">Source: <span>stk_dat.json</span> · schema_overview</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="D2"><span class="id">D2</span><div>
+    <p class="ask">Which column in REE_DAT holds the reception status, and which the reception date?</p>
+    <p class="expect"><b>Must contain:</b> <code>REE_ETRE</code> (status, VARCHAR(10)) and <code>REE_DARE</code> (reception date). Bonus: <code>REE_QUAI</code> → <code>EMP_BAS.EMP_LIEU</code> is the reception dock.</p>
+    <span class="src">Source: <span>REE_DAT.json</span> · schema_core_columns</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="D3"><span class="id">D3</span><div>
+    <p class="ask">How do I join OPE_DAT, MIE_DAT and MIL_DAT to see all missions for an order?</p>
+    <p class="expect"><b>Must contain:</b> join on <code>OPE_NOOE</code> (+ <code>ACT_CODE</code> to limit rows), then <code>MIE_NOHE</code> from <code>MIE_DAT</code> to <code>MIL_DAT</code>. Should reproduce the example SELECT.</p>
+    <span class="src">Source: <span>Cancel_Shipped_Order_Procedure.json</span> · wms_join_logic</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="D4"><span class="id">D4</span><div>
+    <p class="ask">Which table stores stock movements, and how does it link to the article master?</p>
+    <p class="expect"><b>Must contain:</b> <code>MVT_DAT</code>, PK <code>MVT_KEYU</code>; FKs <code>ART_CODE</code> and the packaging columns <code>ART_CNDU / CNDC / CNDO / CNDP / CNDS</code> → <code>ART_PAR</code>.</p>
+    <span class="src">Source: <span>MVT_DAT.json</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="D5"><span class="id">D5</span><div>
+    <p class="ask">On inbound, which columns link receipt lines to stock?</p>
+    <p class="expect"><b>Must contain:</b> <code>REL_DAT.REL_NOSU = STK_DAT.STK_NOSU</code> (support number), with <code>REE_NORE</code> as the receipt key. Outbound counterpart: <code>OPL_DAT.OPL_NOSU = MVT_DAT.MVT_NOSU</code>.</p>
+    <span class="src">Source: <span>Reverse Closed GRN.json</span> / <span>Resend Pegasus file.json</span> · wms_join_logic</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="D6"><span class="id">D6</span><div>
+    <p class="ask">What are the MVT_ALPHA1–10 and MVT_DATE1… columns for?</p>
+    <p class="expect"><b>Must contain:</b> generic "Additional Info" A01–A10 / D01… slots, VARCHAR(50) / DATETIME; <code>MVT_DATE</code> is the extraction date, <code>IVE_DATE</code> the inventory date. Tests the <i>extra_columns</i> chunk.</p>
+    <span class="src">Source: <span>MVT_DAT.json</span> · schema_extra_columns</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="D7"><span class="id">D7</span><div>
+    <p class="ask">Write a query that shows the header and lines for order 12345 in activity ABC.</p>
+    <p class="expect"><b>Must contain:</b> <code>OPE_DAT</code> joined to <code>OPL_DAT</code> on <code>OPE_NOOE</code> + <code>ACT_CODE</code>, placeholders substituted; should say what it's assuming. Watch for invented column names.</p>
+    <span class="src">Source: <span>SQL scripts to manage Receipts, Orders, Movements and Shipments</span> / <span>OPE_DAT.json</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ SUPPORT PROCEDURES ============================ -->
+<section>
+  <div class="sec-head"><h2>Support procedures &amp; tickets</h2><span class="tag">T</span><span class="why">The 184-chunk support corpus. These are the questions the support desk actually gets.</span></div>
+
+  <div class="q" data-id="T1"><span class="id">T1</span><div>
+    <p class="ask">A customer wants to cancel an order that has already shipped. What do I do?</p>
+    <p class="expect"><b>Must contain:</b> shipped = status <b>070</b>; can't be cancelled or deleted in the UI; must be reverted to <b>060</b> directly in the database, <b>support only</b>; first verify with <code>SELECT … FROM OPE_DAT WHERE ACT_CODE = … AND OPE_NOOE = …</code>.</p>
+    <span class="src">Source: <span>SPEED_WMS_How_to_Cancel_a_Shipped_Order_Status_070</span> / <span>Cancel_Shipped_Order_Procedure.json</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T2"><span class="id">T2</span><div>
+    <p class="ask">Durban says weights are missing on a GDN picklist. Why does that happen and how do I fix it?</p>
+    <p class="expect"><b>Must contain:</b> weights live in <code>REL_DAT</code> and are inherited by <code>STK_DAT</code>; cleared when stock leaves and not repopulated when it returns (order validated then sent back to Seizure), or not inherited at reception; step 1 is checking the order is editable via <code>ope_dat</code>.</p>
+    <span class="src">Source: <span>Speed WMS – GDN Picklist Weight Resolution (Durban Commodities)</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T3"><span class="id">T3</span><div>
+    <p class="ask">How do I reverse a closed GRN?</p>
+    <p class="expect"><b>Must contain:</b> the procedure steps and the tables touched (<code>REE_DAT, REL_DAT, STK_DAT, MVT_DAT</code>…); the safety rules from the doc (back up / verify before update). Uses the abbreviation "GRN" — tests vocabulary.</p>
+    <span class="src">Source: <span>Reverse Closed GRN.json</span> · wms_procedure / wms_safety_rules</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T4"><span class="id">T4</span><div>
+    <p class="ask">LPNs are missing on a manifest. What's the temporary resolution?</p>
+    <p class="expect"><b>Must contain:</b> compare mission lines with support headers — <code>MIL_DAT.OPE_NOOE = SEX_DAT.SEX_NOOE</code>; the procedure steps; flagged as temporary.</p>
+    <span class="src">Source: <span>LPNs Missing on Manifest – Temporary Resolution.json</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T5"><span class="id">T5</span><div>
+    <p class="ask">Which tables are involved when resending a Pegasus file?</p>
+    <p class="expect"><b>Must contain:</b> the full list — <code>REE_DAT, REL_DAT, STK_DAT, MVT_DAT, OPE_DAT, OPL_DAT, MIE_DAT, MIL_DAT, CHG_DAT, CHL_DAT</code> — and the inbound/outbound join keys.</p>
+    <span class="src">Source: <span>Resend Pegasus file.json</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T6"><span class="id">T6</span><div>
+    <p class="ask">How was the Jinko Solar GRN-number amendment ticket resolved?</p>
+    <p class="expect"><b>Must contain:</b> ticket <b>1017</b>, Durban, Inbound, low priority, root cause "incorrect information captured"; resolution: <b>change receipt status to 100</b>.</p>
+    <span class="src">Source: <span>Support_Ticket (Jinko Solar …)</span> · Support Ticket Docs</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T7"><span class="id">T7</span><div>
+    <p class="ask">What was ticket 1016 about?</p>
+    <p class="expect"><b>Must contain:</b> "speed not open" — can't enter password, Pomona, bug, medium. <b>Honesty check:</b> root cause and resolution are literally "test"; a good answer says the ticket holds placeholder content rather than inventing a fix.</p>
+    <span class="src">Source: <span>Support_Ticket (speed not open)</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T8"><span class="id">T8</span><div>
+    <p class="ask">A Clarins mission line won't validate. What's the internal procedure?</p>
+    <p class="expect"><b>Must contain:</b> steps from the Clarins mission-line validation procedure; must not mix in the shortfall-order procedure unless it says so.</p>
+    <span class="src">Source: <span>SPEED_WMS_Clarins_Mission_Line_Validation_Internal_Support_Procedure</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="T9"><span class="id">T9</span><div>
+    <p class="ask">How do I check an order's header and lines when a support ticket comes in?</p>
+    <p class="expect"><b>Must contain:</b> the checks from the two "Check Order …" references; which tables/columns to look at first.</p>
+    <span class="src">Source: <span>Check Order Header.json</span> / <span>Check Order Lines.json</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ L'OREAL ============================ -->
+<section>
+  <div class="sec-head"><h2>L'Oréal specifications</h2><span class="tag">X</span><span class="why">154 chunks of client-specific SPDs. Answers must stay scoped to L'Oréal, not generalise to all of Speed.</span></div>
+
+  <div class="q" data-id="X1"><span class="id">X1</span><div>
+    <p class="ask">What is the goal of the L'Oréal dynamic picking replenishment (ZPA) project?</p>
+    <p class="expect"><b>Must contain:</b> automatically replenish picking locations (ZPA) in multiples of VL cartons, filling to the location volume; functional spec dated <b>25 Sep 2025</b>, author Rémi Baussand (AGL). Bonus: distinguishes it from the "Partial Replenishment" and "Volume-Based Redesign" docs.</p>
+    <span class="src">Source: <span>LOREAL Dynamic Picking Replenishment (ZPA)</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="X2"><span class="id">X2</span><div>
+    <p class="ask">For L'Oréal, what happens to pending expected lines when a reception is closed?</p>
+    <p class="expect"><b>Must contain:</b> automatic settlement of pending expected lines at closure; SPD v1.1 (Apr 2025), entry point PE22. Should note this is L'Oréal-specific behaviour, not standard Speed.</p>
+    <span class="src">Source: <span>LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="X3"><span class="id">X3</span><div>
+    <p class="ask">What is anti-diversion (AD) code management at L'Oréal?</p>
+    <p class="expect"><b>Must contain:</b> purpose and mechanics from the SPD; no generic supply-chain definition of "anti-diversion" pulled from outside the corpus.</p>
+    <span class="src">Source: <span>L'ORÉAL – Anti-Diversion Code (AD Code) Management</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="X4"><span class="id">X4</span><div>
+    <p class="ask">How are DFAB and DLUO dates calculated automatically from a batch at L'Oréal?</p>
+    <p class="expect"><b>Must contain:</b> batch-decoding rule and the calculation as specified; the terms DFAB/DLUO explained as the doc does.</p>
+    <span class="src">Source: <span>L'ORÉAL – Batch Decoding &amp; Automatic DFAB, DLUO Calculation</span></span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="X5"><span class="id">X5</span><div>
+    <p class="ask">What restrictions apply to the cycle-count radio module for L'Oréal?</p>
+    <p class="expect"><b>Must contain:</b> the option restrictions and user-group restrictions from the two cycle-count SPDs, kept distinct.</p>
+    <span class="src">Source: <span>LOREAL Restriction of Options in Cycle Counting Radio Module</span> / <span>SPD – Cycle Count Module – User Group Restrictions</span></span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ CONVERSATION ============================ -->
+<section>
+  <div class="sec-head"><h2>Follow-ups &amp; phrasing</h2><span class="tag">C</span><span class="why">Ask these in sequence in one conversation. Tests memory and robustness, not new facts.</span></div>
+
+  <div class="q" data-id="C1"><span class="id">C1</span><div>
+    <p class="ask">Ask R1, then: <em>"and which of those fields can I change?"</em></p>
+    <p class="expect"><b>Must contain:</b> understands "those fields" = the receipt-header fields; date/time is editable, activity code and <code>REE_NORE</code> are not.</p>
+    <span class="src">Memory test · Creating a receipt header</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="C2"><span class="id">C2</span><div>
+    <p class="ask">Ask D1, then: <em>"what about its foreign keys?"</em></p>
+    <p class="expect"><b>Must contain:</b> resolves "its" to STK_DAT; lists <code>ACT_CODE → ACT_PAR</code> and the <code>ART_*</code> → <code>ART_PAR</code> links.</p>
+    <span class="src">Memory test · stk_dat.json</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="C3"><span class="id">C3</span><div>
+    <p class="ask"><em>"how to close a grn"</em> <span style="font-weight:400;color:var(--ink-3)">(lowercase, abbreviation, no question mark)</span></p>
+    <p class="expect"><b>Must contain:</b> same answer as R3. Tests that "GRN" maps to receipt.</p>
+    <span class="src">Vocabulary test · Receipt closure</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="C4"><span class="id">C4</span><div>
+    <p class="ask"><em>"stk_dat vs mvt_dat"</em></p>
+    <p class="expect"><b>Must contain:</b> current stock vs stock movements; PKs of each; terse query gets a structured comparison.</p>
+    <span class="src">Vocabulary test · stk_dat.json / MVT_DAT.json</span>
+  </div><div class="res"></div></div>
+
+  <div class="q" data-id="C5"><span class="id">C5</span><div>
+    <p class="ask">Press <b>Reset conversation memory</b>, then ask: <em>"and which of those fields can I change?"</em></p>
+    <p class="expect"><b>Must contain:</b> either asks what "those fields" refers to, or refuses — it must <b>not</b> answer as if R1 was still in context.</p>
+    <span class="src">Memory reset test</span>
+  </div><div class="res"></div></div>
+</section>
+
+<!-- ============================ REFUSALS ============================ -->
+<section>
+  <div class="sec-head"><h2>Should refuse</h2><span class="tag" style="color:var(--refuse);background:var(--refuse-soft)">N</span><span class="why">Expected: "I do not have enough information to answer this. Please contact support." with relevance under 0.30.</span></div>
+
+  <div class="q refuse" data-id="N1"><span class="id">N1</span><div>
+    <p class="ask">Who won the 2022 FIFA World Cup?</p>
+    <p class="expect"><b>Expect:</b> refusal. Nothing in the corpus. (Measured 0.03 in smoke test.)</p>
+  </div><div class="res"></div></div>
+
+  <div class="q refuse" data-id="N2"><span class="id">N2</span><div>
+    <p class="ask">How do I configure wave templates in SAP EWM?</p>
+    <p class="expect"><b>Expect:</b> refusal. Near-miss vocabulary ("wave") but wrong system — the hardest refusal in the set; a PASS-with-caveat is acceptable if it answers for Speed and says so explicitly.</p>
+  </div><div class="res"></div></div>
+
+  <div class="q refuse" data-id="N3"><span class="id">N3</span><div>
+    <p class="ask">Write me a Python script to parse GRN PDFs.</p>
+    <p class="expect"><b>Expect:</b> refusal. Task request, not a knowledge question.</p>
+  </div><div class="res"></div></div>
+
+  <div class="q refuse" data-id="N4"><span class="id">N4</span><div>
+    <p class="ask">What is the current stock level of article 4711 in Pomona?</p>
+    <p class="expect"><b>Expect:</b> refusal or an explicit "I can't see live data; here is how you'd query STK_DAT". Must not invent a number.</p>
+  </div><div class="res"></div></div>
+
+  <div class="q refuse" data-id="N5"><span class="id">N5</span><div>
+    <p class="ask">What are your capabilities?</p>
+    <p class="expect"><b>Known behaviour:</b> refuses today (top hit Gauge.txt at 0.205). Record what you'd <i>like</i> here — a canned self-description is a one-line change if wanted.</p>
+  </div><div class="res"></div></div>
+</section>
+
+<footer>
+  <p>Results are stored only in this browser. To share a run, note the IDs and verdicts, or screenshot the score bar. Questions whose expected answer says "as documented" rather than listing facts were written from the file title and category only — treat the source citation as the hard requirement there.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  var KEY='puks-acceptance-v1', state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  var rows=document.querySelectorAll('.q');
+  document.getElementById('n-total').textContent=rows.length;
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function tally(){
+    var p=0,m=0,f=0; for(var k in state){ if(state[k]==='p')p++; else if(state[k]==='m')m++; else if(state[k]==='f')f++; }
+    document.getElementById('n-pass').textContent=p; document.getElementById('n-part').textContent=m;
+    document.getElementById('n-fail').textContent=f; document.getElementById('n-done').textContent=p+m+f;
+  }
+  rows.forEach(function(row){
+    var id=row.getAttribute('data-id'), box=row.querySelector('.res');
+    [['p','PASS'],['m','PART'],['f','FAIL']].forEach(function(o){
+      var b=document.createElement('button'); b.type='button'; b.className=o[0]; b.textContent=o[1];
+      b.setAttribute('aria-label',id+' '+o[1]); b.setAttribute('aria-pressed', state[id]===o[0]?'true':'false');
+      b.addEventListener('click',function(){
+        if(state[id]===o[0]) delete state[id]; else state[id]=o[0];
+        box.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed', state[id]===x.className?'true':'false');});
+        save(); tally();
+      });
+      box.appendChild(b);
+    });
+  });
+  document.getElementById('clear').addEventListener('click',function(){
+    state={}; save(); tally();
+    document.querySelectorAll('.res button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+  });
+  tally();
+})();
+</script>
