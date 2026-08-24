@@ -61,7 +61,12 @@ export interface AppConfig {
   confidence_threshold: number;
   rerank_configured: boolean;
   mock: boolean;
+  /** "azure" = AGL's Foundry resource (production). "openai" = public OpenAI +
+   *  Cohere APIs, used for local development without Foundry access. */
+  provider: Provider;
 }
+
+export type Provider = "azure" | "openai";
 
 /** Lives here, not in lib/server.ts: client components need the type, and
  *  lib/server.ts is `import "server-only"`. A value import of it from a client
@@ -72,4 +77,5 @@ export interface Health {
   error: string | null;
   index: { dimension: number | null; ntotal: number | null; model: string | null };
   rerank_configured: boolean;
+  provider?: Provider;
 }

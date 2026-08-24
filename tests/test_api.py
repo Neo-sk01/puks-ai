@@ -51,6 +51,11 @@ def test_config_exposes_what_the_sidebar_needs(client):
     assert "chat_deployment" in body
     assert "embed_deployment" in body
     assert "rerank_model" in body
+    assert body["provider"] in ("azure", "openai")
+
+
+def test_health_reports_the_provider(client):
+    assert client.get("/health").json()["provider"] in ("azure", "openai")
 
 
 def test_config_reports_whether_rerank_is_configured(client, monkeypatch):

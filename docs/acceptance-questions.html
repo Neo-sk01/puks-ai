@@ -517,7 +517,7 @@
 
 <!-- ============================ REFUSALS ============================ -->
 <section>
-  <div class="sec-head"><h2>Should refuse</h2><span class="tag" style="color:var(--refuse);background:var(--refuse-soft)">N</span><span class="why">Expected: "I do not have enough information to answer this. Please contact support." with relevance under 0.30.</span></div>
+  <div class="sec-head"><h2>Should refuse</h2><span class="tag" style="color:var(--refuse);background:var(--refuse-soft)">N</span><span class="why">Expected: "I do not have enough information to answer this. Please contact support." with relevance under 0.30 — except N5.</span></div>
 
   <div class="q refuse" data-id="N1"><span class="id">N1</span><div>
     <p class="ask">Who won the 2022 FIFA World Cup?</p>
@@ -541,7 +541,7 @@
 
   <div class="q refuse" data-id="N5"><span class="id">N5</span><div>
     <p class="ask">What are your capabilities?</p>
-    <p class="expect"><b>Known behaviour:</b> refuses today (top hit Gauge.txt at 0.205). Record what you'd <i>like</i> here — a canned self-description is a one-line change if wanted.</p>
+    <p class="expect"><b>Expect:</b> a self-description, <i>not</i> a refusal — lists the documentation areas it covers and what it cannot do (no live data, no changes). The footer under the answer should read "no documents were retrieved". Also try "who are you?" and "what can you do".</p>
   </div><div class="res"></div></div>
 </section>
 

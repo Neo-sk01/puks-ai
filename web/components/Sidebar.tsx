@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { AppConfig } from "@/lib/types";
 import { clampTopK } from "@/lib/history";
+import { providerLabel, rerankEnvVar } from "@/lib/provider";
 
 interface Props {
   config: AppConfig | null;
@@ -69,14 +70,20 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
           <p>
             Reranker <code className="font-mono text-type">{config.rerank_model}</code>
           </p>
+          <p>
+            Provider <code className="font-mono text-type">{providerLabel(config.provider)}</code>
+          </p>
+          {config.provider === "openai" && !config.mock && (
+            <p className="text-signal">Local dev — public OpenAI and Cohere APIs, not AGL&apos;s tenant</p>
+          )}
           {config.mock && <p className="text-signal">Mock mode — fixtures, not the model</p>}
         </section>
       )}
 
       {config && !config.rerank_configured && !config.mock && (
         <p role="alert" className="rounded border border-hazard/40 bg-hazard/10 p-3 text-xs text-hazard">
-          <strong>AZURE_RERANK_ENDPOINT is not set.</strong> Rerank scores fall back to 0.0, and
-          confidence is read from that same field — so every query will be refused.
+          <strong>{rerankEnvVar(config.provider)} is not set.</strong> Rerank scores fall back to
+          0.0, and confidence is read from that same field — so every query will be refused.
         </p>
       )}
 

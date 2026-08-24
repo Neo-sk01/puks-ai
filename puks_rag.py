@@ -924,9 +924,80 @@ def _prepare(corpus: Corpus, query: str, memory_text: str, top_k: int):
     return retrieved, confidence, intent, build_prompt(query, retrieved, memory_text, intent)
 
 
+# ==================================================
+# SELF-DESCRIPTION — "what can you do?" is a question about the assistant,
+# not about Speed WMS. Nothing in the corpus matches it, so retrieval would
+# refuse (measured: top hit Gauge.txt at 0.205). Answer it from a description
+# built off the loaded corpus instead, and never call the model for it.
+# ==================================================
+import re as _re
+
+_SELF_PATTERNS = [
+    r"\byour (capabilit|abilit|feature|purpose|function|scope|limit)",
+    r"\bwhat (can|do|could) you (do|know|help|answer|cover)\b",
+    r"\bwhat (are|is) you\b",
+    r"\bwho (are|made|built|created) you\b",
+    r"\bwhat (are you|is this|is puks|does puks)\b",
+    r"\b(how|what) (do|should) i (ask|use) (you|this|puks)\b",
+    r"\bwhat topics\b",
+    r"^\s*(hi|hello|hey|help|\?)\s*[!.?]*\s*$",
+]
+_SELF_RE = _re.compile("|".join(_SELF_PATTERNS), _re.IGNORECASE)
+
+_CATEGORY_LABELS = {
+    "Database Tables":     "Speed database tables (schemas, keys, joins)",
+    "Speed Support Document": "Internal support procedures and SQL fixes",
+    "Support Ticket Docs": "Resolved support tickets",
+    "LOREAL":              "L'Oréal-specific specifications",
+}
+
+
+def is_self_description(query: str) -> bool:
+    """True for questions about the assistant itself rather than about Speed WMS."""
+    return bool(_SELF_RE.search(query))
+
+
+def self_description(corpus) -> str:
+    """Capabilities answer, listing the documentation areas actually loaded."""
+    counts: dict[str, int] = defaultdict(int)
+    for chunk in getattr(corpus, "chunks", []) or []:
+        category = (chunk.get("metadata") or {}).get("category")
+        if category:
+            counts[category] += 1
+    areas = sorted(counts, key=lambda c: -counts[c])
+    bullets = "\n".join(
+        f"- {_CATEGORY_LABELS.get(a, a.capitalize())}" for a in areas
+    ) or "- Speed WMS documentation"
+
+    return (
+        "I am **Puks**, a support assistant for **Speed WMS**. I answer questions "
+        "strictly from the warehouse documentation loaded into my knowledge base — "
+        "I retrieve the relevant pages first and answer only from what they say, "
+        "citing the source document.\n\n"
+        "**Documentation areas I cover:**\n"
+        f"{bullets}\n\n"
+        "**Good questions to ask:** how a procedure works (\"How do I close a receipt?\"), "
+        "what a status code or field means, which table or column holds something, "
+        "how tables join, and how a known support issue was resolved.\n\n"
+        "**What I cannot do:** I cannot see live warehouse data or stock levels, "
+        "run queries, change anything in Speed, or answer questions outside this "
+        "documentation. When the documents do not cover a question, I say so "
+        "rather than guessing."
+    )
+
+
 def answer(corpus: Corpus, query: str, memory_text: str = "(No prior conversation)",
            top_k: int = TOP_K_DEFAULT) -> dict:
     """End-to-end: retrieve, guard, generate. Blocking; see answer_stream to stream."""
+    if is_self_description(query):
+        return {
+            "answer":     self_description(corpus),
+            "retrieved":  [],
+            "confidence": 0.0,
+            "intent":     classify_query(query),
+            "refused":    False,
+        }
+
     retrieved, confidence, intent, prompt = _prepare(corpus, query, memory_text, top_k)
 
     if prompt is None:
@@ -966,7 +1037,17 @@ def answer_stream(corpus: Corpus, query: str, memory_text: str = "(No prior conv
     Yields ("retrieved", {chunks, confidence, intent}) as soon as retrieval is
     done — before generation begins — then ("token", {"text": ...}) per delta,
     then ("done", {...}). A refusal short-circuits straight to "done".
+
+    A self-description question emits no "retrieved" event at all — nothing
+    was retrieved — just the canned text as tokens, then "done" with
+    reason "self_description".
     """
+    if is_self_description(query):
+        for paragraph in self_description(corpus).split("\n\n"):
+            yield "token", {"text": paragraph + "\n\n"}
+        yield "done", {"refused": False, "reason": "self_description", "model": "none"}
+        return
+
     retrieved, confidence, intent, prompt = _prepare(corpus, query, memory_text, top_k)
 
     yield "retrieved", {
