@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { getConfig } from "@/lib/server";
@@ -28,7 +29,15 @@ export default async function About() {
         <Link href="/" className="text-sm text-muted hover:text-type">
           ← Back to chat
         </Link>
+        <Image
+          src="/agl-logo.png"
+          alt="AGL — Africa Global Logistics"
+          width={428}
+          height={235}
+          className="mt-6 h-auto w-28"
+        />
         <h1 className="mt-4 text-2xl font-semibold">About Puks AI</h1>
+        <div aria-hidden="true" className="mt-2 h-1 w-14 bg-brand" />
       </div>
 
       <p className="text-type">

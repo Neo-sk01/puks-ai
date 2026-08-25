@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { AppConfig } from "@/lib/types";
 import { clampTopK } from "@/lib/history";
@@ -18,6 +19,16 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
   return (
     <aside className="flex w-full shrink-0 flex-col gap-4 border-b border-rule bg-bay p-4 md:h-dvh md:w-72 md:flex-col md:gap-6 md:border-b-0 md:border-r md:p-6">
       <div>
+        {/* Client mark first, product second: Puks is AGL's tool. The PNG
+         *  has its white knocked out, so it sits on the tinted sidebar. */}
+        <Image
+          src="/agl-logo.png"
+          alt="AGL — Africa Global Logistics"
+          width={428}
+          height={235}
+          priority
+          className="mb-4 h-auto w-32"
+        />
         <h1 className="font-display text-lg font-medium uppercase tracking-[0.04em]">
           Puks AI
         </h1>
