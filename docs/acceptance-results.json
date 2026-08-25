@@ -1,0 +1,1352 @@
+[
+ {
+  "id": "R1",
+  "question": "How do I create a receipt header in Speed WMS?",
+  "asked": [
+   "How do I create a receipt header in Speed WMS?"
+  ],
+  "answer": "Here’s the standard way to create a receipt header (GRN) in Speed WMS:\n\n1) Access the receipt creation screen\n- From the Receipts module, either:\n  - Select Create Receipt from the contextual menu, or\n  - Click the Add (+) / New Receipt button\n- The screen has two sections:\n  - Upper section: Receipt Header (general info)\n  - Lower section: Receipt Lines (goods details, added after the header)\n\n2) Review system-initialized fields (auto-populated)\n- Activity Code (current environment) – read-only\n- Speed Receipt Number – system-generated, non-modifiable\n- Receipt Date and Time – defaults to now; can be modified if required\n- Default Reception Dock – pre-selected from configured dock locations\n\n3) Complete mandatory fields\n- Customer Account – required if the activity manages customer accounts\n- Supplier (Third-party code) – select from declared third parties\n  - You can create a new third-party record directly from the selection screen if needed\n- Receipt Reference – optional but recommended for traceability and search\n\n4) Next step\n- After the header is created, proceed to the lower section to add receipt lines (item code, quantity, quality, and any required traceability), as per your receiving process.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.9437689,
+  "top_source": "Creating a receipt header.txt",
+  "top_category": "RECEIVING GOODS",
+  "sources": [
+   "Creating a receipt header.txt",
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt",
+   "Creation of receipt lines.txt"
+  ],
+  "elapsed_s": 10.8,
+  "error": null
+ },
+ {
+  "id": "R2",
+  "question": "What does the \"Top Stock Input\" field on a receipt line mean?",
+  "asked": [
+   "What does the \"Top Stock Input\" field on a receipt line mean?"
+  ],
+  "answer": "The “Top Stock Input” field on a receipt line indicates the stock generation status for that line—i.e., whether the goods have been turned into available stock.\n\n- 0 = Line added to receipt but not generated in stock\n  - No stock entry movement is created\n  - Goods cannot be used in logistics flows\n- 1 = Line generated in stock\n  - Entry movement created\n  - Associated expected items consumed\n  - Goods available for logistics flows (e.g., picking, sampling)\n\nKey points:\n- The field updates from 0 to 1 when you click Generate Stock on the selected lines.\n- Only lines with Top Stock Input = 0 can be generated.\n- Once generated (value = 1), the line cannot be modified or deleted.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.9041187,
+  "top_source": "Stock generation.txt",
+  "top_category": "RECEIVING GOODS",
+  "sources": [
+   "Stock generation.txt",
+   "End to End Receipt.txt"
+  ],
+  "elapsed_s": 9.9,
+  "error": null
+ },
+ {
+  "id": "R3",
+  "question": "What can and can't I do with a receipt once it's closed?",
+  "asked": [
+   "What can and can't I do with a receipt once it's closed?"
+  ],
+  "answer": "Here’s what you can and can’t do with a receipt after it’s closed in Speed WMS:\n\nWhat you can do\n- Access the receipt in read-only/consultation (advisory) mode\n- View attached documents; printing remains available\n- Use the receipt data for reporting and audit purposes\n- Rely on the receipt as final for downstream/system integrations (feedback to n+1/ERP typically occurs after closure)\n\nWhat you cannot do\n- Modify the receipt in any way\n- Add, edit, or delete receipt lines\n- Add new media or attachments\n- Reopen the receipt (closure is final; reopening is not possible)",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7373288,
+  "top_source": "Receipt closure.txt",
+  "top_category": "RECEIVING GOODS",
+  "sources": [
+   "Receipt closure.txt",
+   "End to End Receipt.txt",
+   "LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.txt"
+  ],
+  "elapsed_s": 11.5,
+  "error": null
+ },
+ {
+  "id": "R4",
+  "question": "What is support break and where do I switch it on?",
+  "asked": [
+   "What is support break and where do I switch it on?"
+  ],
+  "answer": "Support break: \n- A feature that automatically splits large incoming quantities into multiple storage supports during receipt line creation, based on the item’s packaging plan.\n- With it enabled, Speed creates several receipt lines/supports according to the plan (e.g., splits 10,000 units into 2 supports of 4,500 and 1 support of 1,000). Without it, the full quantity goes onto a single receipt line.\n\nWhere to switch it on:\n- Item sheet > Storage tab.\n- Activate it per Stock Unit (SU) type configured on the item.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.78413767,
+  "top_source": "Support break management.txt",
+  "top_category": "RECEIVING GOODS",
+  "sources": [
+   "Support break management.txt",
+   "To prepare.txt",
+   "LOREAL Dock Guidance During Forklift Put-Away of Prepared Supports.txt",
+   "Speed WMS – SpeedLink Clarins Message Relaunch SOP.txt",
+   "The different statuses of a support.txt"
+  ],
+  "elapsed_s": 5.5,
+  "error": null
+ },
+ {
+  "id": "R5",
+  "question": "Why is stock generation a separate step after creating receipt lines?",
+  "asked": [
+   "Why is stock generation a separate step after creating receipt lines?"
+  ],
+  "answer": "Stock generation is separate to ensure control, accuracy, and proper inventory activation:\n\n- Receipt lines are just preparatory records\n  - They exist in REL_DAT with Stock Input flag = 0\n  - No stock exists yet; no movements are created; goods can’t be used in logistics\n  - Lines can still be modified or deleted without impacting history\n- Stock generation is the formal confirmation step\n  - Creates stock records in STK_DAT\n  - Records entry movements in MVT_DAT (audit of the receipt)\n  - Consumes expected quantities if linked to a supplier order\n  - Makes the storage media available for logistics flows (picking, sampling, etc.)\n  - Updates the stock generation status (Top Stock Input)\n\nOperationally, this separation lets users prepare and validate receipt details (including confirming the receiving dock on the header) before officially adding the goods to inventory and logistics processes.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8358192,
+  "top_source": "Stock generation.txt",
+  "top_category": "RECEIVING GOODS",
+  "sources": [
+   "Stock generation.txt",
+   "Creation of receipt lines.txt",
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
+  ],
+  "elapsed_s": 7.9,
+  "error": null
+ },
+ {
+  "id": "R6",
+  "question": "How do I generate a receipt from an expected reception?",
+  "asked": [
+   "How do I generate a receipt from an expected reception?"
+  ],
+  "answer": "To generate a receipt from an expected reception in Speed WMS:\n\n1) Initiate from Expected Items\n- In the Expected Receptions screen, select one or more expected lines for a single purchase order.\n- Right‑click (context menu) → Generate Receipt (associate the selected expected lines with a Speed receipt).\n- Note: Processing is strictly one purchase order at a time. Even if you select multiple expected lines, the entire PO is brought to the processing screen.\n\n2) Review PO Lines on the Processing Screen\n- All lines of the purchase order are displayed.\n- Editable fields are highlighted in yellow.\n\n3) Manage Expected Quantities per Line\n- Check the quantity to be returned to stock; modify if required.\n- Tick TG (“To Generate”) to include the line in the receipt.\n- Lines already received are marked G (“Generated”) and cannot be modified.\n- Variable‑weight items: enter the total weight for the expected quantity.\n- Partial receipt: if you enter less than expected, the line will be split and the remainder kept for future processing.\n\n4) Validate\n- Validate to create the receipt lines.\n\nNotes and rules\n- One expected line = one planned receipt quantity; partial consumption is allowed (consumption = quantity received into stock).\n- Expected lines remain editable until stock entry (consumption) starts; once stock entry is validated, expected quantities are reduced.\n- After receipt lines are created, you can proceed to Stock Generation from the Receipt form (Lines) when ready.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7491794,
+  "top_source": "Receipt generation from an exp.txt",
+  "top_category": "RECEIVING GOODS",
+  "sources": [
+   "Receipt generation from an exp.txt",
+   "Management of expected receptions.txt",
+   "End to End Receipt.txt",
+   "LOREAL_MAROC_MACASLEA1.txt"
+  ],
+  "elapsed_s": 10.6,
+  "error": null
+ },
+ {
+  "id": "O1",
+  "question": "How do orders get put into a wave?",
+  "asked": [
+   "How do orders get put into a wave?"
+  ],
+  "answer": "Here is how orders get put into a wave in SpeedWMS:\n\n- Automatic wave assignment (default)\n  - When launching orders for preparation, SpeedWMS automatically assigns them to a wave.\n  - All selected orders in the same launch/batch are grouped into the same preparation wave.\n  - In the Order Portfolio, orders move from the input/seizure tab to the wave tab once associated.\n\n- Manual wave creation/assignment (exceptional use)\n  - For specific processes, you can manually create a new wave and assign orders to it via the interface.\n  - A wave order can be repositioned back to seizure/input status via the context menu; this removes the association to the wave.\n\n- Monitoring waves\n  - Use the Waves tab in the preparation window to see a global view of all waves in progress, their status, and the orders associated.\n\nData model reference (no changes required to use automatic behavior)\n- Order-to-wave link:\n  - Tables: OPE_DAT, VAG_DAT\n  - Join: OPE.OPE_NOVA = VAG.VAG_NOVA\n  - Status note: OPE_STAT = 020 when an order is in a wave; OPE_STAT = 030 when in a mission without a wave.\n\nRelated SQL provided (read-only example for wave-to-missions visibility)\n- WAVE TO MISSIONS (VAG_DAT -> MIE_DAT):\n  - Example SQL (verbatim):\n    SELECT vag.VAG_NOVA, mie.MIE_NOMI, mie.MIE_STAT\n    FROM VAG_DAT vag\n    INNER JOIN MIE_DAT mie ON vag.VAG_NOVA = mie.VAG_NOVA\n    WHERE vag.VAG_NOVA = :VAG_NOVA\n\nTips\n- Rely on automatic wave assignment for efficiency; manual intervention is only for exceptions.\n- Always check the Waves tab to ensure orders are properly grouped before generating missions.\n\nAccess level required\nI do not have enough information to answer this. Please contact support.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.82492816,
+  "top_source": "Put in wave.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Put in wave.txt",
+   "Put in wave (1).txt",
+   "04_outbound.json"
+  ],
+  "elapsed_s": 21.5,
+  "error": null
+ },
+ {
+  "id": "O2",
+  "question": "What's the difference between the absolute rate and the proximity rate in the availability calculation?",
+  "asked": [
+   "What's the difference between the absolute rate and the proximity rate in the availability calculation?"
+  ],
+  "answer": "Difference between Absolute and Proximity availability rates\n\n- Absolute Availability Rate\n  - Scope: Entire warehouse.\n  - What it measures: Overall availability of items to cover the total need of the selected orders.\n  - Purpose: High-level check to see if the warehouse stock can fully serve the orders.\n  - Data fields updated after calculation: OPE_TXDA (order header), OPL_TXDA (order line).\n\n- Proximity Availability Rate\n  - Scope: An advanced preparation (proximity) zone.\n  - What it measures: Availability within the preparation zone to cover the total need of the selected orders.\n  - Purpose: Indicates whether transfers/replenishments to the preparation zone are required before picking.\n  - Data fields updated after calculation: OPE_TXDP (order header), OPL_TXDP (order line).",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8724455,
+  "top_source": "Availability calculation.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Availability calculation.txt",
+   "OPE_DAT.json",
+   "OPL_DAT.json",
+   "Using the availability calculation.txt",
+   "LOREAL_MAROC_MACASLEA1.txt"
+  ],
+  "elapsed_s": 6.6,
+  "error": null
+ },
+ {
+  "id": "O3",
+  "question": "How do I split part of an order into a second order?",
+  "asked": [
+   "How do I split part of an order into a second order?"
+  ],
+  "answer": "Here’s how to split part of an order into a second order:\n\nAccess\n- Open the order to be split.\n- From the contextual menu, select “Split Order.”\n\nProcess\n1. The system displays the original order and the quantity for each item reference.\n2. For each item you want to move, enter the quantity for the second order in the field “Spread quantity order 2.”\n3. Validate your input.\n4. Review and confirm on the confirmation screen.\n\nResult\n- A second order is created with the specified quantities.\n- The new order inherits the header information of the original order (customer, delivery details, etc.).\n- The original order is updated with the remaining quantities.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.83932644,
+  "top_source": "Order splitting.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Order splitting.txt",
+   "Distribution template.txt",
+   "Order distribution.txt",
+   "Launch in preparation.txt",
+   "Creation of a manufacturing order.txt"
+  ],
+  "elapsed_s": 5.0,
+  "error": null
+ },
+ {
+  "id": "O4",
+  "question": "What do I need to do before launching orders in preparation?",
+  "asked": [
+   "What do I need to do before launching orders in preparation?"
+  ],
+  "answer": "Before launching orders in preparation, you can (and in some processes should) perform these pre-launch steps:\n\n- Run Availability Calculation (optional, as configured):\n  - Check if selected orders can be fully served with current stock.\n  - Use the required rate(s): Absolute (warehouse-wide), Proximity (advanced preparation zone), Retail (outside full pallets).\n  - Use results to decide if restocking is needed and whether to proceed with launch.\n\n- Review and correct shortages (per process example):\n  - Control shortages and adjust if possible using the Stock screen views (allocated and shortage orders).\n\n- Prepare picking zones if applicable:\n  - Launch ZPA transfers to supply advanced preparation zones based on real need.\n\n- Operational setup (per process example):\n  - Select the order batch to launch and, if needed, modify the preparation date.\n\nNotes:\n- Not all availability rates need to be configured; only use what’s required.\n- These checks help optimize stock allocation and reduce preparation delays before generating picking missions at launch.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7485182,
+  "top_source": "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "Availability calculation.txt",
+   "Launch in preparation.txt",
+   "LOREAL_MAROC_MACASLEA1.txt",
+   "Put in wave.txt"
+  ],
+  "elapsed_s": 9.3,
+  "error": null
+ },
+ {
+  "id": "O5",
+  "question": "How does automatic launch differ from launching manually?",
+  "asked": [
+   "How does automatic launch differ from launching manually?"
+  ],
+  "answer": "Here’s how Automatic Launch and manual Launching differ, based strictly on the provided information:\n\n- Trigger and control\n  - Automatic Launch: Configured via sequences and scheduled tasks in SpeedWMS; execution and tracking are handled automatically by GEX over a period.\n  - Manual Launch (Launching a Distribution): User-initiated from Preparation / Distribution by selecting distributions and using GO to validate.\n\n- Tooling and licensing\n  - Automatic Launch: Requires BKSystemes’ GEX (licensed) for scheduling, execution, and tracking.\n  - Manual Launch: Performed directly in SpeedWMS without mention of GEX.\n\n- Process steps and execution\n  - Automatic Launch:\n    1) Define sequences in SpeedWMS\n    2) Schedule tasks in SpeedWMS\n    3) GEX executes automatically\n    4) GEX provides execution tracking (progress, success, errors)\n  - Manual Launch:\n    - Orders are generated from the distribution model upon GO.\n    - Orders may be automatically validated depending on configuration.\n    - Picking notes and labels are created; optional printing of recipient/shipping-support labels.\n\n- Use cases\n  - Automatic Launch: Designed for high-volume operations to reduce manual intervention and run launches over time.\n  - Manual Launch: On-demand conversion of received goods into prepared orders, directly by an operator.\n\n- Waves\n  - In both cases, when orders are launched for preparation, SpeedWMS automatically groups the selected orders into the same preparation wave. Manual wave management is only for specific needs.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.6052631,
+  "top_source": "Automatic launch.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Automatic launch.txt",
+   "Put in wave.txt",
+   "Launching.txt",
+   "Automatic search location.txt",
+   "Put in wave (1).txt"
+  ],
+  "elapsed_s": 12.2,
+  "error": null
+ },
+ {
+  "id": "O6",
+  "question": "What is a distribution template used for?",
+  "asked": [
+   "What is a distribution template used for?"
+  ],
+  "answer": "A distribution template defines how goods are split among recipients during order preparation. It lets you:\n- Preselect the third-party recipients for the order (via the template’s Code).\n- Set the percentage of goods allocated to each recipient.\n- Reuse these settings to initialize a distribution and enable Auto Distribution, where Speed WMS fills line quantities based on the template.\n\nIn short, it automates and standardizes the allocation of goods across recipients, reducing manual work during distribution creation.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.82288796,
+  "top_source": "Distribution template.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Distribution template.txt",
+   "Creating a distribution.txt",
+   "Distribution channel.txt",
+   "Using order Templates.txt"
+  ],
+  "elapsed_s": 7.1,
+  "error": null
+ },
+ {
+  "id": "L1",
+  "question": "Which status code means an order has been shipped, and where can I see shipped samplings?",
+  "asked": [
+   "Which status code means an order has been shipped, and where can I see shipped samplings?"
+  ],
+  "answer": "- Shipped status code: 070 (Shipped).\n- Where to see shipped samplings: In Shipping > Sampling, open the “Shipped” tab. It lists all shipped samplings (status 070) and allows filtering by item, recipient, order, mission, load, shipment, delivery note, or support number.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8145405,
+  "top_source": "Shipped.txt",
+  "top_category": "LOADING",
+  "sources": [
+   "Shipped.txt",
+   "Sampling details.txt",
+   "SPEED_WMS_How_to_Cancel_a_Shipped_Order_Status_070.txt",
+   "Orders management.txt",
+   "Speed WMS – Technical Reference Type and Status Correspondence.txt"
+  ],
+  "elapsed_s": 4.7,
+  "error": null
+ },
+ {
+  "id": "L2",
+  "question": "What does the Terminated tab show?",
+  "asked": [
+   "What does the Terminated tab show?"
+  ],
+  "answer": "The Terminated tab displays all terminated (balanced) samplings with status 050.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.77650476,
+  "top_source": "Terminated.txt",
+  "top_category": "LOADING",
+  "sources": [
+   "Terminated.txt",
+   "Sampling details.txt",
+   "Speed WMS – Internal Support & Operations Reference Guide.txt",
+   "Orders management.txt",
+   "Collect management.txt"
+  ],
+  "elapsed_s": 3.4,
+  "error": null
+ },
+ {
+  "id": "L3",
+  "question": "How do I create a loading and assign deliveries to it?",
+  "asked": [
+   "How do I create a loading and assign deliveries to it?"
+  ],
+  "answer": "Here’s how to create a loading and assign orders (deliveries) to it in Speed WMS, strictly per the provided guidance:\n\nCreate the loading\n- Open Load Management.\n- Create a new load.\n- Enter the general information:\n  - Loading site\n  - Carrier\n  - Loading model\n  - Loading date\n  - Loading code\n  - Description\n- (Optional transport details available in the Transport tab: transport comments, mode, freight forwarder, and places/dates for loading/boarding/unloading/delivery.)\n\nAssign orders to the loading\nOption A – From the orders list\n- In the order portfolio, select one or more orders in status “In seizure.”\n- Open the contextual menu and choose Assign to Loading.\n- Select a loading in progress to attach the orders.\n- (Optional) Create a new loading directly from this screen using the New/Add button, then attach the orders.\n- (Optional) Use the same menu to unassign orders if needed.\n\nOption B – From the load\n- In the load, open Unassigned Orders.\n- Add the desired orders to the load.\n\nNotes\n- Assigning orders to a loading links them to a physical shipment for tracking and dispatch.\n- You can dynamically assign, create, or unassign as operationally needed.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.59401023,
+  "top_source": "Assignment to a loading.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Assignment to a loading.txt",
+   "To prepare.txt",
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "Loading creation.txt",
+   "Delivery schedule.txt"
+  ],
+  "elapsed_s": 11.1,
+  "error": null
+ },
+ {
+  "id": "L4",
+  "question": "Where is the Incoterm defined on a load?",
+  "asked": [
+   "Where is the Incoterm defined on a load?"
+  ],
+  "answer": "In the Documentation tab of the load.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8497846,
+  "top_source": "Incoterm code.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Incoterm code.txt",
+   "Loading creation.txt",
+   "To prepare.txt"
+  ],
+  "elapsed_s": 4.5,
+  "error": null
+ },
+ {
+  "id": "S1",
+  "question": "Where do I configure replenishment rules for a picking zone, and what's the rule about zone types?",
+  "asked": [
+   "Where do I configure replenishment rules for a picking zone, and what's the rule about zone types?"
+  ],
+  "answer": "- Where to configure: Go to Settings / Location / Areas, select a picking replenishment zone (type 003), then open the context menu → Replenishment. The parameters set there apply to all picking locations in that area.\n\n- Rule about zone types: Picking zones can only replenish from storage zones, and vice versa.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7458619,
+  "top_source": "Replenishment rules management.txt",
+  "top_category": "REPLENISHMENT OF THE PICKING LOCATION",
+  "sources": [
+   "Replenishment rules management.txt",
+   "Principle of picking replenishment.txt",
+   "LOREAL_MAROC_MACASLEA1.txt",
+   "Speed WMS – Internal Support & Operations Reference Guide.txt"
+  ],
+  "elapsed_s": 5.0,
+  "error": null
+ },
+ {
+  "id": "S2",
+  "question": "What does the restocking calculation take into account?",
+  "asked": [
+   "What does the restocking calculation take into account?"
+  ],
+  "answer": "The restocking calculation takes into account:\n\n- Replenishment unit (e.g., pallet, box)\n- Maximum quantity allowed at the picking location\n- Replenishment threshold that triggers a refill\n- Quantity of the item already allocated in orders currently in preparation\n- Current available quantity at the picking location\n- Sampling at picking not validated and REA not validated (per the Need formula)\n- Replenishments already in progress and transfers to/from the picking location\n\nKey formulas and logic used:\n\n- Need = AvailableQtyPicking – sum(PickingSamplingsNotValidated) + sum(REA_NotValidated) – ReplenishmentThreshold\n- QtyToReplenish = PicSamplQty + MaxPickingQty – PicAvailableQty – ReplQty – QtyTransfToPick – QtyTransfFromPick\n\nDecision rules:\n\n- If the item is in orders in preparation and current picking quantity < max at picking, generate replenishment for: Max at picking – current at picking.\n- If not in orders in preparation: generate replenishment only if current picking quantity < threshold; otherwise, no replenishment.\n\nNotes:\n\n- Adjustments can be made depending on saturation, adding threshold quantity or max picking quantity.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.86052185,
+  "top_source": "Restocking calculation method.txt",
+  "top_category": "REPLENISHMENT OF THE PICKING LOCATION",
+  "sources": [
+   "Restocking calculation method.txt",
+   "Availability calculation.txt",
+   "Transfer to advanced preparation area.txt"
+  ],
+  "elapsed_s": 6.1,
+  "error": null
+ },
+ {
+  "id": "S3",
+  "question": "What are the statuses a support can have after reception, and what moves it between them?",
+  "asked": [
+   "What are the statuses a support can have after reception, and what moves it between them?"
+  ],
+  "answer": "Here are the support statuses after reception and what drives transitions between them:\n\nStatuses\n- 01 – Support in place\n  - Indicates the support is in its storage location and available for operations (e.g., picking).\n  - Note: 01 can mean either “already in place” right after reception or “moved to destination” after a transfer.\n- 02 – Location to be assigned\n  - The support is on the reception platform; no destination location is assigned yet.\n- 03 – Movement to be performed\n  - A destination location has been assigned, but the support has not yet been moved there.\n\nWhat moves a support between statuses\n- After stock generation:\n  - Support may start as 01 (already in place) or 02 (awaiting location assignment).\n- Assigning a destination location (manually in the Storage tab or via automatic location search):\n  - 02 → 03 (the support now has a planned location; movement is pending).\n- Executing the physical move to the planned location (e.g., via storage operations or by using Validate Storage in the Storage tab):\n  - 03 → 01 (the support is moved; initial location is replaced by the planned location; movement is recorded in history).\n- Using Validate Storage:\n  - Automatically moves selected supports to their planned location and sets status to 01, making them available for preparation.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.86024034,
+  "top_source": "The different statuses of a support.txt",
+  "top_category": "STORAGE",
+  "sources": [
+   "The different statuses of a support.txt",
+   "Storage validation.txt",
+   "Speed WMS – Technical Reference Type and Status Correspondence.txt",
+   "Stock generation.txt",
+   "LOREAL_MAROC_MACASLEA1.txt"
+  ],
+  "elapsed_s": 7.5,
+  "error": null
+ },
+ {
+  "id": "S4",
+  "question": "What does the Deadline Reservation function do?",
+  "asked": [
+   "What does the Deadline Reservation function do?"
+  ],
+  "answer": "The Deadline Reservation function analyzes reserved stock and automatically cleans up outdated reservations so availability isn’t blocked.\n\n- Access: Stock → Deadline Reservation\n- What it does:\n  - Reviews existing stock reservations to ensure they are current.\n  - Automatically removes reservations where the reservation date is earlier than today.\n- Notes:\n  - Works with the reservation setup defined at the item level (Unit modification section of the Item).\n  - Helps prevent obsolete reservations from blocking stock availability.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8415267,
+  "top_source": "Deadline Reservation.txt",
+  "top_category": "STOCK MANAGEMENT",
+  "sources": [
+   "Deadline Reservation.txt",
+   "Thirds.txt",
+   "Delivery schedule.txt",
+   "Delivery settings tab.txt",
+   "Transfer to advanced preparation area.txt"
+  ],
+  "elapsed_s": 5.0,
+  "error": null
+ },
+ {
+  "id": "S5",
+  "question": "What's the difference between total and partial validation of a replenishment?",
+  "asked": [
+   "What's the difference between total and partial validation of a replenishment?"
+  ],
+  "answer": "Difference between Total and Partial Validation of a Replenishment\n\n- Partial Validation\n  - Purpose: Confirm only a portion of the requested replenishment quantity.\n  - How: In the Replenishment window, right-click the line and choose “Partially validate the mission.” Enter the actually completed quantity.\n  - Remaining Quantity: The system calculates the remaining quantity (requested minus validated). You can manually override this by editing the “Remaining qty.”\n  - Result: The validated quantity is closed, and a new replenishment line is typically created for the remaining quantity to be completed later.\n\n- Total Validation\n  - Purpose: Confirm the entire replenishment line as completed.\n  - How: In the Replenishment window, right-click the line and select “Total Validation.”\n  - Effect: The selected replenishment line is validated in full, and the corresponding support (pallet, bin, etc.) is moved in the system to reflect completion.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.88178825,
+  "top_source": "Replenishment management.txt",
+  "top_category": "REPLENISHMENT OF THE PICKING LOCATION",
+  "sources": [
+   "Replenishment management.txt",
+   "Partial validation.txt",
+   "Total validation.txt",
+   "Principle of picking replenishment.txt",
+   "LOREAL_MAROC_MACASLEA1.txt"
+  ],
+  "elapsed_s": 5.8,
+  "error": null
+ },
+ {
+  "id": "S6",
+  "question": "How does automatic location search work when storing a support?",
+  "asked": [
+   "How does automatic location search work when storing a support?"
+  ],
+  "answer": "Automatic location search assigns a planned storage location to each support based on predefined rules, so operators don’t have to choose locations manually.\n\nHow it works\n- Launch: From the receipt’s Storage tab, select the receipt lines (supports), then either right‑click → “Launch automatic search” or use the Location search button.\n- Proposal: SpeedWMS proposes the most optimized storage location per support according to the automatic search rule criteria:\n  - Zone type\n  - Stock constraints\n  - Item characteristics\n  - Capacity limitations\n- Result on the support:\n  - If a destination location is found, the planned location is set and the support status changes to 03 – “movement to be performed.”\n  - If no suitable location is found (e.g., zones full or criteria unmet), the “Search completed” box remains unchecked, and the line requires manual intervention or a re‑search.\n\nUsing RF during storage\n- If automatic location search is enabled on RF:\n  - The system suggests a location.\n  - The operator can override the suggestion or trigger a re‑search.\n- Storage confirmation (scan support → scan location → confirm) moves the support to the planned location and changes status from 03 to 01. The movement is recorded in Speed history.\n\nKey point\n- Automatic search accelerates and standardizes placement. Lines without a valid proposal must be handled manually (e.g., declarative assignment) or by re‑running the search.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8512743,
+  "top_source": "Automatic search location.txt",
+  "top_category": "STORAGE",
+  "sources": [
+   "Automatic search location.txt",
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "The different statuses of a support.txt",
+   "Storage tab.txt",
+   "Declarative storage.txt"
+  ],
+  "elapsed_s": 7.5,
+  "error": null
+ },
+ {
+  "id": "M1",
+  "question": "What are the mandatory fields when creating a manufacturing order?",
+  "asked": [
+   "What are the mandatory fields when creating a manufacturing order?"
+  ],
+  "answer": "The mandatory fields for a Manufacturing Order (MO) are:\n- MO Reference (unique identifier)\n- Product Reference (finished product to be manufactured)\n- Quantity (units of the finished product to produce)",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.95261395,
+  "top_source": "Creation of a manufacturing order.txt",
+  "top_category": "MANUFACTURING",
+  "sources": [
+   "Creation of a manufacturing order.txt",
+   "Creating and modifying an order.txt",
+   "Speed WMS – Internal Support & Operations Reference Guide.txt",
+   "Creation of receipt lines.txt"
+  ],
+  "elapsed_s": 2.8,
+  "error": null
+ },
+ {
+  "id": "M2",
+  "question": "Where are sampling rules set up and in what order are they applied?",
+  "asked": [
+   "Where are sampling rules set up and in what order are they applied?"
+  ],
+  "answer": "- Where to set them up: System / Receiving - Sampling.\n- Order of application: Rules are evaluated and applied in priority order (based on their assigned priority).",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7593865,
+  "top_source": "Sampling rules.txt",
+  "top_category": "SAMPLING",
+  "sources": [
+   "Sampling rules.txt",
+   "Sampling in admin.txt",
+   "Introduction.txt",
+   "Launch in preparation.txt",
+   "Launch settings.txt"
+  ],
+  "elapsed_s": 4.2,
+  "error": null
+ },
+ {
+  "id": "M3",
+  "question": "What information is shown for each packaging type?",
+  "asked": [
+   "What information is shown for each packaging type?"
+  ],
+  "answer": "For each packaging type, the list displays:\n- Code of the type\n- Designation\n- Price (in the system’s configured currency)\n- Comments\n- Image (if available)",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7361925,
+  "top_source": "Packaging accounts creation.txt",
+  "top_category": "PACKAGING",
+  "sources": [
+   "Packaging accounts creation.txt",
+   "Creation of the packaging types.txt",
+   "Speed WMS – Technical Reference Type and Status Correspondence.txt",
+   "Introduction.txt"
+  ],
+  "elapsed_s": 4.6,
+  "error": null
+ },
+ {
+  "id": "M4",
+  "question": "What is the workshop approach in manufacturing?",
+  "asked": [
+   "What is the workshop approach in manufacturing?"
+  ],
+  "answer": "The workshop approach is the process used to ensure required components are physically moved to the correct production area (workshop) before manufacturing begins.\n\nKey points:\n- Access: Manufacturing → Workshop Approach (select the workshops concerned by the operation).\n- Purpose:\n  - Move stock supports (containers, pallets, etc.) from storage to the workshop for manufacturing.\n  - Prevent shortages and ensure traceability of components moved to the workshop.\n- How it works:\n  1) Each Manufacturing Order (MO) is linked to a production area (workshop).\n  2) From the MO lines, the system updates stock supports to Status 03, indicating they are ready for the workshop.\n  3) Operators validate these movements via RF transactions to confirm components are physically in the workshop.\n  4) Location search rules determine final placement:\n     - If the rule moves goods directly to the production location, they’re ready for immediate use.\n     - If the rule moves goods to a storage area in the workshop, the RF “Approach Workshop” transaction must be used to move them to the production location.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8335554,
+  "top_source": "Workshop approach.txt",
+  "top_category": "MANUFACTURING",
+  "sources": [
+   "Workshop approach.txt",
+   "Workshop zone settings.txt",
+   "LOREAL ZPA Replenishment Process Redesign (Volume-Based Logic).txt"
+  ],
+  "elapsed_s": 5.2,
+  "error": null
+ },
+ {
+  "id": "G1",
+  "question": "What are the different zone types in Speed WMS and which ones are exclusive?",
+  "asked": [
+   "What are the different zone types in Speed WMS and which ones are exclusive?"
+  ],
+  "answer": "Here are the zone types available in Speed WMS and their exclusivity status (as provided):\n\nNon-exclusive (a location can belong to multiple zones of this type)\n- Storage Area (STK)\n- Stock Picking Area (PRS)\n- Picking Area (PRP)\n- Forklift Operator Zone (CAR)\n- Activity Zone (ACT)\n- Pick to Light Zone (P2L)\n- Staging / Traverse Zone (CHE)\n\nExclusive (a location can belong to only one zone of this type)\n- Preparation Staging Area (RPR)\n- Dynamic Picking Area (PID)\n- Advanced Picking Area (PIA)\n- Inventory Area (INV)\n- Compensation Zone (CPS)\n- Workshop Area (ATL)\n\nNotes\n- Zones are multi-activity: once created, a zone is available for all activities an operator may access.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8987045,
+  "top_source": "Areas.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Areas.txt",
+   "LOREAL_MAROC_MACASLEA1.txt",
+   "Functional coverage.txt"
+  ],
+  "elapsed_s": 9.7,
+  "error": null
+ },
+ {
+  "id": "G2",
+  "question": "How do I remove a location from a zone?",
+  "asked": [
+   "How do I remove a location from a zone?"
+  ],
+  "answer": "To remove a location from a zone:\n\n- Select the location(s) you want to remove from the zone.\n- Right-click on the selection.\n- Choose “Deallocate location” from the contextual menu.\n\nNotes:\n- This only removes the zone assignment; the location itself is not deleted or altered.\n- You can reassign the deallocated location(s) to the same or a different zone later if needed.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8616433,
+  "top_source": "Location deallocation.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Location deallocation.txt",
+   "LOREAL Free Location Search Rule Based on Article Classification and Dynamic Picking Threshold.txt",
+   "Zone scheduling.txt"
+  ],
+  "elapsed_s": 3.7,
+  "error": null
+ },
+ {
+  "id": "G3",
+  "question": "How do user rights work — can I give one user a special permission?",
+  "asked": [
+   "How do user rights work — can I give one user a special permission?"
+  ],
+  "answer": "User rights in Speed WMS are managed through Groups. Users inherit all permissions from the Group they belong to. You cannot assign a one-off “special” permission directly to a single user. If a user needs a specific permission different from their current group, you must create (or adjust) a Group and assign the user to it.\n\nHow it works:\n- Users are assigned to Groups; Groups define access rights.\n- Rights can include modules/functions like receipts, stock, orders, missions, zones, and reports.\n- Changes to a Group’s rights take effect immediately for all users in that Group.\n\nTo give a user a special permission:\n1. Go to System → Rights.\n2. Create a new Group (or modify an existing one).\n3. Configure the required rights for that Group.\n4. Assign the user to this Group.\n\nNotes:\n- Every user must have a profile and belongs to a Group.\n- If specific rights are needed, create and configure a new Group before assigning the user.\n- Proper configuration prevents unauthorized access to sensitive modules.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.38574538,
+  "top_source": "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "User profiles and rights management.txt",
+   "Reception Generation Control – DO Reference Consistency.txt"
+  ],
+  "elapsed_s": 6.9,
+  "error": null
+ },
+ {
+  "id": "G4",
+  "question": "What is a customs status used for?",
+  "asked": [
+   "What is a customs status used for?"
+  ],
+  "answer": "- To manage bonded goods by defining customs statuses in the system.\n- Applied during receiving when goods are bonded.\n- Becomes a property of the stock, ensuring traceability and proper handling.\n- Maintained via Settings / Other / Customs status.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8875269,
+  "top_source": "Customs status.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Customs status.txt",
+   "REE_DAT.json",
+   "Orders management.txt",
+   "The different statuses of a support.txt",
+   "Speed WMS – Technical Reference Type and Status Correspondence.txt"
+  ],
+  "elapsed_s": 4.0,
+  "error": null
+ },
+ {
+  "id": "G5",
+  "question": "What does \"Activity\" mean in Speed WMS?",
+  "asked": [
+   "What does \"Activity\" mean in Speed WMS?"
+  ],
+  "answer": "Activity in Speed WMS\n\n- Definition: A concept used to separate management within the same warehouse for multiple activities, trades, or customers.\n- Scope of impact: Items, third parties (“thirds”), receptions, orders, and the rules for receiving, storage, and preparation processes are linked to an activity.\n- Usage:\n  - At login, users select the activity (warehouse/customer environment).\n  - In item records, the Activity field is non‑modifiable and corresponds to the activity for which the item was created.\n  - Locations are multi-activity, meaning a single slot can be used across all activities the user is connected to.\n- Related capabilities: Speed WMS supports multi-activity management and multi-client environments.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.6490677,
+  "top_source": "Glossary.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Glossary.txt",
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "Location.txt",
+   "Items.txt",
+   "Functional coverage.txt"
+  ],
+  "elapsed_s": 6.5,
+  "error": null
+ },
+ {
+  "id": "G6",
+  "question": "How deep can item classification go?",
+  "asked": [
+   "How deep can item classification go?"
+  ],
+  "answer": "Item classification supports:\n- Up to 999 families\n- Up to 5 hierarchical (tree) levels deep\n\nExample levels: Family (L1) → Category (L2) → Subcategory (L3) → Type (L4) → Subtype (L5)",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.37862045,
+  "top_source": "Glossary.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Glossary.txt",
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "Location search.txt",
+   "Speed WMS – Internal Support & Operations Reference Guide.txt"
+  ],
+  "elapsed_s": 4.0,
+  "error": null
+ },
+ {
+  "id": "G7",
+  "question": "How do I import locations or third parties in bulk?",
+  "asked": [
+   "How do I import locations or third parties in bulk?"
+  ],
+  "answer": "Here’s how to import both locations and third parties (suppliers, carriers, recipients) in bulk.\n\nImport Locations\n- Access: Settings → Locations → Import\n- Process:\n  1) Click Import.\n  2) Select the Excel file containing locations (use the expected SpeedWMS column structure).\n  3) Review the data in the Data tab (adjust the separator in the upper-right if needed).\n  4) Go to the Settings tab to map Excel columns to SpeedWMS fields.\n  5) Use the Preview tab to confirm all locations (any row with the DNI box checked will not be imported).\n  6) Click Import (lower-right) to finalize. Use Cancel to stop at any time.\n- Post-Import:\n  - Imported locations appear at the end of the locations list.\n  - You can save templates for future imports.\n\nImport Third Parties (Suppliers, Carriers, Recipients)\n- Access: Settings → Thirds → Import\n- Process:\n  1) Click Import, then Browse to select the file.\n  2) Ensure the file includes the mandatory “Type of Third” column:\n     - 001 = Supplier\n     - 002 = Carrier\n     - 003 = Recipient\n     (Multiple types can be included in the same file.)\n  3) Data tab: review imported file information.\n  4) Settings tab: map column headers and define mandatory vs. optional fields.\n  5) Insight tab: preview how data will appear in SpeedWMS.\n  6) Finalize: click Import to complete, or Cancel to abort.\n- Template Management:\n  - Save the template for reuse. You’ll be prompted to save it as a model at the end of the import.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.71088976,
+  "top_source": "Import locations.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Import locations.txt",
+   "Import thirds.txt",
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "Towns.txt",
+   "Import of expected items.txt"
+  ],
+  "elapsed_s": 7.1,
+  "error": null
+ },
+ {
+  "id": "G8",
+  "question": "How do I build a formula in Speed?",
+  "asked": [
+   "How do I build a formula in Speed?"
+  ],
+  "answer": "Here’s how to build a formula in SpeedWMS, strictly per the provided guidelines:\n\nPurpose\n- Create custom queries or calculations (e.g., stock valuation, KPIs) using available fields.\n\nAccess\n- Click the fx button on the screen/module where formula creation is supported.\n\nSteps to Build a Formula\n1. Open the Formula Builder\n- Click fx to launch the formula window.\n2. Name the Formula\n- Enter a meaningful name (e.g., Stock Valuation).\n3. Select Fields\n- Pick the fields you want to use (e.g., Quantity in stock, Unit price).\n4. Add Operators\n- Use +, -, *, /, and parentheses ().\n5. Construct the Formula\n- Example: (Quantity in stock) * (Unit price)\n  - Open a parenthesis (\n  - Send Quantity in stock to the formula window\n  - Click * (multiplication)\n  - Send Unit price to the formula window\n  - Close parenthesis )\n6. Validate\n- Click Validate to save and make the formula usable.\n\nTips\n- Use parentheses to control calculation order.\n- You can combine multiple fields and operators for complex formulas.\n- Once saved, the formula can be used in reports, dashboards, or data queries within SpeedWMS.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.88705814,
+  "top_source": "Build a formula.txt",
+  "top_category": "GENERAL",
+  "sources": [
+   "Build a formula.txt",
+   "Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt",
+   "Sequence.txt",
+   "Import of expected items.txt"
+  ],
+  "elapsed_s": 4.7,
+  "error": null
+ },
+ {
+  "id": "D1",
+  "question": "What does the STK_DAT table hold and what is its primary key?",
+  "asked": [
+   "What does the STK_DAT table hold and what is its primary key?"
+  ],
+  "answer": "Table Name: STK_DAT\nDescription: Current Stock Table (holds current stock records in the WMS)\nPrimary Key: STK_KEYU\nTotal Columns: 110 (The schema provided below is limited to what is available in the supplied context and may be incomplete relative to the stated total.)\n\nColumns (as provided in the context):\n- ACT_CODE\n  - Description: Activity code\n  - SQL Server: VARCHAR(10)\n  - Oracle: NVARCHAR2(10)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ACT_PAR.ACT_CODE\n\n- ART_CNDC\n  - Description: Package - Colis\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDC\n\n- ART_CNDO\n  - Description: Package - Layer\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDO\n\n- ART_CNDP\n  - Description: Package - Pallet\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDP\n\n- ART_CNDS\n  - Description: Package - SPCB\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDS\n\n- ART_CNDU\n  - Description: Package - Unit\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDU\n\n- ART_CODE\n  - Description: Article code\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CODE\n\n- ART_EANC\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(30)\n  - Oracle: NVARCHAR2(30)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_EANC\n\n- ART_EANO\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(30)\n  - Oracle: NVARCHAR2(30)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_EANO\n\n- ART_EANP\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(30)\n  - Oracle: NVARCHAR2(30)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_EANP\n\n- ART_EANS\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(30)\n  - Oracle: NVARCHAR2(30)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_EANS\n\n- ART_EANU\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(30)\n  - Oracle: NVARCHAR2(30)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_EANU\n\n- ART_QTEC\n  - Description: Qty per Colis\n  - SQL Server: VARCHAR(25)\n  - Oracle: NVARCHAR2(25)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEC\n\n- ART_QTEO\n  - Description: Qty per Layer\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEO\n\n- ART_QTEP\n  - Description: Qty per Pallet\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEP\n\n- ART_QTES\n  - Description: Qty per SPCB\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTES\n\n- ART_QTEU\n  - Description: Qty per Unit\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEU\n\n- DOS_CODE\n  - Description: Folder code\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: DOS_DAT.DOS_CODE\n\n- GAB_CODE\n  - Description: Template code\n  - SQL Server: VARCHAR(10)\n  - Oracle: NVARCHAR2(10)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: GAB_PAR.GAB_CODE\n\n- OFE_NOOE\n  - Description: Manufacturing order no\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: OFE_DAT.OFE_NOOE\n\n- OFE_REF\n  - Description: Manufacturing reference\n  - SQL Server: VARCHAR(20)\n  - Oracle: NVARCHAR2(20)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: OFE_DAT.OFE_REF\n\n- OFF_NORL\n  - Description: Production line no\n  - SQL Server: NUMERIC(10)\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: OFF_DAT.OFF_NORL\n\n- OFL_NOOL\n  - Description: Order line no\n  - SQL Server: NUMERIC(10)\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: OFL_DAT.OFL_NOOL\n\n- QUA_CODE\n  - Description: Quality code\n  - SQL Server: VARCHAR(5)\n  - Oracle: NVARCHAR2(5)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: QUA_PAR.QUA_CODE\n\n- REA_BL\n  - Description: Delivery note ref\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: REA_DAT.REA_BL\n\n- REA_RFCE\n  - Description: DO header ref\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: REA_DAT.REA_RFCE\n\n- REA_RFCL\n  - Description: DO line ref\n  - SQL Server: VARCHAR(20)\n  - Oracle: NVARCHAR2(20)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: REA_DAT.REA_RFCL\n\n- REL_NORL\n  - Description: Reception line no\n  - SQL Server: NUMERIC(10)\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: REL_DAT.REL_NORL\n\n- RES_COM\n  - Description: Reservation comment\n  - SQL Server: TEXT\n  - Oracle: CLOB\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: RES_DAT.RES_COM\n\n- RES_CRDA\n  - Description: Reservation creation datetime\n  - SQL Server: VARCHAR(16)\n  - Oracle: NVARCHAR2(16)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: RES_DAT.RES_CRDA\n\n- RES_LIDA\n  - Description: Reservation expiry date\n  - SQL Server: VARCHAR(8)\n  - Oracle: NVARCHAR2(8)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: RES_DAT.RES_LIDA\n\n- RES_MOTIF\n  - Description: Reservation reason\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: RES_DAT.RES_MOTIF\n\n- RES_QIRE\n  - Description: Reserved by\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: RES_DAT.RES_QIRE\n\n- SDO_CODE\n  - Description: Customs status\n  - SQL Server: VARCHAR(5)\n  - Oracle: NVARCHAR2(5)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: SDO_PAR.SDO_CODE\n\n- STK_ALLE\n  - Description: Aisle\n  - SQL Server: VARCHAR(3)\n  - Oracle: NVARCHAR2(3)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_ALLP\n  - Description: Planned aisle\n  - SQL Server: VARCHAR(3)\n  - Oracle: NVARCHAR2(3)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_ALPHA1-10\n  - Description: Additional info A01-A10\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CASE\n  - Description: Location case\n  - SQL Server: VARCHAR(3)\n  - Oracle: NVARCHAR2(3)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CASP\n  - Description: Planned case\n  - SQL Server: VARCHAR(3)\n  - Oracle: NVARCHAR2(3)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CFIS\n  - Description: Fiscality code\n  - SQL Server: VARCHAR(5)\n  - Oracle: NVARCHAR2(5)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CLAS\n  - Description: Class code\n  - SQL Server: VARCHAR(1)\n  - Oracle: NVARCHAR2(1)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_COL\n  - Description: Column\n  - SQL Server: VARCHAR(3)\n  - Oracle: NVARCHAR2(3)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_COLP\n  - Description: Planned column\n  - SQL Server: VARCHAR(3)\n  - Oracle: NVARCHAR2(3)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_COM\n  - Description: Comments\n  - SQL Server: TEXT\n  - Oracle: CLOB\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CRDA\n  - Description: Creation date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CRHE\n  - Description: Creation time\n  - SQL Server: VARCHAR(6)\n  - Oracle: NVARCHAR2(6)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CRQI\n  - Description: Created by\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_CTIE\n  - Description: Entry third party\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DAEN\n  - Description: Stock entry date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DAEP\n  - Description: Planned transfer execution date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DAIV\n  - Description: Inventory date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DARG\n  - Description: Putaway date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DARS\n  - Description: Location search date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DASO\n  - Description: Exit date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DATE1-5\n  - Description: Additional dates D01-D05\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DFAB\n  - Description: Manufacturing date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: No\n\n- STK_DLC\n  - Description: Expiry date (DLC)\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n ",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.9092728,
+  "top_source": "stk_dat.json",
+  "top_category": "Database Tables",
+  "sources": [
+   "stk_dat.json",
+   "MVT_DAT.json",
+   "Check Loading Details.json"
+  ],
+  "elapsed_s": 37.9,
+  "error": null
+ },
+ {
+  "id": "D2",
+  "question": "Which column in REE_DAT holds the reception status, and which the reception date?",
+  "asked": [
+   "Which column in REE_DAT holds the reception status, and which the reception date?"
+  ],
+  "answer": "- Reception status column: REE_ETRE\n- Reception date column: REE_DARE\n\nReference procedure and SQL (Support access):\nProcedure: Get Reception with Status Filter\nAccess Level: Support\nSQL (verbatim):\nSELECT ree.REE_NORE, ree.TIE_CODE, ree.REE_DARE, ree.REE_ETRE FROM REE_DAT ree WHERE ree.ACT_CODE = :ACT_CODE AND ree.REE_ETRE = :STATUS_CODE;",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8898454,
+  "top_source": "REE_DAT.json",
+  "top_category": "Database Tables",
+  "sources": [
+   "REE_DAT.json",
+   "03_inbound.json",
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt",
+   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt"
+  ],
+  "elapsed_s": 5.9,
+  "error": null
+ },
+ {
+  "id": "D3",
+  "question": "How do I join OPE_DAT, MIE_DAT and MIL_DAT to see all missions for an order?",
+  "asked": [
+   "How do I join OPE_DAT, MIE_DAT and MIL_DAT to see all missions for an order?"
+  ],
+  "answer": "I do not have enough information to answer this. Please contact support.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7781275,
+  "top_source": "Cancel_Shipped_Order_Procedure.json",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Cancel_Shipped_Order_Procedure.json",
+   "check_mission_details.json.json",
+   "04_outbound.json",
+   "MIL_DAT.json"
+  ],
+  "elapsed_s": 12.0,
+  "error": null
+ },
+ {
+  "id": "D4",
+  "question": "Which table stores stock movements, and how does it link to the article master?",
+  "asked": [
+   "Which table stores stock movements, and how does it link to the article master?"
+  ],
+  "answer": "Answer to your question\n- Table storing stock movements: MVT_DAT (Stock Movement Table).\n- Link to article master: MVT_DAT links to ART_PAR (Article master) via multiple foreign keys, notably:\n  - ART_CODE → ART_PAR.ART_CODE (Article Code)\n  - ART_CNDC → ART_PAR.ART_CNDC (Packaging - Box)\n  - ART_CNDO → ART_PAR.ART_CNDO (Packaging - Layer)\n  - ART_CNDP → ART_PAR.ART_CNDP (Packaging - Pallet)\n  - ART_CNDS → ART_PAR.ART_CNDS (Packaging - SPCB)\n  - ART_CNDU → ART_PAR.ART_CNDU (Packaging - Unit)\n  - ART_QTEC → ART_PAR.ART_QTEC (Quantity - Box)\n  - ART_QTEO → ART_PAR.ART_QTEO (Quantity - Layer)\n  - ART_QTEP → ART_PAR.ART_QTEP (Quantity - Pallet)\n  - ART_QTES → ART_PAR.ART_QTES (Quantity - SPCB)\n  - ART_QTEU → ART_PAR.ART_QTEU (Quantity - Unit)\n  - ART_LIB1 → ART_PAR.ART_LIB1\n  - ART_LIB2 → ART_PAR.ART_LIB2\n  - ART_LIB3 → ART_PAR.ART_LIB3\n  - ART_LIB4 → ART_PAR.ART_LIB4\n  - ART_LIB5 → ART_PAR.ART_LIB5\n  - ART_LIB6 → ART_PAR.ART_LIB6\n  - ART_NIV1 → ART_PAR.ART_NIV1\n  - ART_NIV2 → ART_PAR.ART_NIV2\n  - ART_NIV3 → ART_PAR.ART_NIV3\n  - ART_NIV4 → ART_PAR.ART_NIV4\n  - ART_NIV5 → ART_PAR.ART_NIV5\n  - ART_NIV6 → ART_PAR.ART_NIV6\n\nSCHEMA MODE — COMPLETE SCHEMA DEFINITION\nNote: The MVT_DAT schema provided in the context is incomplete (context lists 135 total columns but only a subset is shown below). What follows reproduces exactly the columns available in the provided context.\n\n- Table Name: MVT_DAT\n- Description: STOCK MOVEMENT TABLE\n- Primary Key: MVT_KEYU\n- Total Columns: 135\n\nColumns (as provided in context):\n1) Name: ACT_CODE\n   Description: Activity Code\n   SQL Server: VARCHAR(10)\n   Oracle: NVARCHAR2(10)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ACT_PAR.ACT_CODE\n\n2) Name: ART_CNDC\n   Description: Packaging - Box\n   SQL Server: VARCHAR(15)\n   Oracle: NVARCHAR2(15)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_CNDC\n\n3) Name: ART_CNDO\n   Description: Packaging- Layer\n   SQL Server: VARCHAR(15)\n   Oracle: NVARCHAR2(15)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_CNDO\n\n4) Name: ART_CNDP\n   Description: Packaging - Pallet\n   SQL Server: VARCHAR(15)\n   Oracle: NVARCHAR2(15)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_CNDP\n\n5) Name: ART_CNDS\n   Description: Packaging-SPCB\n   SQL Server: VARCHAR(15)\n   Oracle: NVARCHAR2(15)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_CNDS\n\n6) Name: ART_CNDU\n   Description: Packaging - Unit\n   SQL Server: VARCHAR(15)\n   Oracle: NVARCHAR2(15)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_CNDU\n\n7) Name: ART_CODE\n   Description: Article Code\n   SQL Server: VARCHAR(35)\n   Oracle: NVARCHAR2(35)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_CODE\n\n8) Name: ART_LIB1\n   Description: Reserved BK\n   SQL Server: VARCHAR(50)\n   Oracle: NVARCHAR2(50)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_LIB1\n\n9) Name: ART_LIB2\n   Description: Reserved BK\n   SQL Server: VARCHAR(50)\n   Oracle: NVARCHAR2(50)\n   Primary Key: No\n   Foreign Key: Yes\n   References: ART_PAR.ART_LIB2\n\n10) Name: ART_LIB3\n    Description: Reserved BK\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_LIB3\n\n11) Name: ART_LIB4\n    Description: Reserved BK\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_LIB4\n\n12) Name: ART_LIB5\n    Description: Reserved BK\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_LIB5\n\n13) Name: ART_LIB6\n    Description: Reserved BK\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_LIB6\n\n14) Name: ART_NIV1\n    Description: Reserved BK\n    SQL Server: VARCHAR(35)\n    Oracle: NVARCHAR2(35)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_NIV1\n\n15) Name: ART_NIV2\n    Description: Reserved BK\n    SQL Server: VARCHAR(35)\n    Oracle: NVARCHAR2(35)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_NIV2\n\n16) Name: ART_NIV3\n    Description: Reserved BK\n    SQL Server: VARCHAR(35)\n    Oracle: NVARCHAR2(35)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_NIV3\n\n17) Name: ART_NIV4\n    Description: Reserved BK\n    SQL Server: VARCHAR(35)\n    Oracle: NVARCHAR2(35)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_NIV4\n\n18) Name: ART_NIV5\n    Description: Reserved BK\n    SQL Server: VARCHAR(35)\n    Oracle: NVARCHAR2(35)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_NIV5\n\n19) Name: ART_NIV6\n    Description: Reserved BK\n    SQL Server: VARCHAR(35)\n    Oracle: NVARCHAR2(35)\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_NIV6\n\n20) Name: ART_QTEC\n    Description: Quantity - Box\n    SQL Server: BIGINT\n    Oracle: INTEGER\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_QTEC\n\n21) Name: ART_QTEO\n    Description: Quantity - Layer\n    SQL Server: BIGINT\n    Oracle: INTEGER\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_QTEO\n\n22) Name: ART_QTEP\n    Description: Quantity - Pallet\n    SQL Server: BIGINT\n    Oracle: INTEGER\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_QTEP\n\n23) Name: ART_QTES\n    Description: Quantity - SPCB\n    SQL Server: BIGINT\n    Oracle: INTEGER\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_QTES\n\n24) Name: ART_QTEU\n    Description: Quantity - Unit\n    SQL Server: BIGINT\n    Oracle: INTEGER\n    Primary Key: No\n    Foreign Key: Yes\n    References: ART_PAR.ART_QTEU\n\n25) Name: DOS_CODE\n    Description: Folder Code\n    SQL Server: VARCHAR(25)\n    Oracle: NVARCHAR2(25)\n    Primary Key: No\n    Foreign Key: Yes\n    References:\n\n26) Name: GAB_CODE\n    Description: Template Code\n    SQL Server: VARCHAR(10)\n    Oracle: NVARCHAR2(10)\n    Primary Key: No\n    Foreign Key: Yes\n    References:\n\n27) Name: IVE_CODE\n    Description: Inventory Code\n    SQL Server: VARCHAR(15)\n    Oracle: NVARCHAR2(15)\n    Primary Key: No\n    Foreign Key: Yes\n    References: IVE_DAT.IVE_CODE\n\n28) Name: IVE_DATE\n    Description: Inventory Date\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n    Primary Key: No\n    Foreign Key: Yes\n    References: IVE_DAT.IVE_DATE\n\n29) Name: IVE_MODA\n    Description: Inventory Modification Date\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n    Primary Key: No\n    Foreign Key: Yes\n    References: IVE_DAT.IVE_MODA\n\n30) Name: IVE_MOHE\n    Description: Inventory Modification Time\n    SQL Server: VARCHAR(6)\n    Oracle: NVARCHAR2(6)\n    Primary Key: No\n    Foreign Key: Yes\n    References: IVE_DAT.IVE_MOHE\n\n31) Name: IVE_MOQI\n    Description: Inventory Modified By\n    SQL Server: VARCHAR(15)\n    Oracle: NVARCHAR2(15)\n    Primary Key: No\n    Foreign Key: Yes\n    References: IVE_DAT.IVE_MOQI\n\n32) Name: MIE NOMI\n    Description: Mission Number\n    SQL Server: NUMERIC(10)\n    Oracle: INTEGER\n    Primary Key: No\n    Foreign Key: Yes\n    References: MIE_DAT.MIE NOMI\n\n33) Name: MIL_GRPB\n    Description: BP Grouping Code\n    SQL Server: VARCHAR(5)\n    Oracle: NVARCHAR2(5)\n    Primary Key: No\n    Foreign Key: Yes\n    References: MIE_DAT.MIL_GRPB\n\n34) Name: MIL_MOT\n    Description: Withdrawal Reason\n    SQL Server: VARCHAR(10)\n    Oracle: NVARCHAR2(10)\n    Primary Key: No\n    Foreign Key: Yes\n    References: MIE_DAT.MIL_MOT\n\n35) Name: MIL_NOLM\n    Description: Mission Line Number\n    SQL Server: NUMERIC(10)\n    Oracle: INTEGER\n    Primary Key: No\n    Foreign Key: Yes\n    References: MIE_DAT.MIL_NOLM\n\n36) Name: MOT_CODE\n    Description: Reason Code\n    SQL Server: VARCHAR(10)\n    Oracle: NVARCHAR2(10)\n    Primary Key: No\n    Foreign Key: Yes\n    References:\n\n37) Name: MOT_LIB\n    Description: Reason Label\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: No\n    Foreign Key: Yes\n    References:\n\n38) Name: MVT_ALPHA1\n    Description: Additional Info A01\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ALPHA1\n\n39) Name: MVT_ALPHA2\n    Description: Additional Info A02\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ALPHA2\n\n40) Name: MVT_ALPHA3\n    Description: Additional Info A03\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ALPHA3\n\n41) Name: MVT ALPHA4\n    Description: Additional Info A04\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT ALPHA4\n\n42) Name: MVT_ALPHA5\n    Description: Additional Info A05\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ALPHA5\n\n43) Name: MVT_ALPHA6\n    Description: Additional Info A06\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ALPHA6\n\n44) Name: MVT ALPHA7\n    Description: Additional Info A07\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT ALPHA7\n\n45) Name: MVT_ALPHA8\n    Description: Additional Info A08\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ALPHA8\n\n46) Name: MVT ALPHA9\n    Description: Additional Info A09\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT ALPHA9\n\n47) Name: MVT_ALPHA10\n    Description: Additional Info A10\n    SQL Server: VARCHAR(50)\n    Oracle: NVARCHAR2(50)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ALPHA10\n\n48) Name: MVT_ARTP\n    Description: Product Article Code\n    SQL Server: VARCHAR(35)\n    Oracle: NVARCHAR2(35)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_ARTP\n\n49) Name: MVT_CFIS\n    Description: Taxation Type Code\n    SQL Server: VARCHAR(5)\n    Oracle: NVARCHAR2(5)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_CFIS\n\n50) Name: MVT_CRDA\n    Description: Movement Creation Date\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_CRDA\n\n51) Name: MVT_CRFE\n    Description: Call Window\n    SQL Server: VARCHAR(15)\n    Oracle: NVARCHAR2(15)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_CRFE\n\n52) Name: MVT_CRHE\n    Description: Movement Creation Time\n    SQL Server: VARCHAR(6)\n    Oracle: NVARCHAR2(6)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_CRHE\n\n53) Name: MVT_CRQI\n    Description: Movement Created By\n    SQL Server: VARCHAR(15)\n    Oracle: NVARCHAR2(15)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_CRQI\n\n54) Name: MVT_DATE\n    Description: Extraction Date\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_DATE\n\n55) Name: MVT_DATE1\n    Description: Additional Info D01\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_DATE1\n\n56) Name: MVT_DATE2\n    Description: Additional Info D02\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_DATE2\n\n57) Name: MVT_DATEЗ\n    Description: Additional Info D03\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n    Primary Key: Yes\n    Foreign Key: No\n    References: MVT_DAT.MVT_DATEЗ\n\n58) Name: MVT_DATE4\n    Description: Additional Info D04\n    SQL Server: DATETIME\n    Oracle: NCHAR(8)\n",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7140107,
+  "top_source": "MVT_DAT.json",
+  "top_category": "Database Tables",
+  "sources": [
+   "MVT_DAT.json",
+   "02_base_data.json",
+   "06_inventory.json",
+   "03_inbound.json",
+   "Check Loading Details.json"
+  ],
+  "elapsed_s": 44.5,
+  "error": null
+ },
+ {
+  "id": "D5",
+  "question": "On inbound, which columns link receipt lines to stock?",
+  "asked": [
+   "On inbound, which columns link receipt lines to stock?"
+  ],
+  "answer": "Inbound link columns between receipt lines (REL_DAT) and stock (STK_DAT):\n\n- REL.ACT_CODE = STK.ACT_CODE\n- REL.REE_NORE = STK.STK_NORE\n- REL.REL_NORL = STK.STK_NOREL\n\nInbound join priority note (support number):\n- Prefer joining by support number when available:\n  - REL_DAT.REL_NOSU = STK_DAT.STK_NOSU\n\nExample SQL (verbatim from reference):\nSELECT rel.REE_NORE, rel.ART_CODE, stk.STK_KEYU, stk.EMP_LIEU\nFROM REL_DAT rel\nINNER JOIN STK_DAT stk\n  ON rel.ACT_CODE = stk.ACT_CODE\n AND rel.REE_NORE = stk.STK_NORE\n AND rel.REL_NORL = stk.STK_NOREL\nWHERE rel.ACT_CODE = :ACT_CODE\n\nAccess level required:\nI do not have enough information to answer this. Please contact support.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.76992935,
+  "top_source": "03_inbound.json",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "03_inbound.json",
+   "Check Receipt Lines.json",
+   "Creation of receipt lines.txt"
+  ],
+  "elapsed_s": 10.3,
+  "error": null
+ },
+ {
+  "id": "D6",
+  "question": "What are the MVT_ALPHA1–10 and MVT_DATE1… columns for?",
+  "asked": [
+   "What are the MVT_ALPHA1–10 and MVT_DATE1… columns for?"
+  ],
+  "answer": "They are generic, user-definable fields on MVT_DAT:\n- MVT_ALPHA1 … MVT_ALPHA10: “Additional Info A01 … A10” (free-text attributes).\n- MVT_DATE1 … MVT_DATE5: “Additional Info D01 … D05” (date/time attributes).\n\nComplete schema definition (as available in the provided context)\nNote: The MVT_DAT table has Total Columns: 135. The schema below is incomplete in the context; only the columns listed here were provided.\n\n- Table Name: MVT_DAT\n- Description: STOCK MOVEMENT TABLE\n- Primary Key: MVT_KEYU\n- Total Columns: 135\n- Schema completeness: Incomplete in the provided context (only a subset of columns is listed below).\n\nColumns (as provided in the context):\n- Name: ACT_CODE\n  - Description: Activity Code\n  - SQL Server: VARCHAR(10)\n  - Oracle: NVARCHAR2(10)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ACT_PAR.ACT_CODE\n- Name: ART_CNDC\n  - Description: Packaging - Box\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDC\n- Name: ART_CNDO\n  - Description: Packaging- Layer\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDO\n- Name: ART_CNDP\n  - Description: Packaging - Pallet\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDP\n- Name: ART_CNDS\n  - Description: Packaging-SPCB\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDS\n- Name: ART_CNDU\n  - Description: Packaging - Unit\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CNDU\n- Name: ART_CODE\n  - Description: Article Code\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_CODE\n- Name: ART_LIB1\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_LIB1\n- Name: ART_LIB2\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_LIB2\n- Name: ART_LIB3\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_LIB3\n- Name: ART_LIB4\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_LIB4\n- Name: ART_LIB5\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_LIB5\n- Name: ART_LIB6\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_LIB6\n- Name: ART_NIV1\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_NIV1\n- Name: ART_NIV2\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_NIV2\n- Name: ART_NIV3\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_NIV3\n- Name: ART_NIV4\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_NIV4\n- Name: ART_NIV5\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_NIV5\n- Name: ART_NIV6\n  - Description: Reserved BK\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_NIV6\n- Name: ART_QTEC\n  - Description: Quantity - Box\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEC\n- Name: ART_QTEO\n  - Description: Quantity - Layer\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEO\n- Name: ART_QTEP\n  - Description: Quantity - Pallet\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEP\n- Name: ART_QTES\n  - Description: Quantity - SPCB\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTES\n- Name: ART_QTEU\n  - Description: Quantity - Unit\n  - SQL Server: BIGINT\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: ART_PAR.ART_QTEU\n- Name: DOS_CODE\n  - Description: Folder Code\n  - SQL Server: VARCHAR(25)\n  - Oracle: NVARCHAR2(25)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: \n- Name: GAB_CODE\n  - Description: Template Code\n  - SQL Server: VARCHAR(10)\n  - Oracle: NVARCHAR2(10)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: \n- Name: IVE_CODE\n  - Description: Inventory Code\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: IVE_DAT.IVE_CODE\n- Name: IVE_DATE\n  - Description: Inventory Date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: IVE_DAT.IVE_DATE\n- Name: IVE_MODA\n  - Description: Inventory Modification Date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: IVE_DAT.IVE_MODA\n- Name: IVE_MOHE\n  - Description: Inventory Modification Time\n  - SQL Server: VARCHAR(6)\n  - Oracle: NVARCHAR2(6)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: IVE_DAT.IVE_MOHE\n- Name: IVE_MOQI\n  - Description: Inventory Modified By\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: IVE_DAT.IVE_MOQI\n- Name: MIE NOMI\n  - Description: Mission Number\n  - SQL Server: NUMERIC(10)\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: MIE_DAT.MIE NOMI\n- Name: MIL_GRPB\n  - Description: BP Grouping Code\n  - SQL Server: VARCHAR(5)\n  - Oracle: NVARCHAR2(5)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: MIE_DAT.MIL_GRPB\n- Name: MIL_MOT\n  - Description: Withdrawal Reason\n  - SQL Server: VARCHAR(10)\n  - Oracle: NVARCHAR2(10)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: MIE_DAT.MIL_MOT\n- Name: MIL_NOLM\n  - Description: Mission Line Number\n  - SQL Server: NUMERIC(10)\n  - Oracle: INTEGER\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: MIE_DAT.MIL_NOLM\n- Name: MOT_CODE\n  - Description: Reason Code\n  - SQL Server: VARCHAR(10)\n  - Oracle: NVARCHAR2(10)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: \n- Name: MOT_LIB\n  - Description: Reason Label\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: No\n  - Foreign Key: Yes\n  - References: \n- Name: MVT_ALPHA1\n  - Description: Additional Info A01\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ALPHA1\n- Name: MVT_ALPHA2\n  - Description: Additional Info A02\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ALPHA2\n- Name: MVT_ALPHA3\n  - Description: Additional Info A03\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ALPHA3\n- Name: MVT ALPHA4\n  - Description: Additional Info A04\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT ALPHA4\n- Name: MVT_ALPHA5\n  - Description: Additional Info A05\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ALPHA5\n- Name: MVT_ALPHA6\n  - Description: Additional Info A06\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ALPHA6\n- Name: MVT ALPHA7\n  - Description: Additional Info A07\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT ALPHA7\n- Name: MVT_ALPHA8\n  - Description: Additional Info A08\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ALPHA8\n- Name: MVT ALPHA9\n  - Description: Additional Info A09\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT ALPHA9\n- Name: MVT_ALPHA10\n  - Description: Additional Info A10\n  - SQL Server: VARCHAR(50)\n  - Oracle: NVARCHAR2(50)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ALPHA10\n- Name: MVT_ARTP\n  - Description: Product Article Code\n  - SQL Server: VARCHAR(35)\n  - Oracle: NVARCHAR2(35)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_ARTP\n- Name: MVT_CFIS\n  - Description: Taxation Type Code\n  - SQL Server: VARCHAR(5)\n  - Oracle: NVARCHAR2(5)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_CFIS\n- Name: MVT_CRDA\n  - Description: Movement Creation Date\n  - SQL Server: DATETIME\n  - Oracle: NCHAR(8)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_CRDA\n- Name: MVT_CRFE\n  - Description: Call Window\n  - SQL Server: VARCHAR(15)\n  - Oracle: NVARCHAR2(15)\n  - Primary Key: Yes\n  - Foreign Key: No\n  - References: MVT_DAT.MVT_CRFE\n- Name: MVT_CRHE\n  - Description: Movement Creation Time\n  - SQL Server: VARCHAR(6",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.69820654,
+  "top_source": "MVT_DAT.json",
+  "top_category": "Database Tables",
+  "sources": [
+   "MVT_DAT.json",
+   "REL_DAT.json",
+   "OPL_DAT.json",
+   "REE_DAT.json"
+  ],
+  "elapsed_s": 34.2,
+  "error": null
+ },
+ {
+  "id": "D7",
+  "question": "Write a query that shows the header and lines for order 12345 in activity ABC.",
+  "asked": [
+   "Write a query that shows the header and lines for order 12345 in activity ABC."
+  ],
+  "answer": "Access Level\n- Support\n\nOperational Reference\n- Procedure: Check Order Header\n  - Business Logic: Retrieves outbound order header.\n  - SQL (as provided, verbatim):\n    SELECT * FROM OPE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND OPE_NOOE = ORDER_NUMBER;\n\n- Procedure: Check Order Lines\n  - Business Logic: Retrieves outbound order lines.\n  - SQL (as provided, verbatim):\n    SELECT * FROM OPL_DAT WHERE ACT_CODE = ACTIVITY_CODE AND OPE_NOOE = ORDER_NUMBER;\n\nSchema Definitions\n- OPE_DAT (Order Header)\n  - The complete schema is not provided in the context.\n  - Only the following columns are referenced in the provided materials:\n    - ACT_CODE (used in procedures/filters)\n    - OPE_NoOE (referenced by OPL_DAT and used in procedures/filters)\n    - OPE_KEYU (referenced by OPL_DAT)\n\n- OPL_DAT\n  - Table Name: OPL_DAT\n  - Description: ORDER LINE TABLE\n  - Primary Key: OPL_KEYU\n  - Total Columns: 103\n  - Columns:\n    - ACT_CODE — Activity Code — SQL Server: VARCHAR(10) — Oracle: NVARCHAR2(10) — PK: No — FK: Yes — References: ACT_PAR.ACT_CODE\n    - ART_CODE — Article Code — SQL Server: VARCHAR(35) — Oracle: NVARCHAR2(35) — PK: No — FK: Yes — References: ART_PAR.ART_CODE\n    - CHG_CODE — Loading Code — SQL Server: VARCHAR(15) — Oracle: NVARCHAR2(15) — PK: No — FK: Yes — References: CHG_DAT.CHG_CODE\n    - CHG_DATE — Loading Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: Yes — References: CHG_DAT.CHG_DATE\n    - DOS_CODE — Folder Code — SQL Server: VARCHAR(25) — Oracle: NVARCHAR2(25) — PK: No — FK: Yes — References: DOS_DAT.DOS_CODE\n    - OPE_KEYU — Order Header Key — SQL Server: NUMERIC(10) — Oracle: INTEGER — PK: No — FK: Yes — References: OPE_DAT.OPE_KEYU\n    - OPE_NoOE — Order Number — SQL Server: BIGINT — Oracle: INTEGER — PK: No — FK: Yes — References: OPE_DAT.OPE_NoOE\n    - OPL_ALPHA1 — Additional Info A01 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA2 — Additional Info A02 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA3 — Additional Info A03 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA4 — Additional Info A04 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA5 — Additional Info A05 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA6 — Additional Info A06 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA7 — Additional Info A07 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA8 — Additional Info A08 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA9 — Additional Info A09 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_ALPHA10 — Additional Info A10 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No\n    - OPL_CFIS — Fiscalization Type Code — SQL Server: VARCHAR(5) — Oracle: NVARCHAR2(5) — PK: No — FK: No\n    - OPL_COMB — Delivery Note Comment — SQL Server: TEXT — Oracle: CLOB — PK: No — FK: No\n    - OPL_COMP — Preparation Comment — SQL Server: TEXT — Oracle: CLOB — PK: No — FK: No\n    - OPL_COPA — Reserved BK — SQL Server: BIGINT — Oracle: INTEGER — PK: No — FK: No\n    - OPL_CRDA — Creation Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_CRHE — Creation Time — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_CRQI — Created By — SQL Server: VARCHAR(15) — Oracle: NVARCHAR2(15) — PK: No — FK: Yes — References: USW_DAT.USW_LOGN\n    - OPL_DAFP — Preparation End Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DATE1 — Additional Info D01 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DATE2 — Additional Info D02 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DATE3 — Additional Info D03 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DATE4 — Additional Info D04 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DATE5 — Additional Info D05 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DFAB — Manufacturing Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DLC — DLC — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DLCM — Minimum DLC — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DLOM — Minimum DLUO — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DLOO — Mandatory DLUO — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DLV — DLV — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_DLVM — Minimum DLV — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_EANC — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No\n    - OPL_EANO — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No\n    - OPL_EANP — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No\n    - OPL_EANS — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No\n    - OPL_EANU — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No\n    - OPL_HEFP — Preparation End Time — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_HEURE1 — Additional Info H01 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_HEURE2 — Additional Info H02 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_HEURE3 — Additional Info H03 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_HEURE4 — Additional Info H04 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_HEURE5 — Additional Info H05 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_KEYU — Unique Preparation Line Key — SQL Server: INT — Oracle: INTEGER — PK: Yes — FK: No\n    - OPL_LOT1 — Lot 1 — SQL Server: VARCHAR(100) — Oracle: NVARCHAR2(100) — PK: No — FK: No\n    - OPL_LOT2 — Lot 2 — SQL Server: VARCHAR(100) — Oracle: NVARCHAR2(100) — PK: No — FK: No\n    - OPL_LOT3 — Lot 3 — SQL Server: VARCHAR(100) — Oracle: NVARCHAR2(100) — PK: No — FK: No\n    - OPL_MODA — Modification Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No\n    - OPL_MOHE — Modification Time — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No\n    - OPL_MOQI — Modified By — SQL Server: VARCHAR(15) — Oracle: NVARCHAR2(15) — PK: No — FK: Yes — References: USW_DAT.USW_LOGN\n    - OPL_NoOL — Line Number — SQL Server: NUMERIC(10) — Oracle: INTEGER — PK: No — FK: No\n    - OPL_NoSU — Support Number — SQL Server: VARCHAR(25) — Oracle: NVARCHAR2(25) — PK: No — FK: No\n    - OPL_NUM1 — Additional Info N01 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No\n    - OPL_NUM2 — Additional Info N02 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No\n    - OPL_NUM3 — Additional Info N03 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No\n    - OPL_NUM4 — Additional Info N04 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No\n    - OPL_NUM5 — Additional Info N05 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No\n    - OPL_PICK — Picking Location — SQL Server: VARCHAR(25) — Oracle: NVARCHAR2(25) — PK: No — FK: No\n    - OPL_POIT — Weight (g) to Prepare — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No\n    - OPL_POIV — Variable Weight — SQL Server: BIGINT — Oracle: INTEGER — PK: No — FK: No\n    - OPL_QKIT — Kit Ordered Quantity — SQL Server: BIGINT — Oracle: INTEGER — PK: No — FK: No\n    - OPL_QSCL — Parcel Service Quantity — SQL Server: BIGINT — Oracle: INTEGER — PK: No — FK: No\n    - OPL_QSOU — Layer Service Quantity — SQL Server",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.47738418,
+  "top_source": "Check Order Header.json",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Check Order Header.json",
+   "Check Order Lines.json",
+   "OPL_DAT.json",
+   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt"
+  ],
+  "elapsed_s": 43.4,
+  "error": null
+ },
+ {
+  "id": "T1",
+  "question": "A customer wants to cancel an order that has already shipped. What do I do?",
+  "asked": [
+   "A customer wants to cancel an order that has already shipped. What do I do?"
+  ],
+  "answer": "Here’s the approved procedure to cancel an order that has already shipped (status 070):\n\nImportant notes\n- Orders in status 070 cannot be cancelled directly in Speed.\n- The status must first be reverted in the database by the Support team (end users do not have database access).\n\nStep 1 — Verify the order in the database\n- Access level: Support\n- Purpose: Confirm the order details and current status before making any changes.\n- SQL (run verbatim):\n  SELECT OPE_KEYU, OPE_NOOE, * FROM OPE_DAT WHERE ACT_CODE = 'Activity Account' AND OPE_NOOE = [Order Number];\n\nStep 2 — Revert the order status from 070 to 060 (database update)\n- Access level: Support\n- Purpose: Allow further processing in Speed by moving the order out of shipped status.\n- SQL (run verbatim):\n  UPDATE OPE_DAT SET OPE_STAT = '060' WHERE ACT_CODE = 'Activity Account' AND OPE_NOOE = [Order Number] AND OPE_KEYU = [Order Keyu];\n- Note: This update must be executed by the Support team.\n\nStep 3 — Invalidate mission lines in Speed\n- Access level: User / Support\n- Action: In the Speed application (e.g., Mission tab), invalidate all mission lines for the order.\n- Result: Once all mission lines are invalidated, the order moves to status 030.\n\nStep 4 — Cancel the mission\n- Access level: User / Support\n- Action: Cancel the mission in Speed.\n- Result: After cancellation, the order will move to status 010.\n\nStep 5 — Cancel the order\n- Access level: User / Support\n- Action: When the order reaches status 010, cancel the order in Speed.\n\nIf you do not have Support access, please contact the Support team to perform Steps 1–2.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.88178825,
+  "top_source": "SPEED_WMS_How_to_Cancel_a_Shipped_Order_Status_070.txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "SPEED_WMS_How_to_Cancel_a_Shipped_Order_Status_070.txt",
+   "Cancel_Shipped_Order_Procedure.json"
+  ],
+  "elapsed_s": 11.0,
+  "error": null
+ },
+ {
+  "id": "T2",
+  "question": "Durban says weights are missing on a GDN picklist. Why does that happen and how do I fix it?",
+  "asked": [
+   "Durban says weights are missing on a GDN picklist. Why does that happen and how do I fix it?"
+  ],
+  "answer": "Here’s why weights go missing on a GDN/Picklist in Durban (ZAR) and how to fix them, strictly per the documented procedure.\n\nWhy this happens\n- Order validated then returned to Seizure: Weights are first stored in REL_DAT and inherited by STK_DAT. When stock leaves the system, STK_DAT is cleared. Bringing stock back does not automatically repopulate STK_DAT.\n- During reception: Weight information may not have been correctly inherited into STK_DAT (i.e., stock attributes not populated).\n\nHow to fix it (Step-by-step)\n1) Check the order is editable (not validated)\nRun:\nSELECT *\nFROM ope_dat\nWHERE ope_nooe = 'order_number'\nAND act_code = 'zar';\n\n2) Check missions linked to the order\nRun:\nSELECT *\nFROM mil_dat\nWHERE ope_nooe = 'order_number'\nAND act_code = 'zar';\nNote: Some supports may already be validated (picked); only unvalidated supports can be updated.\n\n3) Update valid (unvalidated) supports by copying weights from REL_DAT to STK_DAT\nReplace the support placeholders with actual support numbers from MIL_DAT:\nUPDATE s\nSET\n s.stk_num13 = r.rel_num13,\n s.stk_num15 = r.rel_num14,\n s.stk_num16 = r.rel_num15,\n s.stk_num17 = r.rel_num15\nFROM stk_dat s\nJOIN rel_dat r\n  ON s.stk_nosu = r.rel_nosu\n AND s.act_code = r.act_code\nWHERE s.stk_nosu IN ('support_number_1', 'support_number_2', ...)\nAND s.act_code = 'zar';\n\n4) Verify\n- Print the GDN/Picklist. If weights appear correctly, you’re done.\n\n5) If weights still don’t show\n- Go back to MIL_DAT.\n- Unvalidate all lines that were already picked.\n- Rerun the update query from Step 3.\n- Print the GDN/Picklist again.\n\nImportant notes\n- Only update unvalidated supports to avoid inconsistencies.\n- If stock exists but no weight, check STK_DAT (stock attributes not populated).",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8909888,
+  "top_source": "Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt",
+   "Speed WMS – ZAR Commodities Pending Issue & Temporary Mission Loading Procedure.txt",
+   "Speed WMS – Serial Number Issue Resolution Procedure.txt",
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
+  ],
+  "elapsed_s": 10.5,
+  "error": null
+ },
+ {
+  "id": "T3",
+  "question": "How do I reverse a closed GRN?",
+  "asked": [
+   "How do I reverse a closed GRN?"
+  ],
+  "answer": "Access level: Support Only\n\nSafety rules:\n- Always execute SELECT before UPDATE.\n- Do not execute UPDATE in production without approval.\n- Support-level SQL only.\n- Follow inbound/outbound join rules.\n\nProcedure: Reverse Closed GRN\n1) Validate before update (run SELECT first):\n  SELECT REE_ETRE, REE_KEYU, REE_CCLI FROM REE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER;\n\n2) Core update to reopen the GRN (per procedure):\n  UPDATE REE_DAT SET REE_ETRE = '100' WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER AND REE_KEYU = RECEPTION_KEYU AND REE_CCLI = CUSTOMER_ACCOUNT_CODE;\n\nOptional (to also reset Pegasus integration status):\n  UPDATE REE_DAT\n  SET REE_ETRE = '100',\n  REE_TOP1 = 0\n  WHERE ACT_CODE = 'Activity Code'\n  AND REE_NORE = 'Receipt Number'\n  AND REE_KEYU = 'Receipt ID'\n  AND REE_CCLI = 'Customer Account Code';",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.85157084,
+  "top_source": "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
+   "Reverse Closed GRN.json",
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
+  ],
+  "elapsed_s": 12.9,
+  "error": null
+ },
+ {
+  "id": "T4",
+  "question": "LPNs are missing on a manifest. What's the temporary resolution?",
+  "asked": [
+   "LPNs are missing on a manifest. What's the temporary resolution?"
+  ],
+  "answer": "Access Level: Support Only\n\nIssue\n- Some LPNs do not appear on the manifest because SEX_DAT has a missing order number (SEX_NOOE = '0'). Manifest ETAT relies on SEX_DAT.\n\nProcedure\n\n1) Identify Affected LPNs (Validate before update)\nRun:\nSELECT sex.SEX_SUPE, mil.MIL_SUPP, mil.OPE_NOOE, mil.MIE_NOMI, sex.SEX_NOMI, sex.SEX_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = 'RSAJHBCLA' AND sex.SEX_NOOE = '0';\n- Records returned indicate LPNs that will not appear on the manifest.\n- The issue is caused by a missing SEX_NOOE value.\n\n2) Temporary Fix: Update Missing Order Number\nRun:\nUPDATE SEX_DAT SET SEX_NOOE = mil.OPE_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = 'RSAJHBCLA' AND sex.SEX_NOOE = '0';\n- SEX_NOOE is populated with the correct OPE_NOOE.\n- The LPN now correctly reflects on the manifest.\n- Manifest ETAT functions as expected.\n\nExpected Outcome\n- SEX_NOOE is populated with the correct OPE_NOOE.\n- The LPN correctly reflects on the manifest.\n- Manifest ETAT functions as expected.\n\nImportant Notes\n- This is a temporary workaround, not a permanent fix.\n- Execute only when the issue is confirmed.\n- Database updates must be performed by Support.\n- Monitor recurring cases to assist with root cause analysis.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.88564163,
+  "top_source": "Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt",
+   "LPNs Missing on Manifest – Temporary Resolution.json"
+  ],
+  "elapsed_s": 11.1,
+  "error": null
+ },
+ {
+  "id": "T5",
+  "question": "Which tables are involved when resending a Pegasus file?",
+  "asked": [
+   "Which tables are involved when resending a Pegasus file?"
+  ],
+  "answer": "Access Level\n- Support Only\n\nTables involved when resending a Pegasus file\n- REE_DAT: Receipt Header\n- REL_DAT: Receipt Lines\n- STK_DAT: Stock\n- MVT_DAT: Movements\n- OPE_DAT: Order Header\n- OPL_DAT: Order Lines\n- MIE_DAT: Mission Header\n- MIL_DAT: Mission Lines\n- CHG_DAT: Loading Header\n- CHL_DAT: Loading Lines\n\nPrimary table affected by the resend\n- REE_DAT (reset of Pegasus flags/etat for resend)\n\nBusiness logic note\n- Forces resend of receipt file to Pegasus. BUT REE_TOP1 GETS UPDATED WHEN THE ACT_CODE IS RSAJHJP OR RSADBNPRO\n\nValidate-before-update query (run this first)\nSELECT REE_ETRE, REE_KEYU, REE_CCLI FROM REE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER;\n\nUpdate to trigger resend\nUPDATE REE_DAT SET REE_ETRE = '100', REE_TOP1 = 0 WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER AND REE_KEYU = RECEPTION_KEYU AND REE_CCLI = CUSTOMER_ACCOUNT_CODE;\n\nJoin logic reference (if you need to trace related records)\n- Inbound:\n  - Primary Keys: REL_NOSU, REE_NORE\n  - Example: REL_DAT.REL_NOSU = STK_DAT.STK_NOSU\n- Outbound:\n  - Primary Keys: OPL_NOSU, OPE_NOOE\n  - Example: OPL_DAT.OPL_NOSU = MVT_DAT.MVT_NOSU\n\nSafety tips\n1. Always run SELECT first to check records before running UPDATE.\n2. Keep a backup or snapshot of relevant tables if updating production data.\n3. Use these scripts only if automated processes fail, to avoid breaking processes.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.9356824,
+  "top_source": "Resend Pegasus file.json",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Resend Pegasus file.json",
+   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
+  ],
+  "elapsed_s": 11.1,
+  "error": null
+ },
+ {
+  "id": "T6",
+  "question": "How was the Jinko Solar GRN-number amendment ticket resolved?",
+  "asked": [
+   "How was the Jinko Solar GRN-number amendment ticket resolved?"
+  ],
+  "answer": "The ticket was resolved by changing the receipt status to 100.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.95143646,
+  "top_source": "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
+  "top_category": "Support Ticket Docs",
+  "sources": [
+   "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
+   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
+  ],
+  "elapsed_s": 3.9,
+  "error": null
+ },
+ {
+  "id": "T7",
+  "question": "What was ticket 1016 about?",
+  "asked": [
+   "What was ticket 1016 about?"
+  ],
+  "answer": "Ticket 1016 details:\n- Title: speed not open\n- Category: Bug\n- Module: wms\n- Warehouse: pomona\n- Priority: Medium\n- Issue Description: can't enter password\n- Logged By: Kgathola\n- Closed By: Kgathola Puka\n- Date Created: 04 Feb 2026, 22:00\n- Closed Date: 04 Feb 2026, 22:00\n- Root Cause: test\n- Final Resolution Summary: test",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7144891,
+  "top_source": "Support_Ticket(speed not open).txt",
+  "top_category": "Support Ticket Docs",
+  "sources": [
+   "Support_Ticket(speed not open).txt",
+   "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
+   "Speed WMS – Loading Management Support Ticket Resolution Guide.txt",
+   "LOREAL  Exit Square.txt"
+  ],
+  "elapsed_s": 5.6,
+  "error": null
+ },
+ {
+  "id": "T8",
+  "question": "A Clarins mission line won't validate. What's the internal procedure?",
+  "asked": [
+   "A Clarins mission line won't validate. What's the internal procedure?"
+  ],
+  "answer": "Internal procedures available for Clarins mission lines that won’t validate:\n\n1) Clarins Mission Line Validation – Internal Support Procedure\nPurpose: Correct and validate mission lines when orders are not validating correctly, mission lines are stuck below validation status, or lines are not linked to valid stock locations. Validation must be performed only using active picking locations and open-box stock (not reserve or full-carton).\n\nKey parameters (define before running scripts):\n- DECLARE @ArtCode varchar(50) = '80110136'; -- SKU / Article Code\n- DECLARE @Stk_Keyu int = 218923; -- Selected Stock Key\n\nStep 1: Identify orders and mission lines not yet validated\n- Identify:\n  - Orders with mission lines already in status 040\n  - Orders whose overall status is below 040\n  - Mission lines below validation status for the specified SKU\n\nStep 2: Locate valid stock in active picking locations\n- Use the following query to review stock and any linked mission quantities in active picking locations (open-box only):\n  SELECT\n    STK_NoSU,\n    STK_LOT1,\n    STK_DLUO,\n    (\n      SELECT SUM(MIL_QTTP)\n      FROM MIL_DAT\n      WHERE MIL_DAT.ACT_CODE = STK_DAT.ACT_CODE\n        AND MIL_DAT.QUA_CODE = 'INS'\n        AND MIL_DAT.ART_CODE = STK_DAT.ART_CODE\n        AND MIL_DAT.MIL_EMP = STK_DAT.STK_LIEU\n        AND MIL_STAT < '040'\n    ) AS MIL_QTTP\n  FROM STK_DAT\n  WHERE ACT_CODE = 'RSAJHBCLA'\n    AND QUA_CODE = 'INS'\n    AND ART_CODE = @ArtCode\n    AND STK_LIEU IN (\n      SELECT EMP_LIEU\n      FROM EMZ_BAS\n      WHERE ZEM_CODE = 'CLA_PIC'\n    )\n  ORDER BY ART_CODE, STK_LIEU, STK_NoSU;\n\nStep 3: Reassign mission lines to valid stock location\n- Update mission lines that:\n  - Are in status 020\n  - Are not currently linked to valid stock\n  - Match the specified SKU\n\n2) Clarins Shortfall Order – Mission Location Update Procedure\nUse when an order launched with a shortfall is missing a valid picking location, even though the SKU/LPN is in stock.\n\nPreconditions:\n- The SKU exists in stock\n- The LPN exists and is available\n- The stock is in a valid active picking location\n- The mission line has a status below 040\n\nStep 1: Identify affected mission lines\n- Confirm mission lines for the SKU that are not yet validated:\n  SELECT MIL_KEYU, MIL_EMP, *\n  FROM MIL_DAT\n  WHERE ART_CODE = '80110136'\n    AND MIL_STAT < '040';\n\nStep 2: Determine the correct picking location\n- Identify the correct stock location (STK_LIEU) to pick from\n- Copy the MIL_KEYU(s) for the affected order line(s)\n- Copy the target picking location\n\nStep 3: Update the mission line picking location\n- Assign the correct picking location:\n  UPDATE MIL_DAT\n  SET MIL_EMP = 'CA002A035',\n      MIL_EMPO = 'CA002A035'\n  WHERE MIL_KEYU IN (144522, 147153);\n\nExpected outcome:\n- The mission line is linked to a valid picking location\n- The shortfall is resolved\n- The order can proceed through validation and picking\n\nImportant notes:\n- Applies only to Clarins\n- Mission lines must have MIL_STAT < '040'\n- Updates must be performed by Support due to DB access restrictions\n- Always validate stock availability before modifying missions",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8737439,
+  "top_source": "SPEED_WMS_Clarins_Mission_Line_Validation_Internal_Support_Procedure.txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "SPEED_WMS_Clarins_Mission_Line_Validation_Internal_Support_Procedure.txt",
+   "SPEED_WMS_Clarins_Shortfall_Order_Mission_Location_Update_Internal_Procedure.txt",
+   "Speed WMS – Unknown Support Issue Resolution Procedure.txt"
+  ],
+  "elapsed_s": 18.5,
+  "error": null
+ },
+ {
+  "id": "T9",
+  "question": "How do I check an order's header and lines when a support ticket comes in?",
+  "asked": [
+   "How do I check an order's header and lines when a support ticket comes in?"
+  ],
+  "answer": "Procedure: Check an order’s header and lines (Outbound)\n\nAccess level: Support\n\nPurpose:\n- Header: Retrieves outbound order header.\n- Lines: Retrieves outbound order lines.\n\nInputs required:\n- ACTIVITY_CODE\n- ORDER_NUMBER\n\nSteps:\n1) Retrieve the order header\n   SQL (run verbatim):\n   SELECT * FROM OPE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND OPE_NOOE = ORDER_NUMBER;\n\n2) Retrieve the order lines\n   SQL (run verbatim):\n   SELECT * FROM OPL_DAT WHERE ACT_CODE = ACTIVITY_CODE AND OPE_NOOE = ORDER_NUMBER;\n\nNotes:\n- Category: Outbound\n- If you need to correlate with other outbound tables, outbound joins should prioritise:\n  - Primary keys: OPL_NOSU and OPE_NOOE\n  - Example pattern: OPL_DAT.OPL_NOSU = MVT_DAT.MVT_NOSU",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.5582553,
+  "top_source": "Check Order Header.json",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "Check Order Header.json",
+   "Check Order Lines.json"
+  ],
+  "elapsed_s": 10.1,
+  "error": null
+ },
+ {
+  "id": "X1",
+  "question": "What is the goal of the L'Oréal dynamic picking replenishment (ZPA) project?",
+  "asked": [
+   "What is the goal of the L'Oréal dynamic picking replenishment (ZPA) project?"
+  ],
+  "answer": "The project’s goal is to automatically replenish ZPA picking locations in multiples of VL cartons, filling each location based on available volume (location volume vs. article volume × quantity). It also computes a net requirement (order portfolio units – available ZPA stock – pending ZPA replenishments) and optimizes operations by chaining missions from the same origin support via support scan.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.9191869,
+  "top_source": "LOREAL Dynamic Picking Replenishment (ZPA).txt",
+  "top_category": "LOREAL",
+  "sources": [
+   "LOREAL Dynamic Picking Replenishment (ZPA).txt",
+   "LOREAL_MAROC_MACASLEA1.txt",
+   "LOREAL Partial Replenishment for Dynamic Picking (ZPA Transfers).txt",
+   "LOREAL ZPA Replenishment Process Redesign (Volume-Based Logic).txt"
+  ],
+  "elapsed_s": 5.6,
+  "error": null
+ },
+ {
+  "id": "X2",
+  "question": "For L'Oréal, what happens to pending expected lines when a reception is closed?",
+  "asked": [
+   "For L'Oréal, what happens to pending expected lines when a reception is closed?"
+  ],
+  "answer": "- On reception closure, if any expected lines linked to the reception’s DO remain not received, Speed automatically settles (closes) those pending lines. If no pending lines remain, nothing is done.\n- Note (L’Oréal Maroc): At closure, SPD015 automatically deletes expected receipt lines with non-received quantities; remainders are managed in SAP (a new expected receipt would be sent if needed).",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.93468803,
+  "top_source": "LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.txt",
+  "top_category": "LOREAL",
+  "sources": [
+   "LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.txt",
+   "Reception Generation Control – DO Reference Consistency.txt",
+   "LOREAL_MAROC_MACASLEA1.txt"
+  ],
+  "elapsed_s": 8.5,
+  "error": null
+ },
+ {
+  "id": "X3",
+  "question": "What is anti-diversion (AD) code management at L'Oréal?",
+  "asked": [
+   "What is anti-diversion (AD) code management at L'Oréal?"
+  ],
+  "answer": "Anti-diversion (AD) code management at L’Oréal in Speed WMS\n\n- Purpose and definition\n  - An AD Code is a unique identifier generated during preparation and used to track stock origin and prevent diversion/fraud.\n  - Its use is mandatory when configured by activity and article parameters.\n\n- Where it applies\n  - Module: Multi-Order Preparation (SPD011), Radio Version 28.06b, Speed Version A.8.6.F (28.06b1).\n  - No AD management in Speed Admin.\n\n- Activation rules\n  - Enabled only if:\n    - ACT_TOP13 = 1 (activity-level switch)\n    - ART_TOP1 = 1 (article-level AD activation)\n  - Additional condition to prompt entry after mission line validation: GRP_NIV1 = DIVERSION.\n\n- When and how it’s captured\n  - After validating a mission line, the system calls PE30; if conditions are met, it displays an AD Code scanning screen.\n  - Scanning screen behavior:\n    - Based on the serial number screen, adapted for AD Codes.\n    - Each scan adds a code to the list; scanning an existing code removes it.\n  - Validation is blocked if the required number of AD Codes is not captured.\n\n- Management level (controlled by ACT_TOP1)\n  - 1 = CARTON level\n  - 0 or NULL = SKU level\n  - PPD family (GRP_NIV2 = 30): always managed at CARTON level.\n\n- Handling by mission line type\n  - MIL_TYPR = 006 → Pallet logic\n  - MIL_TYPR = 002 → SKU or CARTON logic\n  - MIL_TYPR = 001 → Depends on ACT_TOP1\n\n- Uniqueness rules\n  - SKU: unique in SPE_AD\n  - PALLET: unique in SPE_AD\n  - CARTON: unique per preparation (can be reused across different preparations for incomplete cartons)\n  - In L’Oréal Maroc scope: uniqueness is controlled (unique per unit for LPD and per case for PPD) and values are stored in a specific SPE_AD table that is exported monthly.\n\n- Business context\n  - Particularly required for LPD and PPD divisions for traceability and anti-fraud.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.89053273,
+  "top_source": "L’ORÉAL – Anti-Diversion Code (AD Code) Management.txt",
+  "top_category": "LOREAL",
+  "sources": [
+   "L’ORÉAL – Anti-Diversion Code (AD Code) Management.txt",
+   "LOREAL_MAROC_MACASLEA1.txt"
+  ],
+  "elapsed_s": 13.2,
+  "error": null
+ },
+ {
+  "id": "X4",
+  "question": "How are DFAB and DLUO dates calculated automatically from a batch at L'Oréal?",
+  "asked": [
+   "How are DFAB and DLUO dates calculated automatically from a batch at L'Oréal?"
+  ],
+  "answer": "At L’Oréal, DFAB and DLUO are auto-derived from the batch (LOT) using two decoding methods. The method depends on the LOT format.\n\n1) If the LOT starts with “+” (Method using AYR and JJJ)\n- Year: Decode the year letter via the TRANS table (TRANS_BAS), e.g., K → 2013.\n- Day of year: Extract the JJJ (001–365/366) and convert to a calendar date (respecting leap years).\n- DFAB: The resulting calendar date.\n- DLUO: DFAB + ART_NUM1 days.\nExample:\n- LOT: +K0060; ART_NUM1 = 10\n- K → 2013; 006 → 6th day of 2013 → DFAB = 06/01/2013\n- DLUO = 06/01/2013 + 10 = 16/01/2013\n\n2) If the LOT matches ACT_ALPHA2 and does NOT start with “+” (After ISIS; Method using BYR and AMO)\n- Year: Decode the year letter via BYR (from the TRANS table), e.g., J → 2012.\n- Month: Decode the month via AMO, e.g., 7 → July.\n- DFAB: First day of the decoded month and year.\n- DLUO: DFAB + ART_NUM1 days.\nExample:\n- LOT: 2YJ700; ART_NUM1 = 10\n- J → 2012; 7 → July → DFAB = 01/07/2012\n- DLUO = 01/07/2012 + 10 = 11/07/2012\n\n3) Invalid or non-decodable LOT\nIf the LOT:\n- Does not start with “+”\n- Does not match ACT_ALPHA2\n- Or lacks required letter positions\nThen it cannot be decoded:\n- DFAB: manual entry\n- DLUO: manual entry\n- DLC: always manual (unrelated to batch)\n\nDLUO calculation rule (common)\n- Once DFAB is determined: DLUO = DFAB + ART_NUM1 (days).\n\nAlso applied in Cycle Counting\n- The same decoding logic is applied in Cycle Counting (PE884), identical to the reception logic.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.8576849,
+  "top_source": "L’ORÉAL – Batch Decoding & Automatic DFAB,DLUO Calculation.txt",
+  "top_category": "LOREAL",
+  "sources": [
+   "L’ORÉAL – Batch Decoding & Automatic DFAB,DLUO Calculation.txt",
+   "LOREAL_MAROC_MACASLEA1.txt"
+  ],
+  "elapsed_s": 32.1,
+  "error": null
+ },
+ {
+  "id": "X5",
+  "question": "What restrictions apply to the cycle-count radio module for L'Oréal?",
+  "asked": [
+   "What restrictions apply to the cycle-count radio module for L'Oréal?"
+  ],
+  "answer": "- The Cycle Count (radio) module implements user-group–based option restrictions.\n- When activation parameter ACT_TOP22 = 1, the module applies option filtering logic: access to specific stock-modification functionalities is limited according to the connected operator’s user group.\n- This restriction exists to ensure only authorized profiles can perform certain stock adjustment actions within the radio cycle count module.\n\nNo further details on which specific options are restricted per user group are provided in the context.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.9051298,
+  "top_source": "LOREAL Restriction of Options in Cycle Counting Radio Module.txt",
+  "top_category": "LOREAL",
+  "sources": [
+   "LOREAL Restriction of Options in Cycle Counting Radio Module.txt",
+   "LOREAL SPD – Cycle Count Module – User Group Restrictions.txt",
+   "LOREAL_MAROC_MACASLEA1.txt",
+   "L’ORÉAL – Batch Decoding & Automatic DFAB,DLUO Calculation.txt"
+  ],
+  "elapsed_s": 10.7,
+  "error": null
+ },
+ {
+  "id": "C1",
+  "question": "Ask R1, then: \"and which of those fields can I change?\"",
+  "asked": [
+   "How do I create a receipt header in Speed WMS?",
+   "and which of those fields can I change?"
+  ],
+  "answer": "You can change:\n- Receipt date and time (defaults to creation time; can be modified)\n- Customer account (if the activity manages customer accounts; mandatory)\n- Third-party supplier code (select from declared third parties; you can also create a new third-party file from the selection screen)\n\nYou cannot change:\n- Activity code / Current activity (read-only)\n- Speed receipt number (system-generated, non-modifiable)\n- Default reception dock (pre-selected based on configuration; not stated as editable)",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.47475353,
+  "top_source": "Global changes.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Global changes.txt",
+   "Creating a receipt header.txt",
+   "Mapping of the deliveries.txt",
+   "Creating and modifying an order.txt"
+  ],
+  "elapsed_s": 12.1,
+  "error": null
+ },
+ {
+  "id": "C2",
+  "question": "Ask D1, then: \"what about its foreign keys?\"",
+  "asked": [
+   "What does the STK_DAT table hold and what is its primary key?",
+   "what about its foreign keys?"
+  ],
+  "answer": "Table Name: STK_DAT\nDescription: Current Stock Table\nPrimary Key: stk_keyu\nTotal Columns: 110\n\nNote: The provided schema groups certain columns (e.g., STK_ALPHA1-10, STK_DATE1-5, STK_HEURE1-5, STK_LOT1-3, STK_NUM1-5, STK_TOP1-5) and does not individually enumerate all 110 columns. Therefore, the full expanded list of all columns is not completely detailed in the context.\n\nColumns:\n- Name: ACT_CODE — Activity code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: ACT_PAR.ACT_CODE\n- Name: ART_CNDC — Package - Colis | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDC\n- Name: ART_CNDO — Package - Layer | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDO\n- Name: ART_CNDP — Package - Pallet | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDP\n- Name: ART_CNDS — Package - SPCB | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDS\n- Name: ART_CNDU — Package - Unit | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDU\n- Name: ART_CODE — Article code | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_CODE\n- Name: ART_EANC — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANC\n- Name: ART_EANO — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANO\n- Name: ART_EANP — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANP\n- Name: ART_EANS — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANS\n- Name: ART_EANU — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANU\n- Name: ART_QTEC — Qty per Colis | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: Yes | References: ART_PAR.ART_QTEC\n- Name: ART_QTEO — Qty per Layer | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEO\n- Name: ART_QTEP — Qty per Pallet | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEP\n- Name: ART_QTES — Qty per SPCB | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTES\n- Name: ART_QTEU — Qty per Unit | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEU\n- Name: DOS_CODE — Folder code | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: DOS_DAT.DOS_CODE\n- Name: GAB_CODE — Template code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: GAB_PAR.GAB_CODE\n- Name: OFE_NOOE — Manufacturing order no | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: OFE_DAT.OFE_NOOE\n- Name: OFE_REF — Manufacturing reference | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: Yes | References: OFE_DAT.OFE_REF\n- Name: OFF_NORL — Production line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: OFF_DAT.OFF_NORL\n- Name: OFL_NOOL — Order line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: OFL_DAT.OFL_NOOL\n- Name: QUA_CODE — Quality code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: Yes | References: QUA_PAR.QUA_CODE\n- Name: REA_BL — Delivery note ref | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: REA_DAT.REA_BL\n- Name: REA_RFCE — DO header ref | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: REA_DAT.REA_RFCE\n- Name: REA_RFCL — DO line ref | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: Yes | References: REA_DAT.REA_RFCL\n- Name: REL_NORL — Reception line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: REL_DAT.REL_NORL\n- Name: RES_COM — Reservation comment | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: Yes | References: RES_DAT.RES_COM\n- Name: RES_CRDA — Reservation creation datetime | SQL Server: VARCHAR(16) | Oracle: NVARCHAR2(16) | PK: No | FK: Yes | References: RES_DAT.RES_CRDA\n- Name: RES_LIDA — Reservation expiry date | SQL Server: VARCHAR(8) | Oracle: NVARCHAR2(8) | PK: No | FK: Yes | References: RES_DAT.RES_LIDA\n- Name: RES_MOTIF — Reservation reason | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: RES_DAT.RES_MOTIF\n- Name: RES_QIRE — Reserved by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: RES_DAT.RES_QIRE\n- Name: SDO_CODE — Customs status | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: Yes | References: SDO_PAR.SDO_CODE\n- Name: STK_ALLE — Aisle | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_ALLP — Planned aisle | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_ALPHA1-10 — Additional info A01-A10 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: —\n- Name: STK_CASE — Location case | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_CASP — Planned case | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_CFIS — Fiscality code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: No | References: —\n- Name: STK_CLAS — Class code | SQL Server: VARCHAR(1) | Oracle: NVARCHAR2(1) | PK: No | FK: No | References: —\n- Name: STK_COL — Column | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_COLP — Planned column | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_COM — Comments | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: No | References: —\n- Name: STK_CRDA — Creation date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_CRHE — Creation time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_CRQI — Created by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: No | References: —\n- Name: STK_CTIE — Entry third party | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: No | References: —\n- Name: STK_DAEN — Stock entry date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DAEP — Planned transfer execution date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DAIV — Inventory date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DARG — Putaway date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DARS — Location search date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DASO — Exit date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DATE1-5 — Additional dates D01-D05 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DFAB — Manufacturing date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DLC — Expiry date (DLC) | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DLUO — Best-before date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DLV — Delivery date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_HEEP — Planned transfer time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_HEIV — Inventory time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_HERG — Putaway time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_HERS — Location search time | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: —\n- Name: STK_HEURE1-5 — Additional times H01-H05 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_INPC — Forklift priority index | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: No | References: —\n- Name: STK_KEYU — Stock unique key | SQL Server: BIGINT | Oracle: INTEGER | PK: Yes | FK: No | References: —\n- Name: STK_LIEP — Planned location | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: —\n- Name: STK_LIEU — Location | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: —\n- Name: STK_LOT1-3 — Lot numbers | SQL Server: VARCHAR(100) | Oracle: NVARCHAR2(100) | PK: No | FK: No | References: —\n- Name: STK_MODA — Modification date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_MOHE — Modification time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_MOQI — Modified by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: No | References: —\n- Name: STK_NIV — Level | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_NIVP — Planned level | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_NOER — Distribution header no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —\n- Name: STK_NOLR — Distribution line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —\n- Name: STK_NORE — Reception number | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: REE_DAT.REE_NORE\n- Name: STK_NORG — Grouping order no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —\n- Name: STK_NOSU — Support number | SQL Server: VARCHAR(25) | Oracle: NVARCHAR",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.3480693,
+  "top_source": "stk_dat.json",
+  "top_category": "Database Tables",
+  "sources": [
+   "stk_dat.json",
+   "MVT_DAT.json",
+   "MIL_DAT.json",
+   "REE_DAT.json",
+   "REL_DAT.json"
+  ],
+  "elapsed_s": 37.4,
+  "error": null
+ },
+ {
+  "id": "C3",
+  "question": "\"how to close a grn\" (lowercase, abbreviation, no question mark)",
+  "asked": [
+   "how to close a grn"
+  ],
+  "answer": "I do not have enough information to answer this. Please contact support.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.70726365,
+  "top_source": "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
+  "top_category": "Support Ticket Docs",
+  "sources": [
+   "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
+   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
+   "Reverse Closed GRN.json"
+  ],
+  "elapsed_s": 6.4,
+  "error": null
+ },
+ {
+  "id": "C4",
+  "question": "\"stk_dat vs mvt_dat\"",
+  "asked": [
+   "stk_dat vs mvt_dat"
+  ],
+  "answer": "Below is all the information available in the provided context. The schemas are incomplete in the context where noted.\n\nSCHEMA DEFINITIONS\n\n1) Table: MVT_DAT\n- Description: STOCK MOVEMENT TABLE\n- Primary Key: MVT_KEYU\n- Total Columns: 135 (Note: the full list of 135 columns is not fully provided in the context; below are only the columns present in the retrieved schema excerpt.)\n\nColumns (as provided in context; schema excerpt is incomplete):\n- ACT_CODE | Activity Code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: ACT_PAR.ACT_CODE\n- ART_CNDC | Packaging - Box | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDC\n- ART_CNDO | Packaging- Layer | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDO\n- ART_CNDP | Packaging - Pallet | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDP\n- ART_CNDS | Packaging-SPCB | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDS\n- ART_CNDU | Packaging - Unit | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDU\n- ART_CODE | Article Code | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_CODE\n- ART_LIB1 | Reserved BK | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: ART_PAR.ART_LIB1\n- ART_LIB2 | Reserved BK | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: ART_PAR.ART_LIB2\n- ART_LIB3 | Reserved BK | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: ART_PAR.ART_LIB3\n- ART_LIB4 | Reserved BK | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: ART_PAR.ART_LIB4\n- ART_LIB5 | Reserved BK | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: ART_PAR.ART_LIB5\n- ART_LIB6 | Reserved BK | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: ART_PAR.ART_LIB6\n- ART_NIV1 | Reserved BK | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_NIV1\n- ART_NIV2 | Reserved BK | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_NIV2\n- ART_NIV3 | Reserved BK | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_NIV3\n- ART_NIV4 | Reserved BK | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_NIV4\n- ART_NIV5 | Reserved BK | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_NIV5\n- ART_NIV6 | Reserved BK | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_NIV6\n- ART_QTEC | Quantity - Box | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEC\n- ART_QTEO | Quantity - Layer | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEO\n- ART_QTEP | Quantity - Pallet | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEP\n- ART_QTES | Quantity - SPCB | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTES\n- ART_QTEU | Quantity - Unit | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEU\n- DOS_CODE | Folder Code | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: Yes | References: (not specified)\n- GAB_CODE | Template Code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: (not specified)\n- IVE_CODE | Inventory Code | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: IVE_DAT.IVE_CODE\n- IVE_DATE | Inventory Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: Yes | References: IVE_DAT.IVE_DATE\n- IVE_MODA | Inventory Modification Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: Yes | References: IVE_DAT.IVE_MODA\n- IVE_MOHE | Inventory Modification Time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: Yes | References: IVE_DAT.IVE_MOHE\n- IVE_MOQI | Inventory Modified By | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: IVE_DAT.IVE_MOQI\n- MIE NOMI | Mission Number | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: MIE_DAT.MIE NOMI\n- MIL_GRPB | BP Grouping Code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: Yes | References: MIE_DAT.MIL_GRPB\n- MIL_MOT | Withdrawal Reason | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: MIE_DAT.MIL_MOT\n- MIL_NOLM | Mission Line Number | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: MIE_DAT.MIL_NOLM\n- MOT_CODE | Reason Code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: (not specified)\n- MOT_LIB | Reason Label | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: (not specified)\n- MVT_ALPHA1 | Additional Info A01 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT_ALPHA1\n- MVT_ALPHA2 | Additional Info A02 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT_ALPHA2\n- MVT_ALPHA3 | Additional Info A03 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT_ALPHA3\n- MVT ALPHA4 | Additional Info A04 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT ALPHA4\n- MVT_ALPHA5 | Additional Info A05 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT_ALPHA5\n- MVT_ALPHA6 | Additional Info A06 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT_ALPHA6\n- MVT ALPHA7 | Additional Info A07 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT ALPHA7\n- MVT_ALPHA8 | Additional Info A08 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT_ALPHA8\n- MVT ALPHA9 | Additional Info A09 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT ALPHA9\n- MVT_ALPHA10 | Additional Info A10 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: Yes | FK: No | References: MVT_DAT.MVT_ALPHA10\n- MVT_ARTP | Product Article Code | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: Yes | FK: No | References: MVT_DAT.MVT_ARTP\n- MVT_CFIS | Taxation Type Code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: Yes | FK: No | References: MVT_DAT.MVT_CFIS\n- MVT_CRDA | Movement Creation Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_CRDA\n- MVT_CRFE | Call Window | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: Yes | FK: No | References: MVT_DAT.MVT_CRFE\n- MVT_CRHE | Movement Creation Time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_CRHE\n- MVT_CRQI | Movement Created By | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: Yes | FK: No | References: MVT_DAT.MVT_CRQI\n- MVT_DATE | Extraction Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_DATE\n- MVT_DATE1 | Additional Info D01 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_DATE1\n- MVT_DATE2 | Additional Info D02 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_DATE2\n- MVT DATEЗ | Additional Info D03 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_DATEЗ\n- MVT_DATE4 | Additional Info D04 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_DATE4\n- MVT_DATE5 | Additional Info D05 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_DATE5\n- MVT_DAVA | Value Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_DAVA\n- MVT_EANC | Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: Yes | FK: No | References: MVT_DAT.MVT_EANC\n- MVT EANO | Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: Yes | FK: No | References: MVT_DAT.MVT EANO\n- MVT_EANP | Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: Yes | FK: No | References: MVT_DAT.MVT_EANP\n- MVT_EANS | Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: Yes | FK: No | References: MVT_DAT.MVT_EANS\n- MVT_EANU | Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: Yes | FK: No | References: MVT_DAT.MVT_EANU\n- MVT_HEUE | Extraction Time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_HEUE\n- MVT_HEURE1 | Additional Info H01 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_HEURE1\n- MVT_HEURE2 | Additional Info H02 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_HEURE2\n- MVT_HEURE3 | Additional Info H03 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_HEURE3\n- MVT_HEURE4 | Additional Info H04 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_HEURE4\n- MVT_HEURE5 | Additional Info H05 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_HEURE5\n- MVT_KEYU | Traceability Identifier | SQL Server: INT | Oracle: INTEGER | PK: Yes | FK: No | References: MVT_DAT.MVT_KEYU\n- MVT_LOTP | Product Lot | SQL Server: VARCHAR(100) | Oracle: NVARCHAR2(100) | PK: Yes | FK: No | References: MVT_DAT.MVT_LOTP\n- MVT_MODA | Movement Modification Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: Yes | FK: No | References: MVT_DAT.MVT_MODA\n- MVT_MOHE | Movement Modification Time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: Yes | FK: No | References: MVT_DAT.MVT_MOHE\n- MVT_MOQI | Movement Modified By | SQL Server: VARCHAR(15",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.7309246,
+  "top_source": "04_outbound.json",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "04_outbound.json",
+   "03_inbound.json",
+   "MVT_DAT.json",
+   "05_loading.json",
+   "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt"
+  ],
+  "elapsed_s": 38.6,
+  "error": null
+ },
+ {
+  "id": "C5",
+  "question": "Press Reset conversation memory, then ask: \"and which of those fields can I change?\"",
+  "asked": [
+   "and which of those fields can I change?"
+  ],
+  "answer": "In Global Changes for orders, you can modify these fields for all selected orders:\n- Grouping code (waves/mission grouping)\n- Preparation channel\n- Preparation date (start date for preparation)\n- Carrier code (default carrier for the order)",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.47475353,
+  "top_source": "Global changes.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Global changes.txt",
+   "Creating a receipt header.txt",
+   "Mapping of the deliveries.txt",
+   "Creating and modifying an order.txt"
+  ],
+  "elapsed_s": 5.9,
+  "error": null
+ },
+ {
+  "id": "N1",
+  "question": "Who won the 2022 FIFA World Cup?",
+  "asked": [
+   "Who won the 2022 FIFA World Cup?"
+  ],
+  "answer": "",
+  "refused": true,
+  "reason": "below_threshold",
+  "confidence": 0.040529426,
+  "top_source": "CHG_DAT.json",
+  "top_category": "Database Tables",
+  "sources": [
+   "CHG_DAT.json",
+   "L’ORÉAL – Batch Decoding & Automatic DFAB,DLUO Calculation.txt",
+   "Country.txt"
+  ],
+  "elapsed_s": 1.4,
+  "error": null
+ },
+ {
+  "id": "N2",
+  "question": "How do I configure wave templates in SAP EWM?",
+  "asked": [
+   "How do I configure wave templates in SAP EWM?"
+  ],
+  "answer": "",
+  "refused": true,
+  "reason": "below_threshold",
+  "confidence": 0.116814606,
+  "top_source": "Put in wave.txt",
+  "top_category": "ORDER PREPARATION",
+  "sources": [
+   "Put in wave.txt",
+   "Using order Templates.txt",
+   "Put in wave (1).txt",
+   "Distribution template.txt"
+  ],
+  "elapsed_s": 1.3,
+  "error": null
+ },
+ {
+  "id": "N3",
+  "question": "Write me a Python script to parse GRN PDFs.",
+  "asked": [
+   "Write me a Python script to parse GRN PDFs."
+  ],
+  "answer": "",
+  "refused": true,
+  "reason": "below_threshold",
+  "confidence": 0.18120559,
+  "top_source": "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
+  "top_category": "Speed Support Document",
+  "sources": [
+   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
+   "Reverse Closed GRN.json",
+   "Check Receipt Lines.json",
+   "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt"
+  ],
+  "elapsed_s": 1.2,
+  "error": null
+ },
+ {
+  "id": "N4",
+  "question": "What is the current stock level of article 4711 in Pomona?",
+  "asked": [
+   "What is the current stock level of article 4711 in Pomona?"
+  ],
+  "answer": "I do not have enough information to answer this. Please contact support.",
+  "refused": false,
+  "reason": null,
+  "confidence": 0.32280394,
+  "top_source": "MIL_DAT.json",
+  "top_category": "Database Tables",
+  "sources": [
+   "MIL_DAT.json",
+   "Transfer to advanced preparation area.txt",
+   "LOREAL ZPA Replenishment Process Redesign (Volume-Based Logic).txt",
+   "LOREAL Free Location Search Rule Based on Article Classification and Dynamic Picking Threshold.txt"
+  ],
+  "elapsed_s": 3.1,
+  "error": null
+ },
+ {
+  "id": "N5",
+  "question": "What are your capabilities?",
+  "asked": [
+   "What are your capabilities?"
+  ],
+  "answer": "I am **Puks**, a support assistant for **Speed WMS**. I answer questions strictly from the warehouse documentation loaded into my knowledge base — I retrieve the relevant pages first and answer only from what they say, citing the source document.\n\n**Documentation areas I cover:**\n- internal support procedures and SQL fixes\n- L'Oréal-specific specifications\n- General\n- Speed database tables (schemas, keys, joins)\n- Order preparation\n- Receiving goods\n- Loading\n- Replenishment of the picking location\n- resolved support tickets\n- Manufacturing\n- Packaging\n- Storage\n- Sampling\n- Stock management\n\n**Good questions to ask:** how a procedure works (\"How do I close a receipt?\"), what a status code or field means, which table or column holds something, how tables join, and how a known support issue was resolved.\n\n**What I cannot do:** I cannot see live warehouse data or stock levels, run queries, change anything in Speed, or answer questions outside this documentation. When the documents do not cover a question, I say so rather than guessing.\n\n",
+  "refused": false,
+  "reason": "self_description",
+  "confidence": null,
+  "top_source": null,
+  "top_category": null,
+  "sources": [],
+  "elapsed_s": 0.0,
+  "error": null
+ }
+]
