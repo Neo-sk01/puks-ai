@@ -433,7 +433,7 @@ The three with nothing are **Cancel the Order**, **Clean Up Temporary Table** an
 - ✅ **`Help Page.py` mock** and **`07_llm_answer_generation - Copy.ipynb`** — both deleted
 - ⚠️ **Stale vector store** at `APPLICATION(STREAMLIT)/data/vector_store` — still there, still delete it (§4)
 - ⚠️ **`ci-cd.yml` and `docs/DEPLOYMENT.md` are fiction** (§7)
-- ⚠️ **No ground truth.** The largest remaining gap, and the reason none of the fixes above can be *proved* to have helped. See [§5.1](#51-the-acceptance-set).
+- ✅ **Ground truth — partly.** The 65-question acceptance set ([§5.1](#51-the-acceptance-set)) states the expected source and must-contain facts per question and records every answer, so retrieval changes are now diffable. What it still lacks is a *scored* run by the support team — the PASS/PART/FAIL tracker is waiting for them.
 
 ---
 
