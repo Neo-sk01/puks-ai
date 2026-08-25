@@ -2,7 +2,7 @@
 
 > **Predictive Unified Knowledge System.** A RAG assistant that answers Speed WMS support questions from AGL's warehouse documentation.
 
-**Status: not deployed, but unblocked.** The app runs from a clean checkout once you supply a key and rebuild the index ([§4](#4-running-it-locally)). Azure access is granted and sufficient to deploy — via API keys rather than managed identity. Read [§1](#1-read-this-first) first.
+**Status: running locally on the Next.js + FastAPI stack, not yet deployed.** The index is committed and current, the front end is built, generation and reranking run on AGL's Foundry resource, and a 65-question acceptance set with recorded results lives in `docs/`. What is left is the Foundry embedding deployment ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)) and the deployment itself. Read [§1](#1-read-this-first) first.
 
 > **This repository is public.** Nothing tenant-specific belongs in it: no resource names, no object IDs, no access chains, no network posture. That material lives in `ENVIRONMENT.local.md`, which is gitignored — see [§6](#6-the-environment). Check before you commit.
 
@@ -30,8 +30,8 @@ Five things that will otherwise cost you a day each.
 | # | Thing |
 |---|---|
 | 1 | **Three live Groq API keys were published to a public GitHub repo. Rotate them anyway.** Groq is no longer used — generation, embeddings and reranking all run on Foundry now — but the keys are still valid at `console.groq.com` and were public. Revoke them. See `ENVIRONMENT.local.md`. |
-| 2 | **You must rebuild the index before the app will run.** Embeddings moved to `text-embedding-3-large` (3072-dim), so the committed 384-dim index is unusable. `python SCRIPTS/build_index.py`. See [§4](#4-running-it-locally). |
-| 3 | **There is still no ground truth.** Retrieval changed substantially and nothing in the repo can show whether it improved. `SCRIPTS/07_retrieval_baseline.ipynb` captures a before/after baseline over the eight seed queries — run it. See [§5.1](#51-the-only-evaluation-asset-that-exists). |
+| 2 | **The committed index is current** (rebuilt 2026-08-24: 627 vectors, 3072-dim, `metadata.json`). You only rebuild after a corpus change. `Corpus()` refuses a dimension mismatch rather than answering wrongly. See [§4](#4-running-it-locally). |
+| 3 | **There is now an acceptance set — use it.** 65 questions written against the corpus, each with must-contain facts and the expected source file, plus every recorded answer in a Results tab: `docs/acceptance-questions.html`. Re-run with `SCRIPTS/run_acceptance.py` after any retrieval change. It is what the refusal gate was calibrated on. See [§5.1](#51-the-acceptance-set). |
 | 4 | **Azure access is granted, and it is enough to deploy — via keys, not managed identity.** The role we hold cannot create role assignments, so the keyless design in older drafts of this file is unreachable. The key-based path works today and is written out in [§6](#6-the-environment). |
 | 5 | **`ci-cd.yml` and `docs/DEPLOYMENT.md` are fiction.** They deploy to app names that do not exist, in a region this project does not use, with a Groq key nothing reads. Do not follow them. |
 
@@ -67,6 +67,9 @@ A support agent asks *"how do I reverse a closed GRN?"*. Puks AI finds the most 
 ```
 Question
    │
+   ├─ is_self_description()   "what can you do?" → capabilities answer, no retrieval
+   ├─ is_unanchored_followup() "and those fields?" with no history → ask, no retrieval
+   ├─ expand_query()          grn→receipt, gdn→delivery note, lpn→support, mo→…
    ├─ classify_query()        schema / operational / SQL intent
    │
    ├─┬─ Dense    text-embedding-3-large, 3072-dim, IndexFlatIP, top 60
@@ -75,16 +78,18 @@ Question
    │        │
    │        └─ Reciprocal Rank Fusion (k=60) → top 50
    │
-   ├─ Cohere-rerank-v4.0-pro   top 50 → top 5, relevance in [0,1]
+   ├─ Cohere rerank            top 50 → top 5, relevance in [0,1]; gate 0.75 (Foundry v4.0-pro) / 0.30 (public v3.5)
    │
    ├─ build_prompt()           context-only guardrails, 8-turn memory
    │
    └─ gpt-5                    reasoning_effort=low, max_completion_tokens
 ```
 
-**All three models run on a single Azure Foundry resource**, authenticated with one account key. No request leaves the AGL tenant, and there is no third-party API in the path. Resource names, endpoints and the deployment runbook are in `ENVIRONMENT.local.md` — see [§6](#6-the-environment).
+**Each role has a provider**, and the intent is that all three run on AGL's Foundry resource with one account key so no request leaves the tenant. Today (2026-08-25) **generation and reranking do** — `gpt-5` and `Cohere-rerank-v4.0-pro` are deployed and answer — while **embeddings still reach the public OpenAI API**, because the Foundry `text-embedding-3-large` deployment exists but is not served ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)). Same model either way, so the index is unaffected. `PUKS_PROVIDER` sets the default for every role; `PUKS_CHAT_PROVIDER` / `PUKS_EMBED_PROVIDER` / `PUKS_RERANK_PROVIDER` override one. The sidebar and the About page show where each role runs. Resource names, endpoints and the deployment runbook are in `ENVIRONMENT.local.md` — see [§6](#6-the-environment).
 
-The retrieval core is `puks_rag.py` at the repo root. It imports no Streamlit, so the planned Next.js/FastAPI backend ([§8](#8-where-this-is-going)) can use it unchanged, and `SCRIPTS/build_index.py` shares `enrich_text()` with it rather than keeping a second copy.
+Two things about the Foundry Cohere deployment that cost half a day: the rerank route is the model-inference **v1** path on the `services.ai.azure.com` host with the `api-version` query string in the URL (the app derives it from the endpoint), and **v4.0-pro scores ~0.5 higher than public rerank-v3.5** across the board — off-topic questions land at 0.4–0.7 — so the refusal gate is keyed to the reranker (§7.2).
+
+The retrieval core is `puks_rag.py` at the repo root. It imports no Streamlit, so the FastAPI backend in `api/` uses it unchanged, and `SCRIPTS/build_index.py` shares `enrich_text()` with it rather than keeping a second copy.
 
 ### What changed from the original pipeline
 
@@ -100,6 +105,19 @@ The retrieval core is `puks_rag.py` at the repo root. It imports no Streamlit, s
 | Confidence | unbounded CrossEncoder logit | Cohere relevance, calibrated `[0,1]` |
 | Dependencies | torch + transformers + sentence-transformers, ~2 GB | `openai` + `requests`, ~40 MB |
 
+*Front end, providers and evaluation — 2026-08-24/25.*
+
+| | |
+|---|---|
+| **Next.js front end** (`web/`) replaces Streamlit: streaming chat, provenance rail per answer, "Show retrieved context" panel, About page, AGL graphic-charter palette and logo | ✅ |
+| **FastAPI backend** (`api/`): `/health`, `/api/config`, `/api/answer`, streaming `/api/chat` (SSE: `retrieved` → `token`… → `done`) | ✅ |
+| **Provider per role** — Foundry or public OpenAI/Cohere, chosen per role; the variable names the Foundry portal hands out (`FOUNDRY_API_ENDPOINT`, `FOUNDRY_API_KEY`, `COHERE_API_KEY_FOUNDRY`) are accepted as aliases | ✅ |
+| **Self-description** — "what are your capabilities?" no longer refuses; answered from the loaded corpus categories, no model call | ✅ |
+| **Unanchored follow-ups** — a leading-anaphora question with no history asks what is meant instead of retrieving something and answering as if | ✅ |
+| **Query expansion** — `grn`→`receipt` etc. *substituted* before dense retrieval and rerank (appending does not work: the reranker still prefers the one ticket titled "GRN"), originals kept for BM25 | ✅ |
+| **Refusal gate calibrated** on the acceptance set, per reranker (§7.2) | ✅ |
+| **Acceptance set** — 65 questions + recorded results, runner and page builder in `SCRIPTS/` | ✅ |
+
 The old `W_VECTOR / W_BM25 / W_HYBRID / W_RERANK` constants are gone. They never meant what they appeared to — the CrossEncoder used Identity activation, so `predict()` returned unbounded logits (roughly ±11) that were summed onto a bounded quantity, and the reranker actually carried 77–95% of the score variance rather than the nominal 30%. RRF removes the need to tune anything: it operates on ranks, not scores, so no retriever's score scale can dominate another's.
 
 ---
@@ -107,11 +125,25 @@ The old `W_VECTOR / W_BM25 / W_HYBRID / W_RERANK` constants are gone. They never
 ## 3. Repository layout
 
 ```
-puks_rag.py               ← THE CORE. Retrieval, reranking, generation, prompts.
+puks_rag.py               ← THE CORE. Retrieval, reranking, generation, prompts, guards.
                             No Streamlit import — reusable by any backend.
 
+api/
+  main.py                 FastAPI: /health, /api/config, /api/answer, /api/chat (SSE)
+  engine.py               loads Corpus once at startup; reports not-ready instead of crashing
+  mock.py                 PUKS_MOCK=1 — fixtures, no keys, for UI work and tests
+
+web/                      Next.js 16 front end (App Router, Tailwind v4)
+  app/                    page.tsx (chat), about/, icons; layout.tsx self-hosts the fonts
+  components/             ChatView, Sidebar, Composer, RetrievalPanel, Markdown, NotReadyBanner
+  lib/                    types.ts (mirrors puks_rag.WIRE_FIELDS), provider.ts, server.ts (FASTAPI_URL)
+  public/agl-logo.png     AGL mark, background knocked out
+
+tests/                    pytest: guards, prompt assembly, streaming contract, API, provider resolution
+                          (no network, no keys); web/ has its own vitest suite
+
 APPLICATION(STREAMLIT)/
-  APP.py                  Streamlit UI over puks_rag. UI only.
+  APP.py                  Streamlit UI over puks_rag. Superseded by web/; kept until deployment.
   data/vector_store/      ⚠ STALE — 200 vectors at 768 dims, a different model. Delete.
   style/style.css
   Pictures/
@@ -130,41 +162,54 @@ DATA/
 
 SCRIPTS/
   build_index.py          rebuilds DATA/vector_store — run after any corpus change
+  run_acceptance.py       sends docs/acceptance-questions.html to the local API → docs/acceptance-results.json
+  build_acceptance_page.py injects those results into the sheet as a Results tab
   01-05, 08               the build pipeline, see §5
   06_rag_pipeline         end-to-end harness over puks_rag
   07_retrieval_baseline   before/after baseline over the 8 seed queries
+
+docs/
+  acceptance-questions.html  ← THE EVALUATION SET. 65 questions, expected facts + source, Results tab
+  acceptance-results.json    every recorded answer, source, relevance, timing
 Powerapps/                Power Automate HTML email templates (Dataverse-backed, separate system)
 Handover Documents/       AGL_Handover_1_Overview.pdf
 docs/DEPLOYMENT.md        ⚠ boilerplate, targets a greenfield RG that does not exist
 .github/workflows/        ⚠ aspirational, see §7
 .env.example              every setting the app reads
+.env / .env.local         gitignored; .env.local overrides .env; real env vars override both
 ```
 
 ---
 
 ## 4. Running it locally
 
-The hardcoded Windows paths are gone — `puks_rag.py` resolves everything relative to the repo root. What you need now is a key and an index.
+`puks_rag.py` resolves everything relative to the repo root and loads `.env.local` then `.env` itself. What you need is credentials; the index is committed.
 
 ```bash
 python3.11 -m venv .venv && source .venv/bin/activate   # 3.10+ also resolves
-pip install -r requirements.txt                         # ~40 MB now, not 2 GB
+pip install -r requirements.txt                         # ~40 MB
+cp .env.example .env.local                              # gitignored
 
-cp .env.example .env                                    # or .env.local, which overrides .env
+# Credentials — any of these shapes works, see .env.example:
+#   Foundry only          FOUNDRY_API_ENDPOINT + FOUNDRY_API_KEY  (the portal's names; AZURE_AI_* also accepted)
+#   Foundry + OpenAI      …plus OPENAI_API_KEY and PUKS_EMBED_PROVIDER=openai — today's working setup, see §7.8
+#   No Foundry access     PUKS_PROVIDER=openai with OPENAI_API_KEY and COHERE_API_KEY
 
-# EITHER — production stack (Azure Foundry):
-az cognitiveservices account keys list \
-  -g <resource-group> -n <foundry-resource> \
-  --query key1 -o tsv                                   # paste into AZURE_AI_KEY
+# Backend (FastAPI) — one terminal
+.venv/bin/python -m uvicorn api.main:app --host 127.0.0.1 --port 8001
+curl -s localhost:8001/health          # ready, index dims, provider per role
 
-# OR — no Foundry access: PUKS_PROVIDER=openai with OPENAI_API_KEY and
-# COHERE_API_KEY (public APIs, same models — see .env.example).
+# Front end (Next.js) — another terminal
+cd web && npm install && npm run dev   # http://localhost:3000; FASTAPI_URL defaults to :8001
 
-python SCRIPTS/build_index.py                           # ~1 min, one embedding pass; only if the index is stale
-streamlit run "APPLICATION(STREAMLIT)/APP.py"
+# No keys at all?  PUKS_MOCK=1 on the backend serves fixtures — enough for UI work.
 ```
 
-`.env` is gitignored; `.env.example` documents every setting.
+Tests: `.venv/bin/python -m pytest -q` (93, no network) and `cd web && npm test && npx tsc --noEmit && npm run lint`.
+
+To re-run the acceptance set against a running backend: `python SCRIPTS/run_acceptance.py` (all 65, ~12 min; `--only C3,C5` for a subset, merged into the previous results) then `python SCRIPTS/build_acceptance_page.py`.
+
+The Streamlit app (`streamlit run "APPLICATION(STREAMLIT)/APP.py"`) still runs but is superseded by `web/`.
 
 ### Index status
 
@@ -227,9 +272,13 @@ Run in order. Every notebook has hardcoded Windows paths that need the same fix 
 | `08_end_to_end_validation` | — | ⚠ **a 4-cell stub.** Its entire code is `print('Full system validation')` and `pip install streamlit`. There is no end-to-end validation. |
 | `table_scheme` | `DATA/Database Tables/` (xlsx) | schema JSON |
 
-### 5.1 The only evaluation asset that exists
+### 5.1 The acceptance set
 
-`05_retrieval_testing.ipynb` carries an 8-query `test_queries` list. It is not a golden set — there are no expected answers — but it is the seed of one, and it is the only thing in the repo resembling a test:
+`docs/acceptance-questions.html` — 65 questions in eleven groups (receiving, order preparation, loading, replenishment/storage/stock, sampling/manufacturing/packaging, general settings, database tables & SQL, support procedures & tickets, L'Oréal specs, follow-ups & phrasing, should-refuse), each stating the facts a correct answer must contain and the source file it lives in. The page carries a PASS / PART / FAIL tracker per question and a **Results** tab with every recorded answer, its top source, rerank relevance and timing (`docs/acceptance-results.json`).
+
+Findings from the runs so far, all fixed unless noted: `how to close a grn` retrieved the Jinko GRN ticket instead of *Receipt closure* (query expansion); a follow-up after a memory reset was answered from whatever it happened to retrieve (unanchored-follow-up guard); "what are your capabilities" refused (self-description). Still open as judgement calls: T7 lists a ticket whose root cause is literally `test` without flagging it; D7 returns the reference SQL verbatim rather than templating the order number in; G3 lands on the SOP knowledge base rather than *User profiles and rights management*.
+
+The original 8-query seed list from `05_retrieval_testing.ipynb` is subsumed by it and kept here for reference:
 
 ```python
 # Operational
@@ -245,7 +294,7 @@ Run in order. Every notebook has hardcoded Windows paths that need the same fix 
 "Explain warehouse picking process"
 ```
 
-**Capture a baseline against these before you change retrieval.** Record which source documents come back in the top 5 for each. Without that, fixing defect §7.1 is unfalsifiable — you will have no way to show the change helped rather than hurt. Note that *"How do I reverse a GRN?"* retrieves a 165-character chunk whose SQL exists but is never rendered into the prompt (§7.6) — a useful canary for the context-assembly bug as well as for retrieval.
+**Re-run the acceptance set before and after any retrieval change** and diff `acceptance-results.json` (top source and relevance per question). That is the falsifiability the seed list never had.
 
 ### 5.2 `structured_data` is not uniformly shaped
 
@@ -289,7 +338,7 @@ That file is the one to read before touching Azure. It covers:
 
 If you do not have it, ask the environment owner rather than reconstructing it. The reconstruction is how identifiers end up somewhere public.
 
-> To run anything you need `AZURE_AI_KEY` and a Foundry resource carrying three deployments: a chat model, `text-embedding-3-large`, and `Cohere-rerank-v4.0-pro`. `.env.example` lists every setting the app reads. Nothing else in this README depends on the environment.
+> To run fully in-tenant you need the Foundry endpoint and key and a resource carrying three **served** deployments: `gpt-5`, `text-embedding-3-large`, and `Cohere-rerank-v4.0-pro`. The first and third are confirmed; the embedding deployment is listed but not served ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)), so embeddings currently use a public OpenAI key. `.env.example` lists every setting the app reads. Nothing else in this README depends on the environment.
 
 ---
 
@@ -303,13 +352,20 @@ If you do not have it, ask the environment owner rather than reconstructing it. 
 
 **Verify it, do not take it on trust.** `SCRIPTS/07_retrieval_baseline.ipynb` reports how many top-5 hits were reachable *only* via BM25 — those are precisely the documents the old pipeline could never have returned. If that number is zero across all eight seed queries, the fix is not earning its keep and something is wrong.
 
-### 7.2 The refusal threshold — ⚠️ now meaningful, still uncalibrated
+### 7.2 The refusal threshold — ✅ CALIBRATED 2026-08-25, per reranker
 
 *The old `CONFIDENCE_THRESHOLD = 0.01` compared a blend of a bounded hybrid score against an **unbounded** CrossEncoder logit, so its effective strictness varied roughly 7× depending on which metadata boosts happened to fire — loosest exactly when retrieval was most driven by hand-tuned priors.*
 
 Confidence is now Cohere's relevance score for the top hit: a calibrated quantity in `[0,1]` that means the same thing on every query. The scale problem is gone.
 
-**The number itself is still a guess.** `PUKS_CONFIDENCE_THRESHOLD` defaults to `0.30` and has never been tuned against real queries. Calibrate it before anyone relies on the refusal: run the eight seed queries plus a handful of deliberately off-corpus ones and find the value that separates them. This matters more than it sounds — the answers include SQL that people run against a live WMS.
+Measured on the 65-question acceptance set, the two rerankers separate cleanly but on different scales:
+
+| Reranker | Lowest answerable | Highest should-refuse | Gate |
+|---|---:|---:|---:|
+| public Cohere `rerank-v3.5` | 0.35 | 0.18 | **0.30** |
+| Foundry `Cohere-rerank-v4.0-pro` | 0.84 | 0.70 | **0.75** |
+
+The default therefore follows `RERANK_PROVIDER`; `PUKS_CONFIDENCE_THRESHOLD` overrides. Left at 0.30, the Foundry reranker would have answered three of the four off-topic probes (SAP EWM wave templates at 0.70, a live stock-level question at 0.51, a request to write a script at 0.40). The model itself refused those anyway from the context-only prompt — a second line of defence, not a reason to skip the first.
 
 ### 7.3 Intent classification inverts on common queries — ✅ FIXED 2026-08-21
 
@@ -377,22 +433,24 @@ The three with nothing are **Cancel the Order**, **Clean Up Temporary Table** an
 - ✅ **`Help Page.py` mock** and **`07_llm_answer_generation - Copy.ipynb`** — both deleted
 - ⚠️ **Stale vector store** at `APPLICATION(STREAMLIT)/data/vector_store` — still there, still delete it (§4)
 - ⚠️ **`ci-cd.yml` and `docs/DEPLOYMENT.md` are fiction** (§7)
-- ⚠️ **No ground truth.** The largest remaining gap, and the reason none of the fixes above can be *proved* to have helped. See [§5.1](#51-the-only-evaluation-asset-that-exists).
+- ⚠️ **No ground truth.** The largest remaining gap, and the reason none of the fixes above can be *proved* to have helped. See [§5.1](#51-the-acceptance-set).
 
 ---
 
+### 7.8 The Foundry embedding deployment is not served
+
+*Open as of 2026-08-25.* A `text-embedding-3-large` deployment exists on the Foundry resource — it appears in the deployment list with `status: succeeded` — but inference returns `DeploymentNotFound` on every API version, both hostnames and the model-inference route, apart from two isolated successes in ~100 attempts over an hour. `gpt-5` and the Cohere rerank deployment on the same resource and key answer every time, so credentials and endpoint are not the cause. It cannot be fixed from this side: the resource key cannot manage deployments and the role we hold lacks `deployments/read`. Someone with portal rights should delete the deployment and recreate it as *Global Standard* with default capacity. Until then `PUKS_EMBED_PROVIDER=openai` with an OpenAI key keeps retrieval running — same model, same index.
+
 ## 8. Where this is going
 
-*Two of the three items below are now done.* Retrieval was reworked so both search methods cover the full corpus, and generation moved off Groq onto the provisioned `gpt-5` — with an account key rather than managed identity, because our role cannot create the role assignment ([§6](#6-the-environment)).
+*All three original items are done:* retrieval covers the full corpus with both methods, generation runs on the provisioned `gpt-5`, and the **Next.js front end** (`web/` + `api/`) has replaced Streamlit in development — on the AGL graphic-charter palette, with the acceptance set behind it.
 
-What remains is the **Next.js front end replacing Streamlit**. `puks_rag.py` was written with no Streamlit import specifically so it can sit behind a FastAPI route unchanged.
+What remains, in order:
 
-Work that needs **no Azure access** and can start immediately:
-
-- **Build the evaluation set.** Still the highest-value unblocked work: `07_retrieval_baseline.ipynb` detects change, not correctness, because the eight seed queries have no expected answers
-- Front-end shell against `puks_rag.answer()`
-- Calibrate `PUKS_CONFIDENCE_THRESHOLD` — it defaults to 0.30 on Cohere's scale and has not been tuned against real queries
-- Delete `APPLICATION(STREAMLIT)/data/vector_store/`
+- **Get the Foundry embedding deployment served** ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)) and drop the OpenAI key — then every request stays in the tenant
+- **Deploy** the FastAPI backend and the Next.js app to the App Service estate per the runbook in `ENVIRONMENT.local.md`; `docs/DEPLOYMENT.md` and `ci-cd.yml` remain fiction
+- **Score the acceptance set with the support team** — the PASS/PART/FAIL tracker is there for them; the three open judgement calls in §5.1 need their view
+- Delete `APPLICATION(STREAMLIT)/` once deployed; delete `APPLICATION(STREAMLIT)/data/vector_store/` now
 
 Everything touching Azure is gated on the access grant in [§6](#6-the-environment). Request it first; it has the longest lead time.
 
@@ -405,8 +463,8 @@ Everything touching Azure is gated on the access grant in [§6](#6-the-environme
 5. Does AGL run **VNet-resident CI runners**? If so, the private site becomes viable and most deployment complexity disappears.
 6. Who owns **data residency** sign-off? `gpt-5` is `GlobalStandard`, which may route outside the EU, and the SKU cannot be changed in place.
 7. Is there a **real support ticket queue** to draw evaluation questions from? This repo has only two tickets.
-8. Is **User Access Administrator** on `RGRT001` obtainable? Not a blocker — it upgrades the deployment from keys to managed identity.
+8. Is **User Access Administrator** on the resource group obtainable? Not a blocker — it upgrades the deployment from keys to managed identity.
 
 ---
 
-*Environment facts were read from `main.bicep` (exported 2026-08-18) and verified against the repository. Azure behaviour was verified against Microsoft Learn on 2026-08-19 and 2026-08-21. Permission and RBAC facts in [§6](#6-the-environment) were confirmed live on 2026-08-21 via Azure CLI. Anything still marked unverified has not been confirmed against the live subscription.*
+*Environment facts were read from `main.bicep` (exported 2026-08-18) and verified against the repository. Azure behaviour was verified against Microsoft Learn on 2026-08-19 and 2026-08-21. Permission and RBAC facts in [§6](#6-the-environment) were confirmed live on 2026-08-21 via Azure CLI. Foundry deployment behaviour (rerank route, embedding deployment, gate calibration) was measured live on 2026-08-25 against the resource's data plane. Anything still marked unverified has not been confirmed against the live subscription.*
