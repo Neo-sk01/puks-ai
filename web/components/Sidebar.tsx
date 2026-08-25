@@ -21,6 +21,8 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
         <h1 className="font-display text-lg font-medium uppercase tracking-[0.04em]">
           Puks AI
         </h1>
+        {/* The charter's title rule: a short AGL Yellow bar under the wordmark. */}
+        <div aria-hidden="true" className="mt-1.5 mb-2 h-1 w-14 bg-brand" />
         <p className="text-sm text-muted">Enterprise Speed WMS Intelligence</p>
       </div>
 
@@ -45,7 +47,7 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
             max={config?.top_k_max ?? 10}
             value={topK}
             onChange={(e) => onTopK(config ? clampTopK(Number(e.target.value), config) : Number(e.target.value))}
-            className="accent-signal"
+            className="accent-brand"
           />
         </label>
         <label className="flex items-center gap-2 text-sm">

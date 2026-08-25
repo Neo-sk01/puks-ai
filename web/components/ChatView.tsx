@@ -55,7 +55,7 @@ function HeaderStrip({ chunk, confidence }: { chunk: Chunk; confidence: number }
  *  - Streaming, before the first token: a slow shimmer — gpt-5 reasons
  *    before its first output token, so this covers the dead air.
  *  - Otherwise: segmented into up to three stacked parts for the top
- *    chunk's retrievers (dense, bm25, exact) — lit in --color-signal,
+ *    chunk's retrievers (dense, bm25, exact) — lit in --color-brand (AGL Yellow),
  *    unlit in --color-rule.
  *
  *  Decorative only (aria-hidden); the header strip and caption already
@@ -79,7 +79,7 @@ function ProvenanceRail({
     return (
       <div
         aria-hidden="true"
-        className="w-[2px] shrink-0 animate-pulse self-stretch rounded-full bg-gradient-to-b from-rule via-signal to-rule md:w-[3px]"
+        className="w-[2px] shrink-0 animate-pulse self-stretch rounded-full bg-gradient-to-b from-rule via-brand to-rule md:w-[3px]"
       />
     );
   }
@@ -99,7 +99,7 @@ function ProvenanceRail({
       className="flex w-[2px] shrink-0 flex-col gap-[2px] self-stretch overflow-hidden rounded-full md:w-[3px]"
     >
       {segments.map(([key, lit]) => (
-        <div key={key} className={lit ? "flex-1 bg-signal" : "flex-1 bg-rule"} />
+        <div key={key} className={lit ? "flex-1 bg-brand" : "flex-1 bg-rule"} />
       ))}
     </div>
   );

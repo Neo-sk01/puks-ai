@@ -6,8 +6,7 @@ import remarkGfm from "remark-gfm";
  *  rather than pushing the page wide.
  *
  *  Colour and type come from the design tokens (globals.css) rather than the
- *  typography plugin's default palette: prose-invert supplies the base
- *  light-on-dark scale, and the prose-* modifiers below pin body text,
+ *  typography plugin's default palette: the prose-* modifiers below pin body text,
  *  links, and rules to --color-type / --color-signal / --color-rule. Code —
  *  inline and fenced — is IBM Plex Mono at 13px per the design direction,
  *  since every code, table name, and SQL block in this corpus is a fixed
@@ -15,7 +14,7 @@ import remarkGfm from "remark-gfm";
 export function Markdown({ children }: { children: string }) {
   return (
     <div
-      className="prose prose-invert max-w-none text-[15px] leading-[1.7] text-type
+      className="prose max-w-none text-[15px] leading-[1.7] text-type
         prose-headings:font-display prose-headings:font-medium prose-headings:text-type
         prose-p:text-type prose-strong:text-type prose-em:text-type
         prose-li:text-type prose-ul:text-type prose-ol:text-type

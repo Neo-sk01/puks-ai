@@ -1,19 +1,38 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Design tokens — see .superpowers/sdd/2026-08-21-nextjs-frontend/design-direction.md
+/* Design tokens — AGL graphic charter, "Primary colour palette" (p. 7).
+ *
+ * The charter is a white-ground identity: AGL Blue for type and structure,
+ * AGL Yellow as the single accent, tints of each at 70 / 50 / 20 %. The UI
+ * follows it exactly. Yellow never carries text — #EED58E on white fails
+ * contrast — it is a fill: the wordmark rule, the provenance rail, the
+ * slider. Blue does the reading work.
  *
  * --color-hazard carries meaning, never decoration. It is reserved for
  * exactly three places: a refused answer, the not-ready banner, and the
- * rerank-unconfigured warning. If amber shows up, something did not answer. */
+ * rerank-unconfigured warning. It is deliberately a darker ochre than the
+ * brand yellow so the two are never confused. */
 @theme {
-  --color-ink: #10151c; /* ground — cold slate, deliberately not #000 */
-  --color-bay: #171e27; /* raised surface: sidebar, cards, code blocks */
-  --color-rule: #263140; /* hairlines, borders, dividers */
-  --color-type: #dce3ec; /* primary text — cool off-white */
-  --color-muted: #7c8ca0; /* labels, captions, field names */
-  --color-signal: #35a7d9; /* signage blue — links, focus, active nav, dense/bm25 chips */
-  --color-hazard: #e8a33d; /* amber — RESERVED, see comment above */
+  /* AGL primary palette */
+  --color-agl-blue: #1b365f;    /* Pantone 534C · RAL 5013 */
+  --color-agl-yellow: #eed58e;  /* Pantone 7403C · RAL 1002 */
+  --color-agl-blue-70: #5f728f;
+  --color-agl-blue-50: #8d9baf;
+  --color-agl-blue-20: #d1d7df;
+  --color-agl-yellow-70: #f3e2b0;
+  --color-agl-yellow-50: #f7eac7;
+  --color-agl-yellow-20: #fcf7e9;
+
+  /* Roles */
+  --color-ink: #ffffff;                  /* ground — charter white, RAL 9003 */
+  --color-bay: #f4f6f9;                  /* raised surface: sidebar, cards, code blocks (blue at ~6 %) */
+  --color-rule: var(--color-agl-blue-20); /* hairlines, borders, dividers — blue 20 % tint */
+  --color-type: var(--color-agl-blue);   /* primary text — AGL Blue */
+  --color-muted: var(--color-agl-blue-70); /* labels, captions, field names — blue 70 % tint */
+  --color-signal: var(--color-agl-blue); /* links, focus, active nav, retriever chips */
+  --color-brand: var(--color-agl-yellow); /* the accent: fills only, never text */
+  --color-hazard: #a8650a;               /* ochre — RESERVED, see comment above */
 }
 
 /* Fonts are self-hosted via next/font/google in app/layout.tsx and exposed
@@ -23,6 +42,10 @@
   --font-sans: var(--font-ibm-plex-sans);
   --font-mono: var(--font-ibm-plex-mono);
   --font-display: var(--font-archivo);
+}
+
+:root {
+  color-scheme: light;
 }
 
 body {
