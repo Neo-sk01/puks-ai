@@ -579,9 +579,9 @@
 <div class="run-meta">
   <span><b>65</b> questions run</span>
   <span><b>3</b> gated refusals (&lt; 0.30)</span>
-  <span><b>3</b> model-side refusals</span>
+  <span><b>2</b> model-side refusals</span>
   <span>median relevance <b>0.82</b></span>
-  <span>total <b>11.7 min</b>, median <b>7.1s</b></span>
+  <span>total <b>11.7 min</b>, median <b>7.4s</b></span>
   <span>run 2026-08-25</span>
 </div>
 <section><div class="sec-head"><h2>Receiving goods</h2><span class="tag">R</span></div>
@@ -630,43 +630,40 @@
 <div class="q r-answered" data-id="R2"><span class="id">R2</span><div>
   <p class="ask">What does the &quot;Top Stock Input&quot; field on a receipt line mean?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.904</b></span><span>9.9s</span><span class="src">top: <span>Stock generation.txt</span></span></div>
-  <div class="answer"><p>The “Top Stock Input” field on a receipt line indicates the stock generation status for that line—i.e., whether the goods have been turned into available stock.</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.904</b></span><span>8.5s</span><span class="src">top: <span>Stock generation.txt</span></span></div>
+  <div class="answer"><p>The Top Stock Input field on a receipt line indicates its stock generation status.</p>
 <ul>
-<li style="margin-left:0em">0 = Line added to receipt but not generated in stock</li>
-<li style="margin-left:1em">No stock entry movement is created</li>
-<li style="margin-left:1em">Goods cannot be used in logistics flows</li>
-<li style="margin-left:0em">1 = Line generated in stock</li>
-<li style="margin-left:1em">Entry movement created</li>
-<li style="margin-left:1em">Associated expected items consumed</li>
-<li style="margin-left:1em">Goods available for logistics flows (e.g., picking, sampling)</li>
+<li style="margin-left:0em">0 (default): Line is added to the receipt but not yet generated in stock. No entry movement is created; goods are not available for logistics (picking, sampling, etc.).</li>
+<li style="margin-left:0em">1: Line has been generated in stock. Entry movement is created, associated expected items are consumed, and the goods become available for logistics flows.</li>
 </ul>
 <p>Key points:</p>
 <ul>
-<li style="margin-left:0em">The field updates from 0 to 1 when you click Generate Stock on the selected lines.</li>
+<li style="margin-left:0em">Top Stock Input starts at 0 when lines are validated/created.</li>
+<li style="margin-left:0em">Clicking Generate Stock updates it from 0 → 1 for selected lines.</li>
 <li style="margin-left:0em">Only lines with Top Stock Input = 0 can be generated.</li>
-<li style="margin-left:0em">Once generated (value = 1), the line cannot be modified or deleted.</li>
+<li style="margin-left:0em">Once generated (value = 1), the receipt line cannot be modified or deleted.</li>
 </ul></div>
   <p class="src">retrieved: <span>Stock generation.txt · End to End Receipt.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="R3"><span class="id">R3</span><div>
   <p class="ask">What can and can&#x27;t I do with a receipt once it&#x27;s closed?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.737</b></span><span>11.5s</span><span class="src">top: <span>Receipt closure.txt</span></span></div>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.737</b></span><span>11.2s</span><span class="src">top: <span>Receipt closure.txt</span></span></div>
   <div class="answer"><p>Here’s what you can and can’t do with a receipt after it’s closed in Speed WMS:</p>
-<p>What you can do</p>
+<p>You can:</p>
 <ul>
-<li style="margin-left:0em">Access the receipt in read-only/consultation (advisory) mode</li>
-<li style="margin-left:0em">View attached documents; printing remains available</li>
-<li style="margin-left:0em">Use the receipt data for reporting and audit purposes</li>
-<li style="margin-left:0em">Rely on the receipt as final for downstream/system integrations (feedback to n+1/ERP typically occurs after closure)</li>
+<li style="margin-left:0em">Access the receipt in read-only (consultation/advisory) mode</li>
+<li style="margin-left:0em">View and print attached documents</li>
+<li style="margin-left:0em">Use receipt data for reporting and audit purposes</li>
+<li style="margin-left:0em">Rely on it as the final, stable record for downstream/integration processes (feedback to external systems generally occurs after closure)</li>
 </ul>
-<p>What you cannot do</p>
+<p>You cannot:</p>
 <ul>
-<li style="margin-left:0em">Modify the receipt in any way</li>
-<li style="margin-left:0em">Add, edit, or delete receipt lines</li>
+<li style="margin-left:0em">Modify the receipt</li>
+<li style="margin-left:0em">Add new receipt lines</li>
+<li style="margin-left:0em">Edit or delete existing receipt lines</li>
 <li style="margin-left:0em">Add new media or attachments</li>
-<li style="margin-left:0em">Reopen the receipt (closure is final; reopening is not possible)</li>
+<li style="margin-left:0em">Reopen the receipt (closure is final)</li>
 </ul></div>
   <p class="src">retrieved: <span>Receipt closure.txt · End to End Receipt.txt · LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.txt</span></p>
 </div><div class="res"></div></div>
@@ -709,44 +706,52 @@
 <div class="q r-answered" data-id="R6"><span class="id">R6</span><div>
   <p class="ask">How do I generate a receipt from an expected reception?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.749</b></span><span>10.6s</span><span class="src">top: <span>Receipt generation from an exp.txt</span></span></div>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.749</b></span><span>10.2s</span><span class="src">top: <span>Receipt generation from an exp.txt</span></span></div>
   <div class="answer"><p>To generate a receipt from an expected reception in Speed WMS:</p>
 <ol>
-<li>Initiate from Expected Items</li>
+<li>Launch the process</li>
 </ol>
 <ul>
-<li style="margin-left:0em">In the Expected Receptions screen, select one or more expected lines for a single purchase order.</li>
-<li style="margin-left:0em">Right‑click (context menu) → Generate Receipt (associate the selected expected lines with a Speed receipt).</li>
-<li style="margin-left:0em">Note: Processing is strictly one purchase order at a time. Even if you select multiple expected lines, the entire PO is brought to the processing screen.</li>
+<li style="margin-left:0em">Select one or more expected lines in the expected items screen.</li>
+<li style="margin-left:0em">Open the context menu and choose Generate Receipt (associate the selected expected lines with a Speed receipt).</li>
+<li style="margin-left:0em">Note: You can process only one purchase order at a time. Even if you select multiple expected lines, the entire purchase order is brought to the processing screen.</li>
 </ul>
 <ol>
-<li>Review PO Lines on the Processing Screen</li>
+<li>Review and edit lines</li>
 </ol>
 <ul>
-<li style="margin-left:0em">All lines of the purchase order are displayed.</li>
-<li style="margin-left:0em">Editable fields are highlighted in yellow.</li>
+<li style="margin-left:0em">All lines of the purchase order are displayed; editable fields are highlighted in yellow.</li>
+<li style="margin-left:0em">For each expected line:</li>
+<li style="margin-left:1em">Check and, if needed, modify the quantity to generate (quantity to be returned to stock).</li>
+<li style="margin-left:1em">Tick the TG (“To Generate”) box to include the line in the receipt.</li>
+<li style="margin-left:1em">Variable-weight items: enter the total weight for the expected quantity.</li>
+<li style="margin-left:0em">Lines already received appear as G (“Generated”) and cannot be modified.</li>
 </ul>
 <ol>
-<li>Manage Expected Quantities per Line</li>
+<li>Handle partial receipts</li>
 </ol>
 <ul>
-<li style="margin-left:0em">Check the quantity to be returned to stock; modify if required.</li>
-<li style="margin-left:0em">Tick TG (“To Generate”) to include the line in the receipt.</li>
-<li style="margin-left:0em">Lines already received are marked G (“Generated”) and cannot be modified.</li>
-<li style="margin-left:0em">Variable‑weight items: enter the total weight for the expected quantity.</li>
-<li style="margin-left:0em">Partial receipt: if you enter less than expected, the line will be split and the remainder kept for future processing.</li>
+<li style="margin-left:0em">If you enter a quantity lower than expected, the system splits the line and keeps the remainder for future processing.</li>
 </ul>
 <ol>
 <li>Validate</li>
 </ol>
 <ul>
 <li style="margin-left:0em">Validate to create the receipt lines.</li>
+<li style="margin-left:0em">System constraints apply to prevent data inconsistency.</li>
+<li style="margin-left:0em">Expected lines remain editable until consumption (stock entry) starts; once stock entry is validated, expected quantities are reduced.</li>
 </ul>
-<p>Notes and rules</p>
+<ol>
+<li>Next step (stock generation)</li>
+</ol>
 <ul>
-<li style="margin-left:0em">One expected line = one planned receipt quantity; partial consumption is allowed (consumption = quantity received into stock).</li>
-<li style="margin-left:0em">Expected lines remain editable until stock entry (consumption) starts; once stock entry is validated, expected quantities are reduced.</li>
-<li style="margin-left:0em">After receipt lines are created, you can proceed to Stock Generation from the Receipt form (Lines) when ready.</li>
+<li style="margin-left:0em">Open the created Receipt → Lines.</li>
+<li style="margin-left:0em">Select lines for stock generation (Top Stock Input remains 0 until stock is actually generated).</li>
+</ul>
+<p>Key rules and limits</p>
+<ul>
+<li style="margin-left:0em">One purchase order per operation; repeat the process for additional POs.</li>
+<li style="margin-left:0em">Access is via the context menu on the expected items screen.</li>
 </ul></div>
   <p class="src">retrieved: <span>Receipt generation from an exp.txt · Management of expected receptions.txt · End to End Receipt.txt · LOREAL_MAROC_MACASLEA1.txt</span></p>
 </div><div class="res"></div></div>
@@ -1131,12 +1136,12 @@
 <div class="q r-answered" data-id="M1"><span class="id">M1</span><div>
   <p class="ask">What are the mandatory fields when creating a manufacturing order?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.953</b></span><span>2.8s</span><span class="src">top: <span>Creation of a manufacturing order.txt</span></span></div>
-  <div class="answer"><p>The mandatory fields for a Manufacturing Order (MO) are:</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.953</b></span><span>4.1s</span><span class="src">top: <span>Creation of a manufacturing order.txt</span></span></div>
+  <div class="answer"><p>The mandatory fields for creating a Manufacturing Order are:</p>
 <ul>
-<li style="margin-left:0em">MO Reference (unique identifier)</li>
+<li style="margin-left:0em">MO Reference (unique identifier of the manufacturing order)</li>
 <li style="margin-left:0em">Product Reference (finished product to be manufactured)</li>
-<li style="margin-left:0em">Quantity (units of the finished product to produce)</li>
+<li style="margin-left:0em">Quantity (number of units to produce)</li>
 </ul></div>
   <p class="src">retrieved: <span>Creation of a manufacturing order.txt · Creating and modifying an order.txt · Speed WMS – Internal Support &amp; Operations Reference Guide.txt · Creation of receipt lines.txt</span></p>
 </div><div class="res"></div></div>
@@ -2769,113 +2774,113 @@
 <div class="q r-answered" data-id="T2"><span class="id">T2</span><div>
   <p class="ask">Durban says weights are missing on a GDN picklist. Why does that happen and how do I fix it?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.891</b></span><span>10.5s</span><span class="src">top: <span>Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt</span></span></div>
-  <div class="answer"><p>Here’s why weights go missing on a GDN/Picklist in Durban (ZAR) and how to fix them, strictly per the documented procedure.</p>
-<p>Why this happens</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.856</b></span><span>11.1s</span><span class="src">top: <span>Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt</span></span></div>
+  <div class="answer"><p>Cause (Durban/Commodities GDN picklists)</p>
 <ul>
-<li style="margin-left:0em">Order validated then returned to Seizure: Weights are first stored in REL_DAT and inherited by STK_DAT. When stock leaves the system, STK_DAT is cleared. Bringing stock back does not automatically repopulate STK_DAT.</li>
-<li style="margin-left:0em">During reception: Weight information may not have been correctly inherited into STK_DAT (i.e., stock attributes not populated).</li>
+<li style="margin-left:0em">If an order was validated and then brought back to Seizure:</li>
+<li style="margin-left:1em">Weights are initially stored in REL_DAT and inherited by STK_DAT.</li>
+<li style="margin-left:1em">When stock leaves the system, STK_DAT weight fields are cleared.</li>
+<li style="margin-left:1em">Returning stock does not automatically repopulate STK_DAT.</li>
+<li style="margin-left:0em">Or, during reception, weight info may not have been correctly inherited into STK_DAT.</li>
 </ul>
-<p>How to fix it (Step-by-step)</p>
+<p>How to fix (step-by-step)</p>
 <ol>
-<li>Check the order is editable (not validated)</li>
+<li>Check the order is editable (not validated):</li>
 </ol>
-<p>Run: SELECT * FROM ope_dat WHERE ope_nooe = &#x27;order_number&#x27; AND act_code = &#x27;zar&#x27;;</p>
+<p>SELECT * FROM ope_dat WHERE ope_nooe = &#x27;order_number&#x27; AND act_code = &#x27;zar&#x27;;</p>
 <ol>
-<li>Check missions linked to the order</li>
+<li>Check missions linked to the order (only unvalidated supports can be updated):</li>
 </ol>
-<p>Run: SELECT * FROM mil_dat WHERE ope_nooe = &#x27;order_number&#x27; AND act_code = &#x27;zar&#x27;; Note: Some supports may already be validated (picked); only unvalidated supports can be updated.</p>
+<p>SELECT * FROM mil_dat WHERE ope_nooe = &#x27;order_number&#x27; AND act_code = &#x27;zar&#x27;;</p>
 <ol>
-<li>Update valid (unvalidated) supports by copying weights from REL_DAT to STK_DAT</li>
-</ol>
-<p>Replace the support placeholders with actual support numbers from MIL_DAT: UPDATE s SET  s.stk_num13 = r.rel_num13,  s.stk_num15 = r.rel_num14,  s.stk_num16 = r.rel_num15,  s.stk_num17 = r.rel_num15 FROM stk_dat s JOIN rel_dat r   ON s.stk_nosu = r.rel_nosu  AND s.act_code = r.act_code WHERE s.stk_nosu IN (&#x27;support_number_1&#x27;, &#x27;support_number_2&#x27;, ...) AND s.act_code = &#x27;zar&#x27;;</p>
-<ol>
-<li>Verify</li>
+<li>Update valid (i.e., unvalidated) supports by copying weights from REL_DAT to STK_DAT.</li>
 </ol>
 <ul>
-<li style="margin-left:0em">Print the GDN/Picklist. If weights appear correctly, you’re done.</li>
+<li style="margin-left:0em">Get support numbers from MIL_DAT, then run:</li>
 </ul>
+<p>UPDATE s SET   s.stk_num13 = r.rel_num13,   s.stk_num15 = r.rel_num14,   s.stk_num16 = r.rel_num15,   s.stk_num17 = r.rel_num15 FROM stk_dat s JOIN rel_dat r   ON s.stk_nosu = r.rel_nosu  AND s.act_code = r.act_code WHERE s.stk_nosu IN (&#x27;support_number_1&#x27;, &#x27;support_number_2&#x27;, ...) AND s.act_code = &#x27;zar&#x27;;</p>
 <ol>
-<li>If weights still don’t show</li>
+<li>Verify: Print the GDN / Picklist. If weights appear, you’re done.</li>
+</ol>
+<ol>
+<li>If weights still don’t show:</li>
 </ol>
 <ul>
-<li style="margin-left:0em">Go back to MIL_DAT.</li>
-<li style="margin-left:0em">Unvalidate all lines that were already picked.</li>
-<li style="margin-left:0em">Rerun the update query from Step 3.</li>
-<li style="margin-left:0em">Print the GDN/Picklist again.</li>
+<li style="margin-left:0em">Go back to MIL_DAT and unvalidate all lines that were already picked.</li>
+<li style="margin-left:0em">Rerun the update query in step 3.</li>
+<li style="margin-left:0em">Print the GDN / Picklist again.</li>
 </ul>
-<p>Important notes</p>
+<p>Notes</p>
 <ul>
 <li style="margin-left:0em">Only update unvalidated supports to avoid inconsistencies.</li>
-<li style="margin-left:0em">If stock exists but no weight, check STK_DAT (stock attributes not populated).</li>
 </ul></div>
-  <p class="src">retrieved: <span>Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt · Speed WMS – ZAR Commodities Pending Issue &amp; Temporary Mission Loading Procedure.txt · Speed WMS – Serial Number Issue Resolution Procedure.txt · Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt</span></p>
+  <p class="src">retrieved: <span>Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt · Speed WMS – ZAR Commodities Pending Issue &amp; Temporary Mission Loading Procedure.txt · Other order information.txt · Speed WMS – Serial Number Issue Resolution Procedure.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="T3"><span class="id">T3</span><div>
   <p class="ask">How do I reverse a closed GRN?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.852</b></span><span>12.9s</span><span class="src">top: <span>SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt</span></span></div>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.723</b></span><span>15.5s</span><span class="src">top: <span>SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt</span></span></div>
   <div class="answer"><p>Access level: Support Only</p>
-<p>Safety rules:</p>
-<ul>
-<li style="margin-left:0em">Always execute SELECT before UPDATE.</li>
-<li style="margin-left:0em">Do not execute UPDATE in production without approval.</li>
-<li style="margin-left:0em">Support-level SQL only.</li>
-<li style="margin-left:0em">Follow inbound/outbound join rules.</li>
-</ul>
-<p>Procedure: Reverse Closed GRN</p>
+<p>Procedure: Reverse Closed GRN Business logic: Reopens a closed Goods Receipt Note</p>
+<p>Steps:</p>
 <ol>
-<li>Validate before update (run SELECT first):</li>
+<li>Validate before update (run exactly as below):</li>
 </ol>
-<p>  SELECT REE_ETRE, REE_KEYU, REE_CCLI FROM REE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER;</p>
+<p>   SELECT REE_ETRE, REE_KEYU, REE_CCLI FROM REE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER;</p>
 <ol>
-<li>Core update to reopen the GRN (per procedure):</li>
+<li>Perform the update (run exactly as below):</li>
 </ol>
-<p>  UPDATE REE_DAT SET REE_ETRE = &#x27;100&#x27; WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER AND REE_KEYU = RECEPTION_KEYU AND REE_CCLI = CUSTOMER_ACCOUNT_CODE;</p>
-<p>Optional (to also reset Pegasus integration status):   UPDATE REE_DAT   SET REE_ETRE = &#x27;100&#x27;,   REE_TOP1 = 0   WHERE ACT_CODE = &#x27;Activity Code&#x27;   AND REE_NORE = &#x27;Receipt Number&#x27;   AND REE_KEYU = &#x27;Receipt ID&#x27;   AND REE_CCLI = &#x27;Customer Account Code&#x27;;</p></div>
+<p>   UPDATE REE_DAT SET REE_ETRE = &#x27;100&#x27; WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER AND REE_KEYU = RECEPTION_KEYU AND REE_CCLI = CUSTOMER_ACCOUNT_CODE;</p></div>
   <p class="src">retrieved: <span>SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt · Reverse Closed GRN.json · Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="T4"><span class="id">T4</span><div>
   <p class="ask">LPNs are missing on a manifest. What&#x27;s the temporary resolution?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.886</b></span><span>11.1s</span><span class="src">top: <span>Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt</span></span></div>
-  <div class="answer"><p>Access Level: Support Only</p>
-<p>Issue</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.816</b></span><span>7.7s</span><span class="src">top: <span>LPNs Missing on Manifest – Temporary Resolution.json</span></span></div>
+  <div class="answer"><p>Temporary Resolution: LPNs Missing on Manifest</p>
+<p>Access level: Support Only Core tables involved: MIL_DAT (Mission Lines), SEX_DAT (Support Header) Safety rules:</p>
 <ul>
-<li style="margin-left:0em">Some LPNs do not appear on the manifest because SEX_DAT has a missing order number (SEX_NOOE = &#x27;0&#x27;). Manifest ETAT relies on SEX_DAT.</li>
+<li style="margin-left:0em">Always execute SELECT before performing any UPDATE.</li>
+<li style="margin-left:0em">Support-level SQL only.</li>
+<li style="margin-left:0em">Verify ACT_CODE and order number before updating.</li>
+</ul>
+<p>Issue summary</p>
+<ul>
+<li style="margin-left:0em">Some LPNs do not appear on the manifest because SEX_DAT has a missing order number (SEX_NOOE = &#x27;0&#x27;).</li>
+<li style="margin-left:0em">Manifest ETAT relies on SEX_DAT, so affected LPNs are excluded.</li>
+<li style="margin-left:0em">This is a temporary workaround, not a permanent fix.</li>
 </ul>
 <p>Procedure</p>
 <ol>
-<li>Identify Affected LPNs (Validate before update)</li>
+<li>Identify affected LPNs (Validate first)</li>
 </ol>
-<p>Run: SELECT sex.SEX_SUPE, mil.MIL_SUPP, mil.OPE_NOOE, mil.MIE_NOMI, sex.SEX_NOMI, sex.SEX_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = &#x27;RSAJHBCLA&#x27; AND sex.SEX_NOOE = &#x27;0&#x27;;</p>
+<p>Run this SELECT to locate LPNs that will not appear on the manifest due to missing SEX_NOOE: SELECT sex.SEX_SUPE, mil.MIL_SUPP, mil.OPE_NOOE, mil.MIE_NOMI, sex.SEX_NOMI, sex.SEX_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil   ON mil.ACT_CODE = sex.SEX_ACT  AND mil.MIE_NoMI = sex.SEX_NoMI  AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = &#x27;RSAJHBCLA&#x27;   AND sex.SEX_NOOE = &#x27;0&#x27;;</p>
 <ul>
 <li style="margin-left:0em">Records returned indicate LPNs that will not appear on the manifest.</li>
 <li style="margin-left:0em">The issue is caused by a missing SEX_NOOE value.</li>
 </ul>
 <ol>
-<li>Temporary Fix: Update Missing Order Number</li>
+<li>Temporary fix: Update missing order number (only after validating)</li>
 </ol>
-<p>Run: UPDATE SEX_DAT SET SEX_NOOE = mil.OPE_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = &#x27;RSAJHBCLA&#x27; AND sex.SEX_NOOE = &#x27;0&#x27;;</p>
+<p>Execute this UPDATE to populate the correct order number from MIL_DAT into SEX_DAT: UPDATE SEX_DAT SET SEX_NOOE = mil.OPE_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil   ON mil.ACT_CODE = sex.SEX_ACT  AND mil.MIE_NoMI = sex.SEX_NoMI  AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = &#x27;RSAJHBCLA&#x27;   AND sex.SEX_NOOE = &#x27;0&#x27;;</p>
 <ul>
 <li style="margin-left:0em">SEX_NOOE is populated with the correct OPE_NOOE.</li>
 <li style="margin-left:0em">The LPN now correctly reflects on the manifest.</li>
 <li style="margin-left:0em">Manifest ETAT functions as expected.</li>
 </ul>
-<p>Expected Outcome</p>
+<p>Expected outcome</p>
 <ul>
 <li style="margin-left:0em">SEX_NOOE is populated with the correct OPE_NOOE.</li>
 <li style="margin-left:0em">The LPN correctly reflects on the manifest.</li>
 <li style="margin-left:0em">Manifest ETAT functions as expected.</li>
 </ul>
-<p>Important Notes</p>
+<p>Important notes</p>
 <ul>
-<li style="margin-left:0em">This is a temporary workaround, not a permanent fix.</li>
 <li style="margin-left:0em">Execute only when the issue is confirmed.</li>
 <li style="margin-left:0em">Database updates must be performed by Support.</li>
 <li style="margin-left:0em">Monitor recurring cases to assist with root cause analysis.</li>
 </ul></div>
-  <p class="src">retrieved: <span>Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt · LPNs Missing on Manifest – Temporary Resolution.json</span></p>
+  <p class="src">retrieved: <span>LPNs Missing on Manifest – Temporary Resolution.json · Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="T5"><span class="id">T5</span><div>
   <p class="ask">Which tables are involved when resending a Pegasus file?</p>
@@ -2928,9 +2933,9 @@
 <div class="q r-answered" data-id="T6"><span class="id">T6</span><div>
   <p class="ask">How was the Jinko Solar GRN-number amendment ticket resolved?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.951</b></span><span>3.9s</span><span class="src">top: <span>Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound &amp; closed on WMS).txt</span></span></div>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.935</b></span><span>7.3s</span><span class="src">top: <span>Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound &amp; closed on WMS).txt</span></span></div>
   <div class="answer"><p>The ticket was resolved by changing the receipt status to 100.</p></div>
-  <p class="src">retrieved: <span>Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound &amp; closed on WMS).txt · SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt · Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt</span></p>
+  <p class="src">retrieved: <span>Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound &amp; closed on WMS).txt · Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt · Speed WMS – Unknown Support Issue Resolution Procedure.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="T7"><span class="id">T7</span><div>
   <p class="ask">What was ticket 1016 about?</p>
@@ -3213,117 +3218,377 @@
 <div class="q r-answered" data-id="C1"><span class="id">C1</span><div>
   <p class="ask">Ask R1, then: &quot;and which of those fields can I change?&quot;</p>
   <ol class="asked"><li>How do I create a receipt header in Speed WMS?</li><li>and which of those fields can I change?</li></ol>
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.475</b></span><span>12.1s</span><span class="src">top: <span>Global changes.txt</span></span></div>
-  <div class="answer"><p>You can change:</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.475</b></span><span>10.7s</span><span class="src">top: <span>Global changes.txt</span></span></div>
+  <div class="answer"><p>Within the Receipt Header, based on the provided procedure:</p>
+<p>Editable/modifiable fields</p>
 <ul>
-<li style="margin-left:0em">Receipt date and time (defaults to creation time; can be modified)</li>
-<li style="margin-left:0em">Customer account (if the activity manages customer accounts; mandatory)</li>
-<li style="margin-left:0em">Third-party supplier code (select from declared third parties; you can also create a new third-party file from the selection screen)</li>
+<li style="margin-left:0em">Receipt Date and Time (defaults to creation time; can be modified)</li>
+<li style="margin-left:0em">Default Reception Dock (pre-selected; can be chosen from the list of dock-type locations configured in the environment)</li>
+<li style="margin-left:0em">Customer account (if the activity manages customer accounts; must be selected)</li>
+<li style="margin-left:0em">Third-party supplier code (must be selected from declared third parties; you can also create a new third-party from the selection screen)</li>
 </ul>
-<p>You cannot change:</p>
+<p>Non-editable (system-initialized) fields</p>
 <ul>
-<li style="margin-left:0em">Activity code / Current activity (read-only)</li>
-<li style="margin-left:0em">Speed receipt number (system-generated, non-modifiable)</li>
-<li style="margin-left:0em">Default reception dock (pre-selected based on configuration; not stated as editable)</li>
+<li style="margin-left:0em">Activity Code (read-only)</li>
+<li style="margin-left:0em">Speed Receipt Number (REE_NORE) / Speed receipt number (internal counter; non-modifiable)</li>
 </ul></div>
   <p class="src">retrieved: <span>Global changes.txt · Creating a receipt header.txt · Mapping of the deliveries.txt · Creating and modifying an order.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="C2"><span class="id">C2</span><div>
   <p class="ask">Ask D1, then: &quot;what about its foreign keys?&quot;</p>
   <ol class="asked"><li>What does the STK_DAT table hold and what is its primary key?</li><li>what about its foreign keys?</li></ol>
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.348</b></span><span>37.4s</span><span class="src">top: <span>stk_dat.json</span></span></div>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.348</b></span><span>40.4s</span><span class="src">top: <span>stk_dat.json</span></span></div>
   <div class="answer"><p>Table Name: STK_DAT Description: Current Stock Table Primary Key: stk_keyu Total Columns: 110</p>
-<p>Note: The provided schema groups certain columns (e.g., STK_ALPHA1-10, STK_DATE1-5, STK_HEURE1-5, STK_LOT1-3, STK_NUM1-5, STK_TOP1-5) and does not individually enumerate all 110 columns. Therefore, the full expanded list of all columns is not completely detailed in the context.</p>
+<p>Note: The schema provided in this context is incomplete. The source indicates a total of 110 columns, but only the columns listed below are available in the retrieved context.</p>
 <p>Columns:</p>
 <ul>
-<li style="margin-left:0em">Name: ACT_CODE — Activity code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: ACT_PAR.ACT_CODE</li>
-<li style="margin-left:0em">Name: ART_CNDC — Package - Colis | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDC</li>
-<li style="margin-left:0em">Name: ART_CNDO — Package - Layer | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDO</li>
-<li style="margin-left:0em">Name: ART_CNDP — Package - Pallet | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDP</li>
-<li style="margin-left:0em">Name: ART_CNDS — Package - SPCB | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDS</li>
-<li style="margin-left:0em">Name: ART_CNDU — Package - Unit | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDU</li>
-<li style="margin-left:0em">Name: ART_CODE — Article code | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_CODE</li>
-<li style="margin-left:0em">Name: ART_EANC — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANC</li>
-<li style="margin-left:0em">Name: ART_EANO — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANO</li>
-<li style="margin-left:0em">Name: ART_EANP — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANP</li>
-<li style="margin-left:0em">Name: ART_EANS — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANS</li>
-<li style="margin-left:0em">Name: ART_EANU — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANU</li>
-<li style="margin-left:0em">Name: ART_QTEC — Qty per Colis | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: Yes | References: ART_PAR.ART_QTEC</li>
-<li style="margin-left:0em">Name: ART_QTEO — Qty per Layer | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEO</li>
-<li style="margin-left:0em">Name: ART_QTEP — Qty per Pallet | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEP</li>
-<li style="margin-left:0em">Name: ART_QTES — Qty per SPCB | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTES</li>
-<li style="margin-left:0em">Name: ART_QTEU — Qty per Unit | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEU</li>
-<li style="margin-left:0em">Name: DOS_CODE — Folder code | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: DOS_DAT.DOS_CODE</li>
-<li style="margin-left:0em">Name: GAB_CODE — Template code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: GAB_PAR.GAB_CODE</li>
-<li style="margin-left:0em">Name: OFE_NOOE — Manufacturing order no | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: OFE_DAT.OFE_NOOE</li>
-<li style="margin-left:0em">Name: OFE_REF — Manufacturing reference | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: Yes | References: OFE_DAT.OFE_REF</li>
-<li style="margin-left:0em">Name: OFF_NORL — Production line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: OFF_DAT.OFF_NORL</li>
-<li style="margin-left:0em">Name: OFL_NOOL — Order line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: OFL_DAT.OFL_NOOL</li>
-<li style="margin-left:0em">Name: QUA_CODE — Quality code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: Yes | References: QUA_PAR.QUA_CODE</li>
-<li style="margin-left:0em">Name: REA_BL — Delivery note ref | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: REA_DAT.REA_BL</li>
-<li style="margin-left:0em">Name: REA_RFCE — DO header ref | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: REA_DAT.REA_RFCE</li>
-<li style="margin-left:0em">Name: REA_RFCL — DO line ref | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: Yes | References: REA_DAT.REA_RFCL</li>
-<li style="margin-left:0em">Name: REL_NORL — Reception line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: REL_DAT.REL_NORL</li>
-<li style="margin-left:0em">Name: RES_COM — Reservation comment | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: Yes | References: RES_DAT.RES_COM</li>
-<li style="margin-left:0em">Name: RES_CRDA — Reservation creation datetime | SQL Server: VARCHAR(16) | Oracle: NVARCHAR2(16) | PK: No | FK: Yes | References: RES_DAT.RES_CRDA</li>
-<li style="margin-left:0em">Name: RES_LIDA — Reservation expiry date | SQL Server: VARCHAR(8) | Oracle: NVARCHAR2(8) | PK: No | FK: Yes | References: RES_DAT.RES_LIDA</li>
-<li style="margin-left:0em">Name: RES_MOTIF — Reservation reason | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: RES_DAT.RES_MOTIF</li>
-<li style="margin-left:0em">Name: RES_QIRE — Reserved by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: RES_DAT.RES_QIRE</li>
-<li style="margin-left:0em">Name: SDO_CODE — Customs status | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: Yes | References: SDO_PAR.SDO_CODE</li>
-<li style="margin-left:0em">Name: STK_ALLE — Aisle | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_ALLP — Planned aisle | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_ALPHA1-10 — Additional info A01-A10 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CASE — Location case | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CASP — Planned case | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CFIS — Fiscality code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CLAS — Class code | SQL Server: VARCHAR(1) | Oracle: NVARCHAR2(1) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_COL — Column | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_COLP — Planned column | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_COM — Comments | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CRDA — Creation date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CRHE — Creation time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CRQI — Created by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_CTIE — Entry third party | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DAEN — Stock entry date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DAEP — Planned transfer execution date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DAIV — Inventory date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DARG — Putaway date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DARS — Location search date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DASO — Exit date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DATE1-5 — Additional dates D01-D05 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DFAB — Manufacturing date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DLC — Expiry date (DLC) | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DLUO — Best-before date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_DLV — Delivery date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_HEEP — Planned transfer time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_HEIV — Inventory time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_HERG — Putaway time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_HERS — Location search time | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_HEURE1-5 — Additional times H01-H05 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_INPC — Forklift priority index | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_KEYU — Stock unique key | SQL Server: BIGINT | Oracle: INTEGER | PK: Yes | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_LIEP — Planned location | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_LIEU — Location | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_LOT1-3 — Lot numbers | SQL Server: VARCHAR(100) | Oracle: NVARCHAR2(100) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_MODA — Modification date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_MOHE — Modification time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_MOQI — Modified by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_NIV — Level | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_NIVP — Planned level | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_NOER — Distribution header no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_NOLR — Distribution line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_NORE — Reception number | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: REE_DAT.REE_NORE</li>
-<li style="margin-left:0em">Name: STK_NORG — Grouping order no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —</li>
-<li style="margin-left:0em">Name: STK_NOSU — Support number | SQL Server: VARCHAR(25) | Oracle: NVARCHAR</li>
-</ul></div>
+<li style="margin-left:0em">Name: ACT_CODE</li>
+</ul>
+<p>  Description: Activity code   SQL Server: VARCHAR(10)   Oracle: NVARCHAR2(10)   Primary Key: No   Foreign Key: Yes   References: ACT_PAR.ACT_CODE</p>
+<ul>
+<li style="margin-left:0em">Name: ART_CNDC</li>
+</ul>
+<p>  Description: Package - Colis   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDC</p>
+<ul>
+<li style="margin-left:0em">Name: ART_CNDO</li>
+</ul>
+<p>  Description: Package - Layer   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDO</p>
+<ul>
+<li style="margin-left:0em">Name: ART_CNDP</li>
+</ul>
+<p>  Description: Package - Pallet   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDP</p>
+<ul>
+<li style="margin-left:0em">Name: ART_CNDS</li>
+</ul>
+<p>  Description: Package - SPCB   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDS</p>
+<ul>
+<li style="margin-left:0em">Name: ART_CNDU</li>
+</ul>
+<p>  Description: Package - Unit   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDU</p>
+<ul>
+<li style="margin-left:0em">Name: ART_CODE</li>
+</ul>
+<p>  Description: Article code   SQL Server: VARCHAR(35)   Oracle: NVARCHAR2(35)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CODE</p>
+<ul>
+<li style="margin-left:0em">Name: ART_EANC</li>
+</ul>
+<p>  Description: Reserved BK   SQL Server: VARCHAR(30)   Oracle: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANC</p>
+<ul>
+<li style="margin-left:0em">Name: ART_EANO</li>
+</ul>
+<p>  Description: Reserved BK   SQL Server: VARCHAR(30)   Oracle: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANO</p>
+<ul>
+<li style="margin-left:0em">Name: ART_EANP</li>
+</ul>
+<p>  Description: Reserved BK   SQL Server: VARCHAR(30)   Oracle: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANP</p>
+<ul>
+<li style="margin-left:0em">Name: ART_EANS</li>
+</ul>
+<p>  Description: Reserved BK   SQL Server: VARCHAR(30)   Oracle: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANS</p>
+<ul>
+<li style="margin-left:0em">Name: ART_EANU</li>
+</ul>
+<p>  Description: Reserved BK   SQL Server: VARCHAR(30)   Oracle: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANU</p>
+<ul>
+<li style="margin-left:0em">Name: ART_QTEC</li>
+</ul>
+<p>  Description: Qty per Colis   SQL Server: VARCHAR(25)   Oracle: NVARCHAR2(25)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEC</p>
+<ul>
+<li style="margin-left:0em">Name: ART_QTEO</li>
+</ul>
+<p>  Description: Qty per Layer   SQL Server: BIGINT   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEO</p>
+<ul>
+<li style="margin-left:0em">Name: ART_QTEP</li>
+</ul>
+<p>  Description: Qty per Pallet   SQL Server: BIGINT   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEP</p>
+<ul>
+<li style="margin-left:0em">Name: ART_QTES</li>
+</ul>
+<p>  Description: Qty per SPCB   SQL Server: BIGINT   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTES</p>
+<ul>
+<li style="margin-left:0em">Name: ART_QTEU</li>
+</ul>
+<p>  Description: Qty per Unit   SQL Server: BIGINT   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEU</p>
+<ul>
+<li style="margin-left:0em">Name: DOS_CODE</li>
+</ul>
+<p>  Description: Folder code   SQL Server: BIGINT   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: DOS_DAT.DOS_CODE</p>
+<ul>
+<li style="margin-left:0em">Name: GAB_CODE</li>
+</ul>
+<p>  Description: Template code   SQL Server: VARCHAR(10)   Oracle: NVARCHAR2(10)   Primary Key: No   Foreign Key: Yes   References: GAB_PAR.GAB_CODE</p>
+<ul>
+<li style="margin-left:0em">Name: OFE_NOOE</li>
+</ul>
+<p>  Description: Manufacturing order no   SQL Server: BIGINT   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: OFE_DAT.OFE_NOOE</p>
+<ul>
+<li style="margin-left:0em">Name: OFE_REF</li>
+</ul>
+<p>  Description: Manufacturing reference   SQL Server: VARCHAR(20)   Oracle: NVARCHAR2(20)   Primary Key: No   Foreign Key: Yes   References: OFE_DAT.OFE_REF</p>
+<ul>
+<li style="margin-left:0em">Name: OFF_NORL</li>
+</ul>
+<p>  Description: Production line no   SQL Server: NUMERIC(10)   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: OFF_DAT.OFF_NORL</p>
+<ul>
+<li style="margin-left:0em">Name: OFL_NOOL</li>
+</ul>
+<p>  Description: Order line no   SQL Server: NUMERIC(10)   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: OFL_DAT.OFL_NOOL</p>
+<ul>
+<li style="margin-left:0em">Name: QUA_CODE</li>
+</ul>
+<p>  Description: Quality code   SQL Server: VARCHAR(5)   Oracle: NVARCHAR2(5)   Primary Key: No   Foreign Key: Yes   References: QUA_PAR.QUA_CODE</p>
+<ul>
+<li style="margin-left:0em">Name: REA_BL</li>
+</ul>
+<p>  Description: Delivery note ref   SQL Server: VARCHAR(50)   Oracle: NVARCHAR2(50)   Primary Key: No   Foreign Key: Yes   References: REA_DAT.REA_BL</p>
+<ul>
+<li style="margin-left:0em">Name: REA_RFCE</li>
+</ul>
+<p>  Description: DO header ref   SQL Server: VARCHAR(50)   Oracle: NVARCHAR2(50)   Primary Key: No   Foreign Key: Yes   References: REA_DAT.REA_RFCE</p>
+<ul>
+<li style="margin-left:0em">Name: REA_RFCL</li>
+</ul>
+<p>  Description: DO line ref   SQL Server: VARCHAR(20)   Oracle: NVARCHAR2(20)   Primary Key: No   Foreign Key: Yes   References: REA_DAT.REA_RFCL</p>
+<ul>
+<li style="margin-left:0em">Name: REL_NORL</li>
+</ul>
+<p>  Description: Reception line no   SQL Server: NUMERIC(10)   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: REL_DAT.REL_NORL</p>
+<ul>
+<li style="margin-left:0em">Name: RES_COM</li>
+</ul>
+<p>  Description: Reservation comment   SQL Server: TEXT   Oracle: CLOB   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_COM</p>
+<ul>
+<li style="margin-left:0em">Name: RES_CRDA</li>
+</ul>
+<p>  Description: Reservation creation datetime   SQL Server: VARCHAR(16)   Oracle: NVARCHAR2(16)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_CRDA</p>
+<ul>
+<li style="margin-left:0em">Name: RES_LIDA</li>
+</ul>
+<p>  Description: Reservation expiry date   SQL Server: VARCHAR(8)   Oracle: NVARCHAR2(8)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_LIDA</p>
+<ul>
+<li style="margin-left:0em">Name: RES_MOTIF</li>
+</ul>
+<p>  Description: Reservation reason   SQL Server: VARCHAR(50)   Oracle: NVARCHAR2(50)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_MOTIF</p>
+<ul>
+<li style="margin-left:0em">Name: RES_QIRE</li>
+</ul>
+<p>  Description: Reserved by   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_QIRE</p>
+<ul>
+<li style="margin-left:0em">Name: SDO_CODE</li>
+</ul>
+<p>  Description: Customs status   SQL Server: VARCHAR(5)   Oracle: NVARCHAR2(5)   Primary Key: No   Foreign Key: Yes   References: SDO_PAR.SDO_CODE</p>
+<ul>
+<li style="margin-left:0em">Name: STK_ALLE</li>
+</ul>
+<p>  Description: Aisle   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_ALLP</li>
+</ul>
+<p>  Description: Planned aisle   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_ALPHA1-10</li>
+</ul>
+<p>  Description: Additional info A01-A10   SQL Server: VARCHAR(50)   Oracle: NVARCHAR2(50)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CASE</li>
+</ul>
+<p>  Description: Location case   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CASP</li>
+</ul>
+<p>  Description: Planned case   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CFIS</li>
+</ul>
+<p>  Description: Fiscality code   SQL Server: VARCHAR(5)   Oracle: NVARCHAR2(5)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CLAS</li>
+</ul>
+<p>  Description: Class code   SQL Server: VARCHAR(1)   Oracle: NVARCHAR2(1)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_COL</li>
+</ul>
+<p>  Description: Column   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_COLP</li>
+</ul>
+<p>  Description: Planned column   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_COM</li>
+</ul>
+<p>  Description: Comments   SQL Server: TEXT   Oracle: CLOB   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CRDA</li>
+</ul>
+<p>  Description: Creation date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CRHE</li>
+</ul>
+<p>  Description: Creation time   SQL Server: VARCHAR(6)   Oracle: NVARCHAR2(6)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CRQI</li>
+</ul>
+<p>  Description: Created by   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_CTIE</li>
+</ul>
+<p>  Description: Entry third party   SQL Server: VARCHAR(35)   Oracle: NVARCHAR2(35)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DAEN</li>
+</ul>
+<p>  Description: Stock entry date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DAEP</li>
+</ul>
+<p>  Description: Planned transfer execution date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DAIV</li>
+</ul>
+<p>  Description: Inventory date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DARG</li>
+</ul>
+<p>  Description: Putaway date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DARS</li>
+</ul>
+<p>  Description: Location search date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DASO</li>
+</ul>
+<p>  Description: Exit date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DATE1-5</li>
+</ul>
+<p>  Description: Additional dates D01-D05   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DFAB</li>
+</ul>
+<p>  Description: Manufacturing date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DLC</li>
+</ul>
+<p>  Description: Expiry date (DLC)   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DLUO</li>
+</ul>
+<p>  Description: Best-before date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_DLV</li>
+</ul>
+<p>  Description: Delivery date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_HEEP</li>
+</ul>
+<p>  Description: Planned transfer time   SQL Server: VARCHAR(6)   Oracle: NVARCHAR2(6)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_HEIV</li>
+</ul>
+<p>  Description: Inventory time   SQL Server: VARCHAR(6)   Oracle: NVARCHAR2(6)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_HERG</li>
+</ul>
+<p>  Description: Putaway time   SQL Server: VARCHAR(6)   Oracle: NVARCHAR2(6)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_HERS</li>
+</ul>
+<p>  Description: Location search time   SQL Server: VARCHAR(50)   Oracle: NVARCHAR2(50)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_HEURE1-5</li>
+</ul>
+<p>  Description: Additional times H01-H05   SQL Server: VARCHAR(6)   Oracle: NVARCHAR2(6)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_INPC</li>
+</ul>
+<p>  Description: Forklift priority index   SQL Server: VARCHAR(20)   Oracle: NVARCHAR2(20)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_KEYU</li>
+</ul>
+<p>  Description: Stock unique key   SQL Server: BIGINT   Oracle: INTEGER   Primary Key: Yes   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_LIEP</li>
+</ul>
+<p>  Description: Planned location   SQL Server: VARCHAR(25)   Oracle: NVARCHAR2(25)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_LIEU</li>
+</ul>
+<p>  Description: Location   SQL Server: VARCHAR(25)   Oracle: NVARCHAR2(25)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_LOT1-3</li>
+</ul>
+<p>  Description: Lot numbers   SQL Server: VARCHAR(100)   Oracle: NVARCHAR2(100)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_MODA</li>
+</ul>
+<p>  Description: Modification date   SQL Server: DATETIME   Oracle: NCHAR(8)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_MOHE</li>
+</ul>
+<p>  Description: Modification time   SQL Server: VARCHAR(6)   Oracle: NVARCHAR2(6)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_MOQI</li>
+</ul>
+<p>  Description: Modified by   SQL Server: VARCHAR(15)   Oracle: NVARCHAR2(15)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_NIV</li>
+</ul>
+<p>  Description: Level   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_NIVP</li>
+</ul>
+<p>  Description: Planned level   SQL Server: VARCHAR(3)   Oracle: NVARCHAR2(3)   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_NOER</li>
+</ul>
+<p>  Description: Distribution header no   SQL Server: NUMERIC(10)   Oracle: INTEGER   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_NOLR</li>
+</ul>
+<p>  Description: Distribution line no   SQL Server: NUMERIC(10)   Oracle: INTEGER   Primary Key: No   Foreign Key: No</p>
+<ul>
+<li style="margin-left:0em">Name: STK_NORE</li>
+</ul>
+<p>  Description: Reception number   SQL Server: NUMERIC(10)   Oracle: INTEGER   Primary Key: No   Foreign Key: Yes   References: REE_DAT.REE_NORE</p>
+<ul>
+<li style="margin-left:0em">Name: STK_NORG</li>
+</ul>
+<p>  Description: Grouping</p></div>
   <p class="src">retrieved: <span>stk_dat.json · MVT_DAT.json · MIL_DAT.json · REE_DAT.json · REL_DAT.json</span></p>
 </div><div class="res"></div></div>
-<div class="q r-model-refused" data-id="C3"><span class="id">C3</span><div>
+<div class="q r-answered" data-id="C3"><span class="id">C3</span><div>
   <p class="ask">&quot;how to close a grn&quot; (lowercase, abbreviation, no question mark)</p>
   <ol class="asked"><li>how to close a grn</li></ol>
-  <div class="meta-row"><span class="badge">MODEL REFUSED</span><span>relevance <b>0.707</b></span><span>6.4s</span><span class="src">top: <span>Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound &amp; closed on WMS).txt</span></span></div>
-  <div class="answer"><p>I do not have enough information to answer this. Please contact support.</p></div>
-  <p class="src">retrieved: <span>Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound &amp; closed on WMS).txt · SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt · Reverse Closed GRN.json</span></p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.895</b></span><span>7.4s</span><span class="src">top: <span>Receipt closure.txt</span></span></div>
+  <div class="answer"><p>To close a GRN (receipt) in Speed WMS:</p>
+<p>How to close</p>
+<ul>
+<li style="margin-left:0em">Open the Receipt Management screen.</li>
+<li style="margin-left:0em">Select the target receipt.</li>
+<li style="margin-left:0em">Use either:</li>
+<li style="margin-left:1em">Contextual menu → Close Receipt, or</li>
+<li style="margin-left:1em">Command bar → Close Receipt button.</li>
+<li style="margin-left:0em">Confirm the closure action.</li>
+</ul>
+<p>Preconditions</p>
+<ul>
+<li style="margin-left:0em">All receipt lines are correctly recorded.</li>
+<li style="margin-left:0em">Quantities and item references are validated.</li>
+<li style="margin-left:0em">Required documents/media are attached.</li>
+<li style="margin-left:0em">No further modifications are expected.</li>
+</ul>
+<p>What happens after closure</p>
+<ul>
+<li style="margin-left:0em">The receipt and its lines can no longer be added, edited, or deleted.</li>
+<li style="margin-left:0em">No new media/attachments can be added.</li>
+<li style="margin-left:0em">The receipt remains accessible in read-only/consultation mode; advisory and print options remain available.</li>
+<li style="margin-left:0em">Feedback/synchronization to upstream (n+1/ERP) systems generally occurs after closure.</li>
+</ul>
+<p>Best practices</p>
+<ul>
+<li style="margin-left:0em">Close only after full verification; reopening is not possible.</li>
+<li style="margin-left:0em">Align closure timing with external system synchronization schedules.</li>
+</ul></div>
+  <p class="src">retrieved: <span>Receipt closure.txt · End to End Receipt.txt · LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="C4"><span class="id">C4</span><div>
   <p class="ask">&quot;stk_dat vs mvt_dat&quot;</p>
@@ -3423,15 +3688,9 @@
 <div class="q r-answered" data-id="C5"><span class="id">C5</span><div>
   <p class="ask">Press Reset conversation memory, then ask: &quot;and which of those fields can I change?&quot;</p>
   <ol class="asked"><li>and which of those fields can I change?</li></ol>
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.475</b></span><span>5.9s</span><span class="src">top: <span>Global changes.txt</span></span></div>
-  <div class="answer"><p>In Global Changes for orders, you can modify these fields for all selected orders:</p>
-<ul>
-<li style="margin-left:0em">Grouping code (waves/mission grouping)</li>
-<li style="margin-left:0em">Preparation channel</li>
-<li style="margin-left:0em">Preparation date (start date for preparation)</li>
-<li style="margin-left:0em">Carrier code (default carrier for the order)</li>
-</ul></div>
-  <p class="src">retrieved: <span>Global changes.txt · Creating a receipt header.txt · Mapping of the deliveries.txt · Creating and modifying an order.txt</span></p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>—</b></span><span>0.0s</span><span class="src">top: <span>None</span></span></div>
+  <div class="answer"><p>That sounds like a follow-up, but there is no earlier conversation for me to connect it to — conversation memory may have been reset. Which receipt, order, table or procedure are you asking about? Ask the full question and I will answer from the Speed WMS documentation.</p></div>
+  
 </div><div class="res"></div></div>
 </section>
 <section><div class="sec-head"><h2>Should refuse</h2><span class="tag">N</span></div>

@@ -120,3 +120,75 @@ def test_self_description_lists_the_corpus_areas():
     text = puks_rag.self_description(C())
     assert "Receiving goods" in text
     assert "Loading" in text
+
+
+# --- query expansion (C3: "how to close a grn" retrieved the Jinko ticket) ---
+
+@pytest.mark.parametrize("query,expected", [
+    ("how to close a grn", "how to close a receipt"),
+    ("GRN closure steps", "receipt closure steps"),
+    ("weights missing on the GDN", "weights missing on the delivery note"),
+    ("LPNs missing on manifest", "supports missing on manifest"),
+    ("create an MO", "create an manufacturing order"),
+])
+def test_expand_query_substitutes_corpus_vocabulary_for_abbreviations(query, expected):
+    """Substitution, not appending: the reranker otherwise still prefers the
+    one ticket whose title literally says GRN over 'Receipt closure'."""
+    import puks_rag
+    assert puks_rag.expand_query(query) == expected
+
+
+def test_expand_query_leaves_plain_questions_untouched():
+    import puks_rag
+    q = "How do I close a receipt?"
+    assert puks_rag.expand_query(q) == q
+
+
+def test_expand_query_does_not_match_inside_words():
+    import puks_rag
+    assert puks_rag.expand_query("the program ran") == "the program ran"   # 'gram' is not 'grn', 'ran' not 'lpn'
+
+
+# --- unanchored follow-ups (C5: answered after a memory reset) ---
+
+@pytest.mark.parametrize("query", [
+    "and which of those fields can I change?",
+    "What about its foreign keys?",
+    "and the other one?",
+    "same for orders",
+])
+def test_unanchored_followup_detected_when_there_is_no_history(query):
+    import puks_rag
+    assert puks_rag.is_unanchored_followup(query, "(No prior conversation)")
+
+
+def test_followup_is_fine_when_history_exists():
+    import puks_rag
+    assert not puks_rag.is_unanchored_followup(
+        "and which of those fields can I change?", "USER: How do I create a receipt header?")
+
+
+@pytest.mark.parametrize("query", [
+    "How do I close a receipt?",
+    "What is the status of a support after reception?",
+    "stk_dat vs mvt_dat",
+])
+def test_plain_questions_are_not_followups(query):
+    import puks_rag
+    assert not puks_rag.is_unanchored_followup(query, "(No prior conversation)")
+
+
+def test_answer_asks_for_context_instead_of_retrieving(corpus, retrieval_must_not_run):
+    import puks_rag
+    result = puks_rag.answer(corpus, "and which of those fields can I change?")
+    assert result["refused"] is False
+    assert result["retrieved"] == []
+    assert "which" in result["answer"].lower() or "what" in result["answer"].lower()
+
+
+def test_answer_stream_asks_for_context_then_done(corpus, retrieval_must_not_run):
+    import puks_rag
+    events = list(puks_rag.answer_stream(corpus, "what about its foreign keys?"))
+    assert [k for k, _ in events][-1] == "done"
+    assert events[-1][1]["reason"] == "needs_context"
+    assert events[-1][1]["refused"] is False

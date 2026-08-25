@@ -19,7 +19,7 @@ SCRIPTED = {
 }
 
 def questions():
-    s = SHEET.read_text()
+    s = SHEET.read_text().split("<!-- RESULTS:START -->")[0]   # Questions tab only
     for m in re.finditer(r'data-id="([A-Z]\d+)".*?<p class="ask">(.*?)</p>', s, re.S):
         qid, raw = m.group(1), m.group(2)
         text = html.unescape(re.sub(r"<[^>]+>", "", raw)).strip()
@@ -69,8 +69,19 @@ def run_one(item):
     return res
 
 items = list(questions())
-print(len(items), "questions"); 
+only = set(sys.argv[sys.argv.index("--only") + 1].split(",")) if "--only" in sys.argv else None
+if only:
+    items = [it for it in items if it[0] in only]
+print(len(items), "questions")
 with ThreadPoolExecutor(max_workers=4) as ex:
-    results = list(ex.map(run_one, items))
+    fresh = list(ex.map(run_one, items))
+if only and OUT.exists():
+    # Merge a partial re-run into the previous full run, keeping sheet order.
+    previous = {r["id"]: r for r in json.loads(OUT.read_text())}
+    previous.update({r["id"]: r for r in fresh})
+    order = [qid for qid, _ in questions()]
+    results = [previous[q] for q in order if q in previous]
+else:
+    results = fresh
 OUT.write_text(json.dumps(results, indent=1, ensure_ascii=False))
 print("saved", OUT, "refused:", sum(r["refused"] for r in results), "errors:", sum(bool(r["error"]) for r in results))

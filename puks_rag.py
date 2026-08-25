@@ -25,6 +25,7 @@ from __future__ import annotations
 import json
 import os
 import pickle
+import re as _re
 from collections import defaultdict
 from pathlib import Path
 
@@ -550,6 +551,35 @@ def format_memory(history: list[dict], max_turns: int = MEMORY_MAX_TURNS) -> str
 # ==================================================
 # RETRIEVAL — true hybrid, fused by RRF, reranked by Cohere
 # ==================================================
+# Warehouse shorthand the documentation does not use. "how to close a grn"
+# embedded and reranked as written lands on the one ticket whose title says
+# GRN (Jinko Solar, 0.69) while "Receipt closure" ranks sixth (0.54); the
+# same question with "receipt" scores 0.895 on the right file. Substituting
+# the corpus's own word fixes the dense and rerank signals. Merely appending
+# the word does not: the reranker still prefers the literal-GRN ticket. The
+# original tokens are kept for BM25 only (see retrieve_context) so files
+# titled with the abbreviation stay reachable lexically.
+_QUERY_ALIASES = {
+    "grn":  "receipt",
+    "grns": "receipts",
+    "gdn":  "delivery note",
+    "gdns": "delivery notes",
+    "lpn":  "support",
+    "lpns": "supports",
+    "mo":   "manufacturing order",
+    "po":   "purchase order",
+    "sku":  "item",
+    "skus": "items",
+    "asn":  "expected reception",
+}
+_ALIAS_RE = _re.compile(r"\b(" + "|".join(sorted(_QUERY_ALIASES, key=len, reverse=True)) + r")\b", _re.IGNORECASE)
+
+
+def expand_query(query: str) -> str:
+    """Replace warehouse abbreviations with the word the documentation uses."""
+    return _ALIAS_RE.sub(lambda m: _QUERY_ALIASES[m.group(1).lower()], query)
+
+
 def retrieve_context(corpus: Corpus, query: str, top_k: int = TOP_K_DEFAULT):
     """
     Dense and lexical retrieval run INDEPENDENTLY over the full corpus, then
@@ -561,8 +591,10 @@ def retrieve_context(corpus: Corpus, query: str, top_k: int = TOP_K_DEFAULT):
     only by an exact code (REE_DAT, LPN, ZPA, DLUO) was invisible if the
     semantic search missed it. Both retrievers now see everything.
     """
+    original_lower = query.lower()
+    query = expand_query(query)
     query_lower = query.lower()
-    intent = classify_query(query)
+    intent = classify_query(original_lower)
 
     # --- Dense, over the whole index ---
     q_vec = embed_texts([query])
@@ -570,14 +602,15 @@ def retrieve_context(corpus: Corpus, query: str, top_k: int = TOP_K_DEFAULT):
     dense_ranked = [int(i) for i in indices[0] if i != -1]
 
     # --- Lexical, over the whole corpus, independently ---
-    bm25_scores = corpus.bm25.get_scores(query_lower.split())
+    bm25_terms = list(dict.fromkeys(original_lower.split() + query_lower.split()))
+    bm25_scores = corpus.bm25.get_scores(bm25_terms)
     bm25_ranked = [
         int(i) for i in np.argsort(bm25_scores)[::-1][:BM25_CANDIDATES]
         if bm25_scores[int(i)] > 0
     ]
 
     # --- Exact table/procedure name match, a third signal ---
-    exact_ranked = corpus.exact_name_hits(query_lower)
+    exact_ranked = corpus.exact_name_hits(original_lower)
 
     # --- Reciprocal Rank Fusion ---
     fused: dict[int, float] = defaultdict(float)
@@ -930,8 +963,6 @@ def _prepare(corpus: Corpus, query: str, memory_text: str, top_k: int):
 # refuse (measured: top hit Gauge.txt at 0.205). Answer it from a description
 # built off the loaded corpus instead, and never call the model for it.
 # ==================================================
-import re as _re
-
 _SELF_PATTERNS = [
     r"\byour (capabilit|abilit|feature|purpose|function|scope|limit)",
     r"\bwhat (can|do|could) you (do|know|help|answer|cover)\b",
@@ -986,9 +1017,42 @@ def self_description(corpus) -> str:
     )
 
 
+# A follow-up with nothing to follow. After "Reset conversation memory" the
+# UI sends no history, and "and which of those fields can I change?" then
+# retrieves *something* (Global changes.txt at 0.47) and gets answered as if
+# it were about that. Leading anaphora with no history means the question
+# cannot be resolved; say so instead of guessing what "those" was.
+NO_HISTORY = "(No prior conversation)"
+_FOLLOWUP_RE = _re.compile(
+    r"^\s*(and|also|what about|how about|same for|the same|those|these|it|its|that|then|"
+    r"what about its|and its|and the other|the other one)\b",
+    _re.IGNORECASE,
+)
+NEEDS_CONTEXT_TEXT = (
+    "That sounds like a follow-up, but there is no earlier conversation for me to "
+    "connect it to — conversation memory may have been reset. Which receipt, order, "
+    "table or procedure are you asking about? Ask the full question and I will answer "
+    "from the Speed WMS documentation."
+)
+
+
+def is_unanchored_followup(query: str, memory_text: str) -> bool:
+    """True when the question leans on prior context and there is none."""
+    return memory_text.strip() == NO_HISTORY and bool(_FOLLOWUP_RE.match(query))
+
+
 def answer(corpus: Corpus, query: str, memory_text: str = "(No prior conversation)",
            top_k: int = TOP_K_DEFAULT) -> dict:
     """End-to-end: retrieve, guard, generate. Blocking; see answer_stream to stream."""
+    if is_unanchored_followup(query, memory_text):
+        return {
+            "answer":     NEEDS_CONTEXT_TEXT,
+            "retrieved":  [],
+            "confidence": 0.0,
+            "intent":     classify_query(query),
+            "refused":    False,
+        }
+
     if is_self_description(query):
         return {
             "answer":     self_description(corpus),
@@ -1042,6 +1106,11 @@ def answer_stream(corpus: Corpus, query: str, memory_text: str = "(No prior conv
     was retrieved — just the canned text as tokens, then "done" with
     reason "self_description".
     """
+    if is_unanchored_followup(query, memory_text):
+        yield "token", {"text": NEEDS_CONTEXT_TEXT}
+        yield "done", {"refused": False, "reason": "needs_context", "model": "none"}
+        return
+
     if is_self_description(query):
         for paragraph in self_description(corpus).split("\n\n"):
             yield "token", {"text": paragraph + "\n\n"}

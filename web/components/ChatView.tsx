@@ -193,7 +193,9 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
                           ? `Refused — top relevance ${message.done.confidence?.toFixed(3)} is below the ${message.done.threshold?.toFixed(2)} threshold.`
                           : message.done.reason === "self_description"
                             ? "Answered from the assistant's own description — no documents were retrieved."
-                            : `Top relevance: ${message.retrieved?.confidence.toFixed(3)} · ${message.done.model}`}
+                            : message.done.reason === "needs_context"
+                              ? "Asked for clarification — no earlier conversation to connect this to."
+                              : `Top relevance: ${message.retrieved?.confidence.toFixed(3)} · ${message.done.model}`}
                       </p>
                     )}
                   </>

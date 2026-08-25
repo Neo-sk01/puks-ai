@@ -25,7 +25,7 @@
   "asked": [
    "What does the \"Top Stock Input\" field on a receipt line mean?"
   ],
-  "answer": "The “Top Stock Input” field on a receipt line indicates the stock generation status for that line—i.e., whether the goods have been turned into available stock.\n\n- 0 = Line added to receipt but not generated in stock\n  - No stock entry movement is created\n  - Goods cannot be used in logistics flows\n- 1 = Line generated in stock\n  - Entry movement created\n  - Associated expected items consumed\n  - Goods available for logistics flows (e.g., picking, sampling)\n\nKey points:\n- The field updates from 0 to 1 when you click Generate Stock on the selected lines.\n- Only lines with Top Stock Input = 0 can be generated.\n- Once generated (value = 1), the line cannot be modified or deleted.",
+  "answer": "The Top Stock Input field on a receipt line indicates its stock generation status.\n\n- 0 (default): Line is added to the receipt but not yet generated in stock. No entry movement is created; goods are not available for logistics (picking, sampling, etc.).\n- 1: Line has been generated in stock. Entry movement is created, associated expected items are consumed, and the goods become available for logistics flows.\n\nKey points:\n- Top Stock Input starts at 0 when lines are validated/created.\n- Clicking Generate Stock updates it from 0 → 1 for selected lines.\n- Only lines with Top Stock Input = 0 can be generated.\n- Once generated (value = 1), the receipt line cannot be modified or deleted.",
   "refused": false,
   "reason": null,
   "confidence": 0.9041187,
@@ -35,7 +35,7 @@
    "Stock generation.txt",
    "End to End Receipt.txt"
   ],
-  "elapsed_s": 9.9,
+  "elapsed_s": 8.5,
   "error": null
  },
  {
@@ -44,7 +44,7 @@
   "asked": [
    "What can and can't I do with a receipt once it's closed?"
   ],
-  "answer": "Here’s what you can and can’t do with a receipt after it’s closed in Speed WMS:\n\nWhat you can do\n- Access the receipt in read-only/consultation (advisory) mode\n- View attached documents; printing remains available\n- Use the receipt data for reporting and audit purposes\n- Rely on the receipt as final for downstream/system integrations (feedback to n+1/ERP typically occurs after closure)\n\nWhat you cannot do\n- Modify the receipt in any way\n- Add, edit, or delete receipt lines\n- Add new media or attachments\n- Reopen the receipt (closure is final; reopening is not possible)",
+  "answer": "Here’s what you can and can’t do with a receipt after it’s closed in Speed WMS:\n\nYou can:\n- Access the receipt in read-only (consultation/advisory) mode\n- View and print attached documents\n- Use receipt data for reporting and audit purposes\n- Rely on it as the final, stable record for downstream/integration processes (feedback to external systems generally occurs after closure)\n\nYou cannot:\n- Modify the receipt\n- Add new receipt lines\n- Edit or delete existing receipt lines\n- Add new media or attachments\n- Reopen the receipt (closure is final)",
   "refused": false,
   "reason": null,
   "confidence": 0.7373288,
@@ -55,7 +55,7 @@
    "End to End Receipt.txt",
    "LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.txt"
   ],
-  "elapsed_s": 11.5,
+  "elapsed_s": 11.2,
   "error": null
  },
  {
@@ -106,7 +106,7 @@
   "asked": [
    "How do I generate a receipt from an expected reception?"
   ],
-  "answer": "To generate a receipt from an expected reception in Speed WMS:\n\n1) Initiate from Expected Items\n- In the Expected Receptions screen, select one or more expected lines for a single purchase order.\n- Right‑click (context menu) → Generate Receipt (associate the selected expected lines with a Speed receipt).\n- Note: Processing is strictly one purchase order at a time. Even if you select multiple expected lines, the entire PO is brought to the processing screen.\n\n2) Review PO Lines on the Processing Screen\n- All lines of the purchase order are displayed.\n- Editable fields are highlighted in yellow.\n\n3) Manage Expected Quantities per Line\n- Check the quantity to be returned to stock; modify if required.\n- Tick TG (“To Generate”) to include the line in the receipt.\n- Lines already received are marked G (“Generated”) and cannot be modified.\n- Variable‑weight items: enter the total weight for the expected quantity.\n- Partial receipt: if you enter less than expected, the line will be split and the remainder kept for future processing.\n\n4) Validate\n- Validate to create the receipt lines.\n\nNotes and rules\n- One expected line = one planned receipt quantity; partial consumption is allowed (consumption = quantity received into stock).\n- Expected lines remain editable until stock entry (consumption) starts; once stock entry is validated, expected quantities are reduced.\n- After receipt lines are created, you can proceed to Stock Generation from the Receipt form (Lines) when ready.",
+  "answer": "To generate a receipt from an expected reception in Speed WMS:\n\n1) Launch the process\n- Select one or more expected lines in the expected items screen.\n- Open the context menu and choose Generate Receipt (associate the selected expected lines with a Speed receipt).\n- Note: You can process only one purchase order at a time. Even if you select multiple expected lines, the entire purchase order is brought to the processing screen.\n\n2) Review and edit lines\n- All lines of the purchase order are displayed; editable fields are highlighted in yellow.\n- For each expected line:\n  - Check and, if needed, modify the quantity to generate (quantity to be returned to stock).\n  - Tick the TG (“To Generate”) box to include the line in the receipt.\n  - Variable-weight items: enter the total weight for the expected quantity.\n- Lines already received appear as G (“Generated”) and cannot be modified.\n\n3) Handle partial receipts\n- If you enter a quantity lower than expected, the system splits the line and keeps the remainder for future processing.\n\n4) Validate\n- Validate to create the receipt lines.\n- System constraints apply to prevent data inconsistency.\n- Expected lines remain editable until consumption (stock entry) starts; once stock entry is validated, expected quantities are reduced.\n\n5) Next step (stock generation)\n- Open the created Receipt → Lines.\n- Select lines for stock generation (Top Stock Input remains 0 until stock is actually generated).\n\nKey rules and limits\n- One purchase order per operation; repeat the process for additional POs.\n- Access is via the context menu on the expected items screen.",
   "refused": false,
   "reason": null,
   "confidence": 0.7491794,
@@ -118,7 +118,7 @@
    "End to End Receipt.txt",
    "LOREAL_MAROC_MACASLEA1.txt"
   ],
-  "elapsed_s": 10.6,
+  "elapsed_s": 10.2,
   "error": null
  },
  {
@@ -471,7 +471,7 @@
   "asked": [
    "What are the mandatory fields when creating a manufacturing order?"
   ],
-  "answer": "The mandatory fields for a Manufacturing Order (MO) are:\n- MO Reference (unique identifier)\n- Product Reference (finished product to be manufactured)\n- Quantity (units of the finished product to produce)",
+  "answer": "The mandatory fields for creating a Manufacturing Order are:\n- MO Reference (unique identifier of the manufacturing order)\n- Product Reference (finished product to be manufactured)\n- Quantity (number of units to produce)",
   "refused": false,
   "reason": null,
   "confidence": 0.95261395,
@@ -483,7 +483,7 @@
    "Speed WMS – Internal Support & Operations Reference Guide.txt",
    "Creation of receipt lines.txt"
   ],
-  "elapsed_s": 2.8,
+  "elapsed_s": 4.1,
   "error": null
  },
  {
@@ -888,19 +888,19 @@
   "asked": [
    "Durban says weights are missing on a GDN picklist. Why does that happen and how do I fix it?"
   ],
-  "answer": "Here’s why weights go missing on a GDN/Picklist in Durban (ZAR) and how to fix them, strictly per the documented procedure.\n\nWhy this happens\n- Order validated then returned to Seizure: Weights are first stored in REL_DAT and inherited by STK_DAT. When stock leaves the system, STK_DAT is cleared. Bringing stock back does not automatically repopulate STK_DAT.\n- During reception: Weight information may not have been correctly inherited into STK_DAT (i.e., stock attributes not populated).\n\nHow to fix it (Step-by-step)\n1) Check the order is editable (not validated)\nRun:\nSELECT *\nFROM ope_dat\nWHERE ope_nooe = 'order_number'\nAND act_code = 'zar';\n\n2) Check missions linked to the order\nRun:\nSELECT *\nFROM mil_dat\nWHERE ope_nooe = 'order_number'\nAND act_code = 'zar';\nNote: Some supports may already be validated (picked); only unvalidated supports can be updated.\n\n3) Update valid (unvalidated) supports by copying weights from REL_DAT to STK_DAT\nReplace the support placeholders with actual support numbers from MIL_DAT:\nUPDATE s\nSET\n s.stk_num13 = r.rel_num13,\n s.stk_num15 = r.rel_num14,\n s.stk_num16 = r.rel_num15,\n s.stk_num17 = r.rel_num15\nFROM stk_dat s\nJOIN rel_dat r\n  ON s.stk_nosu = r.rel_nosu\n AND s.act_code = r.act_code\nWHERE s.stk_nosu IN ('support_number_1', 'support_number_2', ...)\nAND s.act_code = 'zar';\n\n4) Verify\n- Print the GDN/Picklist. If weights appear correctly, you’re done.\n\n5) If weights still don’t show\n- Go back to MIL_DAT.\n- Unvalidate all lines that were already picked.\n- Rerun the update query from Step 3.\n- Print the GDN/Picklist again.\n\nImportant notes\n- Only update unvalidated supports to avoid inconsistencies.\n- If stock exists but no weight, check STK_DAT (stock attributes not populated).",
+  "answer": "Cause (Durban/Commodities GDN picklists)\n- If an order was validated and then brought back to Seizure:\n  - Weights are initially stored in REL_DAT and inherited by STK_DAT.\n  - When stock leaves the system, STK_DAT weight fields are cleared.\n  - Returning stock does not automatically repopulate STK_DAT.\n- Or, during reception, weight info may not have been correctly inherited into STK_DAT.\n\nHow to fix (step-by-step)\n1) Check the order is editable (not validated):\nSELECT *\nFROM ope_dat\nWHERE ope_nooe = 'order_number'\nAND act_code = 'zar';\n\n2) Check missions linked to the order (only unvalidated supports can be updated):\nSELECT *\nFROM mil_dat\nWHERE ope_nooe = 'order_number'\nAND act_code = 'zar';\n\n3) Update valid (i.e., unvalidated) supports by copying weights from REL_DAT to STK_DAT.\n- Get support numbers from MIL_DAT, then run:\nUPDATE s\nSET\n  s.stk_num13 = r.rel_num13,\n  s.stk_num15 = r.rel_num14,\n  s.stk_num16 = r.rel_num15,\n  s.stk_num17 = r.rel_num15\nFROM stk_dat s\nJOIN rel_dat r\n  ON s.stk_nosu = r.rel_nosu\n AND s.act_code = r.act_code\nWHERE s.stk_nosu IN ('support_number_1', 'support_number_2', ...)\nAND s.act_code = 'zar';\n\n4) Verify: Print the GDN / Picklist. If weights appear, you’re done.\n\n5) If weights still don’t show:\n- Go back to MIL_DAT and unvalidate all lines that were already picked.\n- Rerun the update query in step 3.\n- Print the GDN / Picklist again.\n\nNotes\n- Only update unvalidated supports to avoid inconsistencies.",
   "refused": false,
   "reason": null,
-  "confidence": 0.8909888,
+  "confidence": 0.85624856,
   "top_source": "Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt",
   "top_category": "Speed Support Document",
   "sources": [
    "Speed WMS – GDN  Picklist Weight Resolution (Durban Commodities).txt",
    "Speed WMS – ZAR Commodities Pending Issue & Temporary Mission Loading Procedure.txt",
-   "Speed WMS – Serial Number Issue Resolution Procedure.txt",
-   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
+   "Other order information.txt",
+   "Speed WMS – Serial Number Issue Resolution Procedure.txt"
   ],
-  "elapsed_s": 10.5,
+  "elapsed_s": 11.1,
   "error": null
  },
  {
@@ -909,10 +909,10 @@
   "asked": [
    "How do I reverse a closed GRN?"
   ],
-  "answer": "Access level: Support Only\n\nSafety rules:\n- Always execute SELECT before UPDATE.\n- Do not execute UPDATE in production without approval.\n- Support-level SQL only.\n- Follow inbound/outbound join rules.\n\nProcedure: Reverse Closed GRN\n1) Validate before update (run SELECT first):\n  SELECT REE_ETRE, REE_KEYU, REE_CCLI FROM REE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER;\n\n2) Core update to reopen the GRN (per procedure):\n  UPDATE REE_DAT SET REE_ETRE = '100' WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER AND REE_KEYU = RECEPTION_KEYU AND REE_CCLI = CUSTOMER_ACCOUNT_CODE;\n\nOptional (to also reset Pegasus integration status):\n  UPDATE REE_DAT\n  SET REE_ETRE = '100',\n  REE_TOP1 = 0\n  WHERE ACT_CODE = 'Activity Code'\n  AND REE_NORE = 'Receipt Number'\n  AND REE_KEYU = 'Receipt ID'\n  AND REE_CCLI = 'Customer Account Code';",
+  "answer": "Access level: Support Only\n\nProcedure: Reverse Closed GRN\nBusiness logic: Reopens a closed Goods Receipt Note\n\nSteps:\n1) Validate before update (run exactly as below):\n   SELECT REE_ETRE, REE_KEYU, REE_CCLI FROM REE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER;\n\n2) Perform the update (run exactly as below):\n   UPDATE REE_DAT SET REE_ETRE = '100' WHERE ACT_CODE = ACTIVITY_CODE AND REE_NORE = RECEPIT_NUMBER AND REE_KEYU = RECEPTION_KEYU AND REE_CCLI = CUSTOMER_ACCOUNT_CODE;",
   "refused": false,
   "reason": null,
-  "confidence": 0.85157084,
+  "confidence": 0.72348577,
   "top_source": "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
   "top_category": "Speed Support Document",
   "sources": [
@@ -920,7 +920,7 @@
    "Reverse Closed GRN.json",
    "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
   ],
-  "elapsed_s": 12.9,
+  "elapsed_s": 15.5,
   "error": null
  },
  {
@@ -929,17 +929,17 @@
   "asked": [
    "LPNs are missing on a manifest. What's the temporary resolution?"
   ],
-  "answer": "Access Level: Support Only\n\nIssue\n- Some LPNs do not appear on the manifest because SEX_DAT has a missing order number (SEX_NOOE = '0'). Manifest ETAT relies on SEX_DAT.\n\nProcedure\n\n1) Identify Affected LPNs (Validate before update)\nRun:\nSELECT sex.SEX_SUPE, mil.MIL_SUPP, mil.OPE_NOOE, mil.MIE_NOMI, sex.SEX_NOMI, sex.SEX_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = 'RSAJHBCLA' AND sex.SEX_NOOE = '0';\n- Records returned indicate LPNs that will not appear on the manifest.\n- The issue is caused by a missing SEX_NOOE value.\n\n2) Temporary Fix: Update Missing Order Number\nRun:\nUPDATE SEX_DAT SET SEX_NOOE = mil.OPE_NOOE FROM SEX_DAT sex JOIN MIL_DAT mil ON mil.ACT_CODE = sex.SEX_ACT AND mil.MIE_NoMI = sex.SEX_NoMI AND mil.MIL_SUPP = sex.SEX_SUPE WHERE sex.SEX_ACT = 'RSAJHBCLA' AND sex.SEX_NOOE = '0';\n- SEX_NOOE is populated with the correct OPE_NOOE.\n- The LPN now correctly reflects on the manifest.\n- Manifest ETAT functions as expected.\n\nExpected Outcome\n- SEX_NOOE is populated with the correct OPE_NOOE.\n- The LPN correctly reflects on the manifest.\n- Manifest ETAT functions as expected.\n\nImportant Notes\n- This is a temporary workaround, not a permanent fix.\n- Execute only when the issue is confirmed.\n- Database updates must be performed by Support.\n- Monitor recurring cases to assist with root cause analysis.",
+  "answer": "Temporary Resolution: LPNs Missing on Manifest\n\nAccess level: Support Only\nCore tables involved: MIL_DAT (Mission Lines), SEX_DAT (Support Header)\nSafety rules:\n- Always execute SELECT before performing any UPDATE.\n- Support-level SQL only.\n- Verify ACT_CODE and order number before updating.\n\nIssue summary\n- Some LPNs do not appear on the manifest because SEX_DAT has a missing order number (SEX_NOOE = '0').\n- Manifest ETAT relies on SEX_DAT, so affected LPNs are excluded.\n- This is a temporary workaround, not a permanent fix.\n\nProcedure\n\n1) Identify affected LPNs (Validate first)\nRun this SELECT to locate LPNs that will not appear on the manifest due to missing SEX_NOOE:\nSELECT sex.SEX_SUPE, mil.MIL_SUPP, mil.OPE_NOOE, mil.MIE_NOMI, sex.SEX_NOMI, sex.SEX_NOOE\nFROM SEX_DAT sex\nJOIN MIL_DAT mil\n  ON mil.ACT_CODE = sex.SEX_ACT\n AND mil.MIE_NoMI = sex.SEX_NoMI\n AND mil.MIL_SUPP = sex.SEX_SUPE\nWHERE sex.SEX_ACT = 'RSAJHBCLA'\n  AND sex.SEX_NOOE = '0';\n\n- Records returned indicate LPNs that will not appear on the manifest.\n- The issue is caused by a missing SEX_NOOE value.\n\n2) Temporary fix: Update missing order number (only after validating)\nExecute this UPDATE to populate the correct order number from MIL_DAT into SEX_DAT:\nUPDATE SEX_DAT\nSET SEX_NOOE = mil.OPE_NOOE\nFROM SEX_DAT sex\nJOIN MIL_DAT mil\n  ON mil.ACT_CODE = sex.SEX_ACT\n AND mil.MIE_NoMI = sex.SEX_NoMI\n AND mil.MIL_SUPP = sex.SEX_SUPE\nWHERE sex.SEX_ACT = 'RSAJHBCLA'\n  AND sex.SEX_NOOE = '0';\n\n- SEX_NOOE is populated with the correct OPE_NOOE.\n- The LPN now correctly reflects on the manifest.\n- Manifest ETAT functions as expected.\n\nExpected outcome\n- SEX_NOOE is populated with the correct OPE_NOOE.\n- The LPN correctly reflects on the manifest.\n- Manifest ETAT functions as expected.\n\nImportant notes\n- Execute only when the issue is confirmed.\n- Database updates must be performed by Support.\n- Monitor recurring cases to assist with root cause analysis.",
   "refused": false,
   "reason": null,
-  "confidence": 0.88564163,
-  "top_source": "Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt",
+  "confidence": 0.81630427,
+  "top_source": "LPNs Missing on Manifest – Temporary Resolution.json",
   "top_category": "Speed Support Document",
   "sources": [
-   "Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt",
-   "LPNs Missing on Manifest – Temporary Resolution.json"
+   "LPNs Missing on Manifest – Temporary Resolution.json",
+   "Speed WMS – Manifest  ETAT Temporary Resolution for Missing LPNs.txt"
   ],
-  "elapsed_s": 11.1,
+  "elapsed_s": 7.7,
   "error": null
  },
  {
@@ -971,15 +971,15 @@
   "answer": "The ticket was resolved by changing the receipt status to 100.",
   "refused": false,
   "reason": null,
-  "confidence": 0.95143646,
+  "confidence": 0.9353998,
   "top_source": "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
   "top_category": "Support Ticket Docs",
   "sources": [
    "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
-   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
-   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt"
+   "Receipt Creation, Line Management & SQL Validation in Speed WMS.txt",
+   "Speed WMS – Unknown Support Issue Resolution Procedure.txt"
   ],
-  "elapsed_s": 3.9,
+  "elapsed_s": 7.3,
   "error": null
  },
  {
@@ -1149,7 +1149,7 @@
    "How do I create a receipt header in Speed WMS?",
    "and which of those fields can I change?"
   ],
-  "answer": "You can change:\n- Receipt date and time (defaults to creation time; can be modified)\n- Customer account (if the activity manages customer accounts; mandatory)\n- Third-party supplier code (select from declared third parties; you can also create a new third-party file from the selection screen)\n\nYou cannot change:\n- Activity code / Current activity (read-only)\n- Speed receipt number (system-generated, non-modifiable)\n- Default reception dock (pre-selected based on configuration; not stated as editable)",
+  "answer": "Within the Receipt Header, based on the provided procedure:\n\nEditable/modifiable fields\n- Receipt Date and Time (defaults to creation time; can be modified)\n- Default Reception Dock (pre-selected; can be chosen from the list of dock-type locations configured in the environment)\n- Customer account (if the activity manages customer accounts; must be selected)\n- Third-party supplier code (must be selected from declared third parties; you can also create a new third-party from the selection screen)\n\nNon-editable (system-initialized) fields\n- Activity Code (read-only)\n- Speed Receipt Number (REE_NORE) / Speed receipt number (internal counter; non-modifiable)",
   "refused": false,
   "reason": null,
   "confidence": 0.47475353,
@@ -1161,7 +1161,7 @@
    "Mapping of the deliveries.txt",
    "Creating and modifying an order.txt"
   ],
-  "elapsed_s": 12.1,
+  "elapsed_s": 10.7,
   "error": null
  },
  {
@@ -1171,10 +1171,10 @@
    "What does the STK_DAT table hold and what is its primary key?",
    "what about its foreign keys?"
   ],
-  "answer": "Table Name: STK_DAT\nDescription: Current Stock Table\nPrimary Key: stk_keyu\nTotal Columns: 110\n\nNote: The provided schema groups certain columns (e.g., STK_ALPHA1-10, STK_DATE1-5, STK_HEURE1-5, STK_LOT1-3, STK_NUM1-5, STK_TOP1-5) and does not individually enumerate all 110 columns. Therefore, the full expanded list of all columns is not completely detailed in the context.\n\nColumns:\n- Name: ACT_CODE — Activity code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: ACT_PAR.ACT_CODE\n- Name: ART_CNDC — Package - Colis | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDC\n- Name: ART_CNDO — Package - Layer | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDO\n- Name: ART_CNDP — Package - Pallet | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDP\n- Name: ART_CNDS — Package - SPCB | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDS\n- Name: ART_CNDU — Package - Unit | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: ART_PAR.ART_CNDU\n- Name: ART_CODE — Article code | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_CODE\n- Name: ART_EANC — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANC\n- Name: ART_EANO — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANO\n- Name: ART_EANP — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANP\n- Name: ART_EANS — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANS\n- Name: ART_EANU — Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: Yes | References: ART_PAR.ART_EANU\n- Name: ART_QTEC — Qty per Colis | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: Yes | References: ART_PAR.ART_QTEC\n- Name: ART_QTEO — Qty per Layer | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEO\n- Name: ART_QTEP — Qty per Pallet | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEP\n- Name: ART_QTES — Qty per SPCB | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTES\n- Name: ART_QTEU — Qty per Unit | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: ART_PAR.ART_QTEU\n- Name: DOS_CODE — Folder code | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: DOS_DAT.DOS_CODE\n- Name: GAB_CODE — Template code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: GAB_PAR.GAB_CODE\n- Name: OFE_NOOE — Manufacturing order no | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: OFE_DAT.OFE_NOOE\n- Name: OFE_REF — Manufacturing reference | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: Yes | References: OFE_DAT.OFE_REF\n- Name: OFF_NORL — Production line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: OFF_DAT.OFF_NORL\n- Name: OFL_NOOL — Order line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: OFL_DAT.OFL_NOOL\n- Name: QUA_CODE — Quality code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: Yes | References: QUA_PAR.QUA_CODE\n- Name: REA_BL — Delivery note ref | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: REA_DAT.REA_BL\n- Name: REA_RFCE — DO header ref | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: REA_DAT.REA_RFCE\n- Name: REA_RFCL — DO line ref | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: Yes | References: REA_DAT.REA_RFCL\n- Name: REL_NORL — Reception line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: REL_DAT.REL_NORL\n- Name: RES_COM — Reservation comment | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: Yes | References: RES_DAT.RES_COM\n- Name: RES_CRDA — Reservation creation datetime | SQL Server: VARCHAR(16) | Oracle: NVARCHAR2(16) | PK: No | FK: Yes | References: RES_DAT.RES_CRDA\n- Name: RES_LIDA — Reservation expiry date | SQL Server: VARCHAR(8) | Oracle: NVARCHAR2(8) | PK: No | FK: Yes | References: RES_DAT.RES_LIDA\n- Name: RES_MOTIF — Reservation reason | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: Yes | References: RES_DAT.RES_MOTIF\n- Name: RES_QIRE — Reserved by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: RES_DAT.RES_QIRE\n- Name: SDO_CODE — Customs status | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: Yes | References: SDO_PAR.SDO_CODE\n- Name: STK_ALLE — Aisle | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_ALLP — Planned aisle | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_ALPHA1-10 — Additional info A01-A10 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: —\n- Name: STK_CASE — Location case | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_CASP — Planned case | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_CFIS — Fiscality code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: No | References: —\n- Name: STK_CLAS — Class code | SQL Server: VARCHAR(1) | Oracle: NVARCHAR2(1) | PK: No | FK: No | References: —\n- Name: STK_COL — Column | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_COLP — Planned column | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_COM — Comments | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: No | References: —\n- Name: STK_CRDA — Creation date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_CRHE — Creation time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_CRQI — Created by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: No | References: —\n- Name: STK_CTIE — Entry third party | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: No | References: —\n- Name: STK_DAEN — Stock entry date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DAEP — Planned transfer execution date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DAIV — Inventory date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DARG — Putaway date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DARS — Location search date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DASO — Exit date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DATE1-5 — Additional dates D01-D05 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DFAB — Manufacturing date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DLC — Expiry date (DLC) | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DLUO — Best-before date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_DLV — Delivery date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_HEEP — Planned transfer time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_HEIV — Inventory time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_HERG — Putaway time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_HERS — Location search time | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: —\n- Name: STK_HEURE1-5 — Additional times H01-H05 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_INPC — Forklift priority index | SQL Server: VARCHAR(20) | Oracle: NVARCHAR2(20) | PK: No | FK: No | References: —\n- Name: STK_KEYU — Stock unique key | SQL Server: BIGINT | Oracle: INTEGER | PK: Yes | FK: No | References: —\n- Name: STK_LIEP — Planned location | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: —\n- Name: STK_LIEU — Location | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: —\n- Name: STK_LOT1-3 — Lot numbers | SQL Server: VARCHAR(100) | Oracle: NVARCHAR2(100) | PK: No | FK: No | References: —\n- Name: STK_MODA — Modification date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: —\n- Name: STK_MOHE — Modification time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: —\n- Name: STK_MOQI — Modified by | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: No | References: —\n- Name: STK_NIV — Level | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_NIVP — Planned level | SQL Server: VARCHAR(3) | Oracle: NVARCHAR2(3) | PK: No | FK: No | References: —\n- Name: STK_NOER — Distribution header no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —\n- Name: STK_NOLR — Distribution line no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —\n- Name: STK_NORE — Reception number | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: REE_DAT.REE_NORE\n- Name: STK_NORG — Grouping order no | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: —\n- Name: STK_NOSU — Support number | SQL Server: VARCHAR(25) | Oracle: NVARCHAR",
+  "answer": "Table Name: STK_DAT\nDescription: Current Stock Table\nPrimary Key: stk_keyu\nTotal Columns: 110\n\nNote: The schema provided in this context is incomplete. The source indicates a total of 110 columns, but only the columns listed below are available in the retrieved context.\n\nColumns:\n- Name: ACT_CODE\n  Description: Activity code\n  SQL Server: VARCHAR(10)\n  Oracle: NVARCHAR2(10)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ACT_PAR.ACT_CODE\n\n- Name: ART_CNDC\n  Description: Package - Colis\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_CNDC\n\n- Name: ART_CNDO\n  Description: Package - Layer\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_CNDO\n\n- Name: ART_CNDP\n  Description: Package - Pallet\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_CNDP\n\n- Name: ART_CNDS\n  Description: Package - SPCB\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_CNDS\n\n- Name: ART_CNDU\n  Description: Package - Unit\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_CNDU\n\n- Name: ART_CODE\n  Description: Article code\n  SQL Server: VARCHAR(35)\n  Oracle: NVARCHAR2(35)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_CODE\n\n- Name: ART_EANC\n  Description: Reserved BK\n  SQL Server: VARCHAR(30)\n  Oracle: NVARCHAR2(30)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_EANC\n\n- Name: ART_EANO\n  Description: Reserved BK\n  SQL Server: VARCHAR(30)\n  Oracle: NVARCHAR2(30)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_EANO\n\n- Name: ART_EANP\n  Description: Reserved BK\n  SQL Server: VARCHAR(30)\n  Oracle: NVARCHAR2(30)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_EANP\n\n- Name: ART_EANS\n  Description: Reserved BK\n  SQL Server: VARCHAR(30)\n  Oracle: NVARCHAR2(30)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_EANS\n\n- Name: ART_EANU\n  Description: Reserved BK\n  SQL Server: VARCHAR(30)\n  Oracle: NVARCHAR2(30)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_EANU\n\n- Name: ART_QTEC\n  Description: Qty per Colis\n  SQL Server: VARCHAR(25)\n  Oracle: NVARCHAR2(25)\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_QTEC\n\n- Name: ART_QTEO\n  Description: Qty per Layer\n  SQL Server: BIGINT\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_QTEO\n\n- Name: ART_QTEP\n  Description: Qty per Pallet\n  SQL Server: BIGINT\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_QTEP\n\n- Name: ART_QTES\n  Description: Qty per SPCB\n  SQL Server: BIGINT\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_QTES\n\n- Name: ART_QTEU\n  Description: Qty per Unit\n  SQL Server: BIGINT\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: ART_PAR.ART_QTEU\n\n- Name: DOS_CODE\n  Description: Folder code\n  SQL Server: BIGINT\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: DOS_DAT.DOS_CODE\n\n- Name: GAB_CODE\n  Description: Template code\n  SQL Server: VARCHAR(10)\n  Oracle: NVARCHAR2(10)\n  Primary Key: No\n  Foreign Key: Yes\n  References: GAB_PAR.GAB_CODE\n\n- Name: OFE_NOOE\n  Description: Manufacturing order no\n  SQL Server: BIGINT\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: OFE_DAT.OFE_NOOE\n\n- Name: OFE_REF\n  Description: Manufacturing reference\n  SQL Server: VARCHAR(20)\n  Oracle: NVARCHAR2(20)\n  Primary Key: No\n  Foreign Key: Yes\n  References: OFE_DAT.OFE_REF\n\n- Name: OFF_NORL\n  Description: Production line no\n  SQL Server: NUMERIC(10)\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: OFF_DAT.OFF_NORL\n\n- Name: OFL_NOOL\n  Description: Order line no\n  SQL Server: NUMERIC(10)\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: OFL_DAT.OFL_NOOL\n\n- Name: QUA_CODE\n  Description: Quality code\n  SQL Server: VARCHAR(5)\n  Oracle: NVARCHAR2(5)\n  Primary Key: No\n  Foreign Key: Yes\n  References: QUA_PAR.QUA_CODE\n\n- Name: REA_BL\n  Description: Delivery note ref\n  SQL Server: VARCHAR(50)\n  Oracle: NVARCHAR2(50)\n  Primary Key: No\n  Foreign Key: Yes\n  References: REA_DAT.REA_BL\n\n- Name: REA_RFCE\n  Description: DO header ref\n  SQL Server: VARCHAR(50)\n  Oracle: NVARCHAR2(50)\n  Primary Key: No\n  Foreign Key: Yes\n  References: REA_DAT.REA_RFCE\n\n- Name: REA_RFCL\n  Description: DO line ref\n  SQL Server: VARCHAR(20)\n  Oracle: NVARCHAR2(20)\n  Primary Key: No\n  Foreign Key: Yes\n  References: REA_DAT.REA_RFCL\n\n- Name: REL_NORL\n  Description: Reception line no\n  SQL Server: NUMERIC(10)\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: REL_DAT.REL_NORL\n\n- Name: RES_COM\n  Description: Reservation comment\n  SQL Server: TEXT\n  Oracle: CLOB\n  Primary Key: No\n  Foreign Key: Yes\n  References: RES_DAT.RES_COM\n\n- Name: RES_CRDA\n  Description: Reservation creation datetime\n  SQL Server: VARCHAR(16)\n  Oracle: NVARCHAR2(16)\n  Primary Key: No\n  Foreign Key: Yes\n  References: RES_DAT.RES_CRDA\n\n- Name: RES_LIDA\n  Description: Reservation expiry date\n  SQL Server: VARCHAR(8)\n  Oracle: NVARCHAR2(8)\n  Primary Key: No\n  Foreign Key: Yes\n  References: RES_DAT.RES_LIDA\n\n- Name: RES_MOTIF\n  Description: Reservation reason\n  SQL Server: VARCHAR(50)\n  Oracle: NVARCHAR2(50)\n  Primary Key: No\n  Foreign Key: Yes\n  References: RES_DAT.RES_MOTIF\n\n- Name: RES_QIRE\n  Description: Reserved by\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: Yes\n  References: RES_DAT.RES_QIRE\n\n- Name: SDO_CODE\n  Description: Customs status\n  SQL Server: VARCHAR(5)\n  Oracle: NVARCHAR2(5)\n  Primary Key: No\n  Foreign Key: Yes\n  References: SDO_PAR.SDO_CODE\n\n- Name: STK_ALLE\n  Description: Aisle\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_ALLP\n  Description: Planned aisle\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_ALPHA1-10\n  Description: Additional info A01-A10\n  SQL Server: VARCHAR(50)\n  Oracle: NVARCHAR2(50)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CASE\n  Description: Location case\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CASP\n  Description: Planned case\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CFIS\n  Description: Fiscality code\n  SQL Server: VARCHAR(5)\n  Oracle: NVARCHAR2(5)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CLAS\n  Description: Class code\n  SQL Server: VARCHAR(1)\n  Oracle: NVARCHAR2(1)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_COL\n  Description: Column\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_COLP\n  Description: Planned column\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_COM\n  Description: Comments\n  SQL Server: TEXT\n  Oracle: CLOB\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CRDA\n  Description: Creation date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CRHE\n  Description: Creation time\n  SQL Server: VARCHAR(6)\n  Oracle: NVARCHAR2(6)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CRQI\n  Description: Created by\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_CTIE\n  Description: Entry third party\n  SQL Server: VARCHAR(35)\n  Oracle: NVARCHAR2(35)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DAEN\n  Description: Stock entry date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DAEP\n  Description: Planned transfer execution date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DAIV\n  Description: Inventory date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DARG\n  Description: Putaway date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DARS\n  Description: Location search date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DASO\n  Description: Exit date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DATE1-5\n  Description: Additional dates D01-D05\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DFAB\n  Description: Manufacturing date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DLC\n  Description: Expiry date (DLC)\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DLUO\n  Description: Best-before date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_DLV\n  Description: Delivery date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_HEEP\n  Description: Planned transfer time\n  SQL Server: VARCHAR(6)\n  Oracle: NVARCHAR2(6)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_HEIV\n  Description: Inventory time\n  SQL Server: VARCHAR(6)\n  Oracle: NVARCHAR2(6)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_HERG\n  Description: Putaway time\n  SQL Server: VARCHAR(6)\n  Oracle: NVARCHAR2(6)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_HERS\n  Description: Location search time\n  SQL Server: VARCHAR(50)\n  Oracle: NVARCHAR2(50)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_HEURE1-5\n  Description: Additional times H01-H05\n  SQL Server: VARCHAR(6)\n  Oracle: NVARCHAR2(6)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_INPC\n  Description: Forklift priority index\n  SQL Server: VARCHAR(20)\n  Oracle: NVARCHAR2(20)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_KEYU\n  Description: Stock unique key\n  SQL Server: BIGINT\n  Oracle: INTEGER\n  Primary Key: Yes\n  Foreign Key: No\n\n- Name: STK_LIEP\n  Description: Planned location\n  SQL Server: VARCHAR(25)\n  Oracle: NVARCHAR2(25)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_LIEU\n  Description: Location\n  SQL Server: VARCHAR(25)\n  Oracle: NVARCHAR2(25)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_LOT1-3\n  Description: Lot numbers\n  SQL Server: VARCHAR(100)\n  Oracle: NVARCHAR2(100)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_MODA\n  Description: Modification date\n  SQL Server: DATETIME\n  Oracle: NCHAR(8)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_MOHE\n  Description: Modification time\n  SQL Server: VARCHAR(6)\n  Oracle: NVARCHAR2(6)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_MOQI\n  Description: Modified by\n  SQL Server: VARCHAR(15)\n  Oracle: NVARCHAR2(15)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_NIV\n  Description: Level\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_NIVP\n  Description: Planned level\n  SQL Server: VARCHAR(3)\n  Oracle: NVARCHAR2(3)\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_NOER\n  Description: Distribution header no\n  SQL Server: NUMERIC(10)\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_NOLR\n  Description: Distribution line no\n  SQL Server: NUMERIC(10)\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: No\n\n- Name: STK_NORE\n  Description: Reception number\n  SQL Server: NUMERIC(10)\n  Oracle: INTEGER\n  Primary Key: No\n  Foreign Key: Yes\n  References: REE_DAT.REE_NORE\n\n- Name: STK_NORG\n  Description: Grouping",
   "refused": false,
   "reason": null,
-  "confidence": 0.3480693,
+  "confidence": 0.34793633,
   "top_source": "stk_dat.json",
   "top_category": "Database Tables",
   "sources": [
@@ -1184,7 +1184,7 @@
    "REE_DAT.json",
    "REL_DAT.json"
   ],
-  "elapsed_s": 37.4,
+  "elapsed_s": 40.4,
   "error": null
  },
  {
@@ -1193,18 +1193,18 @@
   "asked": [
    "how to close a grn"
   ],
-  "answer": "I do not have enough information to answer this. Please contact support.",
+  "answer": "To close a GRN (receipt) in Speed WMS:\n\nHow to close\n- Open the Receipt Management screen.\n- Select the target receipt.\n- Use either:\n  - Contextual menu → Close Receipt, or\n  - Command bar → Close Receipt button.\n- Confirm the closure action.\n\nPreconditions\n- All receipt lines are correctly recorded.\n- Quantities and item references are validated.\n- Required documents/media are attached.\n- No further modifications are expected.\n\nWhat happens after closure\n- The receipt and its lines can no longer be added, edited, or deleted.\n- No new media/attachments can be added.\n- The receipt remains accessible in read-only/consultation mode; advisory and print options remain available.\n- Feedback/synchronization to upstream (n+1/ERP) systems generally occurs after closure.\n\nBest practices\n- Close only after full verification; reopening is not possible.\n- Align closure timing with external system synchronization schedules.",
   "refused": false,
   "reason": null,
-  "confidence": 0.70726365,
-  "top_source": "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
-  "top_category": "Support Ticket Docs",
+  "confidence": 0.8947989,
+  "top_source": "Receipt closure.txt",
+  "top_category": "RECEIVING GOODS",
   "sources": [
-   "Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound & closed on WMS).txt",
-   "SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt",
-   "Reverse Closed GRN.json"
+   "Receipt closure.txt",
+   "End to End Receipt.txt",
+   "LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines.txt"
   ],
-  "elapsed_s": 6.4,
+  "elapsed_s": 7.4,
   "error": null
  },
  {
@@ -1235,19 +1235,14 @@
   "asked": [
    "and which of those fields can I change?"
   ],
-  "answer": "In Global Changes for orders, you can modify these fields for all selected orders:\n- Grouping code (waves/mission grouping)\n- Preparation channel\n- Preparation date (start date for preparation)\n- Carrier code (default carrier for the order)",
+  "answer": "That sounds like a follow-up, but there is no earlier conversation for me to connect it to — conversation memory may have been reset. Which receipt, order, table or procedure are you asking about? Ask the full question and I will answer from the Speed WMS documentation.",
   "refused": false,
-  "reason": null,
-  "confidence": 0.47475353,
-  "top_source": "Global changes.txt",
-  "top_category": "ORDER PREPARATION",
-  "sources": [
-   "Global changes.txt",
-   "Creating a receipt header.txt",
-   "Mapping of the deliveries.txt",
-   "Creating and modifying an order.txt"
-  ],
-  "elapsed_s": 5.9,
+  "reason": "needs_context",
+  "confidence": null,
+  "top_source": null,
+  "top_category": null,
+  "sources": [],
+  "elapsed_s": 0.0,
   "error": null
  },
  {
