@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getConfig } from "@/lib/server";
-import { providerLabel } from "@/lib/provider";
+import { allAzure, roleLabel } from "@/lib/provider";
 
 export const dynamic = "force-dynamic";
 
@@ -74,18 +74,19 @@ export default async function About() {
         </div>
       </section>
 
-      {config?.provider === "openai" ? (
+      {config && !allAzure(config.providers) ? (
         <p className="rounded-lg border border-signal/30 bg-signal/10 p-4 text-sm text-signal">
-          This instance is running on <strong>{providerLabel(config.provider)}</strong> — the same
-          models, reached over the public OpenAI and Cohere APIs. That is the local-development
-          setup; in production everything runs on AGL&apos;s own Azure Foundry resource and no
-          request leaves the tenant.
+          On this instance, generation runs on{" "}
+          <strong>{roleLabel("chat", config.providers.chat)}</strong>, embeddings on{" "}
+          <strong>{roleLabel("embed", config.providers.embed)}</strong> and reranking on{" "}
+          <strong>{roleLabel("rerank", config.providers.rerank)}</strong>. AGL&apos;s Foundry resource
+          currently deploys gpt-5 only, so the embedding and rerank calls reach the public OpenAI
+          and Cohere APIs with the same models. Once those are deployed in the tenant, no request
+          will leave it.
         </p>
       ) : (
         <p className="text-type">
-          Everything runs on AGL&apos;s own Azure Foundry resource
-          {config ? <> (<code className="font-mono">{providerLabel(config.provider)}</code>)</> : null}.
-          No request leaves the tenant.
+          Everything runs on AGL&apos;s own Azure Foundry resource. No request leaves the tenant.
         </p>
       )}
 

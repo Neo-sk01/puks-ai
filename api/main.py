@@ -62,6 +62,7 @@ def create_app() -> FastAPI:
             "index":             engine.info(),
             "rerank_configured": bool(puks_rag.RERANK_ENDPOINT),
             "provider":          puks_rag.PROVIDER,
+            "providers":         puks_rag.PROVIDERS,
         }
 
     @app.get("/api/config")
@@ -77,6 +78,7 @@ def create_app() -> FastAPI:
             "rerank_configured":   bool(puks_rag.RERANK_ENDPOINT),
             "mock":                app.state.engine.mock,
             "provider":            puks_rag.PROVIDER,
+            "providers":           puks_rag.PROVIDERS,
         }
 
     def _require_ready() -> None:

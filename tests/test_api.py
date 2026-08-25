@@ -58,6 +58,12 @@ def test_health_reports_the_provider(client):
     assert client.get("/health").json()["provider"] in ("azure", "openai")
 
 
+def test_config_reports_a_provider_per_role(client):
+    providers = client.get("/api/config").json()["providers"]
+    assert set(providers) == {"chat", "embed", "rerank"}
+    assert all(v in ("azure", "openai") for v in providers.values())
+
+
 def test_config_reports_whether_rerank_is_configured(client, monkeypatch):
     """With AZURE_RERANK_ENDPOINT unset, cohere_rerank returns 0.0 scores,
     confidence reads that field, and the 0.30 gate refuses every query.

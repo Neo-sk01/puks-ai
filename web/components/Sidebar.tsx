@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { AppConfig } from "@/lib/types";
 import { clampTopK } from "@/lib/history";
-import { providerLabel, rerankEnvVar } from "@/lib/provider";
+import { anyPublic, roleLabel, rerankEnvVar } from "@/lib/provider";
 
 interface Props {
   config: AppConfig | null;
@@ -76,18 +76,22 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
         <section className="flex flex-col gap-1 text-xs text-muted">
           <p>
             Generation <code className="font-mono text-type">{config.chat_deployment}</code>
+            <span className="ml-1.5">· {roleLabel("chat", config.providers.chat)}</span>
           </p>
           <p>
             Embeddings <code className="font-mono text-type">{config.embed_deployment}</code>
+            <span className="ml-1.5">· {roleLabel("embed", config.providers.embed)}</span>
           </p>
           <p>
             Reranker <code className="font-mono text-type">{config.rerank_model}</code>
+            <span className="ml-1.5">· {roleLabel("rerank", config.providers.rerank)}</span>
           </p>
-          <p>
-            Provider <code className="font-mono text-type">{providerLabel(config.provider)}</code>
-          </p>
-          {config.provider === "openai" && !config.mock && (
-            <p className="text-signal">Local dev — public OpenAI and Cohere APIs, not AGL&apos;s tenant</p>
+          {anyPublic(config.providers) && !config.mock && (
+            <p className="text-signal">
+              {config.providers.chat === "azure"
+                ? "Generation runs in AGL's Foundry; embeddings and rerank use public APIs"
+                : "Local dev — public OpenAI and Cohere APIs, not AGL's tenant"}
+            </p>
           )}
           {config.mock && <p className="text-signal">Mock mode — fixtures, not the model</p>}
         </section>
@@ -95,7 +99,7 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
 
       {config && !config.rerank_configured && !config.mock && (
         <p role="alert" className="rounded border border-hazard/40 bg-hazard/10 p-3 text-xs text-hazard">
-          <strong>{rerankEnvVar(config.provider)} is not set.</strong> Rerank scores fall back to
+          <strong>{rerankEnvVar(config.providers.rerank)} is not set.</strong> Rerank scores fall back to
           0.0, and confidence is read from that same field — so every query will be refused.
         </p>
       )}

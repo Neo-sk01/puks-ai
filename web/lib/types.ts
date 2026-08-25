@@ -64,9 +64,17 @@ export interface AppConfig {
   /** "azure" = AGL's Foundry resource (production). "openai" = public OpenAI +
    *  Cohere APIs, used for local development without Foundry access. */
   provider: Provider;
+  /** Provider per role — AGL's Foundry deploys gpt-5 only, so chat can stay
+   *  in the tenant while embeddings and rerank reach the public APIs. */
+  providers: RoleProviders;
 }
 
 export type Provider = "azure" | "openai";
+export interface RoleProviders {
+  chat: Provider;
+  embed: Provider;
+  rerank: Provider;
+}
 
 /** Lives here, not in lib/server.ts: client components need the type, and
  *  lib/server.ts is `import "server-only"`. A value import of it from a client

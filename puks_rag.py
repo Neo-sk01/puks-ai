@@ -64,22 +64,40 @@ AI_API_VERSION   = os.getenv("AZURE_AI_API_VERSION", "2025-04-01-preview")
 OPENAI_KEY       = os.getenv("OPENAI_API_KEY", "").strip()
 COHERE_KEY       = os.getenv("COHERE_API_KEY", "").strip()
 
-# Explicit PUKS_PROVIDER wins. Unset, prefer Azure when it is configured and
-# fall back to OpenAI only when an OpenAI key is the sole credential present,
-# so a production box with Azure settings can never be redirected by a stray
-# OPENAI_API_KEY.
-PROVIDER = os.getenv("PUKS_PROVIDER", "").lower() or (
-    "openai" if OPENAI_KEY and not AI_KEY else "azure"
-)
-if PROVIDER not in ("azure", "openai"):
-    raise RuntimeError(f"PUKS_PROVIDER must be 'azure' or 'openai', got {PROVIDER!r}")
+# Providers, one per role. PUKS_PROVIDER is the default for all three;
+# PUKS_CHAT_PROVIDER / PUKS_EMBED_PROVIDER / PUKS_RERANK_PROVIDER override a
+# single role. This exists because AGL's Foundry resource (aift003) deploys
+# gpt-5 and nothing else — no embedding model, no Cohere rerank — and the
+# account that runs this cannot create deployments. Generation therefore runs
+# in the tenant while embeddings and rerank reach the public OpenAI and Cohere
+# APIs. Same models either way, so one index serves every combination.
+#
+# Unset, PUKS_PROVIDER prefers Azure when it is configured and falls back to
+# OpenAI only when an OpenAI key is the sole credential, so a production box
+# with Azure settings can never be redirected by a stray OPENAI_API_KEY.
+_PROVIDERS = ("azure", "openai")
 
-if PROVIDER == "openai":
-    CHAT_DEPLOYMENT  = os.getenv("OPENAI_CHAT_MODEL", "gpt-5")
+
+def _provider(var: str, default: str) -> str:
+    value = os.getenv(var, "").lower() or default
+    if value not in _PROVIDERS:
+        raise RuntimeError(f"{var} must be one of {_PROVIDERS}, got {value!r}")
+    return value
+
+
+PROVIDER        = _provider("PUKS_PROVIDER", "openai" if OPENAI_KEY and not AI_KEY else "azure")
+CHAT_PROVIDER   = _provider("PUKS_CHAT_PROVIDER", PROVIDER)
+EMBED_PROVIDER  = _provider("PUKS_EMBED_PROVIDER", PROVIDER)
+
+if CHAT_PROVIDER == "openai":
+    CHAT_DEPLOYMENT = os.getenv("OPENAI_CHAT_MODEL", "gpt-5")
+else:
+    CHAT_DEPLOYMENT = os.getenv("AZURE_CHAT_DEPLOYMENT", "gpt-5")
+
+if EMBED_PROVIDER == "openai":
     EMBED_DEPLOYMENT = os.getenv("OPENAI_EMBED_MODEL", "text-embedding-3-large")
     EMBED_DIMENSIONS = int(os.getenv("OPENAI_EMBED_DIMENSIONS", "3072"))
 else:
-    CHAT_DEPLOYMENT  = os.getenv("AZURE_CHAT_DEPLOYMENT", "gpt-5")
     EMBED_DEPLOYMENT = os.getenv("AZURE_EMBED_DEPLOYMENT", "text-embedding-3-large")
     EMBED_DIMENSIONS = int(os.getenv("AZURE_EMBED_DIMENSIONS", "3072"))
 
@@ -87,18 +105,28 @@ else:
 # Microsoft: "To perform inferencing with Cohere rerank models, you're required
 # to use Cohere's custom rerank APIs." Read the real route off the deployment
 # page in the Foundry portal after deploying, and set AZURE_RERANK_ENDPOINT to
-# it. Unset, reranking is skipped and results keep their fusion order.
+# it. Under the openai provider the same payload goes to Cohere's public API,
+# which needs only COHERE_API_KEY.
 #
-# Under the openai provider the same payload goes to Cohere's public API, which
-# needs only COHERE_API_KEY; the endpoint and model default sensibly.
-if PROVIDER == "openai":
+# Rerank falls back on its own: with no AZURE_RERANK_ENDPOINT but a
+# COHERE_API_KEY present, public Cohere is used rather than skipping reranking
+# — confidence is read from the rerank score, so no reranker means every
+# query is refused. Set PUKS_RERANK_PROVIDER to pin it.
+_AZURE_RERANK = os.getenv("AZURE_RERANK_ENDPOINT", "")
+RERANK_PROVIDER = _provider(
+    "PUKS_RERANK_PROVIDER",
+    "openai" if (PROVIDER == "openai" or (not _AZURE_RERANK and COHERE_KEY)) else "azure",
+)
+if RERANK_PROVIDER == "openai":
     RERANK_ENDPOINT = os.getenv("COHERE_RERANK_ENDPOINT", "https://api.cohere.com/v2/rerank") if COHERE_KEY else ""
     RERANK_MODEL    = os.getenv("COHERE_RERANK_MODEL", "rerank-v3.5")
     RERANK_KEY      = COHERE_KEY
 else:
-    RERANK_ENDPOINT = os.getenv("AZURE_RERANK_ENDPOINT", "")
+    RERANK_ENDPOINT = _AZURE_RERANK
     RERANK_MODEL    = os.getenv("AZURE_RERANK_MODEL", "Cohere-rerank-v4.0-pro")
     RERANK_KEY      = os.getenv("AZURE_RERANK_KEY", "") or AI_KEY
+
+PROVIDERS = {"chat": CHAT_PROVIDER, "embed": EMBED_PROVIDER, "rerank": RERANK_PROVIDER}
 
 REASONING_EFFORT = os.getenv("PUKS_REASONING_EFFORT", "low")
 VERBOSITY        = os.getenv("PUKS_VERBOSITY", "medium")
@@ -137,11 +165,11 @@ class ConfigError(RuntimeError):
     """Raised when a required credential or endpoint is missing."""
 
 
-def _require_config() -> tuple[str, str]:
-    if PROVIDER == "openai":
+def _require_config(provider: str) -> tuple[str, str]:
+    if provider == "openai":
         if not OPENAI_KEY:
             raise ConfigError(
-                "OPENAI_API_KEY not set (PUKS_PROVIDER=openai). "
+                "OPENAI_API_KEY not set but a role is on the openai provider. "
                 "Copy .env.example to .env.local and fill it in."
             )
         return OPENAI_KEY, ""
@@ -157,23 +185,25 @@ def _require_config() -> tuple[str, str]:
     return AI_KEY, AI_ENDPOINT
 
 
-_client: OpenAI | None = None
+_clients: dict[str, OpenAI] = {}
 
 
-def get_client() -> OpenAI:
-    """Lazily built OpenAI-compatible client, shared by embeddings and generation."""
-    global _client
-    if _client is None:
-        key, endpoint = _require_config()
-        if PROVIDER == "openai":
-            _client = OpenAI(api_key=key)
+def get_client(role: str = "chat") -> OpenAI:
+    """Lazily built OpenAI-compatible client for a role ("chat" or "embed").
+
+    One client per provider, shared across roles that use it."""
+    provider = PROVIDERS[role]
+    if provider not in _clients:
+        key, endpoint = _require_config(provider)
+        if provider == "openai":
+            _clients[provider] = OpenAI(api_key=key)
         else:
-            _client = AzureOpenAI(
+            _clients[provider] = AzureOpenAI(
                 azure_endpoint=endpoint,
                 api_key=key,
                 api_version=AI_API_VERSION,
             )
-    return _client
+    return _clients[provider]
 
 
 # ==================================================
@@ -297,7 +327,7 @@ def bm25_text(chunk: dict) -> str:
 # ==================================================
 def embed_texts(texts: list[str], batch_size: int = 64) -> np.ndarray:
     """Embed with text-embedding-3-large. Returns L2-normalised float32."""
-    client = get_client()
+    client = get_client("embed")
     vectors: list[list[float]] = []
 
     for start in range(0, len(texts), batch_size):
