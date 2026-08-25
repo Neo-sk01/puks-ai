@@ -57,8 +57,20 @@ CONFIG_PATH     = VECTOR_STORE / "config.json"
 # ==================================================
 # CONFIG — all from environment (App Service app settings, or .env locally)
 # ==================================================
-AI_ENDPOINT      = os.getenv("AZURE_AI_ENDPOINT", "")
-AI_KEY           = os.getenv("AZURE_AI_KEY", "").strip()
+def _env(*names: str, default: str = "") -> str:
+    """First non-empty of several variable names. The canonical AZURE_* names
+    are what App Service uses; the FOUNDRY_* / *_FOUNDRY spellings are how
+    the keys arrive from the Foundry portal and are accepted as aliases so a
+    pasted .env.local works without renaming."""
+    for name in names:
+        value = os.getenv(name, "").strip().strip('"')
+        if value:
+            return value
+    return default
+
+
+AI_ENDPOINT      = _env("AZURE_AI_ENDPOINT", "FOUNDRY_API_ENDPOINT")
+AI_KEY           = _env("AZURE_AI_KEY", "FOUNDRY_API_KEY")
 AI_API_VERSION   = os.getenv("AZURE_AI_API_VERSION", "2025-04-01-preview")
 
 OPENAI_KEY       = os.getenv("OPENAI_API_KEY", "").strip()
@@ -112,7 +124,15 @@ else:
 # COHERE_API_KEY present, public Cohere is used rather than skipping reranking
 # — confidence is read from the rerank score, so no reranker means every
 # query is refused. Set PUKS_RERANK_PROVIDER to pin it.
-_AZURE_RERANK = os.getenv("AZURE_RERANK_ENDPOINT", "")
+# Verified 2026-08-25 against aift003: the Cohere rerank deployment answers on
+# the model-inference v1 rerank path of the Foundry resource, with the
+# api-version in the query string. Derived from AI_ENDPOINT when not set
+# explicitly, so a Foundry endpoint + key is enough to rerank in-tenant.
+_AZURE_RERANK = _env("AZURE_RERANK_ENDPOINT") or (
+    AI_ENDPOINT.rstrip("/").replace(".openai.azure.com", ".services.ai.azure.com")
+    + "/models/v1/rerank?api-version=2024-05-01-preview"
+    if AI_ENDPOINT else ""
+)
 RERANK_PROVIDER = _provider(
     "PUKS_RERANK_PROVIDER",
     "openai" if (PROVIDER == "openai" or (not _AZURE_RERANK and COHERE_KEY)) else "azure",
@@ -124,7 +144,7 @@ if RERANK_PROVIDER == "openai":
 else:
     RERANK_ENDPOINT = _AZURE_RERANK
     RERANK_MODEL    = os.getenv("AZURE_RERANK_MODEL", "Cohere-rerank-v4.0-pro")
-    RERANK_KEY      = os.getenv("AZURE_RERANK_KEY", "") or AI_KEY
+    RERANK_KEY      = _env("AZURE_RERANK_KEY", "COHERE_API_KEY_FOUNDRY") or AI_KEY
 
 PROVIDERS = {"chat": CHAT_PROVIDER, "embed": EMBED_PROVIDER, "rerank": RERANK_PROVIDER}
 
@@ -144,7 +164,14 @@ RRF_K             = 60      # standard Reciprocal Rank Fusion constant
 # Cohere returns a calibrated relevance score in [0, 1], so unlike the old
 # CrossEncoder logit this threshold means something. It still needs calibrating
 # against the eight seed queries in SCRIPTS/05_retrieval_testing.ipynb.
-CONFIDENCE_THRESHOLD = float(os.getenv("PUKS_CONFIDENCE_THRESHOLD", "0.30"))
+# The gate is a rerank score, so it belongs to the reranker. Measured on the
+# 65-question acceptance set (docs/acceptance-results.json, 2026-08-25):
+#   public rerank-v3.5        answerable ≥ 0.35, should-refuse ≤ 0.18 → 0.30
+#   Foundry rerank-v4.0-pro   answerable ≥ 0.84, should-refuse ≤ 0.70 → 0.75
+# v4.0-pro scores everything higher; at 0.30 it would answer off-topic
+# questions. PUKS_CONFIDENCE_THRESHOLD still overrides.
+_DEFAULT_THRESHOLD = {"azure": 0.75, "openai": 0.30}
+CONFIDENCE_THRESHOLD = float(os.getenv("PUKS_CONFIDENCE_THRESHOLD") or _DEFAULT_THRESHOLD[RERANK_PROVIDER])
 
 SCHEMA_KEYWORDS = {
     "sql", "select", "query", "join", "where", "insert", "update",

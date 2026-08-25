@@ -47,7 +47,8 @@ def test_config_exposes_what_the_sidebar_needs(client):
     assert body["top_k_default"] == 5
     assert body["top_k_min"] == 3
     assert body["top_k_max"] == 10
-    assert body["confidence_threshold"] == 0.30
+    import puks_rag
+    assert body["confidence_threshold"] == puks_rag.CONFIDENCE_THRESHOLD   # 0.30 public v3.5, 0.75 Foundry v4.0-pro
     assert "chat_deployment" in body
     assert "embed_deployment" in body
     assert "rerank_model" in body

@@ -26,19 +26,27 @@ def questions():
         text = re.sub(r"\s+", " ", text)
         yield qid, text
 
-def chat(message, history):
+def chat(message, history, attempts=2):
+    """One streamed turn. A transport failure is recorded on the result, not
+    raised — one slow gpt-5 answer must not lose the other 64."""
     t = time.time()
-    r = requests.post(API, json={"message": message, "history": history}, stream=True, timeout=180)
-    r.raise_for_status()
-    ev, out = None, {"tokens": [], "retrieved": None, "done": None, "error": None}
-    for line in r.iter_lines(decode_unicode=True):
-        if line.startswith("event: "): ev = line[7:].strip()
-        elif line.startswith("data: ") and ev:
-            d = json.loads(line[6:])
-            if ev == "token": out["tokens"].append(d["text"])
-            elif ev == "retrieved": out["retrieved"] = d
-            elif ev == "done": out["done"] = d
-            elif ev == "error": out["error"] = d.get("message")
+    out = {"tokens": [], "retrieved": None, "done": None, "error": None}
+    for attempt in range(attempts):
+        try:
+            r = requests.post(API, json={"message": message, "history": history}, stream=True, timeout=(10, 300))
+            r.raise_for_status()
+            ev = None
+            for line in r.iter_lines(decode_unicode=True):
+                if line.startswith("event: "): ev = line[7:].strip()
+                elif line.startswith("data: ") and ev:
+                    d = json.loads(line[6:])
+                    if ev == "token": out["tokens"].append(d["text"])
+                    elif ev == "retrieved": out["retrieved"] = d
+                    elif ev == "done": out["done"] = d
+                    elif ev == "error": out["error"] = d.get("message")
+            break
+        except requests.RequestException as exc:
+            out = {"tokens": [], "retrieved": None, "done": None, "error": f"{type(exc).__name__}: {exc}"}
     out["elapsed_s"] = round(time.time() - t, 1)
     return out
 
@@ -59,13 +67,15 @@ def run_one(item):
         "id": qid, "question": text, "asked": asked,
         "answer": "".join(last["tokens"]),
         "refused": bool(done.get("refused")), "reason": done.get("reason"),
+        "threshold": done.get("threshold"),
         "confidence": (last["retrieved"] or {}).get("confidence"),
         "top_source": (top or {}).get("metadata", {}).get("source_file") or (top or {}).get("metadata", {}).get("source") if top else None,
         "top_category": (top or {}).get("metadata", {}).get("category") if top else None,
         "sources": list(dict.fromkeys(((c.get("metadata") or {}).get("source_file") or (c.get("metadata") or {}).get("source")) for c in ((last["retrieved"] or {}).get("chunks") or []))),
         "elapsed_s": last["elapsed_s"], "error": last["error"],
     }
-    print(f"{qid:4} {'REFUSED' if res['refused'] else 'ok     '} {res['confidence'] if res['confidence'] is not None else '-':>6} {res['elapsed_s']:>5}s  {res['top_source']}", flush=True)
+    state = "ERROR  " if res["error"] else "REFUSED" if res["refused"] else "ok     "
+    print(f"{qid:4} {state} {res['confidence'] if res['confidence'] is not None else '-':>6} {res['elapsed_s']:>5}s  {res['top_source'] or res['error'] or ''}", flush=True)
     return res
 
 items = list(questions())

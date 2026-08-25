@@ -63,9 +63,11 @@ def build(results: list[dict]) -> str:
     model_refused = sum((not r["refused"]) and r["answer"].startswith(REFUSAL) for r in results)
     total_s = sum(r["elapsed_s"] for r in results)
     confs = [r["confidence"] for r in results if r["confidence"] is not None]
+    thresholds = {r.get("threshold") for r in results if r.get("threshold") is not None}
+    gate = f"&lt; {min(thresholds):.2f}" if thresholds else "below the gate"
     parts = [f'''<div class="run-meta">
   <span><b>{len(results)}</b> questions run</span>
-  <span><b>{gated}</b> gated refusals (&lt; 0.30)</span>
+  <span><b>{gated}</b> gated refusals ({gate})</span>
   <span><b>{model_refused}</b> model-side refusals</span>
   <span>median relevance <b>{sorted(confs)[len(confs)//2]:.2f}</b></span>
   <span>total <b>{total_s/60:.1f} min</b>, median <b>{sorted(r["elapsed_s"] for r in results)[len(results)//2]:.1f}s</b></span>
