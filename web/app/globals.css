@@ -77,3 +77,52 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Range slider (the "chunks passed to the model" control). The browser
+ * default track is a dark grey that sat on the old slate ground; on the
+ * charter's white it reads as a bug. Track in the blue 20 % tint, thumb in
+ * AGL Yellow with a blue ring so it keeps contrast against the track. */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-agl-blue-20);
+}
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-agl-blue-20);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px; /* centre a 16px thumb on a 4px track */
+  border-radius: 50%;
+  background: var(--color-brand);
+  border: 2px solid var(--color-agl-blue);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  border: 2px solid var(--color-agl-blue);
+}
+input[type="range"]:focus-visible {
+  outline: none;
+}
+input[type="range"]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--color-ink), 0 0 0 5px var(--color-agl-blue);
+}
+input[type="range"]:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--color-ink), 0 0 0 5px var(--color-agl-blue);
+}
