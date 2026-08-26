@@ -16,7 +16,7 @@ export function NotReadyBanner({ health }: { health: Health }) {
       <pre className="mt-3 overflow-x-auto whitespace-pre-wrap font-mono text-sm text-hazard/90">
         {health.error}
       </pre>
-      <p className="mt-3 text-sm text-muted">
+      <p className="mt-3 text-sm text-muted-foreground">
         Set <code className="font-mono text-type">AZURE_AI_KEY</code> in{" "}
         <code className="font-mono text-type">.env</code>, then run{" "}
         <code className="font-mono text-type">python SCRIPTS/build_index.py</code>.

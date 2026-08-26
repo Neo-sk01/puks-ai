@@ -26,7 +26,7 @@ export default async function About() {
   return (
     <main className="mx-auto max-w-3xl space-y-8 p-10">
       <div>
-        <Link href="/" className="text-sm text-muted hover:text-type">
+        <Link href="/" className="text-sm text-muted-foreground hover:text-type">
           ← Back to chat
         </Link>
         <Image
@@ -47,13 +47,13 @@ export default async function About() {
       </p>
 
       <section className="space-y-3">
-        <h2 className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+        <h2 className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
           Pipeline
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-rule text-left text-muted">
+              <tr className="border-b border-rule text-left text-muted-foreground">
                 <th className="py-2 pr-4 font-medium">Stage</th>
                 <th className="py-2 pr-4 font-medium">Model</th>
                 <th className="py-2 font-medium">Scope</th>
@@ -66,7 +66,7 @@ export default async function About() {
                   <td className="py-2 pr-4">
                     <code className="font-mono text-type">{model}</code>
                   </td>
-                  <td className="py-2 text-muted">{scope}</td>
+                  <td className="py-2 text-muted-foreground">{scope}</td>
                 </tr>
               ))}
             </tbody>

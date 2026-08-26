@@ -38,7 +38,7 @@ function HeaderStrip({ chunk, confidence }: { chunk: Chunk; confidence: number }
   const source = metaString(chunk.metadata, "source");
   const category = metaString(chunk.metadata, "category");
   return (
-    <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+    <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
       {source && <span>{source}</span>}
       {source && category && <span aria-hidden="true">·</span>}
       {category && <span>{category}</span>}
@@ -181,14 +181,14 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
                       <Markdown>{message.content}</Markdown>
                     ) : (
                       isStreamingThis && (
-                        <p className="animate-pulse text-sm text-muted">
+                        <p className="animate-pulse text-sm text-muted-foreground">
                           {message.retrieved ? "Generating…" : "Searching documentation…"}
                         </p>
                       )
                     )}
                     {debug && message.retrieved && <RetrievalPanel retrieved={message.retrieved} />}
                     {message.done && (
-                      <p className="text-xs text-muted">
+                      <p className="text-xs text-muted-foreground">
                         {message.done.refused
                           ? `Refused — top relevance ${message.done.confidence?.toFixed(3)} is below the ${message.done.threshold?.toFixed(2)} threshold.`
                           : message.done.reason === "self_description"
@@ -203,7 +203,7 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
 
                 return (
                   <article key={i} className="space-y-2">
-                    <p className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+                    <p className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                       {message.role === "user" ? "You" : "Puks"}
                     </p>
                     {message.role === "assistant" ? (

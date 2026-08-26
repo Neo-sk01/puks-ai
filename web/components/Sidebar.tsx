@@ -34,7 +34,7 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
         </h1>
         {/* The charter's title rule: a short AGL Yellow bar under the wordmark. */}
         <div aria-hidden="true" className="mt-1.5 mb-2 h-1 w-14 bg-brand" />
-        <p className="text-sm text-muted">Enterprise Speed WMS Intelligence</p>
+        <p className="text-sm text-muted-foreground">Enterprise Speed WMS Intelligence</p>
       </div>
 
       <nav className="flex flex-row gap-3 text-sm md:flex-col md:gap-1">
@@ -47,7 +47,7 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
       </nav>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+        <h2 className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
           Retrieval
         </h2>
         <label className="flex flex-col gap-1 text-sm">
@@ -73,7 +73,7 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
       </section>
 
       {config && (
-        <section className="flex flex-col gap-1 text-xs text-muted">
+        <section className="flex flex-col gap-1 text-xs text-muted-foreground">
           <p>
             Generation <code className="font-mono text-type">{config.chat_deployment}</code>
             <span className="ml-1.5">· {roleLabel("chat", config.providers.chat)}</span>
@@ -110,7 +110,7 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
       >
         Reset conversation memory
       </button>
-      <p className="text-xs text-muted/60">© Puks AI (Predictive Unified Knowledge System)</p>
+      <p className="text-xs text-muted-foreground/60">© Puks AI (Predictive Unified Knowledge System)</p>
     </aside>
   );
 }

@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
 /* Design tokens — AGL graphic charter, "Primary colour palette" (p. 7).
@@ -33,6 +37,11 @@
   --color-signal: var(--color-agl-blue); /* links, focus, active nav, retriever chips */
   --color-brand: var(--color-agl-yellow); /* the accent: fills only, never text */
   --color-hazard: #a8650a;               /* ochre — RESERVED, see comment above */
+
+  /* Verdict colours — acceptance-page pass/partial/fail semantics. */
+  --color-verdict-pass: #2e7d4f;
+  --color-verdict-partial: #a8650a;   /* = --color-hazard; named for its meaning here */
+  --color-verdict-fail: #b23b3b;
 }
 
 /* Fonts are self-hosted via next/font/google in app/layout.tsx and exposed
@@ -42,10 +51,81 @@
   --font-sans: var(--font-ibm-plex-sans);
   --font-mono: var(--font-ibm-plex-mono);
   --font-display: var(--font-archivo);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
   color-scheme: light;
+  --radius: 0.375rem;
+  --background: var(--color-ink);
+  --foreground: var(--color-type);
+  --card: var(--color-bay);
+  --card-foreground: var(--color-type);
+  --popover: var(--color-ink);
+  --popover-foreground: var(--color-type);
+  --primary: var(--color-agl-blue);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-bay);
+  --secondary-foreground: var(--color-type);
+  --muted: var(--color-bay);
+  --muted-foreground: var(--color-muted);
+  --accent: var(--color-agl-yellow-20);
+  --accent-foreground: var(--color-type);
+  --destructive: var(--color-hazard);
+  --border: var(--color-rule);
+  --input: var(--color-rule);
+  --ring: var(--color-agl-blue);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 body {
@@ -125,4 +205,16 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
 }
 input[type="range"]:focus-visible::-moz-range-thumb {
   box-shadow: 0 0 0 3px var(--color-ink), 0 0 0 5px var(--color-agl-blue);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }

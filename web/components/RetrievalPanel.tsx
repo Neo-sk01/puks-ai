@@ -25,7 +25,7 @@ export function RetrievalPanel({ retrieved }: { retrieved: RetrievedPayload }) {
 
   return (
     <details className="rounded-lg border border-rule bg-bay">
-      <summary className="cursor-pointer px-4 py-2 text-sm text-muted">
+      <summary className="cursor-pointer px-4 py-2 text-sm text-muted-foreground">
         Retrieved context — {retrieved.chunks.length} chunks, top relevance{" "}
         {retrieved.confidence.toFixed(3)}
       </summary>
@@ -35,7 +35,7 @@ export function RetrievalPanel({ retrieved }: { retrieved: RetrievedPayload }) {
           <section key={chunk.index} className="space-y-2 border-t border-rule pt-4">
             <header className="flex flex-wrap items-center gap-2 text-sm">
               <span className="font-medium text-type">Rank {rank + 1}</span>
-              <span className="text-muted">found by</span>
+              <span className="text-muted-foreground">found by</span>
               {provenance(chunk).map((source) => (
                 <code
                   key={source}
@@ -48,35 +48,35 @@ export function RetrievalPanel({ retrieved }: { retrieved: RetrievedPayload }) {
 
             <dl className="grid grid-cols-3 gap-3 text-sm">
               <div>
-                <dt className="text-xs text-muted">Cohere relevance</dt>
+                <dt className="text-xs text-muted-foreground">Cohere relevance</dt>
                 <dd className="font-mono tabular-nums text-type">
                   {chunk.relevance_score.toFixed(3)}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs text-muted">Fusion score</dt>
+                <dt className="text-xs text-muted-foreground">Fusion score</dt>
                 <dd className="font-mono tabular-nums text-type">
                   {chunk.fusion_score.toFixed(4)}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs text-muted">Doc type</dt>
+                <dt className="text-xs text-muted-foreground">Doc type</dt>
                 <dd className="truncate font-mono text-type">{chunk.doc_type}</dd>
               </div>
             </dl>
 
             <details>
-              <summary className="cursor-pointer text-xs text-muted">Metadata</summary>
+              <summary className="cursor-pointer text-xs text-muted-foreground">Metadata</summary>
               <pre className="mt-2 overflow-x-auto rounded bg-ink p-3 font-mono text-xs text-type">
                 {JSON.stringify(chunk.metadata, null, 2)}
               </pre>
             </details>
 
             <details>
-              <summary className="cursor-pointer text-xs text-muted">
+              <summary className="cursor-pointer text-xs text-muted-foreground">
                 Text ({chunk.text.length} chars)
               </summary>
-              <p className="mt-2 whitespace-pre-wrap break-words text-xs text-muted">{chunk.text}</p>
+              <p className="mt-2 whitespace-pre-wrap break-words text-xs text-muted-foreground">{chunk.text}</p>
             </details>
           </section>
         ))}

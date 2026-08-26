@@ -19,7 +19,7 @@ export function Markdown({ children }: { children: string }) {
         prose-p:text-type prose-strong:text-type prose-em:text-type
         prose-li:text-type prose-ul:text-type prose-ol:text-type
         prose-a:text-signal prose-a:no-underline hover:prose-a:underline
-        prose-blockquote:border-l-rule prose-blockquote:text-muted
+        prose-blockquote:border-l-rule prose-blockquote:text-muted-foreground
         prose-hr:border-rule
         prose-code:rounded prose-code:bg-bay prose-code:px-1 prose-code:py-0.5
         prose-code:font-mono prose-code:text-[13px] prose-code:font-normal prose-code:text-type
@@ -27,7 +27,7 @@ export function Markdown({ children }: { children: string }) {
         prose-pre:overflow-x-auto prose-pre:rounded-lg prose-pre:border
         prose-pre:border-rule prose-pre:bg-bay prose-pre:font-mono prose-pre:text-[13px]
         prose-table:block prose-table:overflow-x-auto prose-table:font-mono prose-table:text-[13px]
-        prose-thead:border-rule prose-th:border-rule prose-th:text-muted
+        prose-thead:border-rule prose-th:border-rule prose-th:text-muted-foreground
         prose-td:border-rule prose-td:text-type"
     >
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown>
