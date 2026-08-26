@@ -13,9 +13,14 @@ interface Props {
   debug: boolean;
   onDebug: (value: boolean) => void;
   onReset: () => void;
+  /** The acceptance page has no retrieval or conversation to control — those
+   *  props would otherwise drive inert handlers. Set true to hide the
+   *  Retrieval section and the reset button while keeping everything else
+   *  (branding, nav, config summary) shared with the chat page. */
+  compact?: boolean;
 }
 
-export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props) {
+export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset, compact = false }: Props) {
   return (
     <aside className="flex w-full shrink-0 flex-col gap-4 border-b border-rule bg-bay p-4 md:h-dvh md:w-72 md:flex-col md:gap-6 md:border-b-0 md:border-r md:p-6">
       <div>
@@ -44,33 +49,38 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
         <Link href="/about" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
           About
         </Link>
+        <Link href="/acceptance" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
+          Acceptance
+        </Link>
       </nav>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
-          Retrieval
-        </h2>
-        <label className="flex flex-col gap-1 text-sm">
-          <span>Chunks passed to the model: {topK}</span>
-          <input
-            type="range"
-            min={config?.top_k_min ?? 3}
-            max={config?.top_k_max ?? 10}
-            value={topK}
-            onChange={(e) => onTopK(config ? clampTopK(Number(e.target.value), config) : Number(e.target.value))}
-            className="accent-brand"
-          />
-        </label>
-        <label className="flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            checked={debug}
-            onChange={(e) => onDebug(e.target.checked)}
-            className="accent-signal"
-          />
-          Show retrieved context
-        </label>
-      </section>
+      {!compact && (
+        <section className="flex flex-col gap-3">
+          <h2 className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+            Retrieval
+          </h2>
+          <label className="flex flex-col gap-1 text-sm">
+            <span>Chunks passed to the model: {topK}</span>
+            <input
+              type="range"
+              min={config?.top_k_min ?? 3}
+              max={config?.top_k_max ?? 10}
+              value={topK}
+              onChange={(e) => onTopK(config ? clampTopK(Number(e.target.value), config) : Number(e.target.value))}
+              className="accent-brand"
+            />
+          </label>
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={debug}
+              onChange={(e) => onDebug(e.target.checked)}
+              className="accent-signal"
+            />
+            Show retrieved context
+          </label>
+        </section>
+      )}
 
       {config && (
         <section className="flex flex-col gap-1 text-xs text-muted-foreground">
@@ -104,12 +114,14 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset }: Props
         </p>
       )}
 
-      <button
-        onClick={onReset}
-        className="rounded border border-rule px-3 py-2 text-sm hover:border-signal hover:text-signal md:mt-auto"
-      >
-        Reset conversation memory
-      </button>
+      {!compact && (
+        <button
+          onClick={onReset}
+          className="rounded border border-rule px-3 py-2 text-sm hover:border-signal hover:text-signal md:mt-auto"
+        >
+          Reset conversation memory
+        </button>
+      )}
       <p className="text-xs text-muted-foreground/60">© Puks AI (Predictive Unified Knowledge System)</p>
     </aside>
   );

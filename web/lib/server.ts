@@ -35,9 +35,12 @@ export async function getConfig(): Promise<AppConfig | null> {
 }
 
 export async function getAcceptanceQuestions(): Promise<QuestionGroup[]> {
-  const response = await fetch(`${FASTAPI_URL}/api/acceptance/questions`, { cache: "no-store" });
-  if (!response.ok) throw new Error(`acceptance/questions returned ${response.status}`);
-  return (await response.json()).groups;
+  try {
+    const response = await fetch(`${FASTAPI_URL}/api/acceptance/questions`, { cache: "no-store" });
+    return response.ok ? (await response.json()).groups : [];
+  } catch {
+    return [];
+  }
 }
 
 export async function getAcceptanceResults(): Promise<{ run: RunMeta | null; results: Record<string, RecordedResult> }> {
