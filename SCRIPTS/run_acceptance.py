@@ -1,4 +1,4 @@
-"""Run docs/acceptance-questions.html against the local API (uvicorn on :8001)
+"""Run the acceptance set (docs/acceptance-questions.json) against the local API (uvicorn on :8001).
 Reads docs/acceptance-questions.json; writes docs/acceptance-results.json and docs/acceptance-run.json."""
 import json, sys, time
 from concurrent.futures import ThreadPoolExecutor
