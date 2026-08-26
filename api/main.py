@@ -15,6 +15,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 import puks_rag
+from api.acceptance import router as acceptance_router
 from api.engine import Engine
 
 TOP_K_MIN = 3
@@ -51,6 +52,7 @@ def create_app() -> FastAPI:
         yield
 
     app = FastAPI(title="Puks AI", lifespan=lifespan)
+    app.include_router(acceptance_router)
 
     @app.get("/health")
     def health() -> dict:
