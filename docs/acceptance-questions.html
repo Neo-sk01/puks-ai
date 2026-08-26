@@ -578,62 +578,48 @@
 <!-- RESULTS:START -->
 <div class="run-meta">
   <span><b>65</b> questions run</span>
-  <span><b>1</b> gated refusals (below the gate)</span>
-  <span><b>3</b> model-side refusals</span>
+  <span><b>4</b> gated refusals (&lt; 0.75)</span>
+  <span><b>1</b> model-side refusals</span>
   <span>median relevance <b>0.96</b></span>
-  <span>total <b>13.4 min</b>, median <b>9.0s</b></span>
-  <span>run 2026-08-25</span>
+  <span>total <b>13.3 min</b>, median <b>8.9s</b></span>
+  <span>run 2026-08-26</span>
 </div>
 <section><div class="sec-head"><h2>Receiving goods</h2><span class="tag">R</span></div>
 <div class="q r-answered" data-id="R1"><span class="id">R1</span><div>
   <p class="ask">How do I create a receipt header in Speed WMS?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.982</b></span><span>12.2s</span><span class="src">top: <span>Creating a receipt header.txt</span></span></div>
-  <div class="answer"><p>Here’s the standard way to create a receipt header (GRN) in Speed WMS:</p>
-<ol>
-<li>Access the receipt creation screen</li>
-</ol>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.982</b></span><span>11.1s</span><span class="src">top: <span>Creating a receipt header.txt</span></span></div>
+  <div class="answer"><p>Here is the standard process to create a receipt header (GRN) in Speed WMS, based strictly on the provided SOPs:</p>
+<p>Accessing the creation screen</p>
 <ul>
-<li style="margin-left:0em">From the Receipts module, either:</li>
-<li style="margin-left:1em">Select Create Receipt from the contextual menu, or</li>
-<li style="margin-left:1em">Click the Add / New Receipt (+) button.</li>
+<li style="margin-left:0em">Open the Receipts module, then either:</li>
+<li style="margin-left:1em">Click Add/New (the + button), or</li>
+<li style="margin-left:1em">Use the contextual menu and select Create Receipt.</li>
 </ul>
-<ol>
-<li>Understand the screen layout</li>
-</ol>
+<p>Screen layout</p>
 <ul>
-<li style="margin-left:0em">Upper section: Receipt Header (general information for the receipt).</li>
-<li style="margin-left:0em">Lower section: Receipt Lines (goods details to be added after the header).</li>
+<li style="margin-left:0em">The receipt screen has two sections:</li>
+<li style="margin-left:1em">Upper section: Receipt Header (general information)</li>
+<li style="margin-left:1em">Lower section: Receipt Lines (goods details to be added after the header is created)</li>
 </ul>
-<ol>
-<li>Review system-initialized fields (auto-populated)</li>
-</ol>
+<p>System-initialized (auto-populated) header fields</p>
 <ul>
-<li style="margin-left:0em">Activity code: read-only.</li>
-<li style="margin-left:0em">Speed receipt number: system-generated internal counter; unique and non-editable.</li>
-<li style="margin-left:0em">Receipt date and time: defaults to the creation moment; can be modified if required.</li>
-<li style="margin-left:0em">Default reception dock: pre-selected based on configuration (list of dock-type locations in the environment).</li>
+<li style="margin-left:0em">Activity Code (read-only; ACT_CODE)</li>
+<li style="margin-left:0em">Speed Receipt Number (REE_NORE; system-generated, unique, non-modifiable)</li>
+<li style="margin-left:0em">Receipt Date and Time (defaults to creation; can be modified if required)</li>
+<li style="margin-left:0em">Default Reception Dock (pre-selected based on configuration)</li>
 </ul>
-<ol>
-<li>Fill the mandatory fields</li>
-</ol>
+<p>Mandatory user inputs for the header</p>
 <ul>
-<li style="margin-left:0em">Customer account: required if the activity manages customer accounts.</li>
-<li style="margin-left:0em">Supplier (third-party code): select from declared third parties in the environment.</li>
-<li style="margin-left:1em">You can create a new third-party record directly from the selection screen if needed.</li>
-<li style="margin-left:0em">Receipt reference: optional but recommended for traceability and search.</li>
-<li style="margin-left:0em">Receiving dock: use the default or select another configured dock if appropriate.</li>
+<li style="margin-left:0em">Customer Account (REE_CCLI) – required if the activity manages customer accounts</li>
+<li style="margin-left:0em">Supplier (Third-Party Code) – select from declared third parties in the environment</li>
+<li style="margin-left:1em">You can create a new third-party file directly from the selection screen if needed</li>
+<li style="margin-left:0em">Receipt Reference – optional but recommended for traceability and search</li>
+<li style="margin-left:0em">Receiving Dock – use the default or select another configured dock location as needed</li>
 </ul>
-<ol>
-<li>Proceed to receipt lines</li>
-</ol>
+<p>Save and proceed</p>
 <ul>
-<li style="margin-left:0em">After completing the header, use the lower section to add receipt lines (goods details). The header acts as the parent for all lines.</li>
-</ul>
-<p>Notes</p>
-<ul>
-<li style="margin-left:0em">The receipt header is the first step in declaring goods and precedes receipt line creation.</li>
-<li style="margin-left:0em">This process applies across Speed WMS environments as per the SOPs provided.</li>
+<li style="margin-left:0em">After completing the mandatory fields, save the header. The header acts as the parent container for subsequent receipt lines, which you will add in the lower section.</li>
 </ul></div>
   <p class="src">retrieved: <span>Creating a receipt header.txt · Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt · End to End Receipt.txt</span></p>
 </div><div class="res"></div></div>
@@ -867,31 +853,11 @@
 </ul></div>
   <p class="src">retrieved: <span>Availability calculation.txt · Launch in preparation.txt · LOREAL_MAROC_MACASLEA1.txt · Put in wave (1).txt · Launching.txt</span></p>
 </div><div class="res"></div></div>
-<div class="q r-answered" data-id="O5"><span class="id">O5</span><div>
+<div class="q r-model-refused" data-id="O5"><span class="id">O5</span><div>
   <p class="ask">How does automatic launch differ from launching manually?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.912</b></span><span>11.8s</span><span class="src">top: <span>Automatic launch.txt</span></span></div>
-  <div class="answer"><p>Key differences based on the available information:</p>
-<ul>
-<li style="margin-left:0em">Orchestration and execution</li>
-<li style="margin-left:1em">Automatic launch: Configured via Sequences in SpeedWMS, then scheduled and executed automatically using BKSystemes’ GEX execution manager. GEX also provides execution tracking (progress, success, errors).</li>
-<li style="margin-left:1em">Manual launch: Not described in the provided context. The documentation only notes that automatic launch reduces manual intervention.</li>
-</ul>
-<ul>
-<li style="margin-left:0em">Licensing/tooling</li>
-<li style="margin-left:1em">Automatic launch: Requires the licensed GEX tool for execution and tracking.</li>
-<li style="margin-left:1em">Manual launch: Not described in the provided context.</li>
-</ul>
-<ul>
-<li style="margin-left:0em">Operational fit</li>
-<li style="margin-left:1em">Automatic launch: Designed for high-volume operations, running launches over a defined period with minimal operator action.</li>
-<li style="margin-left:1em">Manual launch: Not described in the provided context.</li>
-</ul>
-<ul>
-<li style="margin-left:0em">Waves</li>
-<li style="margin-left:1em">When orders are launched for preparation, SpeedWMS automatically assigns them to a wave so they can be processed together. Manual wave management is only needed for specific processes. This behavior is described generally for order launching and is not limited to automatic launch.</li>
-</ul>
-<p>If you need a detailed description of the manual launch process steps, I do not have enough information to answer this. Please contact support.</p></div>
+  <div class="meta-row"><span class="badge">MODEL REFUSED</span><span>relevance <b>0.912</b></span><span>11.4s</span><span class="src">top: <span>Automatic launch.txt</span></span></div>
+  <div class="answer"><p>I do not have enough information to answer this. Please contact support.</p></div>
   <p class="src">retrieved: <span>Automatic launch.txt · Put in wave.txt · Put in wave (1).txt · Principle of picking replenishment.txt · Automatic search location.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="O6"><span class="id">O6</span><div>
@@ -1262,23 +1228,28 @@
 <div class="q r-answered" data-id="G3"><span class="id">G3</span><div>
   <p class="ask">How do user rights work — can I give one user a special permission?</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.871</b></span><span>8.9s</span><span class="src">top: <span>User profiles and rights management.txt</span></span></div>
-  <div class="answer"><p>User rights in Speed WMS are group-based.</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.871</b></span><span>9.1s</span><span class="src">top: <span>User profiles and rights management.txt</span></span></div>
+  <div class="answer"><p>User rights in Speed WMS are managed at the group level, not directly on individual users.</p>
+<p>Key points</p>
 <ul>
 <li style="margin-left:0em">Every user must have a profile and be assigned to a group.</li>
-<li style="margin-left:0em">Users inherit all permissions from their group; this controls access to modules like receipts, stock, orders, missions/zones/reports, and settings.</li>
-<li style="margin-left:0em">Changes to a group’s rights take effect immediately for all users in that group.</li>
+<li style="margin-left:0em">Users inherit all permissions from their assigned group.</li>
+<li style="margin-left:0em">If a user needs a special permission, you must create and configure a new group with the required rights, then assign the user to that group.</li>
+<li style="margin-left:0em">Changes to group rights take effect immediately for all users in that group.</li>
 </ul>
-<p>Can you give one user a special permission?</p>
+<p>How to grant a “special” permission</p>
+<ol>
+<li>Navigate to System → Rights (Group Management).</li>
+<li>Create a new group (or modify an existing one).</li>
+<li>Assign the necessary rights to the group (e.g., Receipts, Stock management, Order management, Settings modification).</li>
+<li>Attach the user account to that group.</li>
+</ol>
+<p>Notes</p>
 <ul>
-<li style="margin-left:0em">Not directly on the user. If a specific permission is needed for an individual, you must create a new group with that permission and assign the user to that group.</li>
+<li style="margin-left:0em">This approach ensures proper control and prevents unauthorized access to sensitive modules and functions (e.g., receipts, stock, orders, missions, zones, reports).</li>
+<li style="margin-left:0em">Do not attempt to assign rights directly to a user; use groups instead. If a unique combination is needed, create a dedicated group and assign the user to it.</li>
 </ul>
-<p>How to manage this:</p>
-<ul>
-<li style="margin-left:0em">Go to System → Rights.</li>
-<li style="margin-left:0em">Create or modify a group and assign the required rights (e.g., receipts, stock management, order management, settings modification).</li>
-<li style="margin-left:0em">Attach the user account to that group.</li>
-</ul></div>
+<p>If you need to disable specific options for compliance (e.g., certain reception generation actions), this is also done via user rights configuration at the group level.</p></div>
   <p class="src">retrieved: <span>User profiles and rights management.txt · Speed WMS - SOP Knowledge Base (RAG-Ready Structure).txt · Reception Generation Control – DO Reference Consistency.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="G4"><span class="id">G4</span><div>
@@ -3035,76 +3006,87 @@
 <div class="q r-answered" data-id="D7"><span class="id">D7</span><div>
   <p class="ask">Write a query that shows the header and lines for order 12345 in activity ABC.</p>
   
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.847</b></span><span>49.7s</span><span class="src">top: <span>Check Order Header.json</span></span></div>
-  <div class="answer"><p>Schema definition</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.847</b></span><span>49.1s</span><span class="src">top: <span>Check Order Header.json</span></span></div>
+  <div class="answer"><p>Access Level: Support</p>
+<p>Operational Procedures and Queries (verbatim from provided context):</p>
+<ul>
+<li style="margin-left:0em">Procedure: Check Order Header</li>
+</ul>
+<p>  SQL:   SELECT * FROM OPE_DAT WHERE ACT_CODE = ACTIVITY_CODE AND OPE_NOOE = ORDER_NUMBER;</p>
+<ul>
+<li style="margin-left:0em">Procedure: Check Order Lines</li>
+</ul>
+<p>  SQL:   SELECT * FROM OPL_DAT WHERE ACT_CODE = ACTIVITY_CODE AND OPE_NOOE = ORDER_NUMBER;</p>
+<p>Schema Definition</p>
 <ul>
 <li style="margin-left:0em">Table Name: OPL_DAT</li>
-<li style="margin-left:1em">Description: ORDER LINE TABLE</li>
-<li style="margin-left:1em">Primary Key: OPL_KEYU</li>
-<li style="margin-left:1em">Total Columns: 103</li>
-<li style="margin-left:1em">Columns:</li>
-<li style="margin-left:2em">ACT_CODE — Activity Code — SQL Server: VARCHAR(10) — Oracle: NVARCHAR2(10) — PK: No — FK: Yes — References: ACT_PAR.ACT_CODE</li>
-<li style="margin-left:2em">ART_CODE — Article Code — SQL Server: VARCHAR(35) — Oracle: NVARCHAR2(35) — PK: No — FK: Yes — References: ART_PAR.ART_CODE</li>
-<li style="margin-left:2em">CHG_CODE — Loading Code — SQL Server: VARCHAR(15) — Oracle: NVARCHAR2(15) — PK: No — FK: Yes — References: CHG_DAT.CHG_CODE</li>
-<li style="margin-left:2em">CHG_DATE — Loading Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: Yes — References: CHG_DAT.CHG_DATE</li>
-<li style="margin-left:2em">DOS_CODE — Folder Code — SQL Server: VARCHAR(25) — Oracle: NVARCHAR2(25) — PK: No — FK: Yes — References: DOS_DAT.DOS_CODE</li>
-<li style="margin-left:2em">OPE_KEYU — Order Header Key — SQL Server: NUMERIC(10) — Oracle: INTEGER — PK: No — FK: Yes — References: OPE_DAT.OPE_KEYU</li>
-<li style="margin-left:2em">OPE_NoOE — Order Number — SQL Server: BIGINT — Oracle: INTEGER — PK: No — FK: Yes — References: OPE_DAT.OPE_NoOE</li>
-<li style="margin-left:2em">OPL_ALPHA1 — Additional Info A01 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA2 — Additional Info A02 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA3 — Additional Info A03 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA4 — Additional Info A04 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA5 — Additional Info A05 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA6 — Additional Info A06 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA7 — Additional Info A07 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA8 — Additional Info A08 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA9 — Additional Info A09 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_ALPHA10 — Additional Info A10 — SQL Server: VARCHAR(50) — Oracle: NVARCHAR2(50) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_CFIS — Fiscalization Type Code — SQL Server: VARCHAR(5) — Oracle: NVARCHAR2(5) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_COMB — Delivery Note Comment — SQL Server: TEXT — Oracle: CLOB — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_COMP — Preparation Comment — SQL Server: TEXT — Oracle: CLOB — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_COPA — Reserved BK — SQL Server: BIGINT — Oracle: INTEGER — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_CRDA — Creation Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_CRHE — Creation Time — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_CRQI — Created By — SQL Server: VARCHAR(15) — Oracle: NVARCHAR2(15) — PK: No — FK: Yes — References: USW_DAT.USW_LOGN</li>
-<li style="margin-left:2em">OPL_DAFP — Preparation End Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DATE1 — Additional Info D01 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DATE2 — Additional Info D02 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DATE3 — Additional Info D03 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DATE4 — Additional Info D04 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DATE5 — Additional Info D05 — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DFAB — Manufacturing Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DLC — DLC — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DLCM — Minimum DLC — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DLOM — Minimum DLUO — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DLOO — Mandatory DLUO — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DLV — DLV — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_DLVM — Minimum DLV — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_EANC — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_EANO — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_EANP — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_EANS — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_EANU — Reserved BK — SQL Server: VARCHAR(30) — Oracle: NVARCHAR2(30) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_HEFP — Preparation End Time — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_HEURE1 — Additional Info H01 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_HEURE2 — Additional Info H02 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_HEURE3 — Additional Info H03 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_HEURE4 — Additional Info H04 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_HEURE5 — Additional Info H05 — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_KEYU — Unique Preparation Line Key — SQL Server: INT — Oracle: INTEGER — PK: Yes — FK: No — References: </li>
-<li style="margin-left:2em">OPL_LOT1 — Lot 1 — SQL Server: VARCHAR(100) — Oracle: NVARCHAR2(100) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_LOT2 — Lot 2 — SQL Server: VARCHAR(100) — Oracle: NVARCHAR2(100) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_LOT3 — Lot 3 — SQL Server: VARCHAR(100) — Oracle: NVARCHAR2(100) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_MODA — Modification Date — SQL Server: DATETIME — Oracle: NCHAR(8) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_MOHE — Modification Time — SQL Server: VARCHAR(6) — Oracle: NVARCHAR2(6) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_MOQI — Modified By — SQL Server: VARCHAR(15) — Oracle: NVARCHAR2(15) — PK: No — FK: Yes — References: USW_DAT.USW_LOGN</li>
-<li style="margin-left:2em">OPL_NoOL — Line Number — SQL Server: NUMERIC(10) — Oracle: INTEGER — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_NoSU — Support Number — SQL Server: VARCHAR(25) — Oracle: NVARCHAR2(25) — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_NUM1 — Additional Info N01 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_NUM2 — Additional Info N02 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_NUM3 — Additional Info N03 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_NUM4 — Additional Info N04 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No — References: </li>
-<li style="margin-left:2em">OPL_NUM5 — Additional Info N05 — SQL Server: FLOAT — Oracle: FLOAT — PK: No — FK: No — References: </li>
+</ul>
+<p>  Description: ORDER LINE TABLE   Primary Key: OPL_KEYU   Total Columns: 103   Columns:</p>
+<ul>
+<li style="margin-left:1em">Name: ACT_CODE | Description: Activity Code | SQL Server: VARCHAR(10) | Oracle: NVARCHAR2(10) | PK: No | FK: Yes | References: ACT_PAR.ACT_CODE</li>
+<li style="margin-left:1em">Name: ART_CODE | Description: Article Code | SQL Server: VARCHAR(35) | Oracle: NVARCHAR2(35) | PK: No | FK: Yes | References: ART_PAR.ART_CODE</li>
+<li style="margin-left:1em">Name: CHG_CODE | Description: Loading Code | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: CHG_DAT.CHG_CODE</li>
+<li style="margin-left:1em">Name: CHG_DATE | Description: Loading Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: Yes | References: CHG_DAT.CHG_DATE</li>
+<li style="margin-left:1em">Name: DOS_CODE | Description: Folder Code | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: Yes | References: DOS_DAT.DOS_CODE</li>
+<li style="margin-left:1em">Name: OPE_KEYU | Description: Order Header Key | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: Yes | References: OPE_DAT.OPE_KEYU</li>
+<li style="margin-left:1em">Name: OPE_NoOE | Description: Order Number | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: Yes | References: OPE_DAT.OPE_NoOE</li>
+<li style="margin-left:1em">Name: OPL_ALPHA1 | Description: Additional Info A01 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA2 | Description: Additional Info A02 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA3 | Description: Additional Info A03 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA4 | Description: Additional Info A04 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA5 | Description: Additional Info A05 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA6 | Description: Additional Info A06 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA7 | Description: Additional Info A07 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA8 | Description: Additional Info A08 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA9 | Description: Additional Info A09 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_ALPHA10 | Description: Additional Info A10 | SQL Server: VARCHAR(50) | Oracle: NVARCHAR2(50) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_CFIS | Description: Fiscalization Type Code | SQL Server: VARCHAR(5) | Oracle: NVARCHAR2(5) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_COMB | Description: Delivery Note Comment | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_COMP | Description: Preparation Comment | SQL Server: TEXT | Oracle: CLOB | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_COPA | Description: Reserved BK | SQL Server: BIGINT | Oracle: INTEGER | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_CRDA | Description: Creation Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_CRHE | Description: Creation Time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_CRQI | Description: Created By | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: USW_DAT.USW_LOGN</li>
+<li style="margin-left:1em">Name: OPL_DAFP | Description: Preparation End Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DATE1 | Description: Additional Info D01 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DATE2 | Description: Additional Info D02 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DATE3 | Description: Additional Info D03 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DATE4 | Description: Additional Info D04 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DATE5 | Description: Additional Info D05 | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DFAB | Description: Manufacturing Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DLC | Description: DLC | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DLCM | Description: Minimum DLC | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DLOM | Description: Minimum DLUO | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DLOO | Description: Mandatory DLUO | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DLV | Description: DLV | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_DLVM | Description: Minimum DLV | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_EANC | Description: Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_EANO | Description: Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_EANP | Description: Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_EANS | Description: Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_EANU | Description: Reserved BK | SQL Server: VARCHAR(30) | Oracle: NVARCHAR2(30) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_HEFP | Description: Preparation End Time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_HEURE1 | Description: Additional Info H01 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_HEURE2 | Description: Additional Info H02 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_HEURE3 | Description: Additional Info H03 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_HEURE4 | Description: Additional Info H04 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_HEURE5 | Description: Additional Info H05 | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_KEYU | Description: Unique Preparation Line Key | SQL Server: INT | Oracle: INTEGER | PK: Yes | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_LOT1 | Description: Lot 1 | SQL Server: VARCHAR(100) | Oracle: NVARCHAR2(100) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_LOT2 | Description: Lot 2 | SQL Server: VARCHAR(100) | Oracle: NVARCHAR2(100) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_LOT3 | Description: Lot 3 | SQL Server: VARCHAR(100) | Oracle: NVARCHAR2(100) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_MODA | Description: Modification Date | SQL Server: DATETIME | Oracle: NCHAR(8) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_MOHE | Description: Modification Time | SQL Server: VARCHAR(6) | Oracle: NVARCHAR2(6) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_MOQI | Description: Modified By | SQL Server: VARCHAR(15) | Oracle: NVARCHAR2(15) | PK: No | FK: Yes | References: USW_DAT.USW_LOGN</li>
+<li style="margin-left:1em">Name: OPL_NoOL | Description: Line Number | SQL Server: NUMERIC(10) | Oracle: INTEGER | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_NoSU | Description: Support Number | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_NUM1 | Description: Additional Info N01 | SQL Server: FLOAT | Oracle: FLOAT | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_NUM2 | Description: Additional Info N02 | SQL Server: FLOAT | Oracle: FLOAT | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_NUM3 | Description: Additional Info N03 | SQL Server: FLOAT | Oracle: FLOAT | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_NUM4 | Description: Additional Info N04 | SQL Server: FLOAT | Oracle: FLOAT | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_NUM5 | Description: Additional Info N05 | SQL Server: FLOAT | Oracle: FLOAT | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_PICK | Description: Picking Location | SQL Server: VARCHAR(25) | Oracle: NVARCHAR2(25) | PK: No | FK: No | References: </li>
+<li style="margin-left:1em">Name: OPL_POIT | Description: Weight (g) to Prepare | SQL</li>
 </ul></div>
   <p class="src">retrieved: <span>Check Order Header.json · Check Order Lines.json · OPL_DAT.json · check_mission_details.json.json · Cancel_Shipped_Order_Procedure.json</span></p>
 </div><div class="res"></div></div>
@@ -3534,642 +3516,298 @@
 <div class="q r-answered" data-id="C1"><span class="id">C1</span><div>
   <p class="ask">Ask R1, then: &quot;and which of those fields can I change?&quot;</p>
   <ol class="asked"><li>How do I create a receipt header in Speed WMS?</li><li>and which of those fields can I change?</li></ol>
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.918</b></span><span>9.4s</span><span class="src">top: <span>Global changes.txt</span></span></div>
-  <div class="answer"><p>Based on the provided procedures for creating a receipt header (GRN):</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.918</b></span><span>10.7s</span><span class="src">top: <span>Global changes.txt</span></span></div>
+  <div class="answer"><p>Based on the provided documentation:</p>
 <p>You can change</p>
 <ul>
-<li style="margin-left:0em">Receipt Date and Time (defaults to creation time; can be modified)</li>
-<li style="margin-left:0em">Customer account (if your activity manages customer accounts; mandatory to fill)</li>
-<li style="margin-left:0em">Third-party supplier code (select from declared third parties; mandatory to fill)</li>
+<li style="margin-left:0em">Receipt Date and Time (defaults to creation time, can be modified)</li>
+<li style="margin-left:0em">Customer account (if your activity manages customer accounts; must be selected)</li>
+<li style="margin-left:0em">Third-party supplier code (must be selected; you can also create a new third-party from the selection screen)</li>
 </ul>
 <p>You cannot change</p>
 <ul>
 <li style="margin-left:0em">Activity Code / Current activity (read-only)</li>
 <li style="margin-left:0em">Speed Receipt Number (system-generated, non-modifiable)</li>
 </ul>
-<p>Not specified as editable</p>
+<p>Not specified</p>
 <ul>
-<li style="margin-left:0em">Default Reception Dock (it is pre-selected based on system configuration; the documents do not state that it can be modified)</li>
+<li style="margin-left:0em">Default Reception Dock is pre-selected; the documentation does not state whether it is editable.</li>
 </ul></div>
   <p class="src">retrieved: <span>Global changes.txt · Creating a receipt header.txt · Creating and modifying an order.txt · Items.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="C2"><span class="id">C2</span><div>
   <p class="ask">Ask D1, then: &quot;what about its foreign keys?&quot;</p>
   <ol class="asked"><li>What does the STK_DAT table hold and what is its primary key?</li><li>what about its foreign keys?</li></ol>
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.837</b></span><span>56.9s</span><span class="src">top: <span>MVT_DAT.json</span></span></div>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.837</b></span><span>62.1s</span><span class="src">top: <span>MVT_DAT.json</span></span></div>
   <div class="answer"><p>Table Name: STK_DAT Description: Current Stock Table Primary Key: STK_KEYU Total Columns: 110</p>
-<p>Important note on completeness: The schema information provided in the context indicates there are 110 columns, but not all 110 columns are listed. The following is the complete set of columns available from the provided context. The schema is therefore incomplete in this response due to limited source data.</p>
+<p>Important note: The schema provided in the context is incomplete/aggregated for some columns. Several columns are presented as ranges (for example, STK_ALPHA1-10, STK_DATE1-5, STK_HEURE1-5, STK_LOT1-3, STK_NUM1-5, STK_TOP1-5) rather than enumerated individually.</p>
 <p>Columns:</p>
 <ul>
-<li style="margin-left:0em">ACT_CODE</li>
-<li style="margin-left:1em">Description: Activity code</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(10)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(10)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ACT_PAR.ACT_CODE</li>
+<li style="margin-left:0em">Name: ACT_CODE</li>
 </ul>
+<p>  Description: Activity code   SQL Server Type: VARCHAR(10)   Oracle Type: NVARCHAR2(10)   Primary Key: No   Foreign Key: Yes   References: ACT_PAR.ACT_CODE</p>
 <ul>
-<li style="margin-left:0em">ART_CNDC</li>
-<li style="margin-left:1em">Description: Package - Colis</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(15)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(15)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_CNDC</li>
+<li style="margin-left:0em">Name: ART_CNDC</li>
 </ul>
+<p>  Description: Package - Colis   SQL Server Type: VARCHAR(15)   Oracle Type: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDC</p>
 <ul>
-<li style="margin-left:0em">ART_CNDO</li>
-<li style="margin-left:1em">Description: Package - Layer</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(15)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(15)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_CNDO</li>
+<li style="margin-left:0em">Name: ART_CNDO</li>
 </ul>
+<p>  Description: Package - Layer   SQL Server Type: VARCHAR(15)   Oracle Type: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDO</p>
 <ul>
-<li style="margin-left:0em">ART_CNDP</li>
-<li style="margin-left:1em">Description: Package - Pallet</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(15)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(15)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_CNDP</li>
+<li style="margin-left:0em">Name: ART_CNDP</li>
 </ul>
+<p>  Description: Package - Pallet   SQL Server Type: VARCHAR(15)   Oracle Type: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDP</p>
 <ul>
-<li style="margin-left:0em">ART_CNDS</li>
-<li style="margin-left:1em">Description: Package - SPCB</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(15)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(15)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_CNDS</li>
+<li style="margin-left:0em">Name: ART_CNDS</li>
 </ul>
+<p>  Description: Package - SPCB   SQL Server Type: VARCHAR(15)   Oracle Type: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDS</p>
 <ul>
-<li style="margin-left:0em">ART_CNDU</li>
-<li style="margin-left:1em">Description: Package - Unit</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(15)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(15)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_CNDU</li>
+<li style="margin-left:0em">Name: ART_CNDU</li>
 </ul>
+<p>  Description: Package - Unit   SQL Server Type: VARCHAR(15)   Oracle Type: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CNDU</p>
 <ul>
-<li style="margin-left:0em">ART_CODE</li>
-<li style="margin-left:1em">Description: Article code</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(35)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(35)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_CODE</li>
+<li style="margin-left:0em">Name: ART_CODE</li>
 </ul>
+<p>  Description: Article code   SQL Server Type: VARCHAR(35)   Oracle Type: NVARCHAR2(35)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_CODE</p>
 <ul>
-<li style="margin-left:0em">ART_EANC</li>
-<li style="margin-left:1em">Description: Reserved BK</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(30)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(30)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_EANC</li>
+<li style="margin-left:0em">Name: ART_EANC</li>
 </ul>
+<p>  Description: Reserved BK   SQL Server Type: VARCHAR(30)   Oracle Type: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANC</p>
 <ul>
-<li style="margin-left:0em">ART_EANO</li>
-<li style="margin-left:1em">Description: Reserved BK</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(30)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(30)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_EANO</li>
+<li style="margin-left:0em">Name: ART_EANO</li>
 </ul>
+<p>  Description: Reserved BK   SQL Server Type: VARCHAR(30)   Oracle Type: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANO</p>
 <ul>
-<li style="margin-left:0em">ART_EANP</li>
-<li style="margin-left:1em">Description: Reserved BK</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(30)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(30)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_EANP</li>
+<li style="margin-left:0em">Name: ART_EANP</li>
 </ul>
+<p>  Description: Reserved BK   SQL Server Type: VARCHAR(30)   Oracle Type: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANP</p>
 <ul>
-<li style="margin-left:0em">ART_EANS</li>
-<li style="margin-left:1em">Description: Reserved BK</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(30)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(30)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_EANS</li>
+<li style="margin-left:0em">Name: ART_EANS</li>
 </ul>
+<p>  Description: Reserved BK   SQL Server Type: VARCHAR(30)   Oracle Type: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANS</p>
 <ul>
-<li style="margin-left:0em">ART_EANU</li>
-<li style="margin-left:1em">Description: Reserved BK</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(30)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(30)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_EANU</li>
+<li style="margin-left:0em">Name: ART_EANU</li>
 </ul>
+<p>  Description: Reserved BK   SQL Server Type: VARCHAR(30)   Oracle Type: NVARCHAR2(30)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_EANU</p>
 <ul>
-<li style="margin-left:0em">ART_QTEC</li>
-<li style="margin-left:1em">Description: Qty per Colis</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(25)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(25)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_QTEC</li>
+<li style="margin-left:0em">Name: ART_QTEC</li>
 </ul>
+<p>  Description: Qty per Colis   SQL Server Type: VARCHAR(25)   Oracle Type: NVARCHAR2(25)   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEC</p>
 <ul>
-<li style="margin-left:0em">ART_QTEO</li>
-<li style="margin-left:1em">Description: Qty per Layer</li>
-<li style="margin-left:1em">SQL Server: BIGINT</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_QTEO</li>
+<li style="margin-left:0em">Name: ART_QTEO</li>
 </ul>
+<p>  Description: Qty per Layer   SQL Server Type: BIGINT   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEO</p>
 <ul>
-<li style="margin-left:0em">ART_QTEP</li>
-<li style="margin-left:1em">Description: Qty per Pallet</li>
-<li style="margin-left:1em">SQL Server: BIGINT</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_QTEP</li>
+<li style="margin-left:0em">Name: ART_QTEP</li>
 </ul>
+<p>  Description: Qty per Pallet   SQL Server Type: BIGINT   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEP</p>
 <ul>
-<li style="margin-left:0em">ART_QTES</li>
-<li style="margin-left:1em">Description: Qty per SPCB</li>
-<li style="margin-left:1em">SQL Server: BIGINT</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_QTES</li>
+<li style="margin-left:0em">Name: ART_QTES</li>
 </ul>
+<p>  Description: Qty per SPCB   SQL Server Type: BIGINT   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTES</p>
 <ul>
-<li style="margin-left:0em">ART_QTEU</li>
-<li style="margin-left:1em">Description: Qty per Unit</li>
-<li style="margin-left:1em">SQL Server: BIGINT</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: ART_PAR.ART_QTEU</li>
+<li style="margin-left:0em">Name: ART_QTEU</li>
 </ul>
+<p>  Description: Qty per Unit   SQL Server Type: BIGINT   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: ART_PAR.ART_QTEU</p>
 <ul>
-<li style="margin-left:0em">DOS_CODE</li>
-<li style="margin-left:1em">Description: Folder code</li>
-<li style="margin-left:1em">SQL Server: BIGINT</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: DOS_DAT.DOS_CODE</li>
+<li style="margin-left:0em">Name: DOS_CODE</li>
 </ul>
+<p>  Description: Folder code   SQL Server Type: BIGINT   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: DOS_DAT.DOS_CODE</p>
 <ul>
-<li style="margin-left:0em">GAB_CODE</li>
-<li style="margin-left:1em">Description: Template code</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(10)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(10)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: GAB_PAR.GAB_CODE</li>
+<li style="margin-left:0em">Name: GAB_CODE</li>
 </ul>
+<p>  Description: Template code   SQL Server Type: VARCHAR(10)   Oracle Type: NVARCHAR2(10)   Primary Key: No   Foreign Key: Yes   References: GAB_PAR.GAB_CODE</p>
 <ul>
-<li style="margin-left:0em">OFE_NOOE</li>
-<li style="margin-left:1em">Description: Manufacturing order no</li>
-<li style="margin-left:1em">SQL Server: BIGINT</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: OFE_DAT.OFE_NOOE</li>
+<li style="margin-left:0em">Name: OFE_NOOE</li>
 </ul>
+<p>  Description: Manufacturing order no   SQL Server Type: BIGINT   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: OFE_DAT.OFE_NOOE</p>
 <ul>
-<li style="margin-left:0em">OFE_REF</li>
-<li style="margin-left:1em">Description: Manufacturing reference</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(20)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(20)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: OFE_DAT.OFE_REF</li>
+<li style="margin-left:0em">Name: OFE_REF</li>
 </ul>
+<p>  Description: Manufacturing reference   SQL Server Type: VARCHAR(20)   Oracle Type: NVARCHAR2(20)   Primary Key: No   Foreign Key: Yes   References: OFE_DAT.OFE_REF</p>
 <ul>
-<li style="margin-left:0em">OFF_NORL</li>
-<li style="margin-left:1em">Description: Production line no</li>
-<li style="margin-left:1em">SQL Server: NUMERIC(10)</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: OFF_DAT.OFF_NORL</li>
+<li style="margin-left:0em">Name: OFF_NORL</li>
 </ul>
+<p>  Description: Production line no   SQL Server Type: NUMERIC(10)   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: OFF_DAT.OFF_NORL</p>
 <ul>
-<li style="margin-left:0em">OFL_NOOL</li>
-<li style="margin-left:1em">Description: Order line no</li>
-<li style="margin-left:1em">SQL Server: NUMERIC(10)</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: OFL_DAT.OFL_NOOL</li>
+<li style="margin-left:0em">Name: OFL_NOOL</li>
 </ul>
+<p>  Description: Order line no   SQL Server Type: NUMERIC(10)   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: OFL_DAT.OFL_NOOL</p>
 <ul>
-<li style="margin-left:0em">QUA_CODE</li>
-<li style="margin-left:1em">Description: Quality code</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(5)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(5)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: QUA_PAR.QUA_CODE</li>
+<li style="margin-left:0em">Name: QUA_CODE</li>
 </ul>
+<p>  Description: Quality code   SQL Server Type: VARCHAR(5)   Oracle Type: NVARCHAR2(5)   Primary Key: No   Foreign Key: Yes   References: QUA_PAR.QUA_CODE</p>
 <ul>
-<li style="margin-left:0em">REA_BL</li>
-<li style="margin-left:1em">Description: Delivery note ref</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(50)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(50)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: REA_DAT.REA_BL</li>
+<li style="margin-left:0em">Name: REA_BL</li>
 </ul>
+<p>  Description: Delivery note ref   SQL Server Type: VARCHAR(50)   Oracle Type: NVARCHAR2(50)   Primary Key: No   Foreign Key: Yes   References: REA_DAT.REA_BL</p>
 <ul>
-<li style="margin-left:0em">REA_RFCE</li>
-<li style="margin-left:1em">Description: DO header ref</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(50)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(50)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: REA_DAT.REA_RFCE</li>
+<li style="margin-left:0em">Name: REA_RFCE</li>
 </ul>
+<p>  Description: DO header ref   SQL Server Type: VARCHAR(50)   Oracle Type: NVARCHAR2(50)   Primary Key: No   Foreign Key: Yes   References: REA_DAT.REA_RFCE</p>
 <ul>
-<li style="margin-left:0em">REA_RFCL</li>
-<li style="margin-left:1em">Description: DO line ref</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(20)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(20)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: REA_DAT.REA_RFCL</li>
+<li style="margin-left:0em">Name: REA_RFCL</li>
 </ul>
+<p>  Description: DO line ref   SQL Server Type: VARCHAR(20)   Oracle Type: NVARCHAR2(20)   Primary Key: No   Foreign Key: Yes   References: REA_DAT.REA_RFCL</p>
 <ul>
-<li style="margin-left:0em">REL_NORL</li>
-<li style="margin-left:1em">Description: Reception line no</li>
-<li style="margin-left:1em">SQL Server: NUMERIC(10)</li>
-<li style="margin-left:1em">Oracle: INTEGER</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: REL_DAT.REL_NORL</li>
+<li style="margin-left:0em">Name: REL_NORL</li>
 </ul>
+<p>  Description: Reception line no   SQL Server Type: NUMERIC(10)   Oracle Type: INTEGER   Primary Key: No   Foreign Key: Yes   References: REL_DAT.REL_NORL</p>
 <ul>
-<li style="margin-left:0em">RES_COM</li>
-<li style="margin-left:1em">Description: Reservation comment</li>
-<li style="margin-left:1em">SQL Server: TEXT</li>
-<li style="margin-left:1em">Oracle: CLOB</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: RES_DAT.RES_COM</li>
+<li style="margin-left:0em">Name: RES_COM</li>
 </ul>
+<p>  Description: Reservation comment   SQL Server Type: TEXT   Oracle Type: CLOB   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_COM</p>
 <ul>
-<li style="margin-left:0em">RES_CRDA</li>
-<li style="margin-left:1em">Description: Reservation creation datetime</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(16)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(16)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: RES_DAT.RES_CRDA</li>
+<li style="margin-left:0em">Name: RES_CRDA</li>
 </ul>
+<p>  Description: Reservation creation datetime   SQL Server Type: VARCHAR(16)   Oracle Type: NVARCHAR2(16)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_CRDA</p>
 <ul>
-<li style="margin-left:0em">RES_LIDA</li>
-<li style="margin-left:1em">Description: Reservation expiry date</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(8)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: RES_DAT.RES_LIDA</li>
+<li style="margin-left:0em">Name: RES_LIDA</li>
 </ul>
+<p>  Description: Reservation expiry date   SQL Server Type: VARCHAR(8)   Oracle Type: NVARCHAR2(8)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_LIDA</p>
 <ul>
-<li style="margin-left:0em">RES_MOTIF</li>
-<li style="margin-left:1em">Description: Reservation reason</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(50)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(50)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: RES_DAT.RES_MOTIF</li>
+<li style="margin-left:0em">Name: RES_MOTIF</li>
 </ul>
+<p>  Description: Reservation reason   SQL Server Type: VARCHAR(50)   Oracle Type: NVARCHAR2(50)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_MOTIF</p>
 <ul>
-<li style="margin-left:0em">RES_QIRE</li>
-<li style="margin-left:1em">Description: Reserved by</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(15)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(15)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: RES_DAT.RES_QIRE</li>
+<li style="margin-left:0em">Name: RES_QIRE</li>
 </ul>
+<p>  Description: Reserved by   SQL Server Type: VARCHAR(15)   Oracle Type: NVARCHAR2(15)   Primary Key: No   Foreign Key: Yes   References: RES_DAT.RES_QIRE</p>
 <ul>
-<li style="margin-left:0em">SDO_CODE</li>
-<li style="margin-left:1em">Description: Customs status</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(5)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(5)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: Yes</li>
-<li style="margin-left:1em">References: SDO_PAR.SDO_CODE</li>
+<li style="margin-left:0em">Name: SDO_CODE</li>
 </ul>
+<p>  Description: Customs status   SQL Server Type: VARCHAR(5)   Oracle Type: NVARCHAR2(5)   Primary Key: No   Foreign Key: Yes   References: SDO_PAR.SDO_CODE</p>
 <ul>
-<li style="margin-left:0em">STK_ALLE</li>
-<li style="margin-left:1em">Description: Aisle</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(3)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(3)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_ALLE</li>
 </ul>
+<p>  Description: Aisle   SQL Server Type: VARCHAR(3)   Oracle Type: NVARCHAR2(3)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_ALLP</li>
-<li style="margin-left:1em">Description: Planned aisle</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(3)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(3)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_ALLP</li>
 </ul>
+<p>  Description: Planned aisle   SQL Server Type: VARCHAR(3)   Oracle Type: NVARCHAR2(3)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_ALPHA1-10</li>
-<li style="margin-left:1em">Description: Additional info A01-A10</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(50)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(50)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_ALPHA1-10</li>
 </ul>
+<p>  Description: Additional info A01-A10   SQL Server Type: VARCHAR(50)   Oracle Type: NVARCHAR2(50)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CASE</li>
-<li style="margin-left:1em">Description: Location case</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(3)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(3)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CASE</li>
 </ul>
+<p>  Description: Location case   SQL Server Type: VARCHAR(3)   Oracle Type: NVARCHAR2(3)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CASP</li>
-<li style="margin-left:1em">Description: Planned case</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(3)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(3)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CASP</li>
 </ul>
+<p>  Description: Planned case   SQL Server Type: VARCHAR(3)   Oracle Type: NVARCHAR2(3)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CFIS</li>
-<li style="margin-left:1em">Description: Fiscality code</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(5)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(5)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CFIS</li>
 </ul>
+<p>  Description: Fiscality code   SQL Server Type: VARCHAR(5)   Oracle Type: NVARCHAR2(5)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CLAS</li>
-<li style="margin-left:1em">Description: Class code</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(1)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(1)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CLAS</li>
 </ul>
+<p>  Description: Class code   SQL Server Type: VARCHAR(1)   Oracle Type: NVARCHAR2(1)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_COL</li>
-<li style="margin-left:1em">Description: Column</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(3)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(3)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_COL</li>
 </ul>
+<p>  Description: Column   SQL Server Type: VARCHAR(3)   Oracle Type: NVARCHAR2(3)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_COLP</li>
-<li style="margin-left:1em">Description: Planned column</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(3)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(3)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_COLP</li>
 </ul>
+<p>  Description: Planned column   SQL Server Type: VARCHAR(3)   Oracle Type: NVARCHAR2(3)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_COM</li>
-<li style="margin-left:1em">Description: Comments</li>
-<li style="margin-left:1em">SQL Server: TEXT</li>
-<li style="margin-left:1em">Oracle: CLOB</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_COM</li>
 </ul>
+<p>  Description: Comments   SQL Server Type: TEXT   Oracle Type: CLOB   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CRDA</li>
-<li style="margin-left:1em">Description: Creation date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CRDA</li>
 </ul>
+<p>  Description: Creation date   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CRHE</li>
-<li style="margin-left:1em">Description: Creation time</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(6)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(6)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CRHE</li>
 </ul>
+<p>  Description: Creation time   SQL Server Type: VARCHAR(6)   Oracle Type: NVARCHAR2(6)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CRQI</li>
-<li style="margin-left:1em">Description: Created by</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(15)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(15)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CRQI</li>
 </ul>
+<p>  Description: Created by   SQL Server Type: VARCHAR(15)   Oracle Type: NVARCHAR2(15)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_CTIE</li>
-<li style="margin-left:1em">Description: Entry third party</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(35)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(35)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_CTIE</li>
 </ul>
+<p>  Description: Entry third party   SQL Server Type: VARCHAR(35)   Oracle Type: NVARCHAR2(35)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_DAEN</li>
-<li style="margin-left:1em">Description: Stock entry date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_DAEN</li>
 </ul>
+<p>  Description: Stock entry date   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_DAEP</li>
-<li style="margin-left:1em">Description: Planned transfer execution date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_DAEP</li>
 </ul>
+<p>  Description: Planned transfer execution date   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_DAIV</li>
-<li style="margin-left:1em">Description: Inventory date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_DAIV</li>
 </ul>
+<p>  Description: Inventory date   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_DARG</li>
-<li style="margin-left:1em">Description: Putaway date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_DARG</li>
 </ul>
+<p>  Description: Putaway date   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_DARS</li>
-<li style="margin-left:1em">Description: Location search date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_DARS</li>
 </ul>
+<p>  Description: Location search date   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_DASO</li>
-<li style="margin-left:1em">Description: Exit date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_DASO</li>
 </ul>
+<p>  Description: Exit date   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
 <ul>
-<li style="margin-left:0em">STK_DATE1-5</li>
-<li style="margin-left:1em">Description: Additional dates D01-D05</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
+<li style="margin-left:0em">Name: STK_DATE1-5</li>
 </ul>
-<ul>
-<li style="margin-left:0em">STK_DFAB</li>
-<li style="margin-left:1em">Description: Manufacturing date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_DLC</li>
-<li style="margin-left:1em">Description: Expiry date (DLC)</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_DLUO</li>
-<li style="margin-left:1em">Description: Best-before date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_DLV</li>
-<li style="margin-left:1em">Description: Delivery date</li>
-<li style="margin-left:1em">SQL Server: DATETIME</li>
-<li style="margin-left:1em">Oracle: NCHAR(8)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_HEEP</li>
-<li style="margin-left:1em">Description: Planned transfer time</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(6)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(6)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_HEIV</li>
-<li style="margin-left:1em">Description: Inventory time</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(6)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(6)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_HERG</li>
-<li style="margin-left:1em">Description: Putaway time</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(6)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(6)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_HERS</li>
-<li style="margin-left:1em">Description: Location search time</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(50)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2(50)</li>
-<li style="margin-left:1em">Primary Key: No</li>
-<li style="margin-left:1em">Foreign Key: No</li>
-<li style="margin-left:1em">References: </li>
-</ul>
-<ul>
-<li style="margin-left:0em">STK_HEURE1-5</li>
-<li style="margin-left:1em">Description: Additional times H01-H05</li>
-<li style="margin-left:1em">SQL Server: VARCHAR(6)</li>
-<li style="margin-left:1em">Oracle: NVARCHAR2</li>
-</ul></div>
+<p>  Description: Additional dates D01-D05   SQL Server Type: DATETIME   Oracle Type: NCHAR(8)   Primary Key: No   Foreign Key: No   References: </p>
+<p>-</p></div>
   <p class="src">retrieved: <span>MVT_DAT.json · MIE_DAT.json · OPE_DAT.json · stk_dat.json · MIL_DAT.json</span></p>
 </div><div class="res"></div></div>
 <div class="q r-answered" data-id="C3"><span class="id">C3</span><div>
   <p class="ask">&quot;how to close a grn&quot; (lowercase, abbreviation, no question mark)</p>
   <ol class="asked"><li>how to close a grn</li></ol>
-  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.982</b></span><span>12.7s</span><span class="src">top: <span>Receipt closure.txt</span></span></div>
-  <div class="answer"><p>Here’s how to close a GRN (receipt) in Speed WMS, along with key preconditions and effects:</p>
-<p>How to close a receipt (GRN)</p>
-<ul>
-<li style="margin-left:0em">Open the Receipt Management screen.</li>
-<li style="margin-left:0em">Select the target receipt.</li>
-<li style="margin-left:0em">Choose one of the following:</li>
-<li style="margin-left:1em">Contextual menu → Close Receipt, or</li>
-<li style="margin-left:1em">Speed WMS command bar → Close Receipt button.</li>
-<li style="margin-left:0em">Confirm the closure action.</li>
-</ul>
-<p>Preconditions before closure</p>
+  <div class="meta-row"><span class="badge">ANSWERED</span><span>relevance <b>0.982</b></span><span>8.6s</span><span class="src">top: <span>Receipt closure.txt</span></span></div>
+  <div class="answer"><p>To close a GRN (receipt) in Speed WMS:</p>
+<p>Preconditions</p>
 <ul>
 <li style="margin-left:0em">All receipt lines have been correctly recorded.</li>
 <li style="margin-left:0em">Quantities and item references are validated.</li>
 <li style="margin-left:0em">Required documents or media have been attached.</li>
 <li style="margin-left:0em">No further modifications are expected.</li>
-<li style="margin-left:0em">Best practice: Close only after full verification; reopening is not possible.</li>
+<li style="margin-left:0em">Ensure closure timing aligns with external system synchronization schedules.</li>
 </ul>
-<p>What happens after closure</p>
+<p>How to close</p>
+<ol>
+<li>Open the Receipt Management screen.</li>
+<li>Select the target receipt.</li>
+<li>Use one of the following:</li>
+</ol>
 <ul>
-<li style="margin-left:0em">The receipt is frozen and cannot be modified.</li>
+<li style="margin-left:1em">Contextual menu → Close Receipt</li>
+<li style="margin-left:1em">Speed WMS command bar → Close Receipt button</li>
+</ul>
+<ol>
+<li>Confirm the closure action.</li>
+</ol>
+<p>Effects of closure</p>
+<ul>
+<li style="margin-left:0em">The receipt is finalized and cannot be modified.</li>
 <li style="margin-left:0em">No new receipt lines can be added; existing lines cannot be edited or deleted.</li>
-<li style="margin-left:0em">No new media or attachments can be added.</li>
-<li style="margin-left:0em">The receipt remains accessible in read-only/advisory mode for consultation.</li>
-<li style="margin-left:0em">Attached documents can still be viewed and edited/printed.</li>
+<li style="margin-left:0em">No new media/attachments can be added.</li>
+<li style="margin-left:0em">The receipt remains accessible in read-only/advisory mode.</li>
+<li style="margin-left:0em">Attached documents can still be viewed.</li>
 <li style="margin-left:0em">Closed receipts remain available for reporting and audit.</li>
 </ul>
-<p>System integration</p>
+<p>Integration note</p>
 <ul>
-<li style="margin-left:0em">Feedback to upstream/n+1 systems (e.g., ERP) generally occurs after receipt closure.</li>
-<li style="margin-left:0em">Only closed receipts should be considered final for downstream processing.</li>
+<li style="margin-left:0em">Feedback to upstream/n+1 systems (e.g., ERP) typically occurs after receipt closure.</li>
+</ul>
+<p>Best practices</p>
+<ul>
+<li style="margin-left:0em">Close only after full verification; reopening is not possible.</li>
+<li style="margin-left:0em">Process synchronization with external systems should use only closed receipts.</li>
 </ul></div>
   <p class="src">retrieved: <span>Receipt closure.txt · End to End Receipt.txt</span></p>
 </div><div class="res"></div></div>
@@ -4635,29 +4273,29 @@
 <div class="q r-refused" data-id="N1"><span class="id">N1</span><div>
   <p class="ask">Who won the 2022 FIFA World Cup?</p>
   
-  <div class="meta-row"><span class="badge">REFUSED</span><span>relevance <b>0.181</b></span><span>2.0s</span><span class="src">top: <span>ZEM_DAT.json</span></span></div>
+  <div class="meta-row"><span class="badge">REFUSED</span><span>relevance <b>0.181</b></span><span>2.6s</span><span class="src">top: <span>ZEM_DAT.json</span></span></div>
   <div class="answer"><p class="refusal">I do not have enough information to answer this. Please contact support.</p></div>
   <p class="src">retrieved: <span>ZEM_DAT.json · L’ORÉAL – Quality-Based Storage Restriction Control.txt · L’ORÉAL – Batch Decoding &amp; Automatic DFAB,DLUO Calculation.txt · LOREAL  Exit Square.txt</span></p>
 </div><div class="res"></div></div>
-<div class="q r-model-refused" data-id="N2"><span class="id">N2</span><div>
+<div class="q r-refused" data-id="N2"><span class="id">N2</span><div>
   <p class="ask">How do I configure wave templates in SAP EWM?</p>
   
-  <div class="meta-row"><span class="badge">MODEL REFUSED</span><span>relevance <b>0.697</b></span><span>9.0s</span><span class="src">top: <span>Order templates.txt</span></span></div>
-  <div class="answer"><p>I do not have enough information to answer this. Please contact support.</p></div>
+  <div class="meta-row"><span class="badge">REFUSED</span><span>relevance <b>0.697</b></span><span>1.6s</span><span class="src">top: <span>Order templates.txt</span></span></div>
+  <div class="answer"><p class="refusal">I do not have enough information to answer this. Please contact support.</p></div>
   <p class="src">retrieved: <span>Order templates.txt · Put in wave (1).txt · Distribution template.txt · Creation of receipt lines.txt · Launch settings.txt</span></p>
 </div><div class="res"></div></div>
-<div class="q r-model-refused" data-id="N3"><span class="id">N3</span><div>
+<div class="q r-refused" data-id="N3"><span class="id">N3</span><div>
   <p class="ask">Write me a Python script to parse GRN PDFs.</p>
   
-  <div class="meta-row"><span class="badge">MODEL REFUSED</span><span>relevance <b>0.398</b></span><span>3.9s</span><span class="src">top: <span>Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt</span></span></div>
-  <div class="answer"><p>I do not have enough information to answer this. Please contact support.</p></div>
+  <div class="meta-row"><span class="badge">REFUSED</span><span>relevance <b>0.398</b></span><span>1.6s</span><span class="src">top: <span>Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt</span></span></div>
+  <div class="answer"><p class="refusal">I do not have enough information to answer this. Please contact support.</p></div>
   <p class="src">retrieved: <span>Receipt Creation, Line Management &amp; SQL Validation in Speed WMS.txt · Creating a receipt header.txt · SQL scripts to manage Receipts, Orders, Movements and Shipments in Speed.txt · Support_Ticket(Jinko Solar - Amend GRN numbers on receipts inbound &amp; closed on WMS).txt</span></p>
 </div><div class="res"></div></div>
-<div class="q r-model-refused" data-id="N4"><span class="id">N4</span><div>
+<div class="q r-refused" data-id="N4"><span class="id">N4</span><div>
   <p class="ask">What is the current stock level of article 4711 in Pomona?</p>
   
-  <div class="meta-row"><span class="badge">MODEL REFUSED</span><span>relevance <b>0.513</b></span><span>4.5s</span><span class="src">top: <span>MIL_DAT.json</span></span></div>
-  <div class="answer"><p>I do not have enough information to answer this. Please contact support.</p></div>
+  <div class="meta-row"><span class="badge">REFUSED</span><span>relevance <b>0.513</b></span><span>2.1s</span><span class="src">top: <span>MIL_DAT.json</span></span></div>
+  <div class="answer"><p class="refusal">I do not have enough information to answer this. Please contact support.</p></div>
   <p class="src">retrieved: <span>MIL_DAT.json · LOREAL Dynamic Picking Replenishment (ZPA).txt · Restocking calculation method.txt · LOREAL ZPA Replenishment Process Redesign (Volume-Based Logic).txt · LOREAL  Exit Square.txt</span></p>
 </div><div class="res"></div></div>
 <div class="q r-self" data-id="N5"><span class="id">N5</span><div>

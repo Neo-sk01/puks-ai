@@ -2,7 +2,7 @@
 
 > **Predictive Unified Knowledge System.** A RAG assistant that answers Speed WMS support questions from AGL's warehouse documentation.
 
-**Status: running locally on the Next.js + FastAPI stack, not yet deployed.** The index is committed and current, the front end is built, generation and reranking run on AGL's Foundry resource, and a 65-question acceptance set with recorded results lives in `docs/`. What is left is the Foundry embedding deployment ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)) and the deployment itself. Read [§1](#1-read-this-first) first.
+**Status: running locally on the Next.js + FastAPI stack, fully in-tenant, not yet deployed.** The index is committed and current, the front end is built, all three models run on AGL's Foundry resource, and a 65-question acceptance set with recorded results lives in `docs/`. What is left is deployment. Read [§1](#1-read-this-first) first.
 
 > **This repository is public.** Nothing tenant-specific belongs in it: no resource names, no object IDs, no access chains, no network posture. That material lives in `ENVIRONMENT.local.md`, which is gitignored — see [§6](#6-the-environment). Check before you commit.
 
@@ -30,7 +30,7 @@ Five things that will otherwise cost you a day each.
 | # | Thing |
 |---|---|
 | 1 | **Three live Groq API keys were published to a public GitHub repo. Rotate them anyway.** Groq is no longer used — generation, embeddings and reranking all run on Foundry now — but the keys are still valid at `console.groq.com` and were public. Revoke them. See `ENVIRONMENT.local.md`. |
-| 2 | **The committed index is current** (rebuilt 2026-08-24: 627 vectors, 3072-dim, `metadata.json`). You only rebuild after a corpus change. `Corpus()` refuses a dimension mismatch rather than answering wrongly. See [§4](#4-running-it-locally). |
+| 2 | **The committed index is current** (rebuilt 2026-08-24: 627 vectors, 3072-dim, `metadata.json`, embedded with the same `text-embedding-3-large` Foundry now serves). You only rebuild after a corpus change. `Corpus()` refuses a dimension mismatch rather than answering wrongly. See [§4](#4-running-it-locally). |
 | 3 | **There is now an acceptance set — use it.** 65 questions written against the corpus, each with must-contain facts and the expected source file, plus every recorded answer in a Results tab: `docs/acceptance-questions.html`. Re-run with `SCRIPTS/run_acceptance.py` after any retrieval change. It is what the refusal gate was calibrated on. See [§5.1](#51-the-acceptance-set). |
 | 4 | **Azure access is granted, and it is enough to deploy — via keys, not managed identity.** The role we hold cannot create role assignments, so the keyless design in older drafts of this file is unreachable. The key-based path works today and is written out in [§6](#6-the-environment). |
 | 5 | **`ci-cd.yml` and `docs/DEPLOYMENT.md` are fiction.** They deploy to app names that do not exist, in a region this project does not use, with a Groq key nothing reads. Do not follow them. |
@@ -85,7 +85,7 @@ Question
    └─ gpt-5                    reasoning_effort=low, max_completion_tokens
 ```
 
-**Each role has a provider**, and the intent is that all three run on AGL's Foundry resource with one account key so no request leaves the tenant. Today (2026-08-25) **generation and reranking do** — `gpt-5` and `Cohere-rerank-v4.0-pro` are deployed and answer — while **embeddings still reach the public OpenAI API**, because the Foundry `text-embedding-3-large` deployment exists but is not served ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)). Same model either way, so the index is unaffected. `PUKS_PROVIDER` sets the default for every role; `PUKS_CHAT_PROVIDER` / `PUKS_EMBED_PROVIDER` / `PUKS_RERANK_PROVIDER` override one. The sidebar and the About page show where each role runs. Resource names, endpoints and the deployment runbook are in `ENVIRONMENT.local.md` — see [§6](#6-the-environment).
+**All three models run on AGL's Foundry resource with one account key** — `gpt-5`, `text-embedding-3-large` and `Cohere-rerank-v4.0-pro`, all confirmed served on 2026-08-26 — so no request leaves the tenant. Each role can nonetheless be pointed elsewhere: `PUKS_PROVIDER` sets the default for every role and `PUKS_CHAT_PROVIDER` / `PUKS_EMBED_PROVIDER` / `PUKS_RERANK_PROVIDER` override one, which is how development ran on the public OpenAI and Cohere APIs while the Foundry deployments were being created ([§7.8](#78-the-foundry-embedding-deployment-is-not-served) records the one that took hours to come up). The sidebar and the About page show where each role runs. Resource names, endpoints and the deployment runbook are in `ENVIRONMENT.local.md` — see [§6](#6-the-environment).
 
 Two things about the Foundry Cohere deployment that cost half a day: the rerank route is the model-inference **v1** path on the `services.ai.azure.com` host with the `api-version` query string in the URL (the app derives it from the endpoint), and **v4.0-pro scores ~0.5 higher than public rerank-v3.5** across the board — off-topic questions land at 0.4–0.7 — so the refusal gate is keyed to the reranker (§7.2).
 
@@ -338,7 +338,7 @@ That file is the one to read before touching Azure. It covers:
 
 If you do not have it, ask the environment owner rather than reconstructing it. The reconstruction is how identifiers end up somewhere public.
 
-> To run fully in-tenant you need the Foundry endpoint and key and a resource carrying three **served** deployments: `gpt-5`, `text-embedding-3-large`, and `Cohere-rerank-v4.0-pro`. The first and third are confirmed; the embedding deployment is listed but not served ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)), so embeddings currently use a public OpenAI key. `.env.example` lists every setting the app reads. Nothing else in this README depends on the environment.
+> To run fully in-tenant you need the Foundry endpoint and key and a resource carrying three **served** deployments: `gpt-5`, `text-embedding-3-large`, and `Cohere-rerank-v4.0-pro`. All three are confirmed as of 2026-08-26. `.env.example` lists every setting the app reads. Nothing else in this README depends on the environment.
 
 ---
 
@@ -437,9 +437,9 @@ The three with nothing are **Cancel the Order**, **Clean Up Temporary Table** an
 
 ---
 
-### 7.8 The Foundry embedding deployment is not served
+### 7.8 The Foundry embedding deployment is not served — ✅ RESOLVED 2026-08-26 (it was propagation, measured in hours)
 
-*Open as of 2026-08-25.* A `text-embedding-3-large` deployment exists on the Foundry resource — it appears in the deployment list with `status: succeeded` — but inference returns `DeploymentNotFound` on every API version, both hostnames and the model-inference route, apart from two isolated successes in ~100 attempts over an hour. `gpt-5` and the Cohere rerank deployment on the same resource and key answer every time, so credentials and endpoint are not the cause. It cannot be fixed from this side: the resource key cannot manage deployments and the role we hold lacks `deployments/read`. Someone with portal rights should delete the deployment and recreate it as *Global Standard* with default capacity. Until then `PUKS_EMBED_PROVIDER=openai` with an OpenAI key keeps retrieval running — same model, same index.
+The `text-embedding-3-large` deployment created on 2026-08-25 at 10:47 showed `status: succeeded` immediately but returned `DeploymentNotFound` on inference for the rest of that day — every API version, both hostnames, the model-inference route — apart from two isolated successes in ~100 attempts, while `gpt-5` and the Cohere rerank deployment on the same key answered every time. The next morning the **same** deployment answered 6/6 and has since. Lesson for the next deployment on this resource: a new deployment can take **hours**, not the "5 minutes" the error text suggests, to be served consistently; the two early successes were the first nodes to receive it. Nothing was recreated. Meanwhile `PUKS_EMBED_PROVIDER=openai` kept retrieval running on the same model.
 
 ## 8. Where this is going
 
@@ -447,7 +447,6 @@ The three with nothing are **Cancel the Order**, **Clean Up Temporary Table** an
 
 What remains, in order:
 
-- **Get the Foundry embedding deployment served** ([§7.8](#78-the-foundry-embedding-deployment-is-not-served)) and drop the OpenAI key — then every request stays in the tenant
 - **Deploy** the FastAPI backend and the Next.js app to the App Service estate per the runbook in `ENVIRONMENT.local.md`; `docs/DEPLOYMENT.md` and `ci-cd.yml` remain fiction
 - **Score the acceptance set with the support team** — the PASS/PART/FAIL tracker is there for them; the three open judgement calls in §5.1 need their view
 - Delete `APPLICATION(STREAMLIT)/` once deployed; delete `APPLICATION(STREAMLIT)/data/vector_store/` now
