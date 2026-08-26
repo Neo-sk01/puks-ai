@@ -6,8 +6,10 @@ import type { Health } from "@/lib/types";
  *
  *  --color-hazard is one of its three sanctioned appearances here: the
  *  banner border, heading, and the raw ConfigError text. The fix
- *  instructions below are guidance, not the problem, so they stay in
- *  --color-muted rather than continuing the hazard tint. */
+ *  instructions below are guidance, not the problem, so they stay in the
+ *  text-muted-foreground utility (AGL blue 70 % tint, wired straight to
+ *  --color-agl-blue-70 in globals.css) rather than continuing the hazard
+ *  tint. */
 export function NotReadyBanner({ health }: { health: Health }) {
   if (health.ready) return null;
   return (

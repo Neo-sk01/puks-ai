@@ -17,9 +17,11 @@ function provenance(chunk: Chunk): string[] {
  *  fusion score, doc type, metadata, and full chunk text.
  *
  *  Colours per design-direction.md: --color-bay for the raised surface,
- *  --color-rule for hairlines, --color-muted for labels, --color-signal for
- *  the provenance chips (the rail's colour, reused here as the one place
- *  those retriever names appear as visible text). */
+ *  --color-rule for hairlines, the text-muted-foreground utility (AGL blue
+ *  70 % tint, wired straight to --color-agl-blue-70 in globals.css) for
+ *  labels, --color-signal for the provenance chips (the rail's colour,
+ *  reused here as the one place those retriever names appear as visible
+ *  text). */
 export function RetrievalPanel({ retrieved }: { retrieved: RetrievedPayload }) {
   if (!retrieved.chunks.length) return null;
 
