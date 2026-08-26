@@ -1,0 +1,849 @@
+[
+ {
+  "id": "R1",
+  "group": "R",
+  "group_title": "Receiving goods",
+  "group_note": "The best-covered process: 44 chunks, plus the end-to-end SOP.",
+  "question": "How do I create a receipt header in Speed WMS?",
+  "asked": [
+   "How do I create a receipt header in Speed WMS?"
+  ],
+  "must_contain": "**Must contain:** Receipts module → Create Receipt / Add; header and lines sections; system-filled fields — activity code (read-only), Speed receipt number `REE_NORE` (non-editable), receipt date/time, default reception dock.",
+  "source": "Creating a receipt header · RECEIVING GOODS",
+  "kind": "answer"
+ },
+ {
+  "id": "R2",
+  "group": "R",
+  "group_title": "Receiving goods",
+  "group_note": "The best-covered process: 44 chunks, plus the end-to-end SOP.",
+  "question": "What does the \"Top Stock Input\" field on a receipt line mean?",
+  "asked": [
+   "What does the \"Top Stock Input\" field on a receipt line mean?"
+  ],
+  "must_contain": "**Must contain:** it tracks stock-generation status; only lines at **0** can be generated; it moves to **1** after Generate Stock; generated lines can't be edited or deleted.",
+  "source": "Stock generation / End to End Receipt",
+  "kind": "answer"
+ },
+ {
+  "id": "R3",
+  "group": "R",
+  "group_title": "Receiving goods",
+  "group_note": "The best-covered process: 44 chunks, plus the end-to-end SOP.",
+  "question": "What can and can't I do with a receipt once it's closed?",
+  "asked": [
+   "What can and can't I do with a receipt once it's closed?"
+  ],
+  "must_contain": "**Must contain:** no new media/lines, existing lines can't be modified or deleted, information stays in read-only (advisory) mode, attached documents remain viewable; feedback to the upstream (n+1 / ERP) system happens after closure.",
+  "source": "Receipt closure",
+  "kind": "answer"
+ },
+ {
+  "id": "R4",
+  "group": "R",
+  "group_title": "Receiving goods",
+  "group_note": "The best-covered process: 44 chunks, plus the end-to-end SOP.",
+  "question": "What is support break and where do I switch it on?",
+  "asked": [
+   "What is support break and where do I switch it on?"
+  ],
+  "must_contain": "**Must contain:** splits large received quantities into multiple storage supports at receipt-line creation, per the packaging plan; configured in the **Storage tab of the item sheet**, per stock-unit type. Bonus: the 4 pallets × 750 units example.",
+  "source": "Support break management",
+  "kind": "answer"
+ },
+ {
+  "id": "R5",
+  "group": "R",
+  "group_title": "Receiving goods",
+  "group_note": "The best-covered process: 44 chunks, plus the end-to-end SOP.",
+  "question": "Why is stock generation a separate step after creating receipt lines?",
+  "asked": [
+   "Why is stock generation a separate step after creating receipt lines?"
+  ],
+  "must_contain": "**Must contain:** lines aren't in stock until generated; generation consumes expected items, creates stock-entry movements, and makes supports available to picking/sampling flows.",
+  "source": "Stock generation",
+  "kind": "answer"
+ },
+ {
+  "id": "R6",
+  "group": "R",
+  "group_title": "Receiving goods",
+  "group_note": "The best-covered process: 44 chunks, plus the end-to-end SOP.",
+  "question": "How do I generate a receipt from an expected reception?",
+  "asked": [
+   "How do I generate a receipt from an expected reception?"
+  ],
+  "must_contain": "**Must contain:** import/select expected items, generate the receipt from them, process one purchase order at a time. Watch for: does it keep expected-item import and receipt generation as distinct steps?",
+  "source": "Receipt generation from an exp / Import of expected items",
+  "kind": "answer"
+ },
+ {
+  "id": "O1",
+  "group": "O",
+  "group_title": "Order preparation",
+  "group_note": "30 short files — many near-duplicates (Put in wave vs Put in wave (1)). Tests dedup.",
+  "question": "How do orders get put into a wave?",
+  "asked": [
+   "How do orders get put into a wave?"
+  ],
+  "must_contain": "**Must contain:** Speed does it automatically when orders are launched for preparation; all orders in the launch batch share one wave; manual wave management is only for specific processes.",
+  "source": "Put in wave",
+  "kind": "answer"
+ },
+ {
+  "id": "O2",
+  "group": "O",
+  "group_title": "Order preparation",
+  "group_note": "30 short files — many near-duplicates (Put in wave vs Put in wave (1)). Tests dedup.",
+  "question": "What's the difference between the absolute rate and the proximity rate in the availability calculation?",
+  "asked": [
+   "What's the difference between the absolute rate and the proximity rate in the availability calculation?"
+  ],
+  "must_contain": "**Must contain:** optional pre-launch step; **absolute** = whole warehouse, overall availability vs total need; **proximity** = an advanced preparation zone, tells you whether transfers into that zone are needed.",
+  "source": "Availability calculation",
+  "kind": "answer"
+ },
+ {
+  "id": "O3",
+  "group": "O",
+  "group_title": "Order preparation",
+  "group_note": "30 short files — many near-duplicates (Put in wave vs Put in wave (1)). Tests dedup.",
+  "question": "How do I split part of an order into a second order?",
+  "asked": [
+   "How do I split part of an order into a second order?"
+  ],
+  "must_contain": "**Must contain:** context menu → Split Order; enter the quantity in **\"Spread quantity order 2\"**; validate; a second order is created that inherits the original header.",
+  "source": "Order splitting",
+  "kind": "answer"
+ },
+ {
+  "id": "O4",
+  "group": "O",
+  "group_title": "Order preparation",
+  "group_note": "30 short files — many near-duplicates (Put in wave vs Put in wave (1)). Tests dedup.",
+  "question": "What do I need to do before launching orders in preparation?",
+  "asked": [
+   "What do I need to do before launching orders in preparation?"
+  ],
+  "must_contain": "**Must contain:** a coherent sequence drawn from launch settings / availability calculation / launching. Watch for: does it blend multiple files without contradicting them?",
+  "source": "Launch settings / Launch in preparation / Launching",
+  "kind": "answer"
+ },
+ {
+  "id": "O5",
+  "group": "O",
+  "group_title": "Order preparation",
+  "group_note": "30 short files — many near-duplicates (Put in wave vs Put in wave (1)). Tests dedup.",
+  "question": "How does automatic launch differ from launching manually?",
+  "asked": [
+   "How does automatic launch differ from launching manually?"
+  ],
+  "must_contain": "**Must contain:** the automatic-launch conditions/schedule from the doc; must not invent parameters not present in it.",
+  "source": "Automatic launch",
+  "kind": "answer"
+ },
+ {
+  "id": "O6",
+  "group": "O",
+  "group_title": "Order preparation",
+  "group_note": "30 short files — many near-duplicates (Put in wave vs Put in wave (1)). Tests dedup.",
+  "question": "What is a distribution template used for?",
+  "asked": [
+   "What is a distribution template used for?"
+  ],
+  "must_contain": "**Must contain:** a reusable model for distributing an order; how it relates to creating / editing / deleting a distribution.",
+  "source": "Distribution template / Order distribution",
+  "kind": "answer"
+ },
+ {
+  "id": "L1",
+  "group": "L",
+  "group_title": "Loading & shipping",
+  "group_note": "Short files with concrete status codes — easy to check precisely.",
+  "question": "Which status code means an order has been shipped, and where can I see shipped samplings?",
+  "asked": [
+   "Which status code means an order has been shipped, and where can I see shipped samplings?"
+  ],
+  "must_contain": "**Must contain:** status **070**; the **Shipped** tab; filterable by item, recipient, order, mission, load, shipment, delivery note, support number.",
+  "source": "Shipped · LOADING",
+  "kind": "answer"
+ },
+ {
+  "id": "L2",
+  "group": "L",
+  "group_title": "Loading & shipping",
+  "group_note": "Short files with concrete status codes — easy to check precisely.",
+  "question": "What does the Terminated tab show?",
+  "asked": [
+   "What does the Terminated tab show?"
+  ],
+  "must_contain": "**Must contain:** terminated / balanced samplings at status **050**. One-line doc — the answer should be short, not padded.",
+  "source": "Terminated",
+  "kind": "answer"
+ },
+ {
+  "id": "L3",
+  "group": "L",
+  "group_title": "Loading & shipping",
+  "group_note": "Short files with concrete status codes — easy to check precisely.",
+  "question": "How do I create a loading and assign deliveries to it?",
+  "asked": [
+   "How do I create a loading and assign deliveries to it?"
+  ],
+  "must_contain": "**Must contain:** loading creation steps; mapping of deliveries onto the load; assignment from order preparation.",
+  "source": "Loading creation / Mapping of the deliveries / Assignment to a loading",
+  "kind": "answer"
+ },
+ {
+  "id": "L4",
+  "group": "L",
+  "group_title": "Loading & shipping",
+  "group_note": "Short files with concrete status codes — easy to check precisely.",
+  "question": "Where is the Incoterm defined on a load?",
+  "asked": [
+   "Where is the Incoterm defined on a load?"
+  ],
+  "must_contain": "**Must contain:** it's a characteristic of the load, set in the load's **Documentation** tab; codes are maintained under Settings → Transport → Incoterm Code.",
+  "source": "Incoterm code · GENERAL",
+  "kind": "answer"
+ },
+ {
+  "id": "S1",
+  "group": "S",
+  "group_title": "Replenishment, storage & stock",
+  "group_note": "Small areas (4–10 chunks each) — tests recall on thin coverage.",
+  "question": "Where do I configure replenishment rules for a picking zone, and what's the rule about zone types?",
+  "asked": [
+   "Where do I configure replenishment rules for a picking zone, and what's the rule about zone types?"
+  ],
+  "must_contain": "**Must contain:** Settings / Location / Areas → pick a picking-replenishment zone (**type 003**) → context menu → Replenishment; applies to all locations in the area; picking zones can only replenish from storage zones (and vice versa).",
+  "source": "Replenishment rules management",
+  "kind": "answer"
+ },
+ {
+  "id": "S2",
+  "group": "S",
+  "group_title": "Replenishment, storage & stock",
+  "group_note": "Small areas (4–10 chunks each) — tests recall on thin coverage.",
+  "question": "What does the restocking calculation take into account?",
+  "asked": [
+   "What does the restocking calculation take into account?"
+  ],
+  "must_contain": "**Must contain:** replenishment unit, max quantity at picking, replenishment threshold, quantity already in orders in preparation.",
+  "source": "Restocking calculation method",
+  "kind": "answer"
+ },
+ {
+  "id": "S3",
+  "group": "S",
+  "group_title": "Replenishment, storage & stock",
+  "group_note": "Small areas (4–10 chunks each) — tests recall on thin coverage.",
+  "question": "What are the statuses a support can have after reception, and what moves it between them?",
+  "asked": [
+   "What are the statuses a support can have after reception, and what moves it between them?"
+  ],
+  "must_contain": "**Must contain:** **01** support in place · **02** location to be assigned (on the reception platform) · **03** movement to be performed (after a location is assigned manually in the Storage tab or by automatic location search).",
+  "source": "The different statuses of a support · STORAGE",
+  "kind": "answer"
+ },
+ {
+  "id": "S4",
+  "group": "S",
+  "group_title": "Replenishment, storage & stock",
+  "group_note": "Small areas (4–10 chunks each) — tests recall on thin coverage.",
+  "question": "What does the Deadline Reservation function do?",
+  "asked": [
+   "What does the Deadline Reservation function do?"
+  ],
+  "must_contain": "**Must contain:** Stock / Deadline Reservation; removes reservations whose reservation date is earlier than today; works with the reservation setup at item level.",
+  "source": "Deadline Reservation · STOCK MANAGEMENT",
+  "kind": "answer"
+ },
+ {
+  "id": "S5",
+  "group": "S",
+  "group_title": "Replenishment, storage & stock",
+  "group_note": "Small areas (4–10 chunks each) — tests recall on thin coverage.",
+  "question": "What's the difference between total and partial validation of a replenishment?",
+  "asked": [
+   "What's the difference between total and partial validation of a replenishment?"
+  ],
+  "must_contain": "**Must contain:** the distinction as the two docs state it; must not invent a third mode.",
+  "source": "Total validation / Partial validation",
+  "kind": "answer"
+ },
+ {
+  "id": "S6",
+  "group": "S",
+  "group_title": "Replenishment, storage & stock",
+  "group_note": "Small areas (4–10 chunks each) — tests recall on thin coverage.",
+  "question": "How does automatic location search work when storing a support?",
+  "asked": [
+   "How does automatic location search work when storing a support?"
+  ],
+  "must_contain": "**Must contain:** the search logic from the doc; status change to 03 once a location is assigned.",
+  "source": "Automatic search location / The different statuses of a support",
+  "kind": "answer"
+ },
+ {
+  "id": "M1",
+  "group": "M",
+  "group_title": "Sampling, manufacturing & packaging",
+  "group_note": "3 files each. A wrong answer here usually means retrieval reached for a bigger neighbour.",
+  "question": "What are the mandatory fields when creating a manufacturing order?",
+  "asked": [
+   "What are the mandatory fields when creating a manufacturing order?"
+  ],
+  "must_contain": "**Must contain:** Manufacturing → Manufacture → Addition; mandatory: **MO reference, product reference, quantity**; optional: production area, dates, traceability (lot / serial), template tick.",
+  "source": "Creation of a manufacturing order",
+  "kind": "answer"
+ },
+ {
+  "id": "M2",
+  "group": "M",
+  "group_title": "Sampling, manufacturing & packaging",
+  "group_note": "3 files each. A wrong answer here usually means retrieval reached for a bigger neighbour.",
+  "question": "Where are sampling rules set up and in what order are they applied?",
+  "asked": [
+   "Where are sampling rules set up and in what order are they applied?"
+  ],
+  "must_contain": "**Must contain:** System / Receiving – Sampling; rules define which received items go to quality control; evaluated in **priority order**; new rules get an auto-incremented numeric ID and an editable default title.",
+  "source": "Sampling rules · SAMPLING",
+  "kind": "answer"
+ },
+ {
+  "id": "M3",
+  "group": "M",
+  "group_title": "Sampling, manufacturing & packaging",
+  "group_note": "3 files each. A wrong answer here usually means retrieval reached for a bigger neighbour.",
+  "question": "What information is shown for each packaging type?",
+  "asked": [
+   "What information is shown for each packaging type?"
+  ],
+  "must_contain": "**Must contain:** Packagings tab / Packaging types; code, designation, price (in configured currency), comments, image.",
+  "source": "Creation of the packaging types · PACKAGING",
+  "kind": "answer"
+ },
+ {
+  "id": "M4",
+  "group": "M",
+  "group_title": "Sampling, manufacturing & packaging",
+  "group_note": "3 files each. A wrong answer here usually means retrieval reached for a bigger neighbour.",
+  "question": "What is the workshop approach in manufacturing?",
+  "asked": [
+   "What is the workshop approach in manufacturing?"
+  ],
+  "must_contain": "**Must contain:** the workshop concept and zone settings as described; no SAP/other-WMS terminology.",
+  "source": "Workshop approach / Workshop zone settings",
+  "kind": "answer"
+ },
+ {
+  "id": "G1",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "What are the different zone types in Speed WMS and which ones are exclusive?",
+  "asked": [
+   "What are the different zone types in Speed WMS and which ones are exclusive?"
+  ],
+  "must_contain": "**Must contain:** zones group locations for reception/storage/picking/preparation/inventory; zones are multi-activity; **STK** storage area is non-exclusive (a location can be in several); **PRS** stock picking is used for preparation launches. Bonus: the other types in the table.",
+  "source": "Areas",
+  "kind": "answer"
+ },
+ {
+  "id": "G2",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "How do I remove a location from a zone?",
+  "asked": [
+   "How do I remove a location from a zone?"
+  ],
+  "must_contain": "**Must contain:** select the location(s) → right-click → **Deallocate location**; immediate; affects only the zone assignment, not the location; can be reassigned later.",
+  "source": "Location deallocation",
+  "kind": "answer"
+ },
+ {
+  "id": "G3",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "How do user rights work — can I give one user a special permission?",
+  "asked": [
+   "How do user rights work — can I give one user a special permission?"
+  ],
+  "must_contain": "**Must contain:** every user needs a profile; users belong to groups and inherit group rights; for specific rights, **create and configure a new group first**, then assign the user; menu System → Rights.",
+  "source": "User profiles and rights management",
+  "kind": "answer"
+ },
+ {
+  "id": "G4",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "What is a customs status used for?",
+  "asked": [
+   "What is a customs status used for?"
+  ],
+  "must_contain": "**Must contain:** managing bonded goods; Settings / Other / Customs status; applied during receiving; becomes a property of the stock for traceability.",
+  "source": "Customs status",
+  "kind": "answer"
+ },
+ {
+  "id": "G5",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "What does \"Activity\" mean in Speed WMS?",
+  "asked": [
+   "What does \"Activity\" mean in Speed WMS?"
+  ],
+  "must_contain": "**Must contain:** separates management within one warehouse for multiple activities, trades or customers; items, thirds, receptions, orders and the receiving/storage/preparation rules are linked to an activity.",
+  "source": "Glossary",
+  "kind": "answer"
+ },
+ {
+  "id": "G6",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "How deep can item classification go?",
+  "asked": [
+   "How deep can item classification go?"
+  ],
+  "must_contain": "**Must contain:** up to **999 families**, up to **5 tree levels**; the Family → Consumer/Professional example.",
+  "source": "Glossary / Classification tab",
+  "kind": "answer"
+ },
+ {
+  "id": "G7",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "How do I import locations or third parties in bulk?",
+  "asked": [
+   "How do I import locations or third parties in bulk?"
+  ],
+  "must_contain": "**Must contain:** the import screens and file expectations from the two docs, kept distinct.",
+  "source": "Import locations / Import thirds",
+  "kind": "answer"
+ },
+ {
+  "id": "G8",
+  "group": "G",
+  "group_title": "General settings & concepts",
+  "group_note": "53 files of one-page settings screens. Menu paths are the checkable detail.",
+  "question": "How do I build a formula in Speed?",
+  "asked": [
+   "How do I build a formula in Speed?"
+  ],
+  "must_contain": "**Must contain:** the formula-builder steps and operators as documented; nothing about Excel.",
+  "source": "Build a formula",
+  "kind": "answer"
+ },
+ {
+  "id": "D1",
+  "group": "D",
+  "group_title": "Database tables & SQL",
+  "group_note": "Schema chunks are split overview / core / extra. Column names must be exact.",
+  "question": "What does the STK_DAT table hold and what is its primary key?",
+  "asked": [
+   "What does the STK_DAT table hold and what is its primary key?"
+  ],
+  "must_contain": "**Must contain:** current stock table; PK `stk_keyu`; links to `ACT_PAR` and `ART_PAR` (article and packaging columns).",
+  "source": "stk_dat.json · schema_overview",
+  "kind": "answer"
+ },
+ {
+  "id": "D2",
+  "group": "D",
+  "group_title": "Database tables & SQL",
+  "group_note": "Schema chunks are split overview / core / extra. Column names must be exact.",
+  "question": "Which column in REE_DAT holds the reception status, and which the reception date?",
+  "asked": [
+   "Which column in REE_DAT holds the reception status, and which the reception date?"
+  ],
+  "must_contain": "**Must contain:** `REE_ETRE` (status, VARCHAR(10)) and `REE_DARE` (reception date). Bonus: `REE_QUAI` → `EMP_BAS.EMP_LIEU` is the reception dock.",
+  "source": "REE_DAT.json · schema_core_columns",
+  "kind": "answer"
+ },
+ {
+  "id": "D3",
+  "group": "D",
+  "group_title": "Database tables & SQL",
+  "group_note": "Schema chunks are split overview / core / extra. Column names must be exact.",
+  "question": "How do I join OPE_DAT, MIE_DAT and MIL_DAT to see all missions for an order?",
+  "asked": [
+   "How do I join OPE_DAT, MIE_DAT and MIL_DAT to see all missions for an order?"
+  ],
+  "must_contain": "**Must contain:** join on `OPE_NOOE` (+ `ACT_CODE` to limit rows), then `MIE_NOHE` from `MIE_DAT` to `MIL_DAT`. Should reproduce the example SELECT.",
+  "source": "Cancel_Shipped_Order_Procedure.json · wms_join_logic",
+  "kind": "answer"
+ },
+ {
+  "id": "D4",
+  "group": "D",
+  "group_title": "Database tables & SQL",
+  "group_note": "Schema chunks are split overview / core / extra. Column names must be exact.",
+  "question": "Which table stores stock movements, and how does it link to the article master?",
+  "asked": [
+   "Which table stores stock movements, and how does it link to the article master?"
+  ],
+  "must_contain": "**Must contain:** `MVT_DAT`, PK `MVT_KEYU`; FKs `ART_CODE` and the packaging columns `ART_CNDU / CNDC / CNDO / CNDP / CNDS` → `ART_PAR`.",
+  "source": "MVT_DAT.json",
+  "kind": "answer"
+ },
+ {
+  "id": "D5",
+  "group": "D",
+  "group_title": "Database tables & SQL",
+  "group_note": "Schema chunks are split overview / core / extra. Column names must be exact.",
+  "question": "On inbound, which columns link receipt lines to stock?",
+  "asked": [
+   "On inbound, which columns link receipt lines to stock?"
+  ],
+  "must_contain": "**Must contain:** `REL_DAT.REL_NOSU = STK_DAT.STK_NOSU` (support number), with `REE_NORE` as the receipt key. Outbound counterpart: `OPL_DAT.OPL_NOSU = MVT_DAT.MVT_NOSU`.",
+  "source": "Reverse Closed GRN.json / Resend Pegasus file.json · wms_join_logic",
+  "kind": "answer"
+ },
+ {
+  "id": "D6",
+  "group": "D",
+  "group_title": "Database tables & SQL",
+  "group_note": "Schema chunks are split overview / core / extra. Column names must be exact.",
+  "question": "What are the MVT_ALPHA1–10 and MVT_DATE1… columns for?",
+  "asked": [
+   "What are the MVT_ALPHA1–10 and MVT_DATE1… columns for?"
+  ],
+  "must_contain": "**Must contain:** generic \"Additional Info\" A01–A10 / D01… slots, VARCHAR(50) / DATETIME; `MVT_DATE` is the extraction date, `IVE_DATE` the inventory date. Tests the *extra_columns* chunk.",
+  "source": "MVT_DAT.json · schema_extra_columns",
+  "kind": "answer"
+ },
+ {
+  "id": "D7",
+  "group": "D",
+  "group_title": "Database tables & SQL",
+  "group_note": "Schema chunks are split overview / core / extra. Column names must be exact.",
+  "question": "Write a query that shows the header and lines for order 12345 in activity ABC.",
+  "asked": [
+   "Write a query that shows the header and lines for order 12345 in activity ABC."
+  ],
+  "must_contain": "**Must contain:** `OPE_DAT` joined to `OPL_DAT` on `OPE_NOOE` + `ACT_CODE`, placeholders substituted; should say what it's assuming. Watch for invented column names.",
+  "source": "SQL scripts to manage Receipts, Orders, Movements and Shipments / OPE_DAT.json",
+  "kind": "answer"
+ },
+ {
+  "id": "T1",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "A customer wants to cancel an order that has already shipped. What do I do?",
+  "asked": [
+   "A customer wants to cancel an order that has already shipped. What do I do?"
+  ],
+  "must_contain": "**Must contain:** shipped = status **070**; can't be cancelled or deleted in the UI; must be reverted to **060** directly in the database, **support only**; first verify with `SELECT … FROM OPE_DAT WHERE ACT_CODE = … AND OPE_NOOE = …`.",
+  "source": "SPEED_WMS_How_to_Cancel_a_Shipped_Order_Status_070 / Cancel_Shipped_Order_Procedure.json",
+  "kind": "answer"
+ },
+ {
+  "id": "T2",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "Durban says weights are missing on a GDN picklist. Why does that happen and how do I fix it?",
+  "asked": [
+   "Durban says weights are missing on a GDN picklist. Why does that happen and how do I fix it?"
+  ],
+  "must_contain": "**Must contain:** weights live in `REL_DAT` and are inherited by `STK_DAT`; cleared when stock leaves and not repopulated when it returns (order validated then sent back to Seizure), or not inherited at reception; step 1 is checking the order is editable via `ope_dat`.",
+  "source": "Speed WMS – GDN Picklist Weight Resolution (Durban Commodities)",
+  "kind": "answer"
+ },
+ {
+  "id": "T3",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "How do I reverse a closed GRN?",
+  "asked": [
+   "How do I reverse a closed GRN?"
+  ],
+  "must_contain": "**Must contain:** the procedure steps and the tables touched (`REE_DAT, REL_DAT, STK_DAT, MVT_DAT`…); the safety rules from the doc (back up / verify before update). Uses the abbreviation \"GRN\" — tests vocabulary.",
+  "source": "Reverse Closed GRN.json · wms_procedure / wms_safety_rules",
+  "kind": "answer"
+ },
+ {
+  "id": "T4",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "LPNs are missing on a manifest. What's the temporary resolution?",
+  "asked": [
+   "LPNs are missing on a manifest. What's the temporary resolution?"
+  ],
+  "must_contain": "**Must contain:** compare mission lines with support headers — `MIL_DAT.OPE_NOOE = SEX_DAT.SEX_NOOE`; the procedure steps; flagged as temporary.",
+  "source": "LPNs Missing on Manifest – Temporary Resolution.json",
+  "kind": "answer"
+ },
+ {
+  "id": "T5",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "Which tables are involved when resending a Pegasus file?",
+  "asked": [
+   "Which tables are involved when resending a Pegasus file?"
+  ],
+  "must_contain": "**Must contain:** the full list — `REE_DAT, REL_DAT, STK_DAT, MVT_DAT, OPE_DAT, OPL_DAT, MIE_DAT, MIL_DAT, CHG_DAT, CHL_DAT` — and the inbound/outbound join keys.",
+  "source": "Resend Pegasus file.json",
+  "kind": "answer"
+ },
+ {
+  "id": "T6",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "How was the Jinko Solar GRN-number amendment ticket resolved?",
+  "asked": [
+   "How was the Jinko Solar GRN-number amendment ticket resolved?"
+  ],
+  "must_contain": "**Must contain:** ticket **1017**, Durban, Inbound, low priority, root cause \"incorrect information captured\"; resolution: **change receipt status to 100**.",
+  "source": "Support_Ticket (Jinko Solar …) · Support Ticket Docs",
+  "kind": "answer"
+ },
+ {
+  "id": "T7",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "What was ticket 1016 about?",
+  "asked": [
+   "What was ticket 1016 about?"
+  ],
+  "must_contain": "**Must contain:** \"speed not open\" — can't enter password, Pomona, bug, medium. **Honesty check:** root cause and resolution are literally \"test\"; a good answer says the ticket holds placeholder content rather than inventing a fix.",
+  "source": "Support_Ticket (speed not open)",
+  "kind": "answer"
+ },
+ {
+  "id": "T8",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "A Clarins mission line won't validate. What's the internal procedure?",
+  "asked": [
+   "A Clarins mission line won't validate. What's the internal procedure?"
+  ],
+  "must_contain": "**Must contain:** steps from the Clarins mission-line validation procedure; must not mix in the shortfall-order procedure unless it says so.",
+  "source": "SPEED_WMS_Clarins_Mission_Line_Validation_Internal_Support_Procedure",
+  "kind": "answer"
+ },
+ {
+  "id": "T9",
+  "group": "T",
+  "group_title": "Support procedures & tickets",
+  "group_note": "The 184-chunk support corpus. These are the questions the support desk actually gets.",
+  "question": "How do I check an order's header and lines when a support ticket comes in?",
+  "asked": [
+   "How do I check an order's header and lines when a support ticket comes in?"
+  ],
+  "must_contain": "**Must contain:** the checks from the two \"Check Order …\" references; which tables/columns to look at first.",
+  "source": "Check Order Header.json / Check Order Lines.json",
+  "kind": "answer"
+ },
+ {
+  "id": "X1",
+  "group": "X",
+  "group_title": "L'Oréal specifications",
+  "group_note": "154 chunks of client-specific SPDs. Answers must stay scoped to L'Oréal, not generalise to all of Speed.",
+  "question": "What is the goal of the L'Oréal dynamic picking replenishment (ZPA) project?",
+  "asked": [
+   "What is the goal of the L'Oréal dynamic picking replenishment (ZPA) project?"
+  ],
+  "must_contain": "**Must contain:** automatically replenish picking locations (ZPA) in multiples of VL cartons, filling to the location volume; functional spec dated **25 Sep 2025**, author Rémi Baussand (AGL). Bonus: distinguishes it from the \"Partial Replenishment\" and \"Volume-Based Redesign\" docs.",
+  "source": "LOREAL Dynamic Picking Replenishment (ZPA)",
+  "kind": "answer"
+ },
+ {
+  "id": "X2",
+  "group": "X",
+  "group_title": "L'Oréal specifications",
+  "group_note": "154 chunks of client-specific SPDs. Answers must stay scoped to L'Oréal, not generalise to all of Speed.",
+  "question": "For L'Oréal, what happens to pending expected lines when a reception is closed?",
+  "asked": [
+   "For L'Oréal, what happens to pending expected lines when a reception is closed?"
+  ],
+  "must_contain": "**Must contain:** automatic settlement of pending expected lines at closure; SPD v1.1 (Apr 2025), entry point PE22. Should note this is L'Oréal-specific behaviour, not standard Speed.",
+  "source": "LOREAL Reception Closure – Automatic Settlement of Pending Expected Lines",
+  "kind": "answer"
+ },
+ {
+  "id": "X3",
+  "group": "X",
+  "group_title": "L'Oréal specifications",
+  "group_note": "154 chunks of client-specific SPDs. Answers must stay scoped to L'Oréal, not generalise to all of Speed.",
+  "question": "What is anti-diversion (AD) code management at L'Oréal?",
+  "asked": [
+   "What is anti-diversion (AD) code management at L'Oréal?"
+  ],
+  "must_contain": "**Must contain:** purpose and mechanics from the SPD; no generic supply-chain definition of \"anti-diversion\" pulled from outside the corpus.",
+  "source": "L'ORÉAL – Anti-Diversion Code (AD Code) Management",
+  "kind": "answer"
+ },
+ {
+  "id": "X4",
+  "group": "X",
+  "group_title": "L'Oréal specifications",
+  "group_note": "154 chunks of client-specific SPDs. Answers must stay scoped to L'Oréal, not generalise to all of Speed.",
+  "question": "How are DFAB and DLUO dates calculated automatically from a batch at L'Oréal?",
+  "asked": [
+   "How are DFAB and DLUO dates calculated automatically from a batch at L'Oréal?"
+  ],
+  "must_contain": "**Must contain:** batch-decoding rule and the calculation as specified; the terms DFAB/DLUO explained as the doc does.",
+  "source": "L'ORÉAL – Batch Decoding & Automatic DFAB, DLUO Calculation",
+  "kind": "answer"
+ },
+ {
+  "id": "X5",
+  "group": "X",
+  "group_title": "L'Oréal specifications",
+  "group_note": "154 chunks of client-specific SPDs. Answers must stay scoped to L'Oréal, not generalise to all of Speed.",
+  "question": "What restrictions apply to the cycle-count radio module for L'Oréal?",
+  "asked": [
+   "What restrictions apply to the cycle-count radio module for L'Oréal?"
+  ],
+  "must_contain": "**Must contain:** the option restrictions and user-group restrictions from the two cycle-count SPDs, kept distinct.",
+  "source": "LOREAL Restriction of Options in Cycle Counting Radio Module / SPD – Cycle Count Module – User Group Restrictions",
+  "kind": "answer"
+ },
+ {
+  "id": "C1",
+  "group": "C",
+  "group_title": "Follow-ups & phrasing",
+  "group_note": "Ask these in sequence in one conversation. Tests memory and robustness, not new facts.",
+  "question": "Ask R1, then: \"and which of those fields can I change?\"",
+  "asked": [
+   "How do I create a receipt header in Speed WMS?",
+   "and which of those fields can I change?"
+  ],
+  "must_contain": "**Must contain:** understands \"those fields\" = the receipt-header fields; date/time is editable, activity code and `REE_NORE` are not.",
+  "source": "Memory test · Creating a receipt header",
+  "kind": "answer"
+ },
+ {
+  "id": "C2",
+  "group": "C",
+  "group_title": "Follow-ups & phrasing",
+  "group_note": "Ask these in sequence in one conversation. Tests memory and robustness, not new facts.",
+  "question": "Ask D1, then: \"what about its foreign keys?\"",
+  "asked": [
+   "What does the STK_DAT table hold and what is its primary key?",
+   "what about its foreign keys?"
+  ],
+  "must_contain": "**Must contain:** resolves \"its\" to STK_DAT; lists `ACT_CODE → ACT_PAR` and the `ART_*` → `ART_PAR` links.",
+  "source": "Memory test · stk_dat.json",
+  "kind": "answer"
+ },
+ {
+  "id": "C3",
+  "group": "C",
+  "group_title": "Follow-ups & phrasing",
+  "group_note": "Ask these in sequence in one conversation. Tests memory and robustness, not new facts.",
+  "question": "\"how to close a grn\" (lowercase, abbreviation, no question mark)",
+  "asked": [
+   "how to close a grn"
+  ],
+  "must_contain": "**Must contain:** same answer as R3. Tests that \"GRN\" maps to receipt.",
+  "source": "Vocabulary test · Receipt closure",
+  "kind": "answer"
+ },
+ {
+  "id": "C4",
+  "group": "C",
+  "group_title": "Follow-ups & phrasing",
+  "group_note": "Ask these in sequence in one conversation. Tests memory and robustness, not new facts.",
+  "question": "\"stk_dat vs mvt_dat\"",
+  "asked": [
+   "stk_dat vs mvt_dat"
+  ],
+  "must_contain": "**Must contain:** current stock vs stock movements; PKs of each; terse query gets a structured comparison.",
+  "source": "Vocabulary test · stk_dat.json / MVT_DAT.json",
+  "kind": "answer"
+ },
+ {
+  "id": "C5",
+  "group": "C",
+  "group_title": "Follow-ups & phrasing",
+  "group_note": "Ask these in sequence in one conversation. Tests memory and robustness, not new facts.",
+  "question": "Press Reset conversation memory, then ask: \"and which of those fields can I change?\"",
+  "asked": [
+   "and which of those fields can I change?"
+  ],
+  "must_contain": "**Must contain:** either asks what \"those fields\" refers to, or refuses — it must **not** answer as if R1 was still in context.",
+  "source": "Memory reset test",
+  "kind": "answer"
+ },
+ {
+  "id": "N1",
+  "group": "N",
+  "group_title": "Should refuse",
+  "group_note": "Expected: \"I do not have enough information to answer this. Please contact support.\" with relevance under 0.30 — except N5.",
+  "question": "Who won the 2022 FIFA World Cup?",
+  "asked": [
+   "Who won the 2022 FIFA World Cup?"
+  ],
+  "must_contain": "**Expect:** refusal. Nothing in the corpus. (Measured 0.03 in smoke test.)",
+  "source": "",
+  "kind": "refuse"
+ },
+ {
+  "id": "N2",
+  "group": "N",
+  "group_title": "Should refuse",
+  "group_note": "Expected: \"I do not have enough information to answer this. Please contact support.\" with relevance under 0.30 — except N5.",
+  "question": "How do I configure wave templates in SAP EWM?",
+  "asked": [
+   "How do I configure wave templates in SAP EWM?"
+  ],
+  "must_contain": "**Expect:** refusal. Near-miss vocabulary (\"wave\") but wrong system — the hardest refusal in the set; a PASS-with-caveat is acceptable if it answers for Speed and says so explicitly.",
+  "source": "",
+  "kind": "refuse"
+ },
+ {
+  "id": "N3",
+  "group": "N",
+  "group_title": "Should refuse",
+  "group_note": "Expected: \"I do not have enough information to answer this. Please contact support.\" with relevance under 0.30 — except N5.",
+  "question": "Write me a Python script to parse GRN PDFs.",
+  "asked": [
+   "Write me a Python script to parse GRN PDFs."
+  ],
+  "must_contain": "**Expect:** refusal. Task request, not a knowledge question.",
+  "source": "",
+  "kind": "refuse"
+ },
+ {
+  "id": "N4",
+  "group": "N",
+  "group_title": "Should refuse",
+  "group_note": "Expected: \"I do not have enough information to answer this. Please contact support.\" with relevance under 0.30 — except N5.",
+  "question": "What is the current stock level of article 4711 in Pomona?",
+  "asked": [
+   "What is the current stock level of article 4711 in Pomona?"
+  ],
+  "must_contain": "**Expect:** refusal or an explicit \"I can't see live data; here is how you'd query STK_DAT\". Must not invent a number.",
+  "source": "",
+  "kind": "refuse"
+ },
+ {
+  "id": "N5",
+  "group": "N",
+  "group_title": "Should refuse",
+  "group_note": "Expected: \"I do not have enough information to answer this. Please contact support.\" with relevance under 0.30 — except N5.",
+  "question": "What are your capabilities?",
+  "asked": [
+   "What are your capabilities?"
+  ],
+  "must_contain": "**Expect:** a self-description, *not* a refusal — lists the documentation areas it covers and what it cannot do (no live data, no changes). The footer under the answer should read \"no documents were retrieved\". Also try \"who are you?\" and \"what can you do\".",
+  "source": "",
+  "kind": "answer"
+ }
+]
