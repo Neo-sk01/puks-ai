@@ -1,5 +1,6 @@
 import "server-only";
 import type { AppConfig, Health } from "./types";
+import type { QuestionGroup, RecordedResult, RunMeta } from "./acceptance";
 
 /** Server-only. Never imported from a client component — the URL, and any
  *  credential added to it later, must not reach the browser. The Health type
@@ -30,5 +31,20 @@ export async function getConfig(): Promise<AppConfig | null> {
     return response.ok ? await response.json() : null;
   } catch {
     return null;
+  }
+}
+
+export async function getAcceptanceQuestions(): Promise<QuestionGroup[]> {
+  const response = await fetch(`${FASTAPI_URL}/api/acceptance/questions`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`acceptance/questions returned ${response.status}`);
+  return (await response.json()).groups;
+}
+
+export async function getAcceptanceResults(): Promise<{ run: RunMeta | null; results: Record<string, RecordedResult> }> {
+  try {
+    const response = await fetch(`${FASTAPI_URL}/api/acceptance/results`, { cache: "no-store" });
+    return response.ok ? await response.json() : { run: null, results: {} };
+  } catch {
+    return { run: null, results: {} };
   }
 }
