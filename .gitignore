@@ -21,6 +21,9 @@ __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
 
+# Acceptance verdicts (SQLite) — local state, never committed
+data/
+
 # ===========================================
 # Node / Next.js  (for the rebuild)
 # ===========================================
