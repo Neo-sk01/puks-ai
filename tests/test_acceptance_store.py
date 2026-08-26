@@ -70,3 +70,13 @@ def test_survives_reopening_the_file(tmp_path):
     path = tmp_path / "acceptance.db"
     Store(path).upsert("R1", "Neo", "pass", "")
     assert Store(path).for_tester("Neo")["R1"]["verdict"] == "pass"
+
+
+def test_summary_scopes_testers_to_given_question_ids(store):
+    store.upsert("R1", "Neo", "pass", "")
+    store.upsert("R1", "Thabo", "partial", "")
+    store.upsert("Z9", "Alice", "fail", "")
+    s = store.summary(["R1"])
+    assert s["questions"] == {"R1": {"counts": {"pass": 1, "partial": 1, "fail": 0},
+                                     "testers": ["Neo", "Thabo"], "disagreement": True}}
+    assert s["totals"] == {"questions": 1, "scored": 1, "testers": 2, "pass_rate": 0.5}

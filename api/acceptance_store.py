@@ -85,9 +85,9 @@ class Store:
         testers: set[str] = set()
         totals = {v: 0 for v in VERDICTS}
         for r in rows:
-            testers.add(r["tester"])
             if r["question_id"] not in per:
                 continue                     # a verdict for a question since removed from the set
+            testers.add(r["tester"])
             entry = per[r["question_id"]]
             entry["counts"][r["verdict"]] += 1
             entry["testers"].append(r["tester_name"])
