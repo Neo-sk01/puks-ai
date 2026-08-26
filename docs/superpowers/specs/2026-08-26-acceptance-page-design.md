@@ -48,7 +48,7 @@ The runner's output: one recorded answer per question with `confidence`, `top_so
 
 ### Verdicts — SQLite
 
-File `data/acceptance.db` (path from `PUKS_ACCEPTANCE_DB`, directory created on first open; `data/` is gitignored). WAL journal mode. One table:
+File `var/acceptance.db` (path from `PUKS_ACCEPTANCE_DB`, directory created on first open; `/var/` is gitignored). The path is `var/` not `data/` to avoid collision on macOS's case-insensitive filesystem with the tracked `DATA/` Speed WMS corpus directory. WAL journal mode. One table:
 
 ```sql
 CREATE TABLE IF NOT EXISTS verdict (
@@ -113,7 +113,7 @@ Tables scroll horizontally in their own container; the verdict toggle wraps unde
 1. `SCRIPTS/extract_acceptance_questions.py` — one-off HTML → JSON; committed output; script kept for reference.
 2. `run_acceptance.py` reads the JSON and writes `acceptance-run.json`.
 3. `build_acceptance_page.py` reads the JSON for questions and keeps producing the standalone HTML (still the shareable artifact).
-4. `.gitignore` gains `data/`. `.env.example` gains `PUKS_ACCEPTANCE_DB`.
+4. `.gitignore` gains `/var/` (anchored to avoid matching nested dirs). `.env.example` gains `PUKS_ACCEPTANCE_DB`.
 
 ## Out of scope
 

@@ -24,7 +24,7 @@ router = APIRouter(prefix="/api/acceptance", tags=["acceptance"])
 
 
 def _store() -> Store:
-    return Store(Path(os.getenv("PUKS_ACCEPTANCE_DB") or ROOT / "data" / "acceptance.db"))
+    return Store(Path(os.getenv("PUKS_ACCEPTANCE_DB") or ROOT / "var" / "acceptance.db"))
 
 
 @lru_cache(maxsize=1)

@@ -15,7 +15,7 @@
 - Tester identity is a typed name; no auth. Tester key = name trimmed, case-folded, internal whitespace collapsed to one space; display name = as typed.
 - Verdict values are exactly `pass`, `partial`, `fail`; the UI labels are `PASS`, `PART`, `FAIL`.
 - Validation limits: tester name 1–60 chars, note ≤ 500 chars.
-- SQLite file path from `PUKS_ACCEPTANCE_DB`, default `data/acceptance.db` relative to the repo root; `data/` is gitignored; WAL journal mode.
+- SQLite file path from `PUKS_ACCEPTANCE_DB`, default `var/acceptance.db` relative to the repo root; `/var/` is gitignored (anchored); WAL journal mode.
 - Group order is fixed: `R, O, L, S, M, G, D, T, X, C, N`.
 - `disagreement` = a question has verdicts of more than one kind. `pass_rate` = pass / (pass + partial + fail), `null` when no verdicts.
 - The browser never learns the FastAPI host: all calls go through Next route handlers under `web/app/api/acceptance/*`.
@@ -37,7 +37,7 @@
 | `api/acceptance.py` (create) | FastAPI `APIRouter` with the five routes; loads questions/results JSON; validation. |
 | `api/main.py` (modify) | `app.include_router(acceptance_router)`. |
 | `tests/test_acceptance_store.py`, `tests/test_acceptance_api.py` (create) | Store and route tests on a temp DB. |
-| `.gitignore`, `.env.example` (modify) | `data/`; `PUKS_ACCEPTANCE_DB`. |
+| `.gitignore`, `.env.example` (modify) | `/var/` (anchored); `PUKS_ACCEPTANCE_DB`. |
 | `web/components.json`, `web/lib/utils.ts`, `web/components/ui/*` (create by shadcn) | shadcn scaffolding. |
 | `web/app/globals.css` (modify) | Map shadcn CSS variables onto AGL tokens. |
 | `web/lib/acceptance.ts` (create) | Types mirroring the API; `normaliseTester`, `filterSummary`, `verdictLabel`. |
@@ -604,15 +604,15 @@ class Store:
 Append to `.gitignore` under the Python section:
 
 ```
-# Acceptance verdicts (SQLite) — local state, never committed
-data/
+# Acceptance verdicts and runtime state (SQLite, temp files) — local, never committed
+/var/
 ```
 
 Append to `.env.example` after the `PUKS_CONFIDENCE_THRESHOLD` block:
 
 ```
 # Where the acceptance page stores testers' verdicts (SQLite). Default shown.
-# PUKS_ACCEPTANCE_DB=data/acceptance.db
+# PUKS_ACCEPTANCE_DB=var/acceptance.db
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
