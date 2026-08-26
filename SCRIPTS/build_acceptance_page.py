@@ -51,14 +51,11 @@ def md(text: str) -> str:
     return "\n".join(out)
 
 
-def build(results: list[dict]) -> str:
+def build(results: list[dict], run_meta: dict) -> str:
     groups: dict[str, list[dict]] = {}
     for r in results: groups.setdefault(r["id"][0], []).append(r)
-    names = {"R": "Receiving goods", "O": "Order preparation", "L": "Loading & shipping",
-             "S": "Replenishment, storage & stock", "M": "Sampling, manufacturing & packaging",
-             "G": "General settings & concepts", "D": "Database tables & SQL",
-             "T": "Support procedures & tickets", "X": "L'Oréal specifications",
-             "C": "Follow-ups & phrasing", "N": "Should refuse"}
+    questions = json.loads((ROOT / "docs" / "acceptance-questions.json").read_text(encoding="utf-8"))
+    names = {q["group"]: q["group_title"] for q in questions}
     gated = sum(r["refused"] for r in results)
     model_refused = sum((not r["refused"]) and r["answer"].startswith(REFUSAL) for r in results)
     total_s = sum(r["elapsed_s"] for r in results)
@@ -71,7 +68,7 @@ def build(results: list[dict]) -> str:
   <span><b>{model_refused}</b> model-side refusals</span>
   <span>median relevance <b>{sorted(confs)[len(confs)//2]:.2f}</b></span>
   <span>total <b>{total_s/60:.1f} min</b>, median <b>{sorted(r["elapsed_s"] for r in results)[len(results)//2]:.1f}s</b></span>
-  <span>run {date.today().isoformat()}</span>
+  <span>run {html.escape(str(run_meta.get("ran_at", date.today().isoformat()))[:10])}{(" · " + html.escape(str(run_meta.get("rerank_model")))) if run_meta.get("rerank_model") else ""}</span>
 </div>''']
     for key in "ROLSMGDTXCN":
         if key not in groups: continue
@@ -97,7 +94,9 @@ def build(results: list[dict]) -> str:
 
 s = SHEET.read_text()
 results = json.loads(RESULTS.read_text())
-block = f"<!-- RESULTS:START -->\n{build(results)}\n<!-- RESULTS:END -->"
+run_meta_path = ROOT / "docs" / "acceptance-run.json"
+run_meta = json.loads(run_meta_path.read_text()) if run_meta_path.exists() else {}
+block = f"<!-- RESULTS:START -->\n{build(results, run_meta)}\n<!-- RESULTS:END -->"
 if "<!-- RESULTS:START -->" in s:
     s = re.sub(r"<!-- RESULTS:START -->.*?<!-- RESULTS:END -->", lambda _: block, s, flags=re.S)
 else:
