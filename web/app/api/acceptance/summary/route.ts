@@ -1,5 +1,6 @@
 import { bundledQuestionIds } from "@/lib/acceptance-bundled";
 import { STANDALONE } from "@/lib/deployment";
+import { noStore } from "@/lib/no-store";
 import { getVerdictsStore, HttpError } from "@/lib/verdicts";
 
 export const dynamic = "force-dynamic";
@@ -13,9 +14,9 @@ export async function GET() {
     // computes its own from the same docs/acceptance-questions.json.
     const ids = STANDALONE ? [...bundledQuestionIds()] : [];
     const summary = await store.summary(ids);
-    return Response.json(summary);
+    return noStore(Response.json(summary));
   } catch (error) {
-    if (error instanceof HttpError) return Response.json({ detail: error.detail }, { status: error.status });
-    return Response.json({ detail: (error as Error).message }, { status: 502 });
+    if (error instanceof HttpError) return noStore(Response.json({ detail: error.detail }, { status: error.status }));
+    return noStore(Response.json({ detail: (error as Error).message }, { status: 502 }));
   }
 }

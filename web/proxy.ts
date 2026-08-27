@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { constantTimeEqual, deriveCookieValue } from "@/lib/access-code";
+import { noStore } from "@/lib/no-store";
 import { safeNextPath } from "@/lib/safe-redirect";
 
 /**
@@ -50,7 +51,10 @@ export function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   if (pathname.startsWith("/api/acceptance")) {
-    return NextResponse.json({ detail: "access code required" }, { status: 401 });
+    // Same no-store policy as the routes themselves (see lib/no-store.ts):
+    // this 401 is the gate's own denial, and a cached one is exactly the
+    // bypass the gate exists to prevent.
+    return noStore(NextResponse.json({ detail: "access code required" }, { status: 401 }));
   }
 
   const url = request.nextUrl.clone();

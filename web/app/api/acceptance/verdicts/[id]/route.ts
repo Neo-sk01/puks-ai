@@ -1,6 +1,7 @@
 import { VERDICTS, VERDICTS_PYTHON_REPR, type Verdict } from "@/lib/acceptance";
 import { bundledQuestionIds } from "@/lib/acceptance-bundled";
 import { STANDALONE } from "@/lib/deployment";
+import { noStore } from "@/lib/no-store";
 import { getVerdictsStore, HttpError } from "@/lib/verdicts";
 
 export const dynamic = "force-dynamic";
@@ -25,35 +26,35 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   try {
     body = await request.json();
   } catch {
-    return Response.json({ detail: "request body must be JSON" }, { status: 400 });
+    return noStore(Response.json({ detail: "request body must be JSON" }, { status: 400 }));
   }
 
   if (STANDALONE && !bundledQuestionIds().has(id)) {
-    return Response.json({ detail: `unknown question ${id}` }, { status: 404 });
+    return noStore(Response.json({ detail: `unknown question ${id}` }, { status: 404 }));
   }
 
   const name = typeof body.tester_name === "string" ? body.tester_name.trim() : "";
   if (!name || name.length > NAME_MAX) {
-    return Response.json({ detail: `tester_name must be 1-${NAME_MAX} characters` }, { status: 400 });
+    return noStore(Response.json({ detail: `tester_name must be 1-${NAME_MAX} characters` }, { status: 400 }));
   }
 
   const note = typeof body.note === "string" ? body.note : "";
   if (note.length > NOTE_MAX) {
-    return Response.json({ detail: `note must be at most ${NOTE_MAX} characters` }, { status: 400 });
+    return noStore(Response.json({ detail: `note must be at most ${NOTE_MAX} characters` }, { status: 400 }));
   }
 
   const rawVerdict = body.verdict;
   if (rawVerdict !== null && (typeof rawVerdict !== "string" || !VERDICTS.includes(rawVerdict as Verdict))) {
-    return Response.json({ detail: `verdict must be one of ${VERDICTS_PYTHON_REPR} or null` }, { status: 400 });
+    return noStore(Response.json({ detail: `verdict must be one of ${VERDICTS_PYTHON_REPR} or null` }, { status: 400 }));
   }
   const verdict = rawVerdict as Verdict | null;
 
   try {
     const store = await getVerdictsStore();
     const result = verdict === null ? await store.remove(id, name) : await store.upsert(id, name, verdict, note);
-    return Response.json(result);
+    return noStore(Response.json(result));
   } catch (error) {
-    if (error instanceof HttpError) return Response.json({ detail: error.detail }, { status: error.status });
-    return Response.json({ detail: (error as Error).message }, { status: 502 });
+    if (error instanceof HttpError) return noStore(Response.json({ detail: error.detail }, { status: error.status }));
+    return noStore(Response.json({ detail: (error as Error).message }, { status: 502 }));
   }
 }

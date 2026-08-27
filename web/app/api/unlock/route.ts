@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { constantTimeEqual, deriveCookieValue } from "@/lib/access-code";
+import { noStore } from "@/lib/no-store";
 
 /** Node runtime: constantTimeEqual needs node:crypto's timingSafeEqual. */
 export const runtime = "nodejs";
@@ -21,19 +22,19 @@ const MAX_AGE = 60 * 60 * 24 * 180; // ~6 months — a shared code for a QA tool
 export async function POST(request: Request) {
   const code = process.env.ACCEPTANCE_CODE;
   if (!code) {
-    return Response.json({ detail: "access code is not configured" }, { status: 404 });
+    return noStore(Response.json({ detail: "access code is not configured" }, { status: 404 }));
   }
 
   let body: { code?: unknown };
   try {
     body = await request.json();
   } catch {
-    return Response.json({ detail: "request body must be JSON" }, { status: 400 });
+    return noStore(Response.json({ detail: "request body must be JSON" }, { status: 400 }));
   }
 
   const attempt = typeof body.code === "string" ? body.code : "";
   if (!attempt || !constantTimeEqual(attempt, code)) {
-    return Response.json({ detail: "incorrect access code" }, { status: 401 });
+    return noStore(Response.json({ detail: "incorrect access code" }, { status: 401 }));
   }
 
   const cookieStore = await cookies();
@@ -44,5 +45,5 @@ export async function POST(request: Request) {
     path: "/",
     maxAge: MAX_AGE,
   });
-  return Response.json({ ok: true });
+  return noStore(Response.json({ ok: true }));
 }
