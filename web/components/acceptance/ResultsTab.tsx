@@ -37,7 +37,7 @@ export function ResultsTab({ groups, run, results, mine, disabled, onSave }: Pro
             const r = results[q.id];
             const status = resultStatus(r);
             return (
-              <article key={q.id} className="grid gap-4 md:grid-cols-[3.5rem_1fr_16rem]">
+              <article key={q.id} className="grid gap-4 lg:grid-cols-[3.5rem_1fr_16rem]">
                 <span className={`font-mono text-xs ${q.kind === "refuse" ? "text-hazard" : "text-signal"}`}>{q.id}</span>
                 <div className="min-w-0">
                   <p className="font-medium">{q.question}</p>
@@ -45,7 +45,7 @@ export function ResultsTab({ groups, run, results, mine, disabled, onSave }: Pro
                     <Badge variant={status === "answered" || status === "self" ? "secondary" : "outline"}>{statusLabel[status]}</Badge>
                     {r?.confidence != null && <span>relevance <strong className="text-type">{r.confidence.toFixed(3)}</strong></span>}
                     {r && <span>{r.elapsed_s}s</span>}
-                    {r?.top_source && <span>top: {r.top_source}</span>}
+                    {r?.top_source && <span className="min-w-0 break-words">top: {r.top_source}</span>}
                   </div>
                   {r?.answer ? (
                     <div className="mt-2 rounded border border-rule bg-bay px-4 py-3 text-sm"><Markdown>{r.answer}</Markdown></div>
