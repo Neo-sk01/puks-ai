@@ -75,7 +75,7 @@ export function AcceptanceView({ config, groups, run, results }: Props) {
   // loadMine/loadSummary, but there's no framework primitive available here
   // to subscribe to instead.
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { if (name) { setMine({}); void loadMine(name); } }, [name, loadMine]);
+  useEffect(() => { if (name) { setMine({}); setMineLoadFailed(false); void loadMine(name); } }, [name, loadMine]);
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { if (tab === "summary") void loadSummary(); }, [tab, loadSummary]);
 
