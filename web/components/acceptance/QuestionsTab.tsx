@@ -1,7 +1,6 @@
 "use client";
 
 import { Markdown } from "@/components/Markdown";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import type { MyVerdict, QuestionGroup, Verdict } from "@/lib/acceptance";
 import { VerdictControls } from "./VerdictControls";
 
@@ -12,6 +11,20 @@ interface Props {
   onSave: (questionId: string, verdict: Verdict | null, note: string) => void;
 }
 
+/** A plain responsive grid, not a <table>: shadcn's TableCell forces
+ *  `white-space: nowrap`, and with no fixed column widths the question +
+ *  must-contain text just kept growing the table (it measured ~1827px wide
+ *  in a 1024px-wide container), shoving the verdict column — this page's
+ *  primary control — off-screen with no visible scrollbar affordance.
+ *
+ *  `md:grid-cols-[3.5rem_1fr_16rem]` is the same shape ResultsTab.tsx
+ *  already uses (and the same id/verdict widths the old table's `w-14` /
+ *  `w-64` columns had): the id and verdict columns are fixed, the question
+ *  column is the only flexible track, and — unlike a table cell — a grid
+ *  item's text wraps inside its track by default. `min-w-0` on that middle
+ *  column is what lets it actually shrink to the track width instead of
+ *  the browser's default "never smaller than its content" sizing. Below
+ *  `md` the columns collapse to one, stacking id / question / verdict. */
 export function QuestionsTab({ groups, mine, disabled, onSave }: Props) {
   return (
     <div className="flex flex-col gap-10">
@@ -22,34 +35,26 @@ export function QuestionsTab({ groups, mine, disabled, onSave }: Props) {
             <span className="rounded bg-signal/10 px-1.5 font-mono text-xs text-signal">{g.key}</span>
             {g.note && <p className="text-sm text-muted-foreground">{g.note}</p>}
           </div>
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-14">ID</TableHead>
-                  <TableHead>Question</TableHead>
-                  <TableHead className="w-64">Your verdict</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {g.questions.map((q) => (
-                  <TableRow key={q.id}>
-                    <TableCell className={`align-top font-mono text-xs ${q.kind === "refuse" ? "text-hazard" : "text-signal"}`}>{q.id}</TableCell>
-                    <TableCell className="align-top">
-                      <p className="font-medium">{q.question}</p>
-                      {q.asked.length > 1 && (
-                        <ol className="mt-1 list-decimal pl-5 text-sm text-muted-foreground">{q.asked.map((a) => <li key={a}>{a}</li>)}</ol>
-                      )}
-                      <div className="mt-1 text-sm text-muted-foreground"><Markdown>{q.must_contain}</Markdown></div>
-                      {q.source && <p className="mt-1 font-mono text-xs text-muted-foreground">{q.source}</p>}
-                    </TableCell>
-                    <TableCell className="align-top">
-                      <VerdictControls questionId={q.id} mine={mine[q.id]} disabled={disabled} onSave={onSave} />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+          <div className="hidden gap-4 pb-1 font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground md:grid md:grid-cols-[3.5rem_1fr_16rem]">
+            <span>ID</span>
+            <span>Question</span>
+            <span>Your verdict</span>
+          </div>
+          <div className="flex flex-col divide-y divide-rule">
+            {g.questions.map((q) => (
+              <div key={q.id} className="grid gap-4 py-4 md:grid-cols-[3.5rem_1fr_16rem]">
+                <span className={`font-mono text-xs ${q.kind === "refuse" ? "text-hazard" : "text-signal"}`}>{q.id}</span>
+                <div className="min-w-0">
+                  <p className="font-medium">{q.question}</p>
+                  {q.asked.length > 1 && (
+                    <ol className="mt-1 list-decimal pl-5 text-sm text-muted-foreground">{q.asked.map((a) => <li key={a}>{a}</li>)}</ol>
+                  )}
+                  <div className="mt-1 text-sm text-muted-foreground"><Markdown>{q.must_contain}</Markdown></div>
+                  {q.source && <p className="mt-1 font-mono text-xs text-muted-foreground">{q.source}</p>}
+                </div>
+                <VerdictControls questionId={q.id} mine={mine[q.id]} disabled={disabled} onSave={onSave} />
+              </div>
+            ))}
           </div>
         </section>
       ))}
