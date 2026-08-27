@@ -1,7 +1,10 @@
 """The five /api/acceptance routes, on a temp database, in mock mode (no keys)."""
+import json
+
 import pytest
 from fastapi.testclient import TestClient
 
+import api.acceptance
 from api.main import create_app
 
 
@@ -21,10 +24,43 @@ def test_questions_are_grouped_in_sheet_order(client):
     assert sum(len(g["questions"]) for g in body["groups"]) == 65
 
 
-def test_results_include_run_metadata_and_are_keyed_by_id(client):
+def test_results_include_run_metadata_and_are_keyed_by_id(client, monkeypatch, tmp_path):
+    run_meta = {
+        "ran_at": "2026-01-01T00:00:00+00:00", "providers": {"chat": "mock"},
+        "chat_deployment": "gpt-mock", "embed_deployment": "embed-mock",
+        "rerank_model": "rerank-mock", "threshold": 0.75, "count": 1,
+    }
+    results = [{
+        "id": "R1", "question": "q", "asked": ["q"], "answer": "a", "refused": False,
+        "reason": None, "threshold": 0.75, "confidence": 0.9, "top_source": "x.txt",
+        "top_category": "X", "sources": ["x.txt"], "elapsed_s": 1.2, "error": None,
+    }]
+    results_path, run_path = tmp_path / "results.json", tmp_path / "run.json"
+    results_path.write_text(json.dumps(results))
+    run_path.write_text(json.dumps(run_meta))
+    monkeypatch.setattr(api.acceptance, "RESULTS", results_path)
+    monkeypatch.setattr(api.acceptance, "RUN_META", run_path)
+
     body = client.get("/api/acceptance/results").json()
-    assert "run" in body and "results" in body
-    assert "R1" in body["results"] and "answer" in body["results"]["R1"]
+    assert body["run"] == run_meta
+    assert "R1" in body["results"] and body["results"]["R1"]["answer"] == "a"
+
+
+def test_results_route_with_missing_files(client, monkeypatch, tmp_path):
+    monkeypatch.setattr(api.acceptance, "RESULTS", tmp_path / "no-results.json")
+    monkeypatch.setattr(api.acceptance, "RUN_META", tmp_path / "no-run.json")
+
+    assert client.get("/api/acceptance/results").json() == {"run": None, "results": {}}
+
+
+def test_questions_route_with_missing_file(client, monkeypatch, tmp_path):
+    monkeypatch.setattr(api.acceptance, "QUESTIONS", tmp_path / "no-questions.json")
+    api.acceptance._questions.cache_clear()
+    try:
+        with pytest.raises(FileNotFoundError):
+            client.get("/api/acceptance/questions")
+    finally:
+        api.acceptance._questions.cache_clear()
 
 
 def test_verdict_round_trip(client):

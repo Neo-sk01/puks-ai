@@ -96,7 +96,13 @@ def main() -> None:
     else:
         results = fresh
     OUT.write_text(json.dumps(results, indent=1, ensure_ascii=False))
-    RUN_META.write_text(json.dumps(run_metadata(config, len(results)), indent=1))
+    # A `--only` run only refreshes a subset of ids into the existing results
+    # file (see the merge above); it must not restamp RUN_META's ran_at/count
+    # for the whole run, since the Results tab header and the HTML export
+    # both date the entire run from that file. Skip the write here — the
+    # metadata stays exactly as it was after the last full run.
+    if not only:
+        RUN_META.write_text(json.dumps(run_metadata(config, len(results)), indent=1))
     print("saved", OUT, "refused:", sum(r["refused"] for r in results),
           "errors:", sum(bool(r["error"]) for r in results))
 
