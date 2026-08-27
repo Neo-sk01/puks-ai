@@ -1,9 +1,28 @@
 import { describe, expect, it } from "vitest";
-import { filterSummary, resultStatus, verdictLabel, type RecordedResult, type Summary } from "./acceptance";
+import {
+  filterSummary,
+  resultStatus,
+  verdictLabel,
+  VERDICTS,
+  VERDICTS_PYTHON_REPR,
+  type RecordedResult,
+  type Summary,
+} from "./acceptance";
 
 const result = (over: Partial<RecordedResult>): RecordedResult => ({
   id: "R1", question: "q", asked: ["q"], answer: "some answer", refused: false, reason: null,
   threshold: 0.75, confidence: 0.9, top_source: "x.txt", top_category: "X", sources: [], elapsed_s: 1, error: null, ...over,
+});
+
+describe("VERDICTS_PYTHON_REPR", () => {
+  it("matches Python's list(VERDICTS) repr exactly", () => {
+    // api/acceptance.py: f"verdict must be one of {list(VERDICTS)} or null"
+    expect(VERDICTS_PYTHON_REPR).toBe("['pass', 'partial', 'fail']");
+  });
+
+  it("is derived from VERDICTS, not a separate hardcoded list", () => {
+    expect(VERDICTS_PYTHON_REPR).toBe(`[${VERDICTS.map((v) => `'${v}'`).join(", ")}]`);
+  });
 });
 
 describe("verdictLabel", () => {

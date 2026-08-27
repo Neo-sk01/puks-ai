@@ -1,7 +1,7 @@
 import "server-only";
 import { Pool } from "pg";
 import type { MyVerdict, Verdict } from "../acceptance";
-import { aggregateSummary, normaliseTester, type VerdictRow } from "./shared";
+import { aggregateSummary, normaliseTester, toPythonIsoString, type VerdictRow } from "./shared";
 import type { RemoveResult, UpsertResult, VerdictsStore } from "./types";
 
 /** Mirrors api/acceptance_store.py's _SCHEMA / CREATE TABLE IF NOT EXISTS,
@@ -72,7 +72,7 @@ export const postgresStore: VerdictsStore = {
     );
     const out: Record<string, MyVerdict> = {};
     for (const r of rows) {
-      out[r.question_id] = { verdict: r.verdict, note: r.note, updated_at: r.updated_at.toISOString() };
+      out[r.question_id] = { verdict: r.verdict, note: r.note, updated_at: toPythonIsoString(r.updated_at) };
     }
     return out;
   },
@@ -99,7 +99,7 @@ export const postgresStore: VerdictsStore = {
       tester_name: row.tester_name,
       verdict: row.verdict,
       note: row.note,
-      updated_at: row.updated_at.toISOString(),
+      updated_at: toPythonIsoString(row.updated_at),
     };
   },
 

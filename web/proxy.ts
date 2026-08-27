@@ -1,4 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { constantTimeEqual, deriveCookieValue } from "@/lib/access-code";
+import { safeNextPath } from "@/lib/safe-redirect";
 
 /**
  * Next.js's file-convention name for what used to be middleware.ts —
@@ -20,6 +22,20 @@ import { NextResponse, type NextRequest } from "next/server";
  * /unlock (the page) and /api/unlock (the route that sets the cookie) are
  * deliberately outside the matcher below: gating them would make it
  * impossible to ever unlock.
+ *
+ * The cookie is checked with constantTimeEqual, not `===`: this runs on
+ * every request to a guarded path, making it the single most-hit
+ * comparison against the shared secret in the app, so it gets the same
+ * timing-safe treatment as /api/unlock. It's compared against
+ * deriveCookieValue(code) rather than the raw code, matching what
+ * app/api/unlock/route.ts actually stores in the cookie (see
+ * lib/access-code.ts's deriveCookieValue docstring for why the cookie
+ * holds a derived value instead of the code itself).
+ *
+ * Per node_modules/next/dist/docs/.../proxy.md ("## Runtime"), Proxy
+ * defaults to the Node.js runtime and does NOT support a `runtime` config
+ * export (setting one throws) — so node:crypto is available here with no
+ * extra opt-in.
  */
 const COOKIE = "puks_access";
 
@@ -27,7 +43,10 @@ export function proxy(request: NextRequest) {
   const code = process.env.ACCEPTANCE_CODE;
   if (!code) return NextResponse.next();
 
-  if (request.cookies.get(COOKIE)?.value === code) return NextResponse.next();
+  const presented = request.cookies.get(COOKIE)?.value;
+  if (presented !== undefined && constantTimeEqual(presented, deriveCookieValue(code))) {
+    return NextResponse.next();
+  }
 
   const { pathname } = request.nextUrl;
   if (pathname.startsWith("/api/acceptance")) {
@@ -36,7 +55,11 @@ export function proxy(request: NextRequest) {
 
   const url = request.nextUrl.clone();
   url.pathname = "/unlock";
-  url.searchParams.set("next", pathname);
+  // pathname always starts with "/" (it's request.nextUrl.pathname, not
+  // attacker input) so this is already a safe relative path, but it's run
+  // through the same validator that consumes it — see lib/safe-redirect.ts
+  // — so the producing and consuming ends can never drift apart.
+  url.searchParams.set("next", safeNextPath(pathname));
   return NextResponse.redirect(url);
 }
 

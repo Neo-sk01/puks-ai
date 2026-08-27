@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { aggregateSummary, normaliseTester, type VerdictRow } from "./shared";
+import { aggregateSummary, normaliseTester, toPythonIsoString, type VerdictRow } from "./shared";
 
 describe("normaliseTester", () => {
   it("matches api/acceptance_store.py's docstring example", () => {
@@ -97,5 +97,16 @@ describe("aggregateSummary", () => {
     expect(summary.questions.GONE).toBeUndefined();
     expect(summary.totals.testers).toBe(0);
     expect(summary.totals.scored).toBe(0);
+  });
+});
+
+describe("toPythonIsoString", () => {
+  it("renders the UTC offset as +00:00, matching Python's isoformat(), not Z", () => {
+    const date = new Date("2026-08-24T12:34:56.789Z");
+    expect(toPythonIsoString(date)).toBe("2026-08-24T12:34:56.789+00:00");
+  });
+
+  it("never contains a Z suffix", () => {
+    expect(toPythonIsoString(new Date())).not.toContain("Z");
   });
 });

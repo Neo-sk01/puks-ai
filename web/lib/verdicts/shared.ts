@@ -14,6 +14,20 @@ export function normaliseTester(name: string): string {
   return name.trim().replace(/\s+/g, " ").toLowerCase();
 }
 
+/**
+ * Matches Python's `datetime.isoformat()` rendering of a UTC-aware
+ * datetime (api/acceptance_store.py: `datetime.now(timezone.utc)
+ * .isoformat()`), which renders the offset as `+00:00`. JS's
+ * `Date.prototype.toISOString()` renders the same instant with a `Z`
+ * suffix instead — cosmetically different but semantically identical UTC
+ * timestamps. lib/verdicts/postgres.ts uses this so a client (or a test)
+ * diffing responses byte-for-byte against api/acceptance.py sees the same
+ * string regardless of which backend answered.
+ */
+export function toPythonIsoString(date: Date): string {
+  return date.toISOString().replace("Z", "+00:00");
+}
+
 export interface VerdictRow {
   question_id: string;
   tester: string;

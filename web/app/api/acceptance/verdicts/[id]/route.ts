@@ -1,4 +1,4 @@
-import { VERDICTS, type Verdict } from "@/lib/acceptance";
+import { VERDICTS, VERDICTS_PYTHON_REPR, type Verdict } from "@/lib/acceptance";
 import { bundledQuestionIds } from "@/lib/acceptance-bundled";
 import { STANDALONE } from "@/lib/deployment";
 import { getVerdictsStore, HttpError } from "@/lib/verdicts";
@@ -44,7 +44,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
   const rawVerdict = body.verdict;
   if (rawVerdict !== null && (typeof rawVerdict !== "string" || !VERDICTS.includes(rawVerdict as Verdict))) {
-    return Response.json({ detail: `verdict must be one of ['pass', 'partial', 'fail'] or null` }, { status: 400 });
+    return Response.json({ detail: `verdict must be one of ${VERDICTS_PYTHON_REPR} or null` }, { status: 400 });
   }
   const verdict = rawVerdict as Verdict | null;
 

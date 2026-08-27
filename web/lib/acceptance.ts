@@ -27,6 +27,18 @@ export type ResultStatus = "answered" | "gated" | "model-refused" | "self" | "ne
 
 export const TESTER_KEY = "puks-tester";
 export const VERDICTS: Verdict[] = ["pass", "partial", "fail"];
+
+/**
+ * Matches Python's `list(VERDICTS)` repr exactly — single-quoted elements,
+ * ", " separators, e.g. `['pass', 'partial', 'fail']`. api/acceptance.py's
+ * put_verdict builds its 400 error with `f"verdict must be one of
+ * {list(VERDICTS)} or null"`; app/api/acceptance/verdicts/[id]/route.ts
+ * derives its own copy of that string from VERDICTS via this constant
+ * instead of hardcoding the literal, so the two can never drift if
+ * VERDICTS ever changes on either side.
+ */
+export const VERDICTS_PYTHON_REPR = `[${VERDICTS.map((v) => `'${v}'`).join(", ")}]`;
+
 const REFUSAL_PREFIX = "I do not have enough information to answer this.";
 
 export function verdictLabel(v: Verdict): "PASS" | "PART" | "FAIL" {

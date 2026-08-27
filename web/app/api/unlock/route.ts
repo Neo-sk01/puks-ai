@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { constantTimeEqual } from "@/lib/access-code";
+import { constantTimeEqual, deriveCookieValue } from "@/lib/access-code";
 
 /** Node runtime: constantTimeEqual needs node:crypto's timingSafeEqual. */
 export const runtime = "nodejs";
@@ -14,7 +14,9 @@ const MAX_AGE = 60 * 60 * 24 * 180; // ~6 months — a shared code for a QA tool
  * no one could ever unlock.
  *
  * ACCEPTANCE_CODE is compared with a timing-safe comparison (see
- * lib/access-code.ts) and never logged, including on failure.
+ * lib/access-code.ts) and never logged, including on failure. The cookie
+ * itself stores deriveCookieValue(code), not the code — see that
+ * function's docstring for why.
  */
 export async function POST(request: Request) {
   const code = process.env.ACCEPTANCE_CODE;
@@ -35,7 +37,7 @@ export async function POST(request: Request) {
   }
 
   const cookieStore = await cookies();
-  cookieStore.set(COOKIE, code, {
+  cookieStore.set(COOKIE, deriveCookieValue(code), {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
