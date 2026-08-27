@@ -52,7 +52,7 @@ export function ResultsTab({ groups, run, results, mine, disabled, onSave }: Pro
                   ) : r?.error ? (
                     <p className="mt-2 font-mono text-xs text-hazard">{r.error}</p>
                   ) : null}
-                  {r?.sources?.length ? <p className="mt-1 font-mono text-xs text-muted-foreground">retrieved: {r.sources.slice(0, 5).join(" · ")}</p> : null}
+                  {r?.sources?.length ? <p className="mt-1 break-words font-mono text-xs text-muted-foreground">retrieved: {r.sources.slice(0, 5).join(" · ")}</p> : null}
                 </div>
                 <VerdictControls questionId={q.id} mine={mine[q.id]} disabled={disabled} onSave={onSave} />
               </article>

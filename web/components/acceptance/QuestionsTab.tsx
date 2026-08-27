@@ -63,7 +63,7 @@ export function QuestionsTab({ groups, mine, disabled, onSave }: Props) {
                     <ol className="mt-1 list-decimal pl-5 text-sm text-muted-foreground">{q.asked.map((a) => <li key={a}>{a}</li>)}</ol>
                   )}
                   <div className="mt-1 text-sm text-muted-foreground"><Markdown>{q.must_contain}</Markdown></div>
-                  {q.source && <p className="mt-1 font-mono text-xs text-muted-foreground">{q.source}</p>}
+                  {q.source && <p className="mt-1 break-words font-mono text-xs text-muted-foreground">{q.source}</p>}
                 </div>
                 <VerdictControls questionId={q.id} mine={mine[q.id]} disabled={disabled} onSave={onSave} />
               </div>
