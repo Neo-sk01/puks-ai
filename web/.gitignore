@@ -38,6 +38,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Acceptance data copied from ../docs/ at build time by
+# scripts/prebuild-acceptance-data.js — a build artefact, not source. The
+# docs/acceptance-*.json files at the repo root remain the source of truth.
+/data/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
