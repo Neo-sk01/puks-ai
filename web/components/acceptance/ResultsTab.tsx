@@ -41,6 +41,9 @@ export function ResultsTab({ groups, run, results, mine, disabled, onSave }: Pro
                 <span className={`font-mono text-xs ${q.kind === "refuse" ? "text-hazard" : "text-signal"}`}>{q.id}</span>
                 <div className="min-w-0">
                   <p className="font-medium">{q.question}</p>
+                  {q.asked.length > 1 && (
+                    <ol className="mt-1 list-decimal pl-5 text-sm text-muted-foreground">{q.asked.map((a) => <li key={a}>{a}</li>)}</ol>
+                  )}
                   <div className="mt-1 flex flex-wrap items-center gap-3 font-mono text-xs text-muted-foreground">
                     <Badge variant={status === "answered" || status === "self" ? "secondary" : "outline"}>{statusLabel[status]}</Badge>
                     {r?.confidence != null && <span>relevance <strong className="text-type">{r.confidence.toFixed(3)}</strong></span>}

@@ -46,34 +46,32 @@ export function SummaryTab({ groups, summary }: Props) {
           ))}
         </span>
       </div>
-      <div className="overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-14">ID</TableHead>
-              <TableHead>Question</TableHead>
-              <TableHead className="w-44">Verdicts</TableHead>
-              <TableHead>Testers</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {ids.map((id) => {
-              const s = summary.questions[id];
-              return (
-                <TableRow key={id}>
-                  <TableCell className="font-mono text-xs text-signal">{id}</TableCell>
-                  <TableCell>
-                    {byId[id]?.question}
-                    {s?.disagreement && <Badge variant="outline" className="ml-2 border-verdict-partial text-verdict-partial">disagree</Badge>}
-                  </TableCell>
-                  <TableCell><Bar counts={s?.counts ?? { pass: 0, partial: 0, fail: 0 }} /></TableCell>
-                  <TableCell className="text-sm text-muted-foreground">{s?.testers.join(", ")}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-14">ID</TableHead>
+            <TableHead>Question</TableHead>
+            <TableHead className="w-44">Verdicts</TableHead>
+            <TableHead>Testers</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {ids.map((id) => {
+            const s = summary.questions[id];
+            return (
+              <TableRow key={id}>
+                <TableCell className="font-mono text-xs text-signal">{id}</TableCell>
+                <TableCell className="whitespace-normal">
+                  {byId[id]?.question}
+                  {s?.disagreement && <Badge variant="outline" className="ml-2 border-verdict-partial text-verdict-partial">disagree</Badge>}
+                </TableCell>
+                <TableCell><Bar counts={s?.counts ?? { pass: 0, partial: 0, fail: 0 }} /></TableCell>
+                <TableCell className="whitespace-normal text-sm text-muted-foreground">{s?.testers.join(", ")}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
     </div>
   );
 }

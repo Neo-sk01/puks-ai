@@ -20,6 +20,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Notes
+
+- `shadcn` belongs in `package.json`'s `dependencies`, not `devDependencies` — `app/globals.css` does `@import "shadcn/tailwind.css"`, which resolves through the package's export map at build time. Moving it to devDependencies breaks the CSS build in a production install (`--omit=dev` / `pnpm install --prod`).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

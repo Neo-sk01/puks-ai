@@ -1,6 +1,5 @@
 /** Types mirror api/acceptance.py responses; helpers are pure so they test
- *  without a DOM. Keep normaliseTester identical to the Python
- *  normalise_tester — the two must agree on who is one tester. */
+ *  without a DOM. */
 
 export type Verdict = "pass" | "partial" | "fail";
 
@@ -29,10 +28,6 @@ export type ResultStatus = "answered" | "gated" | "model-refused" | "self" | "ne
 export const TESTER_KEY = "puks-tester";
 export const VERDICTS: Verdict[] = ["pass", "partial", "fail"];
 const REFUSAL_PREFIX = "I do not have enough information to answer this.";
-
-export function normaliseTester(name: string): string {
-  return name.trim().replace(/\s+/g, " ").toLowerCase();
-}
 
 export function verdictLabel(v: Verdict): "PASS" | "PART" | "FAIL" {
   return v === "pass" ? "PASS" : v === "partial" ? "PART" : "FAIL";

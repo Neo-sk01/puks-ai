@@ -41,14 +41,26 @@ function QuestionsUnavailable() {
 export function AcceptanceView({ config, groups, run, results }: Props) {
   const [name, setName] = useState<string | null>(null);
   const [mine, setMine] = useState<Record<string, MyVerdict>>({});
+  const [mineLoadFailed, setMineLoadFailed] = useState(false);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [tab, setTab] = useState("questions");
   const total = groups.reduce((n, g) => n + g.questions.length, 0);
   const available = groups.length > 0;
 
   const loadMine = useCallback(async (tester: string) => {
-    const r = await fetch(`/api/acceptance/verdicts?tester=${encodeURIComponent(tester)}`);
-    if (r.ok) setMine((await r.json()).verdicts);
+    try {
+      const r = await fetch(`/api/acceptance/verdicts?tester=${encodeURIComponent(tester)}`);
+      if (r.ok) {
+        setMine((await r.json()).verdicts);
+        setMineLoadFailed(false);
+      } else {
+        setMineLoadFailed(true);
+        toast.error("Could not load your saved verdicts — reload the page before scoring, or you may overwrite them.");
+      }
+    } catch {
+      setMineLoadFailed(true);
+      toast.error("Could not load your saved verdicts — reload the page before scoring, or you may overwrite them.");
+    }
   }, []);
   const loadSummary = useCallback(async () => {
     const r = await fetch("/api/acceptance/summary");
@@ -63,7 +75,7 @@ export function AcceptanceView({ config, groups, run, results }: Props) {
   // loadMine/loadSummary, but there's no framework primitive available here
   // to subscribe to instead.
   // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { if (name) void loadMine(name); }, [name, loadMine]);
+  useEffect(() => { if (name) { setMine({}); void loadMine(name); } }, [name, loadMine]);
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { if (tab === "summary") void loadSummary(); }, [tab, loadSummary]);
 
@@ -76,7 +88,7 @@ export function AcceptanceView({ config, groups, run, results }: Props) {
       else delete next[questionId];
       return next;
     });
-    const r = await fetch(`/api/acceptance/verdicts/${questionId}`, {
+    const r = await fetch(`/api/acceptance/verdicts/${encodeURIComponent(questionId)}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ tester_name: name, verdict, note }),
@@ -108,7 +120,7 @@ export function AcceptanceView({ config, groups, run, results }: Props) {
             {available && (
               <div className="flex items-center gap-3 text-xs text-muted-foreground">
                 <Progress value={total ? (scored / total) * 100 : 0} className="h-1.5 w-56" />
-                <span className="font-mono">{scored}/{total} scored by you</span>
+                <span className="font-mono">{mineLoadFailed ? "couldn't load your verdicts" : `${scored}/${total} scored by you`}</span>
               </div>
             )}
           </header>

@@ -39,7 +39,7 @@
 
   /* Verdict colours — acceptance-page pass/partial/fail semantics. */
   --color-verdict-pass: #2e7d4f;
-  --color-verdict-partial: #a8650a;   /* = --color-hazard; named for its meaning here */
+  --color-verdict-partial: var(--color-hazard); /* named for its meaning here */
   --color-verdict-fail: #b23b3b;
 }
 

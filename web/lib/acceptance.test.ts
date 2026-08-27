@@ -1,15 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { filterSummary, normaliseTester, resultStatus, verdictLabel, type RecordedResult, type Summary } from "./acceptance";
+import { filterSummary, resultStatus, verdictLabel, type RecordedResult, type Summary } from "./acceptance";
 
 const result = (over: Partial<RecordedResult>): RecordedResult => ({
   id: "R1", question: "q", asked: ["q"], answer: "some answer", refused: false, reason: null,
   threshold: 0.75, confidence: 0.9, top_source: "x.txt", top_category: "X", sources: [], elapsed_s: 1, error: null, ...over,
-});
-
-describe("normaliseTester", () => {
-  it("trims, casefolds and collapses spaces like the API", () => {
-    expect(normaliseTester("  NEO  Sekaleli ")).toBe("neo sekaleli");
-  });
 });
 
 describe("verdictLabel", () => {
