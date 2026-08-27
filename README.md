@@ -132,9 +132,11 @@ api/
   main.py                 FastAPI: /health, /api/config, /api/answer, /api/chat (SSE)
   engine.py               loads Corpus once at startup; reports not-ready instead of crashing
   mock.py                 PUKS_MOCK=1 — fixtures, no keys, for UI work and tests
+  acceptance.py / acceptance_store.py   /api/acceptance routes; SQLite verdict store (PUKS_ACCEPTANCE_DB)
 
 web/                      Next.js 16 front end (App Router, Tailwind v4)
   app/                    page.tsx (chat), about/, icons; layout.tsx self-hosts the fonts
+  app/acceptance/         team scoring page for the acceptance set (shadcn); verdicts via /api/acceptance
   components/             ChatView, Sidebar, Composer, RetrievalPanel, Markdown, NotReadyBanner
   lib/                    types.ts (mirrors puks_rag.WIRE_FIELDS), provider.ts, server.ts (FASTAPI_URL)
   public/agl-logo.png     AGL mark, background knocked out
@@ -170,7 +172,9 @@ SCRIPTS/
 
 docs/
   acceptance-questions.html  ← THE EVALUATION SET. 65 questions, expected facts + source, Results tab
+  acceptance-questions.json  ← the questions (source of truth for the page, runner and HTML export)
   acceptance-results.json    every recorded answer, source, relevance, timing
+  acceptance-run.json        metadata of the last run
 Powerapps/                Power Automate HTML email templates (Dataverse-backed, separate system)
 Handover Documents/       AGL_Handover_1_Overview.pdf
 docs/DEPLOYMENT.md        ⚠ boilerplate, targets a greenfield RG that does not exist
@@ -275,6 +279,8 @@ Run in order. Every notebook has hardcoded Windows paths that need the same fix 
 ### 5.1 The acceptance set
 
 `docs/acceptance-questions.html` — 65 questions in eleven groups (receiving, order preparation, loading, replenishment/storage/stock, sampling/manufacturing/packaging, general settings, database tables & SQL, support procedures & tickets, L'Oréal specs, follow-ups & phrasing, should-refuse), each stating the facts a correct answer must contain and the source file it lives in. The page carries a PASS / PART / FAIL tracker per question and a **Results** tab with every recorded answer, its top source, rerank relevance and timing (`docs/acceptance-results.json`).
+
+**Scoring happens in the app.** `/acceptance` (sidebar → Acceptance) shows the same questions and recorded answers with PASS / PART / FAIL and a note per tester, stored in SQLite behind the API (`PUKS_ACCEPTANCE_DB`, defaults to `var/acceptance.db`), and a Summary tab with the team tally, disagreements and pass rate. Testers type a name once; there is no login. The HTML sheet remains the shareable export.
 
 Findings from the runs so far, all fixed unless noted: `how to close a grn` retrieved the Jinko GRN ticket instead of *Receipt closure* (query expansion); a follow-up after a memory reset was answered from whatever it happened to retrieve (unanchored-follow-up guard); "what are your capabilities" refused (self-description). Still open as judgement calls: T7 lists a ticket whose root cause is literally `test` without flagging it; D7 returns the reference SQL verbatim rather than templating the order number in; G3 lands on the SOP knowledge base rather than *User profiles and rights management*.
 
