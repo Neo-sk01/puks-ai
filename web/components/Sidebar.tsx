@@ -43,9 +43,15 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset, compact
       </div>
 
       <nav className="flex flex-row gap-3 text-sm md:flex-col md:gap-1">
-        <Link href="/" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
-          Chatbot
-        </Link>
+        {/* NEXT_PUBLIC_ACCEPTANCE_ONLY="1" is set on deploys that only ship
+         *  the acceptance tool (no FastAPI chat backend behind them, see
+         *  lib/deployment.ts) — the chat link would otherwise point at a
+         *  page with nothing to talk to. */}
+        {process.env.NEXT_PUBLIC_ACCEPTANCE_ONLY !== "1" && (
+          <Link href="/" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
+            Chatbot
+          </Link>
+        )}
         <Link href="/about" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
           About
         </Link>
