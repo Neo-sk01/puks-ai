@@ -7,18 +7,18 @@ describe("noStore", () => {
     expect(response.headers.get("Cache-Control")).toBe("private, no-store");
   });
 
-  it("sets Vary to Cookie", () => {
+  it("does not set a Vary header", () => {
     const response = noStore(Response.json({ ok: true }));
-    expect(response.headers.get("Vary")).toBe("Cookie");
+    expect(response.headers.get("Vary")).toBeNull();
   });
 
   it("preserves the status code it is given", () => {
     const ok = noStore(Response.json({ ok: true }, { status: 200 }));
     const notFound = noStore(Response.json({ detail: "not found" }, { status: 404 }));
-    const unauthorized = noStore(Response.json({ detail: "access code required" }, { status: 401 }));
+    const badRequest = noStore(Response.json({ detail: "tester is required" }, { status: 400 }));
     expect(ok.status).toBe(200);
     expect(notFound.status).toBe(404);
-    expect(unauthorized.status).toBe(401);
+    expect(badRequest.status).toBe(400);
   });
 
   it("preserves the JSON body it is given, for a success response", async () => {
