@@ -59,3 +59,8 @@ web/node_modules/
 web/.next/
 web/out/
 web/.env.local
+
+# evals/error-discovery — derived from docs/ + corpus by prepare.py; reviewer files stay tracked
+evals/error-discovery/data/records.json
+evals/error-discovery/data/graph.json
+.playwright-mcp/
