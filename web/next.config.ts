@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/acceptance": ["./data/acceptance/**/*"],
     "/api/acceptance/**/*": ["./data/acceptance/**/*"],
+    "/review": ["./data/review/**/*"],
+    "/api/review/**/*": ["./data/review/**/*"],
   },
 };
 

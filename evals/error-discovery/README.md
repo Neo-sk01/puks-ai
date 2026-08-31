@@ -36,8 +36,13 @@ and to the corpus (so each retrieved source file shows its actual passages),
 flags statistical outliers, clusters the 65 records (numpy TF-IDF + k-means),
 and picks a diverse first sample of 20. It never touches the reviewer's files.
 
-The app reads and writes this directory through `GET/POST /api/review/{key}`
-(`web/lib/review-store.ts`; `PUKS_REVIEW_DATA` overrides the path):
+The app reads and writes through `GET/POST /api/review/{key}`
+(`web/lib/review-store.ts`; `PUKS_REVIEW_DATA` overrides the local path).
+Locally that means this directory. On a standalone deploy (Vercel, where
+`POSTGRES_URL`/`DATABASE_URL` is set) the derived documents are bundled into
+the build by `web/scripts/prebuild-review-data.mjs` and the mutable ones live
+in a `review_doc(key, value)` Postgres table, created on first use — setting
+the env var is the entire provisioning story, same as acceptance verdicts.
 
 | File | Written by | Contents |
 |---|---|---|

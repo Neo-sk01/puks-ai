@@ -58,15 +58,9 @@ export function Sidebar({ config, topK, onTopK, debug, onDebug, onReset, compact
         <Link href="/acceptance" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
           Acceptance
         </Link>
-        {/* The error-discovery tool reads and writes evals/error-discovery/
-         *  data on the local filesystem — a Vercel deploy has neither the
-         *  files nor a persistent disk to save notes to, so the nav link
-         *  hides behind the same flag as the chat link. */}
-        {process.env.NEXT_PUBLIC_ACCEPTANCE_ONLY !== "1" && (
-          <Link href="/review" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
-            Review
-          </Link>
-        )}
+        <Link href="/review" className="rounded px-2 py-1 hover:bg-rule/40 hover:text-signal">
+          Review
+        </Link>
       </nav>
 
       {!compact && (

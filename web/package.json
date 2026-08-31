@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/prebuild-acceptance-data.mjs",
+    "prebuild": "node scripts/prebuild-acceptance-data.mjs && node scripts/prebuild-review-data.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
