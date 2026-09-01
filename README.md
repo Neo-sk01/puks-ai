@@ -453,18 +453,18 @@ The `text-embedding-3-large` deployment created on 2026-08-25 at 10:47 showed `s
 
 What remains, in order:
 
-- **Deploy** the FastAPI backend and the Next.js app to the App Service estate per the runbook in `ENVIRONMENT.local.md`; `docs/DEPLOYMENT.md` and `ci-cd.yml` remain fiction
+- ~~**Deploy** the FastAPI backend and the Next.js app~~ **Done 2026-09-01.** Live at **https://ch011agl0c8-agew-awat002.azurewebsites.net** — the Next.js app on `AWAT002`, the FastAPI backend on the `AFUT001` Function App, both reaching the provisioned Foundry models. The runbook is [`docs/DEPLOYMENT-AZURE.md`](docs/DEPLOYMENT-AZURE.md); `docs/DEPLOYMENT.md` and `ci-cd.yml` remain fiction.
 - **Score the acceptance set with the support team** — the PASS/PART/FAIL tracker is there for them; the three open judgement calls in §5.1 need their view
 - Delete `APPLICATION(STREAMLIT)/` once deployed; delete `APPLICATION(STREAMLIT)/data/vector_store/` now
 
-Everything touching Azure is gated on the access grant in [§6](#6-the-environment). Request it first; it has the longest lead time.
+The Azure access that gated all of this was restored on 2026-09-01, and the deployment above was built on it.
 
 ### Open questions for the environment owner
 
-1. **Do the integration subnets permit outbound internet egress?** The single highest-risk unknown — it decides whether the current app can run at all. We cannot read the NSGs. The egress probe in `ENVIRONMENT.local.md` answers it empirically in twenty minutes; ask the network team in parallel.
-2. **Which architecture are we building?** This repo, the handover PDF and the provisioned estate describe three different systems ([§6](#6-the-environment)). Streamlit-on-App-Service is the fastest route to something running, but the handover explicitly rules it out.
+1. ~~**Do the integration subnets permit outbound internet egress?**~~ **Answered 2026-09-01, empirically.** A probe deployed to `AWAT002` reached the Foundry OpenAI endpoint, the model-inference endpoint and pypi, all HTTP 200. Azure AI Search is the exception: `asst001.search.windows.net` does not resolve from either app, so its private DNS zone is not serving that name. Only matters if retrieval ever moves to Search.
+2. ~~**Which architecture are we building?**~~ **Settled 2026-09-01 by the environment owner:** the Next.js front end, not Power Apps, and the backend on a Function App rather than App Service. That is what is deployed. Streamlit is now superseded in fact as well as in intent.
 3. **Where are handover documents 2, 3 and 4?** The PDF in this repo is document 1 of 4.
-4. **Should the public web app be opened to Power Automate, or the Function Apps?** Both are network-posture decisions we can execute but should not take unilaterally.
+4. **Should the public web app be restricted?** `AWAT002` has `ipSecurityRestrictions: Allow all` and is now staff-facing, so it is open at the app layer to anyone who can route to it. Restricting it to the corporate range is a network-posture decision we can execute but should not take unilaterally.
 5. Does AGL run **VNet-resident CI runners**? If so, the private site becomes viable and most deployment complexity disappears.
 6. Who owns **data residency** sign-off? `gpt-5` is `GlobalStandard`, which may route outside the EU, and the SKU cannot be changed in place.
 7. Is there a **real support ticket queue** to draw evaluation questions from? This repo has only two tickets.
