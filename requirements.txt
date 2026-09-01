@@ -7,9 +7,13 @@
 # configured by environment variable. There is no local model, so torch,
 # sentence-transformers and transformers are gone — with them went ~2 GB of
 # wheels, the huggingface.co startup dependency, and the B1 build timeout.
+#
+# THIS FILE IS THE DEPLOYMENT ARTIFACT'S DEPENDENCY LIST. App Service's Oryx
+# builder installs the repo-root requirements.txt and nothing else, so the API
+# service's own dependencies live here rather than in api/requirements.txt.
+# Splitting them across two files boots a site that 404s with no useful error.
 
 # Core application
-streamlit>=1.31.0
 numpy>=1.23.0
 
 # Vector search
@@ -28,6 +32,14 @@ requests>=2.32.0
 
 # Local development only — App Service supplies app settings as real env vars
 python-dotenv>=1.0.0
+
+# The HTTP surface (api/main.py), served by `uvicorn api.main:app`.
+# `streamlit` is deliberately absent: puks_rag.py imports no UI framework, and
+# APPLICATION(STREAMLIT)/requirements.txt is already a self-contained list for
+# anyone still running the superseded Streamlit app.
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
 
 # Pipeline notebooks 01-03 (document ingestion and chunking) only.
 # Not imported by the app; skip these for a slim deployment artifact.

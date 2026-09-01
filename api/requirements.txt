@@ -1,7 +1,7 @@
-# The API service. Installs the root requirements too — puks_rag needs
-# faiss-cpu, rank-bm25, numpy, openai and requests.
+# The API service's dependencies now live in the root requirements.txt, because
+# App Service's Oryx builder installs that file and only that file. Keeping
+# fastapi/uvicorn/pydantic here as well would mean two lists to keep in step,
+# and the one Azure reads would be the one that drifted.
+#
+# This file remains so that `pip install -r api/requirements.txt` still works.
 -r ../requirements.txt
-
-fastapi>=0.115.0
-uvicorn[standard]>=0.30.0
-pydantic>=2.7.0
