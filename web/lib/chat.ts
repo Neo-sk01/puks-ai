@@ -10,6 +10,10 @@ export interface SendArgs {
   onToken: (text: string) => void;
   onDone: (payload: DonePayload) => void;
   onError: (message: string) => void;
+  /** Aborting rejects the in-flight fetch or body read with an AbortError,
+   *  which propagates out of sendMessage — the caller decides what "stopped"
+   *  looks like. */
+  signal?: AbortSignal;
 }
 
 export async function sendMessage(args: SendArgs): Promise<void> {
@@ -23,8 +27,11 @@ export async function sendMessage(args: SendArgs): Promise<void> {
         history: promptHistory(args.messages),
         top_k: args.topK,
       }),
+      signal: args.signal,
     });
   } catch (error) {
+    // A user-initiated stop is not a failure to report; let the caller see it.
+    if ((error as Error).name === "AbortError") throw error;
     args.onError((error as Error).message);
     return;
   }
