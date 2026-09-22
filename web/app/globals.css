@@ -7,18 +7,28 @@
 
 /* Design tokens — AGL graphic charter, "Primary colour palette" (p. 7).
  *
- * The charter is a white-ground identity: AGL Blue for type and structure,
- * AGL Yellow as the single accent, tints of each at 70 / 50 / 20 %. The UI
- * follows it exactly. Yellow never carries text — #EED58E on white fails
- * contrast — it is a fill: the wordmark rule, the provenance rail, the
- * slider. Blue does the reading work.
+ * Light theme follows the charter: white surfaces, AGL Blue for type and
+ * structure, AGL Yellow as the single accent, tints of each at 70 / 50 / 20 %.
+ * Dark theme is the same identity turned over: an AGL-blue-derived navy
+ * ground, with AGL Yellow promoted to the primary action fill (it has ample
+ * contrast on navy, and blue type on yellow is 8:1).
  *
- * --color-hazard carries meaning, never decoration. It is reserved for
- * exactly three places: a refused answer, the not-ready banner, and the
- * rerank-unconfigured warning. It is deliberately a darker ochre than the
- * brand yellow so the two are never confused. */
+ * Yellow is a fill, never body text on a light ground — #EED58E on white fails
+ * contrast. It carries buttons, the wordmark rule, the provenance rail and the
+ * active-nav marker. Blue does the reading work.
+ *
+ * Roles (light → dark), all switched by the `.dark` class further down:
+ *   ink      app canvas                bay     inset / tinted surface
+ *   card     raised surface (shadcn)   rule    hairlines and borders
+ *   type     primary text              signal  links, focus, active states
+ *   hazard   RESERVED — see below
+ *
+ * --color-hazard carries meaning, never decoration. It is reserved for a
+ * refused answer, the not-ready banner, and the rerank-unconfigured warning.
+ * It is deliberately a darker ochre than the brand yellow so the two are never
+ * confused. */
 @theme {
-  /* AGL primary palette */
+  /* AGL primary palette — identical in both themes */
   --color-agl-blue: #1b365f;    /* Pantone 534C · RAL 5013 */
   --color-agl-yellow: #eed58e;  /* Pantone 7403C · RAL 1002 */
   --color-agl-blue-70: #5f728f;
@@ -28,19 +38,48 @@
   --color-agl-yellow-50: #f7eac7;
   --color-agl-yellow-20: #fcf7e9;
 
-  /* Roles */
-  --color-ink: #ffffff;                  /* ground — charter white, RAL 9003 */
-  --color-bay: #f4f6f9;                  /* raised surface: sidebar, cards, code blocks (blue at ~6 %) */
-  --color-rule: var(--color-agl-blue-20); /* hairlines, borders, dividers — blue 20 % tint */
-  --color-type: var(--color-agl-blue);   /* primary text — AGL Blue */
-  --color-signal: var(--color-agl-blue); /* links, focus, active nav, retriever chips */
-  --color-brand: var(--color-agl-yellow); /* the accent: fills only, never text */
-  --color-hazard: #a8650a;               /* ochre — RESERVED, see comment above */
+  /* Roles — light values; `.dark` overrides below */
+  --color-ink: #f5f7fa;
+  --color-bay: #eceff5;
+  --color-rule: #dce2ea;
+  --color-type: var(--color-agl-blue);
+  --color-signal: var(--color-agl-blue);
+  --color-brand: var(--color-agl-yellow);
+  --color-hazard: #a8650a;
 
-  /* Verdict colours — acceptance-page pass/partial/fail semantics. */
+  /* Verdicts — acceptance pass / partial / fail. `-fg` is the text colour on
+   * a solid fill of that verdict. */
   --color-verdict-pass: #2e7d4f;
-  --color-verdict-partial: var(--color-hazard); /* named for its meaning here */
+  --color-verdict-pass-fg: #ffffff;
+  --color-verdict-partial: var(--color-hazard);
+  --color-verdict-partial-fg: #ffffff;
   --color-verdict-fail: #b23b3b;
+  --color-verdict-fail-fg: #ffffff;
+
+  --shadow-soft: 0 1px 2px rgb(27 54 95 / 0.05), 0 6px 20px -8px rgb(27 54 95 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(27 54 95 / 0.06), 0 16px 40px -12px rgb(27 54 95 / 0.22);
+
+  --animate-msg-in: msg-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-dot: dot 1.2s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+
+  @keyframes msg-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes dot {
+    0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-3px); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
 }
 
 /* Fonts are self-hosted via next/font/google in app/layout.tsx and exposed
@@ -93,19 +132,23 @@
 
 :root {
   color-scheme: light;
-  --radius: 0.375rem;
+  --radius: 0.625rem;
   --background: var(--color-ink);
   --foreground: var(--color-type);
-  --card: var(--color-bay);
+  --card: #ffffff;
   --card-foreground: var(--color-type);
-  --popover: var(--color-ink);
+  --popover: #ffffff;
   --popover-foreground: var(--color-type);
   --primary: var(--color-agl-blue);
   --primary-foreground: #ffffff;
   --secondary: var(--color-bay);
   --secondary-foreground: var(--color-type);
   --muted: var(--color-bay);
-  --muted-foreground: var(--color-agl-blue-70); /* direct reference: --color-muted is shadcn's own key (surface tint) now, not the AGL one */
+  /* The charter's 70 % blue tint (#5f728f) measures 4.25:1 on the tinted
+   * `bay` surface that chips and code blocks sit on — under WCAG AA for small
+   * text. This is the same hue nudged darker (4.8:1) for text use only;
+   * --color-agl-blue-70 itself is unchanged. */
+  --muted-foreground: #566a88;
   --accent: var(--color-agl-yellow-20);
   --accent-foreground: var(--color-type);
   --destructive: var(--color-hazard);
@@ -117,14 +160,53 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #ffffff;
+  --sidebar-foreground: var(--color-type);
+  --sidebar-primary: var(--color-agl-blue);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--color-bay);
+  --sidebar-accent-foreground: var(--color-type);
+  --sidebar-border: var(--color-rule);
+  --sidebar-ring: var(--color-agl-blue);
+
+  /* Ambient page glow (see .app-canvas) */
+  --glow-a: rgb(238 213 142 / 0.34);
+  --glow-b: rgb(27 54 95 / 0.07);
+}
+
+.dark {
+  color-scheme: dark;
+  --color-ink: #0a121f;
+  --color-bay: #18253a;
+  --color-rule: #2a384e;
+  --color-type: #e8edf5;
+  --color-signal: #9dbbee;
+  --color-hazard: #f0b04d;
+
+  --color-verdict-pass: #4cb782;
+  --color-verdict-pass-fg: #06210f;
+  --color-verdict-partial: #e8ae55;
+  --color-verdict-partial-fg: #2b1a00;
+  --color-verdict-fail: #ee7f7d;
+  --color-verdict-fail-fg: #2a0a0a;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.35), 0 8px 24px -10px rgb(0 0 0 / 0.55);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.4), 0 18px 44px -14px rgb(0 0 0 / 0.7);
+
+  --card: #111b2c;
+  --popover: #131f33;
+  --primary: var(--color-agl-yellow);
+  --primary-foreground: var(--color-agl-blue);
+  --muted-foreground: #9aaabf;
+  --accent: #1c2b45;
+  --ring: #9dbbee;
+  --sidebar: #0d1727;
+  --sidebar-primary: var(--color-agl-yellow);
+  --sidebar-primary-foreground: var(--color-agl-blue);
+  --sidebar-ring: #9dbbee;
+
+  --glow-a: rgb(238 213 142 / 0.07);
+  --glow-b: rgb(70 120 210 / 0.16);
 }
 
 body {
@@ -135,17 +217,14 @@ body {
   line-height: 1.6;
 }
 
-/* Quality floor: visible keyboard focus, never outline: none without a
- * replacement. */
-:focus-visible {
-  outline: 2px solid var(--color-signal);
-  outline-offset: 2px;
+::selection {
+  background: color-mix(in srgb, var(--color-brand) 60%, transparent);
+  color: var(--color-agl-blue);
 }
 
-/* Quality floor: prefers-reduced-motion disables the provenance rail
- * shimmer (ProvenanceRail in ChatView.tsx, an animate-pulse utility) and
- * any other streaming animation. The universal `*` selector below already
- * covers it — no shimmer-specific rule needed. */
+/* Quality floor: prefers-reduced-motion disables every animation and
+ * transition, including the streaming dots, shimmer and message entrance —
+ * the universal selector already covers them, no per-animation rule needed. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -157,10 +236,25 @@ body {
   }
 }
 
-/* Range slider (the "chunks passed to the model" control). The browser
- * default track is a dark grey that sat on the old slate ground; on the
- * charter's white it reads as a bug. Track in the blue 20 % tint, thumb in
- * AGL Yellow with a blue ring so it keeps contrast against the track. */
+/* Page canvas: the tinted ground plus two soft glows — AGL Yellow top-right,
+ * AGL Blue bottom-left. Purely atmospheric, kept faint so text never sits on
+ * anything but a near-flat ground. */
+.app-canvas {
+  background-color: var(--color-ink);
+  background-image:
+    radial-gradient(60rem 32rem at 90% -12%, var(--glow-a), transparent 65%),
+    radial-gradient(52rem 32rem at -8% 108%, var(--glow-b), transparent 65%);
+  background-attachment: fixed;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-rule) transparent;
+}
+
+/* Range slider (the "chunks passed to the model" control). `--fill` is set
+ * inline by the component to the thumb's position so the track shows how much
+ * is selected. */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -170,45 +264,68 @@ input[type="range"] {
   cursor: pointer;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
-  background: var(--color-agl-blue-20);
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-signal) var(--fill, 50%),
+    var(--color-rule) var(--fill, 50%)
+  );
 }
 input[type="range"]::-moz-range-track {
-  height: 4px;
-  border-radius: 2px;
-  background: var(--color-agl-blue-20);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-rule);
+}
+input[type="range"]::-moz-range-progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-signal);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
-  margin-top: -6px; /* centre a 16px thumb on a 4px track */
+  width: 18px;
+  height: 18px;
+  margin-top: -6px; /* centre an 18px thumb on a 6px track */
   border-radius: 50%;
   background: var(--color-brand);
-  border: 2px solid var(--color-agl-blue);
+  border: 2px solid var(--color-signal);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.12s ease;
 }
 input[type="range"]::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--color-brand);
-  border: 2px solid var(--color-agl-blue);
+  border: 2px solid var(--color-signal);
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.1);
 }
 input[type="range"]:focus-visible {
   outline: none;
 }
 input[type="range"]:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 3px var(--color-ink), 0 0 0 5px var(--color-agl-blue);
+  box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--color-signal);
 }
 input[type="range"]:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 3px var(--color-ink), 0 0 0 5px var(--color-agl-blue);
+  box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--color-signal);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  /* Quality floor: visible keyboard focus, never outline: none without a
+   * replacement. Lives in the base layer on purpose — unlayered CSS beats every
+   * Tailwind utility, so as a bare rule this used to override `outline-none`
+   * even where a component (the composer, shadcn buttons) draws its own focus
+   * ring, producing a double outline. In the layer, utilities can opt out. */
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 2px;
   }
   body {
     @apply bg-background text-foreground;
