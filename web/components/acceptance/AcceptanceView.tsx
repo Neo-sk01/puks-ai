@@ -1,10 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { TriangleAlert } from "lucide-react";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sidebar } from "@/components/Sidebar";
+import { AppShell } from "@/components/shell/AppShell";
 import type { AppConfig } from "@/lib/types";
 import type { MyVerdict, QuestionGroup, RecordedResult, RunMeta, Summary, Verdict } from "@/lib/acceptance";
 import { NameGate } from "./NameGate";
@@ -26,14 +27,19 @@ interface Props {
  *  get — there is no error string to surface, unlike Health. */
 function QuestionsUnavailable() {
   return (
-    <div role="alert" className="rounded-lg border border-hazard/40 bg-hazard/10 p-5">
-      <h2 className="font-semibold text-hazard">Cannot reach the API</h2>
-      <p className="mt-3 text-sm text-hazard/90">
-        The acceptance question set could not be loaded from the backend.
-      </p>
-      <p className="mt-3 text-sm text-muted-foreground">
-        Confirm the FastAPI service (uvicorn) is running, then reload this page.
-      </p>
+    <div role="alert" className="flex items-start gap-3 rounded-2xl border border-hazard/40 bg-hazard/10 p-5">
+      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-hazard/15 text-hazard">
+        <TriangleAlert className="size-5" aria-hidden="true" />
+      </span>
+      <div>
+        <h2 className="font-display text-lg font-semibold text-hazard">Cannot reach the API</h2>
+        <p className="mt-2 text-sm text-hazard/90">
+          The acceptance question set could not be loaded from the backend.
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Confirm the FastAPI service (uvicorn) is running, then reload this page.
+        </p>
+      </div>
     </div>
   );
 }
@@ -103,43 +109,55 @@ export function AcceptanceView({ config, groups, run, results }: Props) {
   }, [name, mine, summary, loadSummary]);
 
   const scored = Object.keys(mine).length;
+  const percent = total ? Math.round((scored / total) * 100) : 0;
 
   return (
-    <div className="flex min-h-dvh flex-col md:flex-row">
-      <Sidebar compact config={config} topK={5} onTopK={() => {}} debug={false} onDebug={() => {}} onReset={() => {}} />
-      <main className="flex-1 overflow-y-auto p-6 md:p-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-6">
-          <header className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <h1 className="font-display text-2xl font-medium">Acceptance testing</h1>
-                <p className="text-sm text-muted-foreground">{total} questions written against the Speed WMS corpus. Score each answer against its must-contain facts.</p>
-              </div>
-              {available && <NameGate name={name} onName={setName} />}
+    <AppShell config={config}>
+      <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8 md:px-8 md:py-10">
+        <header className="flex flex-col gap-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="max-w-xl">
+              <h1 className="font-display text-3xl font-semibold tracking-tight">Acceptance testing</h1>
+              <p className="mt-2 text-muted-foreground">
+                {total} questions written against the Speed WMS corpus. Score each answer against its must-contain facts.
+              </p>
             </div>
-            {available && (
-              <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                <Progress value={total ? (scored / total) * 100 : 0} className="h-1.5 w-56" />
-                <span className="font-mono">{mineLoadFailed ? "couldn't load your verdicts" : `${scored}/${total} scored by you`}</span>
+            {available && <NameGate name={name} onName={setName} />}
+          </div>
+
+          {available && (
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 rounded-2xl border border-rule bg-card p-4 shadow-soft">
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-3xl font-semibold tabular-nums">{scored}</span>
+                <span className="text-sm text-muted-foreground">
+                  {mineLoadFailed ? "couldn't load your verdicts" : `of ${total} scored by you`}
+                </span>
               </div>
-            )}
-          </header>
-          {available ? (
-            <Tabs value={tab} onValueChange={(v: string) => setTab(v)}>
-              <TabsList>
-                <TabsTrigger value="questions">Questions</TabsTrigger>
-                <TabsTrigger value="results">Results</TabsTrigger>
-                <TabsTrigger value="summary">Summary</TabsTrigger>
-              </TabsList>
-              <TabsContent value="questions"><QuestionsTab groups={groups} mine={mine} disabled={!name} onSave={save} /></TabsContent>
-              <TabsContent value="results"><ResultsTab groups={groups} run={run} results={results} mine={mine} disabled={!name} onSave={save} /></TabsContent>
-              <TabsContent value="summary"><SummaryTab groups={groups} summary={summary} /></TabsContent>
-            </Tabs>
-          ) : (
-            <QuestionsUnavailable />
+              <Progress
+                value={total ? (scored / total) * 100 : 0}
+                aria-label="Your scoring progress"
+                className="min-w-40 flex-1"
+              />
+              <span className="font-mono text-sm text-muted-foreground tabular-nums">{percent}%</span>
+            </div>
           )}
-        </div>
-      </main>
-    </div>
+        </header>
+
+        {available ? (
+          <Tabs value={tab} onValueChange={(v: string) => setTab(v)} className="gap-6">
+            <TabsList className="group-data-horizontal/tabs:h-10 p-1">
+              <TabsTrigger value="questions" className="px-4">Questions</TabsTrigger>
+              <TabsTrigger value="results" className="px-4">Results</TabsTrigger>
+              <TabsTrigger value="summary" className="px-4">Summary</TabsTrigger>
+            </TabsList>
+            <TabsContent value="questions"><QuestionsTab groups={groups} mine={mine} disabled={!name} onSave={save} /></TabsContent>
+            <TabsContent value="results"><ResultsTab groups={groups} run={run} results={results} mine={mine} disabled={!name} onSave={save} /></TabsContent>
+            <TabsContent value="summary"><SummaryTab groups={groups} summary={summary} /></TabsContent>
+          </Tabs>
+        ) : (
+          <QuestionsUnavailable />
+        )}
+      </div>
+    </AppShell>
   );
 }

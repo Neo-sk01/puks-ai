@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check, Minus, X, type LucideIcon } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Textarea } from "@/components/ui/textarea";
 import { VERDICTS, verdictLabel, type MyVerdict, type Verdict } from "@/lib/acceptance";
@@ -23,11 +24,28 @@ interface Props {
  *  Styling: the generated toggle.tsx pins its "on" look to `aria-pressed:`,
  *  not `data-[state=on]:` (Base UI never sets `data-state`; it sets
  *  `aria-pressed="true"/"false"` unconditionally and `data-pressed=""` only
- *  when true). This file follows that same working hook for the tone map. */
-const tone: Record<Verdict, string> = {
-  pass: "aria-pressed:bg-verdict-pass aria-pressed:text-white",
-  partial: "aria-pressed:bg-verdict-partial aria-pressed:text-white",
-  fail: "aria-pressed:bg-verdict-fail aria-pressed:text-white",
+ *  when true). This file follows that same working hook for the tone map.
+ *
+ *  Each verdict has a solid pressed state plus an icon, so the choice reads
+ *  by shape as well as colour. The `-fg` tokens keep the label legible on the
+ *  fill in both themes (white on the light theme's deep greens/reds, near-black
+ *  on the dark theme's lighter ones). */
+const tone: Record<Verdict, { pressed: string; hover: string; Icon: LucideIcon }> = {
+  pass: {
+    pressed: "aria-pressed:bg-verdict-pass aria-pressed:text-verdict-pass-fg aria-pressed:border-verdict-pass",
+    hover: "hover:border-verdict-pass/60 hover:text-verdict-pass",
+    Icon: Check,
+  },
+  partial: {
+    pressed: "aria-pressed:bg-verdict-partial aria-pressed:text-verdict-partial-fg aria-pressed:border-verdict-partial",
+    hover: "hover:border-verdict-partial/60 hover:text-verdict-partial",
+    Icon: Minus,
+  },
+  fail: {
+    pressed: "aria-pressed:bg-verdict-fail aria-pressed:text-verdict-fail-fg aria-pressed:border-verdict-fail",
+    hover: "hover:border-verdict-fail/60 hover:text-verdict-fail",
+    Icon: X,
+  },
 };
 
 /** PASS / PART / FAIL plus a note. Clicking the active verdict clears it.
@@ -68,12 +86,21 @@ export function VerdictControls({ questionId, mine, disabled, onSave }: Props) {
         // narrow is safe.
         onValueChange={(v) => onSave(questionId, (v[0] as Verdict | undefined) ?? null, note)}
         aria-label={`Verdict for ${questionId}`}
+        className="grid w-full grid-cols-3"
       >
-        {VERDICTS.map((v) => (
-          <ToggleGroupItem key={v} value={v} className={`font-mono text-xs ${tone[v]}`}>
-            {verdictLabel(v)}
-          </ToggleGroupItem>
-        ))}
+        {VERDICTS.map((v) => {
+          const { pressed, hover, Icon } = tone[v];
+          return (
+            <ToggleGroupItem
+              key={v}
+              value={v}
+              className={`h-9 gap-1.5 border border-rule bg-card font-mono text-xs text-muted-foreground ${hover} ${pressed}`}
+            >
+              <Icon aria-hidden="true" className="size-3.5" strokeWidth={2.5} />
+              {verdictLabel(v)}
+            </ToggleGroupItem>
+          );
+        })}
       </ToggleGroup>
       <Textarea
         value={note}
