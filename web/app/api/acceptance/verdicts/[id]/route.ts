@@ -1,5 +1,6 @@
 import { VERDICTS, VERDICTS_PYTHON_REPR, type Verdict } from "@/lib/acceptance";
 import { bundledQuestionIds } from "@/lib/acceptance-bundled";
+import { requireApiSession } from "@/lib/auth-guard";
 import { STANDALONE } from "@/lib/deployment";
 import { noStore } from "@/lib/no-store";
 import { getVerdictsStore, HttpError } from "@/lib/verdicts";
@@ -20,6 +21,9 @@ const NOTE_MAX = 500;
  *  checks below it don't depend on where the data lives, so they run
  *  identically either way, one hop earlier than they used to in proxy mode. */
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const unauthorized = await requireApiSession();
+  if (unauthorized) return unauthorized;
+
   const { id } = await params;
 
   let body: { tester_name?: unknown; verdict?: unknown; note?: unknown };

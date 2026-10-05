@@ -1,3 +1,4 @@
+import { requireApiSession } from "@/lib/auth-guard";
 import { FASTAPI_URL } from "@/lib/server";
 import { extractDetail } from "@/lib/errors";
 
@@ -7,6 +8,12 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  // proxy.ts already gates this route; re-checking here is the
+  // defense-in-depth Next's own auth guide asks route handlers to do
+  // regardless (see lib/auth-guard.ts).
+  const unauthorized = await requireApiSession();
+  if (unauthorized) return unauthorized;
+
   const body = await request.text();
 
   let upstream: Response;
