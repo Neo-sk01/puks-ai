@@ -35,6 +35,23 @@ export async function GET(request: Request) {
     return errorRedirect(request, "Configuration");
   }
 
+  // Guards against a duplicate/replayed callback request — observed in
+  // practice, the browser firing the exact same callback URL (same code,
+  // same state) twice in a row. Entra authorization codes are single-use:
+  // a second request with the same code always fails with AADSTS54005
+  // ("already redeemed"), even when the first request already succeeded
+  // and signed the visitor in. Checking for an existing session first
+  // means that case redirects straight through instead of showing a
+  // confusing error for a sign-in that actually worked.
+  const already = await auth();
+  if (already?.user) {
+    const existingFlowCookie = (await cookies()).get(FLOW_COOKIE)?.value;
+    const existingFlow = existingFlowCookie
+      ? await verifyFlowState(process.env.AUTH_SECRET!, existingFlowCookie)
+      : null;
+    return Response.redirect(new URL(existingFlow?.callbackUrl ?? "/", request.url), 302);
+  }
+
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const returnedState = url.searchParams.get("state");
@@ -70,7 +87,17 @@ export async function GET(request: Request) {
       // throw nonceMismatch otherwise — see node_modules/.../@azure/
       // msal-common/src/response/ResponseHandler.ts. Omitting this
       // argument silently skips that check rather than failing safe.
-      { code, state: returnedState, nonce: flow.nonce },
+      //
+      // Deliberately no `state` here, even though the type allows it:
+      // when present, ResponseHandler.ts feeds it through
+      // ProtocolUtils.parseRequestState(), which expects MSAL's own
+      // library-state encoding (a base64-JSON prefix this app never
+      // produces, since `state` here is a plain value we generate and
+      // verify ourselves below) — always throwing `invalid_state`
+      // otherwise. Our own `flow.state !== returnedState` check above
+      // already *is* the CSRF protection `state` exists for; MSAL's
+      // parsed version would be redundant even if it were wired up.
+      { code, nonce: flow.nonce },
     );
 
     const claims = result.idTokenClaims as
@@ -89,11 +116,14 @@ export async function GET(request: Request) {
     tid = claims.tid;
     name = claims.name;
     email = claims.email ?? claims.preferred_username;
-  } catch {
+  } catch (error) {
     // Covers every MSAL failure mode here: a rejected certificate
     // assertion, an expired/replayed code, a nonce mismatch, a network
     // error reaching Entra. None of them are actionable by the visitor
-    // beyond "try signing in again".
+    // beyond "try signing in again", but worth a server-side trace for
+    // whoever's operating this — a silent catch here is exactly what made
+    // an earlier, unrelated bug (a malformed private key) hard to find.
+    console.error("[entra/callback] acquireTokenByCode failed:", error);
     return errorRedirect(request, "OAuthCallback");
   }
 
@@ -101,7 +131,8 @@ export async function GET(request: Request) {
 
   try {
     await signIn("entra-bridge", { ticket, redirect: false });
-  } catch {
+  } catch (error) {
+    console.error("[entra/callback] signIn(entra-bridge) failed:", error);
     return errorRedirect(request, "AccessDenied");
   }
 
@@ -112,7 +143,10 @@ export async function GET(request: Request) {
   // when they aren't. (requireSession()/proxy.ts would catch this either
   // way — see lib/auth-guard.ts — this just avoids the confusing round
   // trip of landing on the target page and being bounced straight back.)
-  if (!(await auth())?.user) return errorRedirect(request, "AccessDenied");
+  if (!(await auth())?.user) {
+    console.error("[entra/callback] signIn succeeded but no session followed; ticket for oid:", oid);
+    return errorRedirect(request, "AccessDenied");
+  }
 
   return Response.redirect(new URL(flow.callbackUrl, request.url), 302);
 }
