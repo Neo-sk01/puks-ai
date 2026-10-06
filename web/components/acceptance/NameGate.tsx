@@ -49,22 +49,34 @@ export function NameGate({ name, onName }: Props) {
   return (
     <>
       {name && (
-        <p className="text-sm text-muted-foreground">
-          Scoring as <strong className="text-type">{name}</strong>{" "}
-          <button type="button" className="underline hover:text-signal" onClick={() => { setDraft(name); setOpen(true); }}>
+        <div className="flex items-center gap-2.5 rounded-full border border-rule bg-card py-1 pr-3.5 pl-1 shadow-soft">
+          <span
+            aria-hidden="true"
+            className="grid size-7 place-items-center rounded-full bg-agl-blue text-xs font-semibold text-white uppercase dark:bg-brand dark:text-agl-blue"
+          >
+            {name.trim().charAt(0)}
+          </span>
+          <p className="text-sm text-muted-foreground">
+            Scoring as <strong className="font-semibold text-type">{name}</strong>
+          </p>
+          <button
+            type="button"
+            className="rounded text-xs text-muted-foreground underline underline-offset-2 transition-colors hover:text-type"
+            onClick={() => { setDraft(name); setOpen(true); }}
+          >
             change
           </button>
-        </p>
+        </div>
       )}
       <Dialog open={open} onOpenChange={(o) => name && setOpen(o)}>
-        <DialogContent>
+        <DialogContent className="gap-5 p-6 shadow-lift">
           <DialogHeader>
-            <DialogTitle>Who is scoring?</DialogTitle>
+            <DialogTitle className="font-display text-lg">Who is scoring?</DialogTitle>
             <DialogDescription>Your name is stored with each verdict so the team summary can show who said what.</DialogDescription>
           </DialogHeader>
           <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="flex gap-2">
-            <Input autoFocus maxLength={60} placeholder="Your name" value={draft} onChange={(e) => setDraft(e.target.value)} />
-            <Button type="submit" disabled={!draft.trim()}>Start</Button>
+            <Input autoFocus maxLength={60} placeholder="Your name" value={draft} onChange={(e) => setDraft(e.target.value)} className="h-9" />
+            <Button type="submit" size="lg" disabled={!draft.trim()}>Start</Button>
           </form>
         </DialogContent>
       </Dialog>

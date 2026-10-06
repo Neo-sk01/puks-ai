@@ -1,120 +1,74 @@
 "use client";
 
-import { useState } from "react";
-import { Sidebar } from "./Sidebar";
+import { useEffect, useRef, useState } from "react";
+import { ArrowDown, SquarePen } from "lucide-react";
+import { toast } from "sonner";
+import { AppShell } from "@/components/shell/AppShell";
+import { Button } from "@/components/ui/button";
 import { NotReadyBanner } from "./NotReadyBanner";
 import { Composer } from "./Composer";
-import { Markdown } from "./Markdown";
-import { RetrievalPanel } from "./RetrievalPanel";
+import { ChatSettings } from "./chat/ChatSettings";
+import { EmptyState } from "./chat/EmptyState";
+import { MessageItem } from "./chat/MessageItem";
 import { sendMessage } from "@/lib/chat";
-import type { AppConfig, ChatMessage, Chunk, Health } from "@/lib/types";
-
-const GREETING: ChatMessage = {
-  role: "assistant",
-  content:
-    "Welcome. I am Puks — your Speed WMS Retrieval-Augmented Intelligence System. How can I help you today?",
-};
-
-const RESET_NOTICE: ChatMessage = {
-  role: "assistant",
-  content: "Memory has been reset. You can start a new conversation now.",
-};
+import type { AppConfig, ChatMessage, Health } from "@/lib/types";
 
 const REFUSAL_TEXT =
   "I do not have enough information to answer this. Please contact support.";
 
-/** metadata is `Record<string, unknown>` on the wire — narrow defensively
- *  rather than assuming the fixture/production shape holds forever. */
-function metaString(metadata: Record<string, unknown>, key: string): string {
-  const value = metadata[key];
-  return typeof value === "string" ? value : "";
-}
+const STOPPED_TEXT = "_Stopped before an answer was generated._";
 
-/** The fixed-field header strip: SOURCE · CATEGORY · REL 0.870. This is the
- *  WMS record header — it is why a support engineer can trust the SQL below
- *  before pasting it into production. Archivo uppercase for the labels,
- *  Plex Mono + tabular-nums for the number that gets compared across turns. */
-function HeaderStrip({ chunk, confidence }: { chunk: Chunk; confidence: number }) {
-  const source = metaString(chunk.metadata, "source");
-  const category = metaString(chunk.metadata, "category");
-  return (
-    <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
-      {source && <span>{source}</span>}
-      {source && category && <span aria-hidden="true">·</span>}
-      {category && <span>{category}</span>}
-      {(source || category) && <span aria-hidden="true">·</span>}
-      <span className="font-mono tabular-nums text-type">REL {confidence.toFixed(3)}</span>
-    </p>
-  );
-}
-
-/** The provenance rail — the signature element. A 2-3px bar in the left
- *  gutter of every assistant turn, running its full height:
- *
- *  - Refused turn: solid --color-hazard, the only colour in that turn.
- *  - Streaming, before the first token: a slow shimmer — gpt-5 reasons
- *    before its first output token, so this covers the dead air.
- *  - Otherwise: segmented into up to three stacked parts for the top
- *    chunk's retrievers (dense, bm25, exact) — lit in --color-brand (AGL Yellow),
- *    unlit in --color-rule.
- *
- *  Decorative only (aria-hidden); the header strip and caption already
- *  carry this information as text. */
-function ProvenanceRail({
-  message,
-  isStreamingThis,
-}: {
-  message: ChatMessage;
-  isStreamingThis: boolean;
-}) {
-  if (message.role !== "assistant") return null;
-
-  if (message.refused) {
-    return (
-      <div aria-hidden="true" className="w-[2px] shrink-0 self-stretch rounded-full bg-hazard md:w-[3px]" />
-    );
-  }
-
-  if (isStreamingThis && !message.content) {
-    return (
-      <div
-        aria-hidden="true"
-        className="w-[2px] shrink-0 animate-pulse self-stretch rounded-full bg-gradient-to-b from-rule via-brand to-rule md:w-[3px]"
-      />
-    );
-  }
-
-  const chunk = message.retrieved?.chunks?.[0];
-  if (!chunk) return null;
-
-  const segments: Array<[string, boolean]> = [
-    ["dense", chunk.in_dense],
-    ["bm25", chunk.in_bm25],
-    ["exact", chunk.in_exact],
-  ];
-
-  return (
-    <div
-      aria-hidden="true"
-      className="flex w-[2px] shrink-0 flex-col gap-[2px] self-stretch overflow-hidden rounded-full md:w-[3px]"
-    >
-      {segments.map(([key, lit]) => (
-        <div key={key} className={lit ? "flex-1 bg-brand" : "flex-1 bg-rule"} />
-      ))}
-    </div>
-  );
-}
+/** Distance from the bottom, in px, within which the transcript keeps
+ *  following new tokens. Scroll further up than this and it stops, so someone
+ *  re-reading an earlier answer isn't yanked away mid-sentence. */
+const STICK_THRESHOLD = 80;
 
 export function ChatView({ health, config }: { health: Health; config: AppConfig | null }) {
-  const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
+  // Empty until the first question: the welcome screen replaces the old
+  // canned greeting bubble. promptHistory only walks user→assistant pairs, so
+  // there is nothing here for it to skip.
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [topK, setTopK] = useState(config?.top_k_default ?? 5);
-  const [debug, setDebug] = useState(false);
+  const [showSources, setShowSources] = useState(false);
   const [streaming, setStreaming] = useState(false);
+  const [showJump, setShowJump] = useState(false);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const stickRef = useRef(true);
+  const abortRef = useRef<AbortController | null>(null);
+
+  // Follow the stream: every token re-renders `messages`, and while the reader
+  // is at the bottom this keeps the newest text in view.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el && stickRef.current) el.scrollTo({ top: el.scrollHeight, behavior: "auto" });
+  }, [messages]);
+
+  function handleScroll() {
+    const el = scrollRef.current;
+    if (!el) return;
+    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < STICK_THRESHOLD;
+    stickRef.current = nearBottom;
+    setShowJump(!nearBottom);
+  }
+
+  function jumpToLatest() {
+    const el = scrollRef.current;
+    if (!el) return;
+    stickRef.current = true;
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }
 
   async function handleSend(text: string) {
+    if (streaming) return;
+
     const outgoing: ChatMessage[] = [...messages, { role: "user", content: text }];
     setMessages([...outgoing, { role: "assistant", content: "" }]);
     setStreaming(true);
+    stickRef.current = true; // sending is an explicit "take me to the answer"
+
+    const controller = new AbortController();
+    abortRef.current = controller;
 
     const update = (patch: Partial<ChatMessage>) =>
       setMessages((current) => {
@@ -123,11 +77,17 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
         return next;
       });
 
+    const fail = (message: string) => {
+      update({ content: `**Request failed.**\n\n\`\`\`\n${message}\n\`\`\``, refused: true });
+      setStreaming(false);
+    };
+
     try {
       await sendMessage({
         message: text,
         messages,
         topK,
+        signal: controller.signal,
         onRetrieved: (retrieved) => update({ retrieved }),
         onToken: (token) =>
           setMessages((current) => {
@@ -141,92 +101,138 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
           update({ done, refused: done.refused, ...(done.refused ? { content: REFUSAL_TEXT } : {}) });
           setStreaming(false);
         },
-        onError: (message) => {
-          update({ content: `**Request failed.**\n\n\`\`\`\n${message}\n\`\`\``, refused: true });
-          setStreaming(false);
-        },
+        onError: fail,
       });
+    } catch (error) {
+      if ((error as Error).name === "AbortError") {
+        // The reader pressed Stop. Keep whatever streamed so far; if nothing
+        // had, mark the turn refused so it stays out of the prompt history.
+        setMessages((current) => {
+          const next = [...current];
+          const last = next[next.length - 1];
+          if (last?.role === "assistant" && !last.content) {
+            next[next.length - 1] = { ...last, content: STOPPED_TEXT, refused: true };
+          }
+          return next;
+        });
+      } else {
+        // A malformed SSE frame throws out of parseSSE; surface it in the
+        // transcript rather than leaving a half-built turn.
+        fail((error as Error).message);
+      }
     } finally {
-      // Covers every exit: a stream that closes with no `done` event, and a
-      // throw out of parseSSE on malformed JSON. onDone/onError already call
-      // this on the happy paths; setState is idempotent, so the double call is
-      // harmless. Without it, a mid-stream drop disables the composer until
-      // the page is reloaded.
+      // Covers every exit: a stream that closes with no `done` event, Stop,
+      // and a throw out of parseSSE on malformed JSON. onDone/onError already
+      // call this on the happy paths; setState is idempotent, so the double
+      // call is harmless. Without it, a mid-stream drop would leave the
+      // composer stuck in its Stop state until the page is reloaded.
+      abortRef.current = null;
       setStreaming(false);
     }
   }
 
+  function handleNewChat() {
+    abortRef.current?.abort();
+    setMessages([]);
+    stickRef.current = true;
+    setShowJump(false);
+    toast("New conversation started", { description: "Puks has forgotten the earlier questions." });
+  }
+
+  const empty = messages.length === 0;
+
   return (
-    <div className="flex h-dvh flex-col md:flex-row">
-      <Sidebar
-        config={config}
-        topK={topK}
-        onTopK={setTopK}
-        debug={debug}
-        onDebug={setDebug}
-        onReset={() => setMessages([RESET_NOTICE])}
-      />
-      <main className="flex min-w-0 flex-1 flex-col gap-4 p-6">
-        <NotReadyBanner health={health} />
-        {health.ready && (
-          <div className="mx-auto flex w-full min-w-0 max-w-[72ch] flex-1 flex-col gap-4">
-            <div className="flex-1 space-y-6 overflow-y-auto pr-2">
-              {messages.map((message, i) => {
-                const isStreamingThis = streaming && i === messages.length - 1;
-                const topChunk = message.retrieved?.chunks?.[0];
+    <AppShell config={config} scroll={false}>
+      <header className="flex shrink-0 items-center gap-3 border-b border-rule/70 bg-background/60 px-4 py-3 backdrop-blur md:px-6">
+        <div className="min-w-0">
+          <h1 className="font-display text-base font-semibold tracking-tight">Speed WMS assistant</h1>
+          <p className="hidden truncate text-xs text-muted-foreground sm:block">
+            Answers grounded in AGL&apos;s documentation
+          </p>
+        </div>
+        <div className="ml-auto flex items-center gap-2">
+          <Button
+            variant="outline"
+            className="h-9 gap-2 px-3"
+            onClick={handleNewChat}
+            disabled={empty && !streaming}
+          >
+            <SquarePen aria-hidden="true" />
+            <span className="hidden sm:inline">New chat</span>
+          </Button>
+          <ChatSettings
+            config={config}
+            topK={topK}
+            onTopK={setTopK}
+            showSources={showSources}
+            onShowSources={setShowSources}
+          />
+        </div>
+      </header>
 
-                const body = (
-                  <>
-                    {message.content ? (
-                      <Markdown>{message.content}</Markdown>
-                    ) : (
-                      isStreamingThis && (
-                        <p className="animate-pulse text-sm text-muted-foreground">
-                          {message.retrieved ? "Generating…" : "Searching documentation…"}
-                        </p>
-                      )
-                    )}
-                    {debug && message.retrieved && <RetrievalPanel retrieved={message.retrieved} />}
-                    {message.done && (
-                      <p className="text-xs text-muted-foreground">
-                        {message.done.refused
-                          ? `Refused — top relevance ${message.done.confidence?.toFixed(3)} is below the ${message.done.threshold?.toFixed(2)} threshold.`
-                          : message.done.reason === "self_description"
-                            ? "Answered from the assistant's own description — no documents were retrieved."
-                            : message.done.reason === "needs_context"
-                              ? "Asked for clarification — no earlier conversation to connect this to."
-                              : `Top relevance: ${message.retrieved?.confidence.toFixed(3)} · ${message.done.model}`}
-                      </p>
-                    )}
-                  </>
-                );
-
-                return (
-                  <article key={i} className="space-y-2">
-                    <p className="font-display text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
-                      {message.role === "user" ? "You" : "Puks"}
-                    </p>
-                    {message.role === "assistant" ? (
-                      <div className="flex gap-3">
-                        <ProvenanceRail message={message} isStreamingThis={isStreamingThis} />
-                        <div className="min-w-0 flex-1 space-y-2">
-                          {topChunk && (
-                            <HeaderStrip chunk={topChunk} confidence={message.retrieved!.confidence} />
-                          )}
-                          {body}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="space-y-2">{body}</div>
-                    )}
-                  </article>
-                );
-              })}
+      {health.ready ? (
+        <>
+          <div className="relative min-h-0 flex-1">
+            <div
+              ref={scrollRef}
+              onScroll={handleScroll}
+              className="scroll-thin h-full overflow-y-auto"
+              // A region, not role="log": a log is implicitly aria-live, and a
+              // screen reader would read out every streamed token. Completion
+              // is announced once by the status node below instead. It is a
+              // scroll container, so it must be keyboard-focusable.
+              role="region"
+              aria-label="Conversation"
+              tabIndex={0}
+            >
+              {empty ? (
+                <EmptyState onPick={handleSend} disabled={streaming} />
+              ) : (
+                <div className="mx-auto w-full max-w-3xl space-y-8 px-4 py-8 md:px-6">
+                  {messages.map((message, i) => (
+                    <MessageItem
+                      key={i}
+                      message={message}
+                      streaming={streaming && i === messages.length - 1}
+                      showSources={showSources}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-            <Composer disabled={streaming} onSend={handleSend} />
+
+            {/* Soft edge so scrolled content dissolves into the composer
+             *  instead of being cut off by it. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-ink/90 to-transparent"
+            />
+
+            {showJump && (
+              <button
+                type="button"
+                onClick={jumpToLatest}
+                className="absolute bottom-4 left-1/2 flex -translate-x-1/2 animate-fade-in items-center gap-1.5 rounded-full border border-rule bg-card px-3.5 py-1.5 text-xs font-medium shadow-lift transition hover:border-signal/50"
+              >
+                <ArrowDown className="size-3.5" aria-hidden="true" />
+                Jump to latest
+              </button>
+            )}
           </div>
-        )}
-      </main>
-    </div>
+
+          <p role="status" className="sr-only">
+            {!streaming && messages.at(-1)?.role === "assistant" ? "Response complete" : ""}
+          </p>
+
+          <div className="mx-auto w-full max-w-3xl shrink-0 px-4 pt-2 pb-4 md:px-6">
+            <Composer streaming={streaming} onSend={handleSend} onStop={() => abortRef.current?.abort()} />
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-1 items-center overflow-y-auto p-6">
+          <NotReadyBanner health={health} />
+        </div>
+      )}
+    </AppShell>
   );
 }
