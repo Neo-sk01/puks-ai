@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { TriangleAlert } from "lucide-react";
 import { AglLogo, PuksMark } from "@/components/shell/Brand";
-import { AUTH_CONFIGURED, auth, signIn } from "@/auth";
+import { AUTH_CONFIGURED, auth } from "@/auth";
 import { safeCallbackUrl } from "@/lib/callback-url";
 
 export const metadata: Metadata = { title: "Sign in" };
@@ -36,8 +36,9 @@ function NotConfigured() {
   const required = [
     "AUTH_SECRET",
     "AUTH_MICROSOFT_ENTRA_ID_ID",
-    "AUTH_MICROSOFT_ENTRA_ID_SECRET",
-    "AUTH_MICROSOFT_ENTRA_ID_ISSUER",
+    "AUTH_MICROSOFT_ENTRA_ID_TENANT_ID",
+    "AUTH_MICROSOFT_ENTRA_ID_CERT_THUMBPRINT",
+    "AUTH_MICROSOFT_ENTRA_ID_CERT_PRIVATE_KEY",
   ];
   return (
     <div>
@@ -107,21 +108,19 @@ export default async function SignInPage({ searchParams }: PageProps<"/sign-in">
                   {errorMessage}
                 </p>
               )}
-              <form
-                action={async () => {
-                  "use server";
-                  await signIn("microsoft-entra-id", { redirectTo: callbackUrl });
-                }}
-                className="mt-5"
+              {/* A plain link, not a form/server action: this leg only
+               *  starts the flow (builds the Microsoft authorize URL and
+               *  sets a short-lived state cookie — app/api/auth/entra/
+               *  signin/route.ts) and has nothing of its own to protect
+               *  with a CSRF token. The return leg is what the signed
+               *  state/nonce guard. */}
+              <a
+                href={`/api/auth/entra/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+                className="mt-5 flex w-full items-center justify-center gap-3 rounded-full border border-rule bg-background px-4 py-2.5 text-sm font-medium text-type shadow-soft transition hover:border-signal/50 hover:shadow-lift"
               >
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center gap-3 rounded-full border border-rule bg-background px-4 py-2.5 text-sm font-medium text-type shadow-soft transition hover:border-signal/50 hover:shadow-lift"
-                >
-                  <MicrosoftLogo className="size-4" />
-                  Sign in with Microsoft
-                </button>
-              </form>
+                <MicrosoftLogo className="size-4" />
+                Sign in with Microsoft
+              </a>
             </>
           ) : (
             <NotConfigured />
