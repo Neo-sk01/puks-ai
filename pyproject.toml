@@ -2,3 +2,11 @@
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-q"
+
+[tool.isort]
+# Without this, isort's own default import-wrapping style disagrees with
+# black's for any multi-line `from x import (...)` block — each tool then
+# "fixes" what the other just did, oscillating forever. This is isort's own
+# documented fix for running alongside black:
+# https://pycqa.github.io/isort/docs/configuration/black_compatibility.html
+profile = "black"

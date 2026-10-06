@@ -8,6 +8,7 @@ that is strictly worse than one that stays up and explains itself through
 /health. Streamlit rendered st.error() and stopped — this is the same idea at
 the service level.
 """
+
 from __future__ import annotations
 
 import os
@@ -21,13 +22,14 @@ def mock_enabled() -> bool:
 
 class Engine:
     def __init__(self) -> None:
-        self.mock:   bool = mock_enabled()
-        self.corpus       = None
+        self.mock: bool = mock_enabled()
+        self.corpus = None
         self.error: str | None = None
 
         if self.mock:
             from api import mock
-            self._impl  = mock
+
+            self._impl = mock
             self.corpus = mock.MockCorpus()
             return
 
@@ -52,21 +54,27 @@ class Engine:
         return self.corpus is not None
 
     def answer(self, query: str, memory_text: str, top_k: int) -> dict:
-        return self._impl.answer(self.corpus, query, memory_text=memory_text, top_k=top_k)
+        return self._impl.answer(
+            self.corpus, query, memory_text=memory_text, top_k=top_k
+        )
 
     def answer_stream(self, query: str, memory_text: str, top_k: int):
-        return self._impl.answer_stream(self.corpus, query, memory_text=memory_text, top_k=top_k)
+        return self._impl.answer_stream(
+            self.corpus, query, memory_text=memory_text, top_k=top_k
+        )
 
     def info(self) -> dict:
         """Index facts for /health. Never raises."""
         if not self.ready:
             return {"dimension": None, "ntotal": None, "model": None}
         if self.mock:
-            return {"dimension": self.corpus.dimension,
-                    "ntotal":    self.corpus.ntotal,
-                    "model":     self.corpus.model}
+            return {
+                "dimension": self.corpus.dimension,
+                "ntotal": self.corpus.ntotal,
+                "model": self.corpus.model,
+            }
         return {
             "dimension": self.corpus.index.d,
-            "ntotal":    self.corpus.index.ntotal,
-            "model":     self.corpus.config.get("model_name"),
+            "ntotal": self.corpus.index.ntotal,
+            "model": self.corpus.config.get("model_name"),
         }

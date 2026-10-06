@@ -1,5 +1,6 @@
 """format_memory must reproduce APPLICATION(STREAMLIT)/APP.py's ConversationMemory
 byte-for-byte — it is part of the prompt, not a display concern."""
+
 from collections import deque
 
 from puks_rag import format_memory
@@ -43,9 +44,14 @@ def test_empty_history_is_the_exact_sentinel():
 
 
 def test_single_turn_matches_reference():
-    mine, reference = _both([("how do I reverse a GRN?", "Run the validate query first.")])
+    mine, reference = _both(
+        [("how do I reverse a GRN?", "Run the validate query first.")]
+    )
     assert mine == reference
-    assert mine == "USER: how do I reverse a GRN?\nASSISTANT: Run the validate query first."
+    assert (
+        mine
+        == "USER: how do I reverse a GRN?\nASSISTANT: Run the validate query first."
+    )
 
 
 def test_long_assistant_reply_truncates_at_400():

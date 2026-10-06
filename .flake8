@@ -1,0 +1,22 @@
+[flake8]
+# Match Black's line length (black's default is 88, flake8's is 79 — these
+# two tools disagree out of the box, which is why flake8 had ~170 E501
+# findings the moment it actually ran: CI never reached this step before,
+# since the Black formatting check always failed first and short-circuited
+# the job). This is the configuration Black's own docs recommend when using
+# it alongside flake8: https://black.readthedocs.io/en/stable/guides/using_black_with_other_tools.html
+max-line-length = 88
+# E203 (whitespace before ':') is Black's own slice-formatting style
+# (e.g. `ham[1 :9]`), which flake8 otherwise flags — another documented
+# Black/flake8 disagreement covered by the same guide above.
+extend-ignore = E203
+exclude =
+    .git,
+    .venv,
+    venv,
+    env,
+    __pycache__,
+    node_modules,
+    web,
+    DATA,
+    Powerapps

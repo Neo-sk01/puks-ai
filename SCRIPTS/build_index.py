@@ -34,10 +34,10 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from puks_rag import (  # noqa: E402
+from puks_rag import EMBED_DEPLOYMENT  # noqa: E402
+from puks_rag import (
     CHUNKS_PATH,
     CONFIG_PATH,
-    EMBED_DEPLOYMENT,
     EMBED_DIMENSIONS,
     FAISS_PATH,
     METADATA_PATH,
@@ -51,8 +51,11 @@ from puks_rag import (  # noqa: E402
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dry-run", action="store_true",
-                        help="Report what would be embedded, call nothing.")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Report what would be embedded, call nothing.",
+    )
     parser.add_argument("--batch-size", type=int, default=64)
     args = parser.parse_args()
 
@@ -64,8 +67,10 @@ def main() -> int:
     print(f"📂 Corpus        : {CHUNKS_PATH}")
     print(f"📊 Chunks        : {len(chunks)}")
 
-    type_counts = Counter(c.get("metadata", {}).get("chunk_type", "unknown") for c in chunks)
-    doc_counts  = Counter(detect_document_type(c) for c in chunks)
+    type_counts = Counter(
+        c.get("metadata", {}).get("chunk_type", "unknown") for c in chunks
+    )
+    doc_counts = Counter(detect_document_type(c) for c in chunks)
 
     print("\n📊 chunk_type breakdown:")
     for name, count in type_counts.most_common():
@@ -76,7 +81,9 @@ def main() -> int:
 
     texts = [enrich_text(c) for c in chunks]
     chars = sum(len(t) for t in texts)
-    print(f"\n🔤 Enriched texts: {len(texts)}  ({chars:,} chars, ~{chars // 4:,} tokens)")
+    print(
+        f"\n🔤 Enriched texts: {len(texts)}  ({chars:,} chars, ~{chars // 4:,} tokens)"
+    )
 
     if args.dry_run:
         print("\n— dry run, nothing embedded —")
@@ -98,16 +105,22 @@ def main() -> int:
     VECTOR_STORE.mkdir(parents=True, exist_ok=True)
     faiss.write_index(index, str(FAISS_PATH))
     METADATA_PATH.write_text(json.dumps(chunks, ensure_ascii=False), encoding="utf-8")
-    CONFIG_PATH.write_text(json.dumps({
-        "model_name":        EMBED_DEPLOYMENT,
-        "provider":          PROVIDER,
-        "total_vectors":     index.ntotal,
-        "dimension":         index.d,
-        "index_type":        "IndexFlatIP",
-        "normalised":        True,
-        "duplicated_chunks": False,
-        "chunk_type_counts": dict(type_counts),
-    }, indent=2), encoding="utf-8")
+    CONFIG_PATH.write_text(
+        json.dumps(
+            {
+                "model_name": EMBED_DEPLOYMENT,
+                "provider": PROVIDER,
+                "total_vectors": index.ntotal,
+                "dimension": index.d,
+                "index_type": "IndexFlatIP",
+                "normalised": True,
+                "duplicated_chunks": False,
+                "chunk_type_counts": dict(type_counts),
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
     print(f"\n💾 {FAISS_PATH}")
     print(f"💾 {METADATA_PATH}")

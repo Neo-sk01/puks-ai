@@ -1,6 +1,7 @@
 """docs/acceptance-questions.json is the single source of truth for the
 acceptance set. These pin its shape so the API, the runner and the HTML
 export cannot drift apart."""
+
 import json
 from pathlib import Path
 
@@ -28,8 +29,17 @@ def test_there_are_sixty_five_questions_in_sheet_order(questions):
 
 def test_every_question_has_the_full_shape(questions):
     for q in questions:
-        assert set(q) == {"id", "group", "group_title", "group_note", "question",
-                          "asked", "must_contain", "source", "kind"}, q["id"]
+        assert set(q) == {
+            "id",
+            "group",
+            "group_title",
+            "group_note",
+            "question",
+            "asked",
+            "must_contain",
+            "source",
+            "kind",
+        }, q["id"]
         assert q["id"].startswith(q["group"])
         assert q["question"].strip()
         assert isinstance(q["asked"], list) and q["asked"]
@@ -54,4 +64,6 @@ def test_refusal_group_is_marked_except_the_self_description(questions):
 
 def test_must_contain_is_markdown_not_html(questions):
     for q in questions:
-        assert "<b>" not in q["must_contain"] and "<code>" not in q["must_contain"], q["id"]
+        assert "<b>" not in q["must_contain"] and "<code>" not in q["must_contain"], q[
+            "id"
+        ]
