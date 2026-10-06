@@ -1,3 +1,4 @@
+import { requireApiSession } from "@/lib/auth-guard";
 import { noStore } from "@/lib/no-store";
 import { normaliseTester } from "@/lib/verdicts/shared";
 import { getVerdictsStore, HttpError } from "@/lib/verdicts";
@@ -5,6 +6,9 @@ import { getVerdictsStore, HttpError } from "@/lib/verdicts";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  const unauthorized = await requireApiSession();
+  if (unauthorized) return unauthorized;
+
   const tester = new URL(request.url).searchParams.get("tester") ?? "";
 
   // Mirrors api/acceptance.py's verdicts route: pure, no dependency on

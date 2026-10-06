@@ -1,4 +1,5 @@
 import { bundledQuestionIds } from "@/lib/acceptance-bundled";
+import { requireApiSession } from "@/lib/auth-guard";
 import { STANDALONE } from "@/lib/deployment";
 import { noStore } from "@/lib/no-store";
 import { getVerdictsStore, HttpError } from "@/lib/verdicts";
@@ -6,6 +7,9 @@ import { getVerdictsStore, HttpError } from "@/lib/verdicts";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const unauthorized = await requireApiSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const store = await getVerdictsStore();
     // postgresStore needs the full question-id list to build zero-counts

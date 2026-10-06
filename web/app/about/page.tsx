@@ -18,6 +18,7 @@ import {
 
 import { AppShell } from "@/components/shell/AppShell";
 import { PuksMark } from "@/components/shell/Brand";
+import { requireSession } from "@/lib/auth-guard";
 import { getConfig } from "@/lib/server";
 import { allAzure, roleLabel } from "@/lib/provider";
 
@@ -42,6 +43,7 @@ const CANNOT = [
  *  in the shared sidebar are chat-only now (the chat header's Settings menu),
  *  which is what freed this page to use the shell at all. */
 export default async function About() {
+  const session = await requireSession("/about");
   const config = await getConfig();
 
   const pipeline: Array<{ stage: string; model: string; scope: string; Icon: LucideIcon }> = [
@@ -78,7 +80,7 @@ export default async function About() {
   ];
 
   return (
-    <AppShell config={config}>
+    <AppShell config={config} user={session.user}>
       <div className="mx-auto max-w-4xl space-y-12 px-4 py-8 md:px-8 md:py-12">
         <section className="relative overflow-hidden rounded-3xl border border-rule bg-card p-8 shadow-soft md:p-12">
           <div

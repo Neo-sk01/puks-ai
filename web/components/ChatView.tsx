@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, SquarePen } from "lucide-react";
+import type { Session } from "next-auth";
 import { toast } from "sonner";
 import { AppShell } from "@/components/shell/AppShell";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,15 @@ const STOPPED_TEXT = "_Stopped before an answer was generated._";
  *  re-reading an earlier answer isn't yanked away mid-sentence. */
 const STICK_THRESHOLD = 80;
 
-export function ChatView({ health, config }: { health: Health; config: AppConfig | null }) {
+export function ChatView({
+  health,
+  config,
+  user,
+}: {
+  health: Health;
+  config: AppConfig | null;
+  user: NonNullable<Session["user"]>;
+}) {
   // Empty until the first question: the welcome screen replaces the old
   // canned greeting bubble. promptHistory only walks user→assistant pairs, so
   // there is nothing here for it to skip.
@@ -142,7 +151,7 @@ export function ChatView({ health, config }: { health: Health; config: AppConfig
   const empty = messages.length === 0;
 
   return (
-    <AppShell config={config} scroll={false}>
+    <AppShell config={config} user={user} scroll={false}>
       <header className="flex shrink-0 items-center gap-3 border-b border-rule/70 bg-background/60 px-4 py-3 backdrop-blur md:px-6">
         <div className="min-w-0">
           <h1 className="font-display text-base font-semibold tracking-tight">Speed WMS assistant</h1>

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { TriangleAlert } from "lucide-react";
+import type { Session } from "next-auth";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,6 +16,7 @@ import { SummaryTab } from "./SummaryTab";
 
 interface Props {
   config: AppConfig | null;
+  user: NonNullable<Session["user"]>;
   groups: QuestionGroup[];
   run: RunMeta | null;
   results: Record<string, RecordedResult>;
@@ -44,7 +46,7 @@ function QuestionsUnavailable() {
   );
 }
 
-export function AcceptanceView({ config, groups, run, results }: Props) {
+export function AcceptanceView({ config, user, groups, run, results }: Props) {
   const [name, setName] = useState<string | null>(null);
   const [mine, setMine] = useState<Record<string, MyVerdict>>({});
   const [mineLoadFailed, setMineLoadFailed] = useState(false);
@@ -112,7 +114,7 @@ export function AcceptanceView({ config, groups, run, results }: Props) {
   const percent = total ? Math.round((scored / total) * 100) : 0;
 
   return (
-    <AppShell config={config}>
+    <AppShell config={config} user={user}>
       <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8 md:px-8 md:py-10">
         <header className="flex flex-col gap-6">
           <div className="flex flex-wrap items-start justify-between gap-4">

@@ -5,11 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { ClipboardCheck, Info, Menu, MessageSquare, X, type LucideIcon } from "lucide-react";
+import type { Session } from "next-auth";
 import type { AppConfig } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { AglLogo, PuksMark } from "./Brand";
 import { SystemStatus } from "./SystemStatus";
 import { ThemeToggle } from "./ThemeToggle";
+import { UserMenu } from "./UserMenu";
+
+type SessionUser = NonNullable<Session["user"]>;
 
 interface NavItem {
   href: string;
@@ -33,7 +37,15 @@ function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function SidebarBody({ config, onNavigate }: { config: AppConfig | null; onNavigate?: () => void }) {
+function SidebarBody({
+  config,
+  user,
+  onNavigate,
+}: {
+  config: AppConfig | null;
+  user: SessionUser;
+  onNavigate?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
@@ -74,6 +86,7 @@ function SidebarBody({ config, onNavigate }: { config: AppConfig | null; onNavig
 
       <div className="mt-auto flex flex-col gap-3">
         {config && <SystemStatus config={config} />}
+        <UserMenu user={user} />
         <ThemeToggle />
         <p className="px-1 text-[11px] leading-snug text-muted-foreground">
           © Puks AI (Predictive Unified Knowledge System)
@@ -83,7 +96,7 @@ function SidebarBody({ config, onNavigate }: { config: AppConfig | null; onNavig
   );
 }
 
-function MobileBar({ config }: { config: AppConfig | null }) {
+function MobileBar({ config, user }: { config: AppConfig | null; user: SessionUser }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -109,7 +122,7 @@ function MobileBar({ config }: { config: AppConfig | null }) {
               <X className="size-4" aria-hidden="true" />
             </DialogPrimitive.Close>
             <div className="h-full overflow-y-auto">
-              <SidebarBody config={config} onNavigate={() => setOpen(false)} />
+              <SidebarBody config={config} user={user} onNavigate={() => setOpen(false)} />
             </div>
           </DialogPrimitive.Popup>
         </DialogPrimitive.Portal>
@@ -124,10 +137,16 @@ function MobileBar({ config }: { config: AppConfig | null }) {
  *  <main> so the sidebar never moves. */
 export function AppShell({
   config,
+  user,
   children,
   scroll = true,
 }: {
   config: AppConfig | null;
+  /** The signed-in user — every page that renders AppShell has already
+   *  called requireSession() (lib/auth-guard.ts), so this is never null in
+   *  practice; typed as required to keep that invariant visible at every
+   *  call site rather than re-deriving an optional-chain fallback here. */
+  user: SessionUser;
   children: ReactNode;
   scroll?: boolean;
 }) {
@@ -140,9 +159,9 @@ export function AppShell({
         Skip to content
       </a>
       <aside className="hidden w-64 shrink-0 overflow-y-auto border-r border-rule bg-sidebar md:block">
-        <SidebarBody config={config} />
+        <SidebarBody config={config} user={user} />
       </aside>
-      <MobileBar config={config} />
+      <MobileBar config={config} user={user} />
       <main
         id="main"
         className={cn(
