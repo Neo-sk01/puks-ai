@@ -5,25 +5,28 @@ from puks_rag import call_llm_stream
 
 
 class Delta:
-    def __init__(self, content): self.content = content
+    def __init__(self, content):
+        self.content = content
 
 
 class Choice:
-    def __init__(self, content): self.delta = Delta(content)
+    def __init__(self, content):
+        self.delta = Delta(content)
 
 
 class Chunk:
     """Mimics an openai stream chunk. Azure sends chunks with an empty
     `choices` list (prompt filter results) that must be skipped."""
+
     def __init__(self, content=None, has_choices=True):
         self.choices = [Choice(content)] if has_choices else []
 
 
 class StubCompletions:
     def __init__(self, chunks, reject_verbosity=False):
-        self._chunks          = chunks
-        self._reject          = reject_verbosity
-        self.calls            = []
+        self._chunks = chunks
+        self._reject = reject_verbosity
+        self.calls = []
 
     def create(self, **kwargs):
         self.calls.append(kwargs)
@@ -140,8 +143,8 @@ def test_typeerror_during_iteration_propagates_instead_of_retrying(monkeypatch):
         for token in call_llm_stream("p", "s"):
             emitted.append(token)
 
-    assert emitted == ["a"]                          # delivered once, not replayed
-    assert len(client.chat.completions.calls) == 1   # no second create() — no retry
+    assert emitted == ["a"]  # delivered once, not replayed
+    assert len(client.chat.completions.calls) == 1  # no second create() — no retry
 
 
 from puks_rag import answer_stream, wire_chunk
@@ -153,8 +156,17 @@ def test_wire_chunk_drops_structured_data():
     the prompt, and README 5.2 documents it as not uniformly shaped."""
     wired = wire_chunk(make_chunk())
     assert "structured_data" not in wired
-    assert set(wired) == {"index", "fusion_score", "in_dense", "in_bm25", "in_exact",
-                          "doc_type", "relevance_score", "metadata", "text"}
+    assert set(wired) == {
+        "index",
+        "fusion_score",
+        "in_dense",
+        "in_bm25",
+        "in_exact",
+        "doc_type",
+        "relevance_score",
+        "metadata",
+        "text",
+    }
 
 
 def test_wire_chunk_sends_text_in_full():
@@ -162,8 +174,12 @@ def test_wire_chunk_sends_text_in_full():
     assert len(wired["text"]) == 2000
 
 
-def test_stream_emits_retrieved_then_tokens_then_done(monkeypatch, corpus, high_confidence):
-    monkeypatch.setattr(puks_rag, "call_llm_stream", lambda prompt, system: iter(["Vali", "date"]))
+def test_stream_emits_retrieved_then_tokens_then_done(
+    monkeypatch, corpus, high_confidence
+):
+    monkeypatch.setattr(
+        puks_rag, "call_llm_stream", lambda prompt, system: iter(["Vali", "date"])
+    )
     events = list(answer_stream(corpus, "reverse a GRN"))
 
     assert [name for name, _ in events] == ["retrieved", "token", "token", "done"]
@@ -182,6 +198,7 @@ def test_stream_emits_retrieved_then_tokens_then_done(monkeypatch, corpus, high_
 def test_refusal_short_circuits_past_every_token(monkeypatch, corpus, low_confidence):
     def explode(*args, **kwargs):
         raise AssertionError("generation must not run on the refusal path")
+
     monkeypatch.setattr(puks_rag, "call_llm_stream", explode)
 
     events = list(answer_stream(corpus, "what is the weather"))
@@ -194,7 +211,9 @@ def test_refusal_short_circuits_past_every_token(monkeypatch, corpus, low_confid
     assert done["threshold"] == puks_rag.CONFIDENCE_THRESHOLD
 
 
-def test_retrieved_lands_before_any_generation_work(monkeypatch, corpus, high_confidence):
+def test_retrieved_lands_before_any_generation_work(
+    monkeypatch, corpus, high_confidence
+):
     """The retrieval panel must fill before gpt-5 starts reasoning — that is
     the entire latency argument for streaming a reasoning model."""
     order = []

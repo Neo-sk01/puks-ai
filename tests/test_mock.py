@@ -11,6 +11,7 @@ def test_known_query_answers():
 
 def test_unknown_query_refuses_with_the_real_string():
     import puks_rag
+
     result = mock.answer(mock.MockCorpus(), "what is the weather in Cape Town")
     assert result["refused"] is True
     assert result["answer"] == puks_rag.REFUSAL_TEXT
@@ -39,6 +40,7 @@ def test_mock_chunks_are_exactly_wire_shaped(monkeypatch):
     """Fixtures must carry the nine WIRE_FIELDS and nothing else — an extra
     field would reach the browser as untyped surface."""
     from puks_rag import WIRE_FIELDS
+
     monkeypatch.setattr(mock, "TOKEN_DELAY_SECONDS", 0)
     events = list(mock.answer_stream(mock.MockCorpus(), "reverse a GRN"))
     assert events[0][1]["chunks"]

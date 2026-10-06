@@ -14,7 +14,7 @@ import streamlit as st
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import puks_rag  # noqa: E402
-from puks_rag import ConfigError, Corpus, TOP_K_DEFAULT  # noqa: E402
+from puks_rag import TOP_K_DEFAULT, ConfigError, Corpus  # noqa: E402
 
 st.set_page_config(
     page_title="Puks AI (Predictive Unified Knowledge System)",
@@ -85,10 +85,12 @@ st.sidebar.caption(
 
 if st.sidebar.button("🗑 Reset conversation memory"):
     st.session_state.memory = None
-    st.session_state.messages = [{
-        "role": "assistant",
-        "content": "👋 Memory has been reset. You can start a new conversation now.",
-    }]
+    st.session_state.messages = [
+        {
+            "role": "assistant",
+            "content": "👋 Memory has been reset. You can start a new conversation now.",
+        }
+    ]
     st.rerun()
 
 st.sidebar.caption("© Puks AI (Predictive Unified Knowledge System)")
@@ -108,11 +110,13 @@ if page == "💬 Chatbot":
         st.stop()
 
     if "messages" not in st.session_state:
-        st.session_state.messages = [{
-            "role": "assistant",
-            "content": "👋 Welcome. I am Puks — your Speed WMS Retrieval-Augmented "
-                       "Intelligence System. How can I help you today?",
-        }]
+        st.session_state.messages = [
+            {
+                "role": "assistant",
+                "content": "👋 Welcome. I am Puks — your Speed WMS Retrieval-Augmented "
+                "Intelligence System. How can I help you today?",
+            }
+        ]
 
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
@@ -137,7 +141,9 @@ if page == "💬 Chatbot":
                 except ConfigError as exc:
                     st.error(str(exc))
                     st.stop()
-                except Exception as exc:  # noqa: BLE001 — surface, don't crash the session
+                except (
+                    Exception
+                ) as exc:  # noqa: BLE001 — surface, don't crash the session
                     st.error(f"Generation failed: {exc}")
                     st.stop()
 
@@ -150,14 +156,24 @@ if page == "💬 Chatbot":
                 with st.expander(header):
                     for rank, r in enumerate(retrieved, 1):
                         found_in = [
-                            label for label, key in
-                            (("dense", "in_dense"), ("bm25", "in_bm25"), ("exact", "in_exact"))
+                            label
+                            for label, key in (
+                                ("dense", "in_dense"),
+                                ("bm25", "in_bm25"),
+                                ("exact", "in_exact"),
+                            )
                             if r.get(key)
                         ]
-                        st.markdown(f"**Rank {rank}** — found by: `{', '.join(found_in) or 'fusion'}`")
+                        st.markdown(
+                            f"**Rank {rank}** — found by: `{', '.join(found_in) or 'fusion'}`"
+                        )
                         cols = st.columns(3)
-                        cols[0].metric("Cohere relevance", round(r.get("relevance_score", 0), 3))
-                        cols[1].metric("Fusion score", round(r.get("fusion_score", 0), 4))
+                        cols[0].metric(
+                            "Cohere relevance", round(r.get("relevance_score", 0), 3)
+                        )
+                        cols[1].metric(
+                            "Fusion score", round(r.get("fusion_score", 0), 4)
+                        )
                         cols[2].metric("Doc type", r.get("doc_type", "?"))
                         st.json(r["metadata"])
                         st.text(r["text"][:600])
@@ -170,7 +186,9 @@ if page == "💬 Chatbot":
                     f"{puks_rag.CONFIDENCE_THRESHOLD:.2f} threshold."
                 )
             else:
-                st.caption(f"Top relevance: {confidence:.3f} · {puks_rag.CHAT_DEPLOYMENT}")
+                st.caption(
+                    f"Top relevance: {confidence:.3f} · {puks_rag.CHAT_DEPLOYMENT}"
+                )
                 st.session_state.memory.add_turn(user_input, answer_text)
 
         st.session_state.messages.append({"role": "assistant", "content": answer_text})
@@ -181,8 +199,7 @@ if page == "💬 Chatbot":
 # ==================================================
 if page == "ℹ️ About":
     st.header("About Puks AI")
-    st.markdown(
-        """
+    st.markdown("""
 **Puks AI** — Predictive Unified Knowledge System — answers Speed WMS support
 questions from AGL's warehouse documentation. It answers only from documents it
 retrieves, and refuses rather than guessing.
@@ -201,8 +218,7 @@ Everything runs on AGL's own Azure Foundry resource. No request leaves the tenan
 
 **It cannot** query live warehouse data, answer outside the knowledge base, or
 change any system. It is read-only by design.
-"""
-    )
+""")
     st.info(
         "Found a wrong or missing answer? Raise it with the Speed WMS support "
         "team — resolved tickets are the highest-value source for improving this "

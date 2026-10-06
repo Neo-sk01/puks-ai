@@ -1,4 +1,5 @@
 """The runner and the HTML builder both read docs/acceptance-questions.json."""
+
 import importlib.util
 import sys
 from pathlib import Path
@@ -26,9 +27,13 @@ def test_runner_loads_questions_from_json():
 def test_run_metadata_records_what_the_summary_needs():
     runner = load("run_acceptance")
     meta = runner.run_metadata(
-        {"providers": {"chat": "azure", "embed": "azure", "rerank": "azure"},
-         "chat_deployment": "gpt-5", "embed_deployment": "text-embedding-3-large",
-         "rerank_model": "Cohere-rerank-v4.0-pro", "confidence_threshold": 0.75},
+        {
+            "providers": {"chat": "azure", "embed": "azure", "rerank": "azure"},
+            "chat_deployment": "gpt-5",
+            "embed_deployment": "text-embedding-3-large",
+            "rerank_model": "Cohere-rerank-v4.0-pro",
+            "confidence_threshold": 0.75,
+        },
         count=65,
     )
     assert meta["providers"]["rerank"] == "azure"

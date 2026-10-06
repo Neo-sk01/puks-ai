@@ -46,13 +46,14 @@ load_dotenv(_ROOT / ".env")
 # ==================================================
 # PATHS
 # ==================================================
-BASE            = Path(__file__).resolve().parent
-CHUNKS_PATH     = BASE / "DATA" / "unified_semantic_chunks" / "unified_chunks.json"
-VECTOR_STORE    = BASE / "DATA" / "vector_store"
-FAISS_PATH      = VECTOR_STORE / "faiss.index"
-METADATA_PATH   = VECTOR_STORE / "metadata.json"   # written by SCRIPTS/build_index.py
-LEGACY_METADATA = VECTOR_STORE / "metadata.pkl"    # MiniLM-era artifact, read-only
-CONFIG_PATH     = VECTOR_STORE / "config.json"
+BASE = Path(__file__).resolve().parent
+CHUNKS_PATH = BASE / "DATA" / "unified_semantic_chunks" / "unified_chunks.json"
+VECTOR_STORE = BASE / "DATA" / "vector_store"
+FAISS_PATH = VECTOR_STORE / "faiss.index"
+METADATA_PATH = VECTOR_STORE / "metadata.json"  # written by SCRIPTS/build_index.py
+LEGACY_METADATA = VECTOR_STORE / "metadata.pkl"  # MiniLM-era artifact, read-only
+CONFIG_PATH = VECTOR_STORE / "config.json"
+
 
 # ==================================================
 # CONFIG — all from environment (App Service app settings, or .env locally)
@@ -69,12 +70,12 @@ def _env(*names: str, default: str = "") -> str:
     return default
 
 
-AI_ENDPOINT      = _env("AZURE_AI_ENDPOINT", "FOUNDRY_API_ENDPOINT")
-AI_KEY           = _env("AZURE_AI_KEY", "FOUNDRY_API_KEY")
-AI_API_VERSION   = os.getenv("AZURE_AI_API_VERSION", "2025-04-01-preview")
+AI_ENDPOINT = _env("AZURE_AI_ENDPOINT", "FOUNDRY_API_ENDPOINT")
+AI_KEY = _env("AZURE_AI_KEY", "FOUNDRY_API_KEY")
+AI_API_VERSION = os.getenv("AZURE_AI_API_VERSION", "2025-04-01-preview")
 
-OPENAI_KEY       = os.getenv("OPENAI_API_KEY", "").strip()
-COHERE_KEY       = os.getenv("COHERE_API_KEY", "").strip()
+OPENAI_KEY = os.getenv("OPENAI_API_KEY", "").strip()
+COHERE_KEY = os.getenv("COHERE_API_KEY", "").strip()
 
 # Providers, one per role. PUKS_PROVIDER is the default for all three;
 # PUKS_CHAT_PROVIDER / PUKS_EMBED_PROVIDER / PUKS_RERANK_PROVIDER override a
@@ -97,9 +98,11 @@ def _provider(var: str, default: str) -> str:
     return value
 
 
-PROVIDER        = _provider("PUKS_PROVIDER", "openai" if OPENAI_KEY and not AI_KEY else "azure")
-CHAT_PROVIDER   = _provider("PUKS_CHAT_PROVIDER", PROVIDER)
-EMBED_PROVIDER  = _provider("PUKS_EMBED_PROVIDER", PROVIDER)
+PROVIDER = _provider(
+    "PUKS_PROVIDER", "openai" if OPENAI_KEY and not AI_KEY else "azure"
+)
+CHAT_PROVIDER = _provider("PUKS_CHAT_PROVIDER", PROVIDER)
+EMBED_PROVIDER = _provider("PUKS_EMBED_PROVIDER", PROVIDER)
 
 if CHAT_PROVIDER == "openai":
     CHAT_DEPLOYMENT = os.getenv("OPENAI_CHAT_MODEL", "gpt-5")
@@ -131,35 +134,44 @@ else:
 _AZURE_RERANK = _env("AZURE_RERANK_ENDPOINT") or (
     AI_ENDPOINT.rstrip("/").replace(".openai.azure.com", ".services.ai.azure.com")
     + "/models/v1/rerank?api-version=2024-05-01-preview"
-    if AI_ENDPOINT else ""
+    if AI_ENDPOINT
+    else ""
 )
 RERANK_PROVIDER = _provider(
     "PUKS_RERANK_PROVIDER",
-    "openai" if (PROVIDER == "openai" or (not _AZURE_RERANK and COHERE_KEY)) else "azure",
+    (
+        "openai"
+        if (PROVIDER == "openai" or (not _AZURE_RERANK and COHERE_KEY))
+        else "azure"
+    ),
 )
 if RERANK_PROVIDER == "openai":
-    RERANK_ENDPOINT = os.getenv("COHERE_RERANK_ENDPOINT", "https://api.cohere.com/v2/rerank") if COHERE_KEY else ""
-    RERANK_MODEL    = os.getenv("COHERE_RERANK_MODEL", "rerank-v3.5")
-    RERANK_KEY      = COHERE_KEY
+    RERANK_ENDPOINT = (
+        os.getenv("COHERE_RERANK_ENDPOINT", "https://api.cohere.com/v2/rerank")
+        if COHERE_KEY
+        else ""
+    )
+    RERANK_MODEL = os.getenv("COHERE_RERANK_MODEL", "rerank-v3.5")
+    RERANK_KEY = COHERE_KEY
 else:
     RERANK_ENDPOINT = _AZURE_RERANK
-    RERANK_MODEL    = os.getenv("AZURE_RERANK_MODEL", "Cohere-rerank-v4.0-pro")
-    RERANK_KEY      = _env("AZURE_RERANK_KEY", "COHERE_API_KEY_FOUNDRY") or AI_KEY
+    RERANK_MODEL = os.getenv("AZURE_RERANK_MODEL", "Cohere-rerank-v4.0-pro")
+    RERANK_KEY = _env("AZURE_RERANK_KEY", "COHERE_API_KEY_FOUNDRY") or AI_KEY
 
 PROVIDERS = {"chat": CHAT_PROVIDER, "embed": EMBED_PROVIDER, "rerank": RERANK_PROVIDER}
 
 REASONING_EFFORT = os.getenv("PUKS_REASONING_EFFORT", "low")
-VERBOSITY        = os.getenv("PUKS_VERBOSITY", "medium")
-MAX_OUTPUT       = int(os.getenv("PUKS_MAX_OUTPUT_TOKENS", "4096"))
+VERBOSITY = os.getenv("PUKS_VERBOSITY", "medium")
+MAX_OUTPUT = int(os.getenv("PUKS_MAX_OUTPUT_TOKENS", "4096"))
 
 # ==================================================
 # RETRIEVAL CONSTANTS
 # ==================================================
-DENSE_CANDIDATES  = 60      # from FAISS, over the whole index
-BM25_CANDIDATES   = 60      # from BM25, over the whole corpus — independently
-FUSED_CANDIDATES  = 50      # handed to Cohere rerank
-TOP_K_DEFAULT     = 5
-RRF_K             = 60      # standard Reciprocal Rank Fusion constant
+DENSE_CANDIDATES = 60  # from FAISS, over the whole index
+BM25_CANDIDATES = 60  # from BM25, over the whole corpus — independently
+FUSED_CANDIDATES = 50  # handed to Cohere rerank
+TOP_K_DEFAULT = 5
+RRF_K = 60  # standard Reciprocal Rank Fusion constant
 
 # Cohere returns a calibrated relevance score in [0, 1], so unlike the old
 # CrossEncoder logit this threshold means something. It still needs calibrating
@@ -171,19 +183,57 @@ RRF_K             = 60      # standard Reciprocal Rank Fusion constant
 # v4.0-pro scores everything higher; at 0.30 it would answer off-topic
 # questions. PUKS_CONFIDENCE_THRESHOLD still overrides.
 _DEFAULT_THRESHOLD = {"azure": 0.75, "openai": 0.30}
-CONFIDENCE_THRESHOLD = float(os.getenv("PUKS_CONFIDENCE_THRESHOLD") or _DEFAULT_THRESHOLD[RERANK_PROVIDER])
+CONFIDENCE_THRESHOLD = float(
+    os.getenv("PUKS_CONFIDENCE_THRESHOLD") or _DEFAULT_THRESHOLD[RERANK_PROVIDER]
+)
 
 SCHEMA_KEYWORDS = {
-    "sql", "select", "query", "join", "where", "insert", "update",
-    "column", "columns", "table", "schema", "foreign key", "primary key",
-    "field", "fields", "datatype", "varchar", "integer", "structure",
-    "definition", "describe", "what is the structure",
+    "sql",
+    "select",
+    "query",
+    "join",
+    "where",
+    "insert",
+    "update",
+    "column",
+    "columns",
+    "table",
+    "schema",
+    "foreign key",
+    "primary key",
+    "field",
+    "fields",
+    "datatype",
+    "varchar",
+    "integer",
+    "structure",
+    "definition",
+    "describe",
+    "what is the structure",
 }
 OPERATIONAL_KEYWORDS = {
-    "reverse", "reset", "grn", "receipt", "shipment", "mission",
-    "cancel", "validate", "close", "reopen", "resend", "loading",
-    "inbound", "outbound", "picking", "putaway", "stock", "movement",
-    "how do i", "how to", "steps to", "procedure for",
+    "reverse",
+    "reset",
+    "grn",
+    "receipt",
+    "shipment",
+    "mission",
+    "cancel",
+    "validate",
+    "close",
+    "reopen",
+    "resend",
+    "loading",
+    "inbound",
+    "outbound",
+    "picking",
+    "putaway",
+    "stock",
+    "movement",
+    "how do i",
+    "how to",
+    "steps to",
+    "procedure for",
 }
 SQL_KEYWORDS = {"join", "sql", "query", "select", "write a query"}
 
@@ -200,9 +250,14 @@ def _require_config(provider: str) -> tuple[str, str]:
                 "Copy .env.example to .env.local and fill it in."
             )
         return OPENAI_KEY, ""
-    missing = [name for name, value in
-               (("AZURE_AI_KEY", AI_KEY), ("AZURE_AI_ENDPOINT", AI_ENDPOINT))
-               if not value]
+    missing = [
+        name
+        for name, value in (
+            ("AZURE_AI_KEY", AI_KEY),
+            ("AZURE_AI_ENDPOINT", AI_ENDPOINT),
+        )
+        if not value
+    ]
     if missing:
         raise ConfigError(
             f"{' and '.join(missing)} not set. Copy .env.example to .env and fill it in.\n"
@@ -241,7 +296,12 @@ def detect_document_type(chunk: dict) -> str:
 
     if chunk_type in ("schema_overview", "schema_core_columns", "schema_extra_columns"):
         return "TABLE_SCHEMA"
-    if chunk_type in ("wms_overview", "wms_join_logic", "wms_procedure", "wms_safety_rules"):
+    if chunk_type in (
+        "wms_overview",
+        "wms_join_logic",
+        "wms_procedure",
+        "wms_safety_rules",
+    ):
         return "OPERATIONAL_REFERENCE"
     if chunk_type in ("text_prose", "text_table"):
         return "TEXT"
@@ -263,10 +323,10 @@ def enrich_text(chunk: dict) -> str:
     Do not change this without re-embedding the whole corpus — the index and
     the query path must have been built by the same function.
     """
-    text       = chunk["text"]
-    metadata   = chunk.get("metadata", {})
+    text = chunk["text"]
+    metadata = chunk.get("metadata", {})
     structured = chunk.get("structured_data")
-    doc_type   = detect_document_type(chunk)
+    doc_type = detect_document_type(chunk)
     chunk_type = metadata.get("chunk_type", "")
 
     prefix = []
@@ -308,12 +368,16 @@ def enrich_text(chunk: dict) -> str:
                 prefix.append(f"ACCESS LEVEL: {structured['access_level']}")
 
         if chunk_type == "wms_join_logic" and isinstance(structured, dict):
-            inbound  = structured.get("inbound", {})
+            inbound = structured.get("inbound", {})
             outbound = structured.get("outbound", {})
             if inbound:
-                prefix.append(f"INBOUND JOIN KEYS: {', '.join(inbound.get('primary_keys', []))}")
+                prefix.append(
+                    f"INBOUND JOIN KEYS: {', '.join(inbound.get('primary_keys', []))}"
+                )
             if outbound:
-                prefix.append(f"OUTBOUND JOIN KEYS: {', '.join(outbound.get('primary_keys', []))}")
+                prefix.append(
+                    f"OUTBOUND JOIN KEYS: {', '.join(outbound.get('primary_keys', []))}"
+                )
 
         related = metadata.get("related_tables", [])
         if related:
@@ -358,20 +422,24 @@ def embed_texts(texts: list[str], batch_size: int = 64) -> np.ndarray:
     vectors: list[list[float]] = []
 
     for start in range(0, len(texts), batch_size):
-        batch = texts[start:start + batch_size]
+        batch = texts[start : start + batch_size]
         response = client.embeddings.create(
             model=EMBED_DEPLOYMENT,
             input=batch,
             dimensions=EMBED_DIMENSIONS,
         )
-        vectors.extend(item.embedding for item in sorted(response.data, key=lambda d: d.index))
+        vectors.extend(
+            item.embedding for item in sorted(response.data, key=lambda d: d.index)
+        )
 
     array = np.asarray(vectors, dtype="float32")
     norms = np.linalg.norm(array, axis=1, keepdims=True)
     return array / np.clip(norms, 1e-10, None)
 
 
-def cohere_rerank(query: str, documents: list[str], top_n: int) -> list[tuple[int, float]]:
+def cohere_rerank(
+    query: str, documents: list[str], top_n: int
+) -> list[tuple[int, float]]:
     """
     Rerank via Cohere on Foundry. Returns [(original_index, relevance_score)]
     ordered best-first, scores in [0, 1].
@@ -455,14 +523,14 @@ def call_llm_stream(prompt: str, system: str):
     yield — retrying after tokens had been emitted would replay them.
     """
     kwargs = {
-        "model":                 CHAT_DEPLOYMENT,
+        "model": CHAT_DEPLOYMENT,
         "messages": [
             {"role": "system", "content": system},
-            {"role": "user",   "content": prompt},
+            {"role": "user", "content": prompt},
         ],
         "max_completion_tokens": MAX_OUTPUT,
-        "reasoning_effort":      REASONING_EFFORT,
-        "stream":                True,
+        "reasoning_effort": REASONING_EFFORT,
+        "stream": True,
     }
 
     try:
@@ -494,11 +562,17 @@ class Corpus:
                 "  python SCRIPTS/build_index.py"
             )
 
-        self.index  = faiss.read_index(str(FAISS_PATH))
-        self.config = json.loads(CONFIG_PATH.read_text(encoding="utf-8")) if CONFIG_PATH.exists() else {}
+        self.index = faiss.read_index(str(FAISS_PATH))
+        self.config = (
+            json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+            if CONFIG_PATH.exists()
+            else {}
+        )
 
         if METADATA_PATH.exists():
-            self.chunks: list[dict] = json.loads(METADATA_PATH.read_text(encoding="utf-8"))
+            self.chunks: list[dict] = json.loads(
+                METADATA_PATH.read_text(encoding="utf-8")
+            )
         elif LEGACY_METADATA.exists():
             # The MiniLM-era store shipped metadata.pkl. Chunks are plain dicts,
             # so the current builder writes JSON instead; unpickling is kept only
@@ -566,15 +640,15 @@ def classify_query(query: str) -> dict:
     fusion and reranking sort out precedence.
     """
     q = query.lower()
-    schema_hits      = [k for k in SCHEMA_KEYWORDS if k in q]
+    schema_hits = [k for k in SCHEMA_KEYWORDS if k in q]
     operational_hits = [k for k in OPERATIONAL_KEYWORDS if k in q]
-    sql_hits         = [k for k in SQL_KEYWORDS if k in q]
+    sql_hits = [k for k in SQL_KEYWORDS if k in q]
 
     return {
-        "is_schema":        bool(schema_hits),
-        "is_operational":   bool(operational_hits),
-        "is_sql":           bool(sql_hits),
-        "schema_hits":      schema_hits,
+        "is_schema": bool(schema_hits),
+        "is_operational": bool(operational_hits),
+        "is_sql": bool(sql_hits),
+        "schema_hits": schema_hits,
         "operational_hits": operational_hits,
     }
 
@@ -586,7 +660,7 @@ def classify_query(query: str) -> dict:
 # of the prompt, not a display concern: the model sees this text. The API is
 # stateless — the client sends raw history and the server formats it — so that
 # the truncation and labelling rules cannot drift into the front end.
-MEMORY_MAX_TURNS   = 8
+MEMORY_MAX_TURNS = 8
 MEMORY_TRUNCATE_AT = 400
 
 
@@ -596,8 +670,8 @@ def format_memory(history: list[dict], max_turns: int = MEMORY_MAX_TURNS) -> str
         return "(No prior conversation)"
 
     lines = []
-    for message in history[-(max_turns * 2):]:
-        role    = "USER" if message["role"] == "user" else "ASSISTANT"
+    for message in history[-(max_turns * 2) :]:
+        role = "USER" if message["role"] == "user" else "ASSISTANT"
         content = message["content"]
         if message["role"] == "assistant" and len(content) > MEMORY_TRUNCATE_AT:
             content = content[:MEMORY_TRUNCATE_AT] + "... [truncated]"
@@ -617,19 +691,22 @@ def format_memory(history: list[dict], max_turns: int = MEMORY_MAX_TURNS) -> str
 # original tokens are kept for BM25 only (see retrieve_context) so files
 # titled with the abbreviation stay reachable lexically.
 _QUERY_ALIASES = {
-    "grn":  "receipt",
+    "grn": "receipt",
     "grns": "receipts",
-    "gdn":  "delivery note",
+    "gdn": "delivery note",
     "gdns": "delivery notes",
-    "lpn":  "support",
+    "lpn": "support",
     "lpns": "supports",
-    "mo":   "manufacturing order",
-    "po":   "purchase order",
-    "sku":  "item",
+    "mo": "manufacturing order",
+    "po": "purchase order",
+    "sku": "item",
     "skus": "items",
-    "asn":  "expected reception",
+    "asn": "expected reception",
 }
-_ALIAS_RE = _re.compile(r"\b(" + "|".join(sorted(_QUERY_ALIASES, key=len, reverse=True)) + r")\b", _re.IGNORECASE)
+_ALIAS_RE = _re.compile(
+    r"\b(" + "|".join(sorted(_QUERY_ALIASES, key=len, reverse=True)) + r")\b",
+    _re.IGNORECASE,
+)
 
 
 def expand_query(query: str) -> str:
@@ -655,14 +732,17 @@ def retrieve_context(corpus: Corpus, query: str, top_k: int = TOP_K_DEFAULT):
 
     # --- Dense, over the whole index ---
     q_vec = embed_texts([query])
-    scores, indices = corpus.index.search(q_vec, min(DENSE_CANDIDATES, corpus.index.ntotal))
+    scores, indices = corpus.index.search(
+        q_vec, min(DENSE_CANDIDATES, corpus.index.ntotal)
+    )
     dense_ranked = [int(i) for i in indices[0] if i != -1]
 
     # --- Lexical, over the whole corpus, independently ---
     bm25_terms = list(dict.fromkeys(original_lower.split() + query_lower.split()))
     bm25_scores = corpus.bm25.get_scores(bm25_terms)
     bm25_ranked = [
-        int(i) for i in np.argsort(bm25_scores)[::-1][:BM25_CANDIDATES]
+        int(i)
+        for i in np.argsort(bm25_scores)[::-1][:BM25_CANDIDATES]
         if bm25_scores[int(i)] > 0
     ]
 
@@ -671,32 +751,42 @@ def retrieve_context(corpus: Corpus, query: str, top_k: int = TOP_K_DEFAULT):
 
     # --- Reciprocal Rank Fusion ---
     fused: dict[int, float] = defaultdict(float)
-    for weight, ranking in ((1.0, dense_ranked), (1.0, bm25_ranked), (0.5, exact_ranked)):
+    for weight, ranking in (
+        (1.0, dense_ranked),
+        (1.0, bm25_ranked),
+        (0.5, exact_ranked),
+    ):
         for rank, idx in enumerate(ranking):
             fused[idx] += weight / (RRF_K + rank + 1)
 
     if not fused:
         return [], 0.0
 
-    ordered = sorted(fused.items(), key=lambda kv: kv[1], reverse=True)[:FUSED_CANDIDATES]
+    ordered = sorted(fused.items(), key=lambda kv: kv[1], reverse=True)[
+        :FUSED_CANDIDATES
+    ]
 
     candidates = []
     for idx, fusion_score in ordered:
         chunk = corpus.chunks[idx]
-        candidates.append({
-            "index":           idx,
-            "fusion_score":    fusion_score,
-            "in_dense":        idx in dense_ranked,
-            "in_bm25":         idx in bm25_ranked,
-            "in_exact":        idx in exact_ranked,
-            "doc_type":        detect_document_type(chunk),
-            "text":            chunk["text"],
-            "metadata":        chunk.get("metadata", {}),
-            "structured_data": chunk.get("structured_data"),
-        })
+        candidates.append(
+            {
+                "index": idx,
+                "fusion_score": fusion_score,
+                "in_dense": idx in dense_ranked,
+                "in_bm25": idx in bm25_ranked,
+                "in_exact": idx in exact_ranked,
+                "doc_type": detect_document_type(chunk),
+                "text": chunk["text"],
+                "metadata": chunk.get("metadata", {}),
+                "structured_data": chunk.get("structured_data"),
+            }
+        )
 
     # --- Cohere rerank ---
-    reranked = cohere_rerank(query, [c["text"] for c in candidates], top_n=max(top_k * 3, 15))
+    reranked = cohere_rerank(
+        query, [c["text"] for c in candidates], top_n=max(top_k * 3, 15)
+    )
 
     results = []
     for position, relevance in reranked:
@@ -723,8 +813,13 @@ def validate_context(retrieved: list, confidence: float) -> bool:
 # CONTEXT ASSEMBLY
 # ==================================================
 # Keys already shown in the header block, so not repeated in the body.
-_HEADER_KEYS = {"procedure_name", "business_logic", "access_level",
-                "category", "document_name"}
+_HEADER_KEYS = {
+    "procedure_name",
+    "business_logic",
+    "access_level",
+    "category",
+    "document_name",
+}
 # Wrappers whose only job is to hold a SQL string.
 _SQL_KEYS = {"sql", "example_sql", "query_sql"}
 
@@ -852,10 +947,10 @@ def _render_procedure(structured) -> str:
 
 
 def _render_schema(structured) -> str:
-    table_name  = structured.get("table_name", "UNKNOWN")
+    table_name = structured.get("table_name", "UNKNOWN")
     description = structured.get("description", "N/A")
     primary_key = structured.get("primary_key", "N/A")
-    columns     = structured.get("columns", [])
+    columns = structured.get("columns", [])
 
     lines = [
         f"TABLE NAME   : {table_name}",
@@ -867,14 +962,16 @@ def _render_schema(structured) -> str:
         "─" * 80,
     ]
     for col in columns:
-        lines.extend([
-            f"  Name        : {col.get('name', 'UNKNOWN')}",
-            f"  Description : {col.get('description', 'N/A')}",
-            f"  SQL Server  : {col.get('type_sql_server', 'N/A')}",
-            f"  Oracle      : {col.get('type_oracle', 'N/A')}",
-            f"  Primary Key : {'Yes' if col.get('is_primary_key') else 'No'}",
-            f"  Foreign Key : {'Yes' if col.get('is_foreign_key') else 'No'}",
-        ])
+        lines.extend(
+            [
+                f"  Name        : {col.get('name', 'UNKNOWN')}",
+                f"  Description : {col.get('description', 'N/A')}",
+                f"  SQL Server  : {col.get('type_sql_server', 'N/A')}",
+                f"  Oracle      : {col.get('type_oracle', 'N/A')}",
+                f"  Primary Key : {'Yes' if col.get('is_primary_key') else 'No'}",
+                f"  Foreign Key : {'Yes' if col.get('is_foreign_key') else 'No'}",
+            ]
+        )
         if col.get("references_table"):
             lines.append(
                 f"  References  : {col['references_table']}.{col.get('references_column', '?')}"
@@ -884,17 +981,21 @@ def _render_schema(structured) -> str:
 
 
 def build_context_text(retrieved: list) -> tuple[str, bool, bool]:
-    sections        = []
-    has_schema      = False
+    sections = []
+    has_schema = False
     has_operational = False
 
     for r in retrieved:
-        metadata   = r.get("metadata", {})
+        metadata = r.get("metadata", {})
         structured = r.get("structured_data")
-        doc_type   = r.get("doc_type", "TEXT")
-        text       = r.get("text", "")
+        doc_type = r.get("doc_type", "TEXT")
+        text = r.get("text", "")
 
-        if doc_type == "TABLE_SCHEMA" and isinstance(structured, dict) and "columns" in structured:
+        if (
+            doc_type == "TABLE_SCHEMA"
+            and isinstance(structured, dict)
+            and "columns" in structured
+        ):
             has_schema = True
             text = _render_schema(structured)
 
@@ -994,8 +1095,9 @@ INSTRUCTIONS
 Provide a clear, professional, well-structured response:""".strip()
 
 
-REFUSAL_TEXT = ("I do not have enough information to answer this. "
-                "Please contact support.")
+REFUSAL_TEXT = (
+    "I do not have enough information to answer this. " "Please contact support."
+)
 
 
 def _prepare(corpus: Corpus, query: str, memory_text: str, top_k: int):
@@ -1011,7 +1113,12 @@ def _prepare(corpus: Corpus, query: str, memory_text: str, top_k: int):
     if not validate_context(retrieved, confidence):
         return retrieved, confidence, intent, None
 
-    return retrieved, confidence, intent, build_prompt(query, retrieved, memory_text, intent)
+    return (
+        retrieved,
+        confidence,
+        intent,
+        build_prompt(query, retrieved, memory_text, intent),
+    )
 
 
 # ==================================================
@@ -1033,10 +1140,10 @@ _SELF_PATTERNS = [
 _SELF_RE = _re.compile("|".join(_SELF_PATTERNS), _re.IGNORECASE)
 
 _CATEGORY_LABELS = {
-    "Database Tables":     "Speed database tables (schemas, keys, joins)",
+    "Database Tables": "Speed database tables (schemas, keys, joins)",
     "Speed Support Document": "Internal support procedures and SQL fixes",
     "Support Ticket Docs": "Resolved support tickets",
-    "LOREAL":              "L'Oréal-specific specifications",
+    "LOREAL": "L'Oréal-specific specifications",
 }
 
 
@@ -1053,9 +1160,10 @@ def self_description(corpus) -> str:
         if category:
             counts[category] += 1
     areas = sorted(counts, key=lambda c: -counts[c])
-    bullets = "\n".join(
-        f"- {_CATEGORY_LABELS.get(a, a.capitalize())}" for a in areas
-    ) or "- Speed WMS documentation"
+    bullets = (
+        "\n".join(f"- {_CATEGORY_LABELS.get(a, a.capitalize())}" for a in areas)
+        or "- Speed WMS documentation"
+    )
 
     return (
         "I am **Puks**, a support assistant for **Speed WMS**. I answer questions "
@@ -1064,7 +1172,7 @@ def self_description(corpus) -> str:
         "citing the source document.\n\n"
         "**Documentation areas I cover:**\n"
         f"{bullets}\n\n"
-        "**Good questions to ask:** how a procedure works (\"How do I close a receipt?\"), "
+        '**Good questions to ask:** how a procedure works ("How do I close a receipt?"), '
         "what a status code or field means, which table or column holds something, "
         "how tables join, and how a known support issue was resolved.\n\n"
         "**What I cannot do:** I cannot see live warehouse data or stock levels, "
@@ -1098,52 +1206,65 @@ def is_unanchored_followup(query: str, memory_text: str) -> bool:
     return memory_text.strip() == NO_HISTORY and bool(_FOLLOWUP_RE.match(query))
 
 
-def answer(corpus: Corpus, query: str, memory_text: str = "(No prior conversation)",
-           top_k: int = TOP_K_DEFAULT) -> dict:
+def answer(
+    corpus: Corpus,
+    query: str,
+    memory_text: str = "(No prior conversation)",
+    top_k: int = TOP_K_DEFAULT,
+) -> dict:
     """End-to-end: retrieve, guard, generate. Blocking; see answer_stream to stream."""
     if is_unanchored_followup(query, memory_text):
         return {
-            "answer":     NEEDS_CONTEXT_TEXT,
-            "retrieved":  [],
+            "answer": NEEDS_CONTEXT_TEXT,
+            "retrieved": [],
             "confidence": 0.0,
-            "intent":     classify_query(query),
-            "refused":    False,
+            "intent": classify_query(query),
+            "refused": False,
         }
 
     if is_self_description(query):
         return {
-            "answer":     self_description(corpus),
-            "retrieved":  [],
+            "answer": self_description(corpus),
+            "retrieved": [],
             "confidence": 0.0,
-            "intent":     classify_query(query),
-            "refused":    False,
+            "intent": classify_query(query),
+            "refused": False,
         }
 
     retrieved, confidence, intent, prompt = _prepare(corpus, query, memory_text, top_k)
 
     if prompt is None:
         return {
-            "answer":     REFUSAL_TEXT,
-            "retrieved":  retrieved,
+            "answer": REFUSAL_TEXT,
+            "retrieved": retrieved,
             "confidence": confidence,
-            "intent":     intent,
-            "refused":    True,
+            "intent": intent,
+            "refused": True,
         }
 
     return {
-        "answer":     call_llm(prompt, SYSTEM_PROMPT),
-        "retrieved":  retrieved,
+        "answer": call_llm(prompt, SYSTEM_PROMPT),
+        "retrieved": retrieved,
         "confidence": confidence,
-        "intent":     intent,
-        "refused":    False,
+        "intent": intent,
+        "refused": False,
     }
 
 
 # Fields sent to the browser. `structured_data` is deliberately absent: the UI
 # never displayed it, build_context_text already folded it into the prompt, and
 # it is not uniformly shaped (README 5.2).
-WIRE_FIELDS = ("index", "fusion_score", "in_dense", "in_bm25", "in_exact",
-               "doc_type", "relevance_score", "metadata", "text")
+WIRE_FIELDS = (
+    "index",
+    "fusion_score",
+    "in_dense",
+    "in_bm25",
+    "in_exact",
+    "doc_type",
+    "relevance_score",
+    "metadata",
+    "text",
+)
 
 
 def wire_chunk(chunk: dict) -> dict:
@@ -1151,8 +1272,12 @@ def wire_chunk(chunk: dict) -> dict:
     return {field: chunk[field] for field in WIRE_FIELDS if field in chunk}
 
 
-def answer_stream(corpus: Corpus, query: str, memory_text: str = "(No prior conversation)",
-                  top_k: int = TOP_K_DEFAULT):
+def answer_stream(
+    corpus: Corpus,
+    query: str,
+    memory_text: str = "(No prior conversation)",
+    top_k: int = TOP_K_DEFAULT,
+):
     """Streaming sibling of answer().
 
     Yields ("retrieved", {chunks, confidence, intent}) as soon as retrieval is
@@ -1177,17 +1302,17 @@ def answer_stream(corpus: Corpus, query: str, memory_text: str = "(No prior conv
     retrieved, confidence, intent, prompt = _prepare(corpus, query, memory_text, top_k)
 
     yield "retrieved", {
-        "chunks":     [wire_chunk(chunk) for chunk in retrieved],
+        "chunks": [wire_chunk(chunk) for chunk in retrieved],
         "confidence": confidence,
-        "intent":     intent,
+        "intent": intent,
     }
 
     if prompt is None:
         yield "done", {
-            "refused":    True,
-            "reason":     "below_threshold",
+            "refused": True,
+            "reason": "below_threshold",
             "confidence": confidence,
-            "threshold":  CONFIDENCE_THRESHOLD,
+            "threshold": CONFIDENCE_THRESHOLD,
         }
         return
 
