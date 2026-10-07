@@ -31,6 +31,14 @@ export interface FlowState {
   callbackUrl: string;
 }
 
+/** Name of the signed cookie that carries FlowState across the two legs.
+ *  Lives here rather than in either route file — a route.ts file may only
+ *  export HTTP method handlers and a small fixed set of special names
+ *  (config, generateStaticParams, ...); Next's typed-routes checking
+ *  rejects any other named export, which an app/api/.../signin/route.ts
+ *  export of this constant used to trip under `next build --webpack`. */
+export const FLOW_COOKIE = "puks-entra-flow";
+
 const FLOW_COOKIE_TTL = "10m";
 
 export async function signFlowState(secret: string, data: FlowState): Promise<string> {

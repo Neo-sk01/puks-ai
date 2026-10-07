@@ -1,8 +1,7 @@
 import { cookies } from "next/headers";
 import { auth, signIn } from "@/auth";
-import { signEntraTicket, verifyFlowState } from "@/lib/entra-flow";
+import { FLOW_COOKIE, signEntraTicket, verifyFlowState } from "@/lib/entra-flow";
 import { AUTH_CONFIGURED, ENTRA_CLIENT_ID, ENTRA_SCOPES, ENTRA_TENANT_ID, msalApp } from "@/lib/msal";
-import { FLOW_COOKIE } from "../signin/route";
 
 export const dynamic = "force-dynamic";
 

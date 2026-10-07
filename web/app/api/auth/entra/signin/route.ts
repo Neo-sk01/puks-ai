@@ -1,11 +1,10 @@
 import { randomBytes } from "node:crypto";
 import { cookies } from "next/headers";
 import { safeCallbackUrl } from "@/lib/callback-url";
-import { signFlowState } from "@/lib/entra-flow";
+import { FLOW_COOKIE, signFlowState } from "@/lib/entra-flow";
 import { AUTH_CONFIGURED, ENTRA_SCOPES, cryptoProvider, msalApp } from "@/lib/msal";
 
 export const dynamic = "force-dynamic";
-export const FLOW_COOKIE = "puks-entra-flow";
 
 function redirectUri(request: Request): string {
   return new URL("/api/auth/entra/callback", request.url).toString();
