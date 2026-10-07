@@ -95,6 +95,42 @@ stages:
                     startUpCommand: "node server.js"
 
   # ---------------------------------------------------------------------
+  # Backend — lint/test gate, same checks the old GitHub Actions workflow
+  # ran (Black, isort, flake8 syntax-only, pytest), now gating the deploy
+  # stages below instead of just reporting on a PR.
+  # ---------------------------------------------------------------------
+  - stage: TestBackend
+    displayName: "Lint & test backend"
+    jobs:
+      - job: Test
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+            displayName: "Use Python 3.11"
+
+          - script: python -m pip install --upgrade pip black isort flake8
+            displayName: "Install lint tools"
+
+          - script: black --check --diff .
+            displayName: "Black"
+
+          - script: isort --check-only --diff .
+            displayName: "isort"
+
+          - script: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+            displayName: "flake8 (syntax/undefined-name only)"
+
+          - script: |
+              python -m pip install -r requirements.txt -r api/requirements.txt pytest pytest-cov
+            displayName: "Install test dependencies"
+
+          - script: pytest tests/ --cov=api --cov-report=xml
+            displayName: "pytest"
+
+  # ---------------------------------------------------------------------
   # Backend — FastAPI wrapped as an Azure Functions app (function_app.py),
   # deployed to a Linux Python Function App. Remote build (Oryx) installs
   # the dependencies on the server rather than vendoring them in CI, which
@@ -103,6 +139,7 @@ stages:
   # ---------------------------------------------------------------------
   - stage: BuildBackend
     displayName: "Build backend"
+    dependsOn: TestBackend
     jobs:
       - job: Build
         pool:
