@@ -1,13 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Self-hosted on Azure App Service (not Vercel) — standalone produces a
-  // minimal server.js plus only the traced dependencies, instead of
-  // shipping the full node_modules tree. Vercel's own build pipeline does
-  // its own packaging and doesn't want this — VERCEL=1 is set automatically
-  // during a Vercel build (https://vercel.com/docs/environment-variables/system-environment-variables),
-  // so only opt in when it's absent, i.e. everywhere except Vercel.
-  ...(process.env.VERCEL ? {} : { output: "standalone" as const }),
+  // output: "standalone" was tried for the Azure App Service deploy and
+  // reverted — with it active, `next build` crashes prerendering the
+  // synthesized /_global-error route (TypeError: Cannot read properties
+  // of null (reading 'useContext')), reproduced across Next 16.2.12 and
+  // 16.3.2, Turbopack and webpack, with and without a custom
+  // global-error.tsx, and with a static vs. per-media-query viewport
+  // export — output: "standalone" was the only common factor. The Azure
+  // deploy instead ships the full build (node_modules included) and runs
+  // `next start`, same as this plain `next build` already does here and
+  // on Vercel.
 
   // The acceptance data set bundled by scripts/prebuild-acceptance-data.js
   // (web/data/acceptance/*.json) is read at runtime via fs.readFileSync

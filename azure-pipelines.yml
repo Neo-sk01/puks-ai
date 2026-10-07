@@ -24,7 +24,10 @@ variables:
 
 stages:
   # ---------------------------------------------------------------------
-  # Frontend — Next.js, standalone output, deployed to a Linux Node Web App
+  # Frontend — Next.js, full build (node_modules included), deployed to a
+  # Linux Node Web App. output: "standalone" was tried and reverted (see
+  # next.config.ts) — it crashed prerendering /_global-error regardless
+  # of Next version or builder, so this ships the same build Vercel runs.
   # ---------------------------------------------------------------------
   - stage: BuildFrontend
     displayName: "Build frontend"
@@ -51,23 +54,15 @@ stages:
 
           - script: pnpm build
             workingDirectory: web
-            displayName: "next build (standalone)"
-
-          # The standalone output doesn't include static assets or public/ —
-          # Next's own docs call this out explicitly, copy them in by hand.
-          - script: |
-              cp -r web/public web/.next/standalone/public
-              mkdir -p web/.next/standalone/.next
-              cp -r web/.next/static web/.next/standalone/.next/static
-            displayName: "Copy static assets into the standalone build"
+            displayName: "next build"
 
           - task: ArchiveFiles@2
             inputs:
-              rootFolderOrFile: "web/.next/standalone"
+              rootFolderOrFile: "web"
               includeRootFolder: false
               archiveType: zip
               archiveFile: "$(Build.ArtifactStagingDirectory)/frontend.zip"
-            displayName: "Zip standalone build"
+            displayName: "Zip full build (includes node_modules, .next)"
 
           - publish: $(Build.ArtifactStagingDirectory)/frontend.zip
             artifact: frontend
@@ -92,7 +87,7 @@ stages:
                     resourceGroupName: $(resourceGroup)
                     package: "$(Pipeline.Workspace)/frontend/frontend.zip"
                     runtimeStack: "NODE|22-lts"
-                    startUpCommand: "node server.js"
+                    startUpCommand: "node_modules/.bin/next start"
 
   # ---------------------------------------------------------------------
   # Backend — lint/test gate, same checks the old GitHub Actions workflow
