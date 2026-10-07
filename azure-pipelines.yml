@@ -1,0 +1,212 @@
+# Azure DevOps Pipeline — builds and deploys Puks AI to the Azure resources
+# documented in the Puks AI Deployment Overview:
+#   frontend (Next.js)        -> CH011AGL0C8-AGEW-AWAT002
+#   backend  (FastAPI/Azure Functions) -> CH011AGL0C8-AGEW-AFUT001
+#   resource group                     -> CH011AGL0C8-AGEW-RGRT001
+#
+# Requires an Azure Resource Manager service connection authorized against
+# the "AGL HQ Dev/Test" subscription (f700ffcf-f34a-462a-9876-234f445307d0).
+# Set its name below before running this pipeline — Project Settings ->
+# Service connections in this Azure DevOps project.
+
+trigger:
+  branches:
+    include:
+      - main
+
+pr: none
+
+variables:
+  azureServiceConnection: "<FILL-IN-SERVICE-CONNECTION-NAME>"
+  resourceGroup: "CH011AGL0C8-AGEW-RGRT001"
+  frontendAppName: "CH011AGL0C8-AGEW-AWAT002"
+  backendAppName: "CH011AGL0C8-AGEW-AFUT001"
+
+stages:
+  # ---------------------------------------------------------------------
+  # Frontend — Next.js, standalone output, deployed to a Linux Node Web App
+  # ---------------------------------------------------------------------
+  - stage: BuildFrontend
+    displayName: "Build frontend"
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: "22.x"
+            displayName: "Use Node 22"
+
+          - script: corepack enable
+            displayName: "Enable corepack (pnpm via packageManager field)"
+
+          - script: pnpm install --frozen-lockfile
+            workingDirectory: web
+            displayName: "pnpm install"
+
+          - script: pnpm test
+            workingDirectory: web
+            displayName: "Run tests"
+
+          - script: pnpm build
+            workingDirectory: web
+            displayName: "next build (standalone)"
+
+          # The standalone output doesn't include static assets or public/ —
+          # Next's own docs call this out explicitly, copy them in by hand.
+          - script: |
+              cp -r web/public web/.next/standalone/public
+              mkdir -p web/.next/standalone/.next
+              cp -r web/.next/static web/.next/standalone/.next/static
+            displayName: "Copy static assets into the standalone build"
+
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: "web/.next/standalone"
+              includeRootFolder: false
+              archiveType: zip
+              archiveFile: "$(Build.ArtifactStagingDirectory)/frontend.zip"
+            displayName: "Zip standalone build"
+
+          - publish: $(Build.ArtifactStagingDirectory)/frontend.zip
+            artifact: frontend
+
+  - stage: DeployFrontend
+    displayName: "Deploy frontend"
+    dependsOn: BuildFrontend
+    jobs:
+      - deployment: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        environment: "puks-ai-frontend"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureWebApp@1
+                  inputs:
+                    azureSubscription: $(azureServiceConnection)
+                    appType: webAppLinux
+                    appName: $(frontendAppName)
+                    resourceGroupName: $(resourceGroup)
+                    package: "$(Pipeline.Workspace)/frontend/frontend.zip"
+                    runtimeStack: "NODE|22-lts"
+                    startUpCommand: "node server.js"
+
+  # ---------------------------------------------------------------------
+  # Backend — lint/test gate, same checks the old GitHub Actions workflow
+  # ran (Black, isort, flake8 syntax-only, pytest), now gating the deploy
+  # stages below instead of just reporting on a PR.
+  # ---------------------------------------------------------------------
+  - stage: TestBackend
+    displayName: "Lint & test backend"
+    jobs:
+      - job: Test
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+            displayName: "Use Python 3.11"
+
+          - script: python -m pip install --upgrade pip black isort flake8
+            displayName: "Install lint tools"
+
+          - script: black --check --diff .
+            displayName: "Black"
+
+          - script: isort --check-only --diff .
+            displayName: "isort"
+
+          - script: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+            displayName: "flake8 (syntax/undefined-name only)"
+
+          - script: |
+              python -m pip install -r requirements.txt -r api/requirements.txt pytest pytest-cov
+            displayName: "Install test dependencies"
+
+          - script: pytest tests/ --cov=api --cov-report=xml
+            displayName: "pytest"
+
+  # ---------------------------------------------------------------------
+  # Backend — FastAPI wrapped as an Azure Functions app (function_app.py),
+  # deployed to a Linux Python Function App. Remote build (Oryx) installs
+  # the dependencies on the server rather than vendoring them in CI, which
+  # avoids a binary mismatch between the build agent and the Functions
+  # Linux container for native-extension packages like faiss-cpu.
+  # ---------------------------------------------------------------------
+  - stage: BuildBackend
+    displayName: "Build backend"
+    dependsOn: TestBackend
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: "3.11"
+            displayName: "Use Python 3.11"
+
+          - script: |
+              set -e
+              STAGE=$(Build.ArtifactStagingDirectory)/backend
+              mkdir -p "$STAGE"
+              cp function_app.py host.json "$STAGE"/
+              cp -r api "$STAGE"/api
+              cp puks_rag.py "$STAGE"/
+              mkdir -p "$STAGE"/DATA
+              cp -r DATA/vector_store "$STAGE"/DATA/vector_store
+              cp -r DATA/unified_semantic_chunks "$STAGE"/DATA/unified_semantic_chunks
+              # Oryx's remote build needs requirements.txt at the package root;
+              # api/requirements.txt points at ../requirements.txt relative to
+              # api/, which doesn't resolve from here, so flatten both into one.
+              grep -v '^-r ' api/requirements.txt > "$STAGE"/requirements.txt
+              cat requirements.txt >> "$STAGE"/requirements.txt
+            displayName: "Stage backend package"
+
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/backend"
+              includeRootFolder: false
+              archiveType: zip
+              archiveFile: "$(Build.ArtifactStagingDirectory)/backend.zip"
+            displayName: "Zip backend package"
+
+          - publish: $(Build.ArtifactStagingDirectory)/backend.zip
+            artifact: backend
+
+  - stage: DeployBackend
+    displayName: "Deploy backend"
+    dependsOn: BuildBackend
+    jobs:
+      - deployment: Deploy
+        pool:
+          vmImage: ubuntu-latest
+        environment: "puks-ai-backend"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: "Enable remote build (Oryx)"
+                  inputs:
+                    azureSubscription: $(azureServiceConnection)
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      az functionapp config appsettings set \
+                        --name $(backendAppName) \
+                        --resource-group $(resourceGroup) \
+                        --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true ENABLE_ORYX_BUILD=true
+
+                - task: AzureFunctionApp@2
+                  inputs:
+                    azureSubscription: $(azureServiceConnection)
+                    appType: functionAppLinux
+                    appName: $(backendAppName)
+                    resourceGroupName: $(resourceGroup)
+                    package: "$(Pipeline.Workspace)/backend/backend.zip"
+                    runtimeStack: "PYTHON|3.11"
