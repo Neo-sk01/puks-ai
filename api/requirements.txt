@@ -5,3 +5,7 @@
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 pydantic>=2.7.0
+
+# Azure Functions hosting (function_app.py at the repo root wraps this
+# FastAPI app via the ASGI adapter) — not needed for local uvicorn dev.
+azure-functions>=1.21.0
