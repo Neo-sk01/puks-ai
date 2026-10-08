@@ -130,7 +130,8 @@ export async function GET(request: Request) {
   const ticket = await signEntraTicket(process.env.AUTH_SECRET!, { oid, tid, name, email });
 
   try {
-    await signIn("entra-bridge", { ticket, redirect: false });
+    const result = await signIn("entra-bridge", { ticket, redirect: false });
+    console.error("[entra/callback] signIn(entra-bridge) result:", JSON.stringify(result));
   } catch (error) {
     console.error("[entra/callback] signIn(entra-bridge) failed:", error);
     return errorRedirect(request, "AccessDenied");
