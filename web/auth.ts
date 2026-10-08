@@ -46,9 +46,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           credentials: { ticket: { label: "Ticket", type: "text" } },
           async authorize(credentials) {
             const ticket = typeof credentials?.ticket === "string" ? credentials.ticket : null;
-            if (!ticket || !ENTRA_TENANT_ID) return null;
+            if (!ticket) {
+              console.error("[auth] authorize: no ticket in credentials");
+              return null;
+            }
+            if (!ENTRA_TENANT_ID) {
+              console.error("[auth] authorize: ENTRA_TENANT_ID is not set");
+              return null;
+            }
             const claims = await verifyEntraTicket(process.env.AUTH_SECRET!, ticket, ENTRA_TENANT_ID);
-            if (!claims) return null;
+            if (!claims) {
+              console.error("[auth] authorize: verifyEntraTicket returned null (bad signature, expired, or tenant mismatch)");
+              return null;
+            }
             return { id: claims.oid, name: claims.name, email: claims.email };
           },
         }),
