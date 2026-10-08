@@ -3,11 +3,12 @@ import { cookies } from "next/headers";
 import { safeCallbackUrl } from "@/lib/callback-url";
 import { FLOW_COOKIE, signFlowState } from "@/lib/entra-flow";
 import { AUTH_CONFIGURED, ENTRA_SCOPES, cryptoProvider, msalApp } from "@/lib/msal";
+import { publicOrigin } from "@/lib/request-origin";
 
 export const dynamic = "force-dynamic";
 
 function redirectUri(request: Request): string {
-  return new URL("/api/auth/entra/callback", request.url).toString();
+  return new URL("/api/auth/entra/callback", publicOrigin(request)).toString();
 }
 
 /** Leg 1 of the certificate-based Entra sign-in (see lib/msal.ts for why

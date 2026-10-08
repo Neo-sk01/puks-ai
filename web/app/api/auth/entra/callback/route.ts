@@ -2,17 +2,18 @@ import { cookies } from "next/headers";
 import { auth, signIn } from "@/auth";
 import { FLOW_COOKIE, signEntraTicket, verifyFlowState } from "@/lib/entra-flow";
 import { AUTH_CONFIGURED, ENTRA_CLIENT_ID, ENTRA_SCOPES, ENTRA_TENANT_ID, msalApp } from "@/lib/msal";
+import { publicOrigin } from "@/lib/request-origin";
 
 export const dynamic = "force-dynamic";
 
 function errorRedirect(request: Request, code: string): Response {
-  const url = new URL("/sign-in", request.url);
+  const url = new URL("/sign-in", publicOrigin(request));
   url.searchParams.set("error", code);
   return Response.redirect(url, 302);
 }
 
 function redirectUri(request: Request): string {
-  return new URL("/api/auth/entra/callback", request.url).toString();
+  return new URL("/api/auth/entra/callback", publicOrigin(request)).toString();
 }
 
 /** Leg 2: Microsoft redirects here with `code` + `state`. This is the one
@@ -48,7 +49,7 @@ export async function GET(request: Request) {
     const existingFlow = existingFlowCookie
       ? await verifyFlowState(process.env.AUTH_SECRET!, existingFlowCookie)
       : null;
-    return Response.redirect(new URL(existingFlow?.callbackUrl ?? "/", request.url), 302);
+    return Response.redirect(new URL(existingFlow?.callbackUrl ?? "/", publicOrigin(request)), 302);
   }
 
   const url = new URL(request.url);
@@ -147,5 +148,5 @@ export async function GET(request: Request) {
     return errorRedirect(request, "AccessDenied");
   }
 
-  return Response.redirect(new URL(flow.callbackUrl, request.url), 302);
+  return Response.redirect(new URL(flow.callbackUrl, publicOrigin(request)), 302);
 }
